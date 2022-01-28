@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrSetdata3mMapper">
+  <sql id="Base_Column_List">
+    ID, SETNO, SETNAMECH, SETNAME, SETTYPE, ISDELETE, PRICE, NUMBASE_CSR, NUMBASE_CSR2, 
+    NUMBASE_OR1, NUMBASE_OR2, NUMBASE_OR3, NUMBASE_WR1, SPOTNO, SPROCESS, SDAY, SPRINTNO, 
+    POSITION_ID, TEXT01
+  </sql>
+
+  <select id="listSetno" parameterType="Map" resultType="CsrSetdata3m">
+    select 
+    <include refid="Base_Column_List" />
+    from CSR_SETDATA_3M
+    	<where>
+			<if test="searchName!=null">
+				AND (SETNO like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by SETNO
+  </select>
+  
+  <select id="getSetnoById" parameterType="Integer" resultType="CsrSetdata3m">
+  		select
+	    <include refid="Base_Column_List" />	
+    	from CSR_SETDATA_3M where ID=#{id}
+  </select>
+  
+  <insert id="insertSetno" parameterType="CsrSetdata3m">
+    insert into CSR_SETDATA_3M
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="setno != null">
+        SETNO,
+      </if>
+      <if test="setnamech != null">
+        SETNAMECH,
+      </if>
+      <if test="setname != null">
+        SETNAME,
+      </if>
+      <if test="settype != null">
+        SETTYPE,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="numbaseCsr != null">
+        NUMBASE_CSR,
+      </if>
+      <if test="numbaseCsr2 != null">
+        NUMBASE_CSR2,
+      </if>
+      <if test="numbaseOr1 != null">
+        NUMBASE_OR1,
+      </if>
+      <if test="numbaseOr2 != null">
+        NUMBASE_OR2,
+      </if>
+      <if test="numbaseOr3 != null">
+        NUMBASE_OR3,
+      </if>
+      <if test="numbaseWr1 != null">
+        NUMBASE_WR1,
+      </if>
+      <if test="spotno != null">
+        SPOTNO,
+      </if>
+      <if test="sprocess != null">
+        SPROCESS,
+      </if>
+      <if test="sday != null">
+        SDAY,
+      </if>
+      <if test="sprintno != null">
+        SPRINTNO,
+      </if>
+      <if test="positionId != null">
+        POSITION_ID,
+      </if>
+      <if test="text01 != null">
+        TEXT01,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="setno != null">
+        #{setno},
+      </if>
+      <if test="setnamech != null">
+        #{setnamech},
+      </if>
+      <if test="setname != null">
+        #{setname},
+      </if>
+      <if test="settype != null">
+        #{settype},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete},
+      </if>
+      <if test="price != null">
+        #{price},
+      </if>
+      <if test="numbaseCsr != null">
+        #{numbaseCsr},
+      </if>
+      <if test="numbaseCsr2 != null">
+        #{numbaseCsr2},
+      </if>
+      <if test="numbaseOr1 != null">
+        #{numbaseOr1},
+      </if>
+      <if test="numbaseOr2 != null">
+        #{numbaseOr2},
+      </if>
+      <if test="numbaseOr3 != null">
+        #{numbaseOr3},
+      </if>
+      <if test="numbaseWr1 != null">
+        #{numbaseWr1},
+      </if>
+      <if test="spotno != null">
+        #{spotno},
+      </if>
+      <if test="sprocess != null">
+        #{sprocess},
+      </if>
+      <if test="sday != null">
+        #{sday},
+      </if>
+      <if test="sprintno != null">
+        #{sprintno},
+      </if>
+      <if test="positionId != null">
+        #{positionId},
+      </if>
+      <if test="text01 != null">
+        #{text01},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSetno" parameterType="com.htpe.bean.CsrSetdata3m">
+    update CSR_SETDATA_3M
+    <set>
+      <if test="setno != null">
+        SETNO = #{setno},
+      </if>
+      <if test="setnamech != null">
+        SETNAMECH = #{setnamech},
+      </if>
+      <if test="setname != null">
+        SETNAME = #{setname},
+      </if>
+      <if test="settype != null">
+        SETTYPE = #{settype},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete},
+      </if>
+      <if test="price != null">
+        PRICE = #{price},
+      </if>
+      <if test="numbaseCsr != null">
+        NUMBASE_CSR = #{numbaseCsr},
+      </if>
+      <if test="numbaseCsr2 != null">
+        NUMBASE_CSR2 = #{numbaseCsr2},
+      </if>
+      <if test="numbaseOr1 != null">
+        NUMBASE_OR1 = #{numbaseOr1},
+      </if>
+      <if test="numbaseOr2 != null">
+        NUMBASE_OR2 = #{numbaseOr2},
+      </if>
+      <if test="numbaseOr3 != null">
+        NUMBASE_OR3 = #{numbaseOr3},
+      </if>
+      <if test="numbaseWr1 != null">
+        NUMBASE_WR1 = #{numbaseWr1},
+      </if>
+      <if test="spotno != null">
+        SPOTNO = #{spotno},
+      </if>
+      <if test="sprocess != null">
+        SPROCESS = #{sprocess},
+      </if>
+      <if test="sday != null">
+        SDAY = #{sday},
+      </if>
+      <if test="sprintno != null">
+        SPRINTNO = #{sprintno},
+      </if>
+      <if test="positionId != null">
+        POSITION_ID = #{positionId},
+      </if>
+      <if test="text01 != null">
+        TEXT01 = #{text01},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+
+</mapper>

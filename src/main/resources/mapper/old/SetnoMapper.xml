@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.old.SetnoMapper">
+
+	<select id="getAllSetno" parameterType="Map" resultType="Map">
+		select ID,price,trim(SetNo) as SetNo,trim(SetName) as SetName,trim(SetNameCH) as SetNameCH,RentPrice,isDelete,NumBase_CSR,
+		NumBase_CSR2,NumBase_OR1,NumBase_OR2,NumBase_OR3,NumBase_OR4,NumBase_OR5,
+		POSITION_ID,POSITION_ID_1,POSITION_ID_2,POSITION_ID_3,NumBase_WR1 
+		from VGHTPETS.CSR_SETDATA_3M 
+		<where>
+			<if test="searchName!=null">
+				AND (SETNO like '%'||(#{searchName})||'%'
+					OR SETNAME like '%'||#{searchName}||'%')
+			</if>
+		</where>
+		order by SETNO
+	</select>
+
+
+</mapper>

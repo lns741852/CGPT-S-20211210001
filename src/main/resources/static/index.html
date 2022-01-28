@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 th:text="${hello}"></h1>
+
+<div sec:authorize="!isAuthenticated()">
+	 <p th:align="center"><a th:href="@{/login.do}">登入</a></h2></p>
+</div>
+<div sec:authorize="isAuthenticated()">
+	<h2>使用者：<span sec:authentication="name"></span></br>
+		使用者權限：<span sec:authentication="principal.authorities"></span></h2>
+	<form th:action="@{/logout.do}" method="post">
+		<input type="submit" value="登出"/>
+	</form>
+</div>
+
+	<div sec:authorize="hasRole('R3')"> <a href="setno_udi_search.html" >單一器械查詢</a></div></br>
+    <a href="INSTRU_TAG_3M.html" >標籤製作</a></br>
+    <a href="INSTRU_REPRINT.html">標籤重印</a></br>
+    <a href="INSTRU_POT_3M.html">入鍋作業</a></br>
+    <a href="INSTRU_Indicator.html">滅菌鍋監測控制</a></br>
+    <a href="INSTRU_WAREHOUSING_3M.html">入庫作業</a></br>
+    <a href="INSTRU_APPLY_3M_link.html">申領作業</a></br>
+    <a href="INSTRU_ALLOCATE_3M3.html">申領確認</a></br>
+    <a href="INSTRU_USE_3M.html">病患使用確認作業</a></br>
+    <a href="INSTRU_RECEIVE_3M.html">物品歸還作業</a></br>
+    <a href="INSTRU_ALLOCATE_3M3.html">未用品轉移</a></br>
+    <a href="INSTRU_EXCHANGE_3M.html">補輸作業單</a></br>
+    <a href="INSTRU_ALLOCATE_3M3.html">瑕疵包補輸</a></br>
+    <a href="INSTRU_RELOCATE_3M.html">物品查詢作業</a></br>
+    
+
+</body>
+</html>

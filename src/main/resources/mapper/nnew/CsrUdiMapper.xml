@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrUdiMapper">
+  <sql id="Base_Column_List">
+    ID, CODE, CNAME, ENAME, DESC, PICPATH1, PICPATH2, PICPATH3, FILEPATH1, FILEPATH2, 
+    FILEPATH3, PUBLIC_TYPE, UPD_TYPE, DEL_TYPE, DATAUSER, DATADATE
+  </sql>
+  
+  
+  <select id="listUDI" parameterType="Map" resultType="CsrUdi">
+    select 
+    <include refid="Base_Column_List" />
+    from CSR_UDI
+    	<where>
+			<if test="searchName!=null">
+				AND (CODE like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by CODE
+  </select>
+ 
+  <select id="getUDIById" parameterType="Integer" resultType="CsrUdi">
+  		select
+	    <include refid="Base_Column_List" />	
+    	from CSR_UDI where ID=#{id}
+  </select>
+ 
+  <insert id="insertUDI" parameterType="CsrUdi">
+    insert into CSR_UDI
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="cname != null">
+        CNAME,
+      </if>
+      <if test="ename != null">
+        ENAME,
+      </if>
+      <if test="desc != null">
+        DESC,
+      </if>
+      <if test="picpath1 != null">
+        PICPATH1,
+      </if>
+      <if test="picpath2 != null">
+        PICPATH2,
+      </if>
+      <if test="picpath3 != null">
+        PICPATH3,
+      </if>
+      <if test="filepath1 != null">
+        FILEPATH1,
+      </if>
+      <if test="filepath2 != null">
+        FILEPATH2,
+      </if>
+      <if test="filepath3 != null">
+        FILEPATH3,
+      </if>
+      <if test="publicType != null">
+        PUBLIC_TYPE,
+      </if>
+      <if test="updType != null">
+        UPD_TYPE,
+      </if>
+      <if test="delType != null">
+        DEL_TYPE,
+      </if>
+      <if test="datauser != null">
+        DATAUSER,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="cname != null">
+        #{cname},
+      </if>
+      <if test="ename != null">
+        #{ename},
+      </if>
+      <if test="desc != null">
+        #{desc},
+      </if>
+      <if test="picpath1 != null">
+        #{picpath1},
+      </if>
+      <if test="picpath2 != null">
+        #{picpath2},
+      </if>
+      <if test="picpath3 != null">
+        #{picpath3},
+      </if>
+      <if test="filepath1 != null">
+        #{filepath1},
+      </if>
+      <if test="filepath2 != null">
+        #{filepath2},
+      </if>
+      <if test="filepath3 != null">
+        #{filepath3},
+      </if>
+      <if test="publicType != null">
+        #{publicType},
+      </if>
+      <if test="updType != null">
+        #{updType},
+      </if>
+      <if test="delType != null">
+        #{delType},
+      </if>
+      <if test="datauser != null">
+        #{datauser},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateUDI" parameterType="CsrUdi">
+    update CSR_UDI
+    <set>
+      <if test="code != null">
+        CODE = #{code},
+      </if>
+      <if test="cname != null">
+        CNAME = #{cname},
+      </if>
+      <if test="ename != null">
+        ENAME = #{ename},
+      </if>
+      <if test="desc != null">
+        DESC = #{desc},
+      </if>
+      <if test="picpath1 != null">
+        PICPATH1 = #{picpath1},
+      </if>
+      <if test="picpath2 != null">
+        PICPATH2 = #{picpath2},
+      </if>
+      <if test="picpath3 != null">
+        PICPATH3 = #{picpath3},
+      </if>
+      <if test="filepath1 != null">
+        FILEPATH1 = #{filepath1},
+      </if>
+      <if test="filepath2 != null">
+        FILEPATH2 = #{filepath2},
+      </if>
+      <if test="filepath3 != null">
+        FILEPATH3 = #{filepath3},
+      </if>
+      <if test="publicType != null">
+        PUBLIC_TYPE = #{publicType},
+      </if>
+      <if test="updType != null">
+        UPD_TYPE = #{updType},
+      </if>
+      <if test="delType != null">
+        DEL_TYPE = #{delType},
+      </if>
+      <if test="datauser != null">
+        DATAUSER = #{datauser},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  
+</mapper>

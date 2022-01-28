@@ -1,0 +1,63 @@
+package com.htpe.bean;
+
+public class CsrPotDepno {
+    private Integer id;
+
+    private String depno;
+
+    private String disinfection;
+
+    private Integer potnum;
+
+    private Integer beginnum;
+
+    private String head;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDepno() {
+        return depno;
+    }
+
+    public void setDepno(String depno) {
+        this.depno = depno == null ? null : depno.trim();
+    }
+
+    public String getDisinfection() {
+        return disinfection;
+    }
+
+    public void setDisinfection(String disinfection) {
+        this.disinfection = disinfection == null ? null : disinfection.trim();
+    }
+
+    public Integer getPotnum() {
+        return potnum;
+    }
+
+    public void setPotnum(Integer potnum) {
+        this.potnum = potnum;
+    }
+
+    public Integer getBeginnum() {
+        return beginnum;
+    }
+
+    public void setBeginnum(Integer beginnum) {
+        this.beginnum = beginnum;
+    }
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head == null ? null : head.trim();
+    }
+}

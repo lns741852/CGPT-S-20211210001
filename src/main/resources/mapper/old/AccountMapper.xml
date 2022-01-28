@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.old.AccountMapper">
+
+	<select id="getAccountList" parameterType="Map" resultType="Map">
+		SELECT  ID,trim(USERNO),trim(USERCNAME),SystemRight1,SystemRight2,SystemRight3,
+		SystemRight4,SystemRight5,SystemRight6,SystemRight16,SystemRight7,
+		SystemRight8,SystemRight9,SystemRight10,SystemRight11,SystemRight12,
+		SystemRight13,SystemRight14,SystemRight15 ,SystemManage1,SystemManage2,
+		SystemManage3,SystemManage4,SystemManage5,SystemManage6,SystemManage7,
+		SystemManage8,SystemManage9,SystemManage10,trim(DepNo),EMPNO FROM  
+		VGHTPETS.CSR_ACCOUNT 
+		<where>
+			<if test="searchName!=null">
+				AND (USERNO like '%'||(#{searchName})||'%'
+					OR USERCNAME like '%'||#{searchName}||'%')
+			</if>
+			<if test="empNO!=null">
+				AND DEPNO like '%'||#{empNO}||'%'
+			</if>
+
+		</where>
+		order by USERNO
+	</select>
+	
+	
+	
+	<insert id="addAccount" parameterType="CsrAccount" >
+		INSERT INTO VGHTPETS.CSR_ACCOUNT(USERNO,USERCNAME,USERPWD,
+		DepNo,EMPNO,SYSTEMPRIVILEGE,CREATEDATETIME,ISCANCEL,SystemRight1,
+		SystemRight2,SystemRight3,SystemRight4,SystemRight5,SystemRight6,
+		SystemRight7,SystemRight8,SystemRight9,SystemRight10,
+		SystemRight11,SystemRight12,SystemRight13,SystemRight14,SystemRight15,SystemRight16,
+		SystemManage1,SystemManage2,SystemManage3,SystemManage4,SystemManage5,
+		SystemManage6,SystemManage7,SystemManage8,SystemManage9,SystemManage10
+		)values(#{userno},#{usercname},#{userpwd},#{depno},#{empno},#{systemprivilege},
+		#{createdatetime},#{iscancel},#{systemright1},#{systemright2},#{systemright3},#{systemright4},
+		#{systemright5},#{systemright6},#{systemright7},#{systemright8},#{systemright9},
+		#{systemright10},#{systemright11},#{systemright12},#{systemright13},#{systemright14},
+		#{systemright15},#{systemright16},#{systemmanage1},#{systemmanage2},#{systemmanage3},
+		#{systemmanage4},#{systemmanage5},#{systemmanage6},#{systemmanage7},
+		#{systemmanage8},#{systemmanage9},#{systemmanage10})		 
+	</insert>
+	
+	
+	<select id="getAccountById" parameterType="Integer" resultType="Map">
+		SELECT ID,trim(USERNO) as userno,trim(USERCNAME) as usercname,SystemRight1,SystemRight2,SystemRight3,
+		SystemRight4,SystemRight5,SystemRight6,SystemRight16 ,SystemRight7,
+		SystemRight8,SystemRight9,SystemRight10,SystemRight11,SystemRight12,
+		SystemRight13,SystemRight14,SystemRight15,SystemRight16,SystemManage1,SystemManage2,
+		SystemManage3,SystemManage4,SystemManage5,SystemManage6,SystemManage7,
+		SystemManage8,SystemManage9,SystemManage10,trim(DepNo) as depno,trim(EMPNO) as empno FROM  
+		VGHTPETS.CSR_ACCOUNT Where id=#{0}
+	</select>
+	
+	
+	<update id="setAccount" parameterType="CsrAccount">
+		UPDATE VGHTPETS.CSR_ACCOUNT set USERNO=#{userno},USERCNAME=#{usercname},
+		USERPWD=#{userpwd},DepNo=#{depno},EMPNO=#{empno},SYSTEMPRIVILEGE=#{systemprivilege},
+		SystemRight1=#{systemright1},SystemRight2=#{systemright2},SystemRight3=#{systemright3},
+		SystemRight4=#{systemright4},SystemRight5=#{systemright5},SystemRight6=#{systemright6},
+		SystemRight7=#{systemright7},SystemRight8=#{systemright8},SystemRight9=#{systemright9},
+		SystemRight10=#{systemright10},SystemRight11=#{systemright11},SystemRight12=#{systemright12},
+		SystemRight13=#{systemright13},SystemRight14=#{systemright14},SystemRight15=#{systemright15},
+		SystemRight16=#{systemright16},
+		SystemManage1=#{systemmanage1},SystemManage2=#{systemmanage2},SystemManage3=#{systemmanage3},
+		SystemManage4=#{systemmanage4},SystemManage5=#{systemmanage5},SystemManage6=#{systemmanage6},
+		SystemManage7=#{systemmanage7},SystemManage8=#{systemmanage8},SystemManage9=#{systemmanage9},
+		SystemManage10=#{systemmanage1} where id=#{id}
+	</update>
+	
+	
+	
+</mapper>
