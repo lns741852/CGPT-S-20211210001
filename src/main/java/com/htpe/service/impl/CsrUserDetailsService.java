@@ -27,18 +27,14 @@ public class CsrUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	   	
     	 CsrAccount csrAccount = csrAccountMapper.getAccountByUserno(username);
-    	   
+       	   
         if(csrAccount == null) {
             throw new UsernameNotFoundException("用戶不存在");
         }
         
         String systemAuth = csrAccount.getSystemprivilege();    
     	
-        List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(systemAuth);	//認證
-		//List<GrantedAuthority> auths= AuthorityUtils
-		//	.commaSeparatedStringToAuthorityList("admins,ROLE_sale");			//hasRole功能實現
-		//	.commaSeparatedStringToAuthorityList("admin,ROLE_sale,ROLE_vip");		
-
+        List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(systemAuth);	//封裝權限
        		
         return new User(csrAccount.getUserno(),
 			new BCryptPasswordEncoder().encode(csrAccount.getUserpwd()),auths);
