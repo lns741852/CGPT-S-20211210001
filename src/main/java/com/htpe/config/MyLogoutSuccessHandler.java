@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Component;
 
+import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.JwtUtils;
 import com.htpe.utils.ResultMsg;
 
@@ -18,7 +19,7 @@ import com.htpe.utils.ResultMsg;
  * 成功後返回JSON
  */
 @Component
-public class MyLogoutSuccessHandler extends JSONAuthentication implements LogoutSuccessHandler {
+public class MyLogoutSuccessHandler extends JsonAuthenticationUtils implements LogoutSuccessHandler {
 
 
 	@Override

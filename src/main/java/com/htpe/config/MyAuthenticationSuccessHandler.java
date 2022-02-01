@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.htpe.bean.CsrAccount;
 import com.htpe.mapper.nnew.CsrAccountMapper;
+import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.JwtUtils;
 import com.htpe.utils.ResultMsg;
 
@@ -20,7 +21,7 @@ import com.htpe.utils.ResultMsg;
  * 登入成功返回JSON
  */
 @Component
-public class MyAuthenticationSuccessHandler extends JSONAuthentication implements AuthenticationSuccessHandler{
+public class MyAuthenticationSuccessHandler extends JsonAuthenticationUtils implements AuthenticationSuccessHandler{
 
 	@Autowired
 	JwtUtils jwtUtils;

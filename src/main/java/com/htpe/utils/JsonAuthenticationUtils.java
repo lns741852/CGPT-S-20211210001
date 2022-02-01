@@ -1,4 +1,4 @@
-package com.htpe.config;
+package com.htpe.utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * 封裝JSON返回格式
  */
-public abstract class JSONAuthentication {
+public abstract class JsonAuthenticationUtils {
 
 	protected void WriteJSON(
 				HttpServletRequest request,

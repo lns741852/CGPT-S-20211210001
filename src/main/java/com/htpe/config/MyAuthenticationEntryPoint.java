@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+
+import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
  * µLÅv­­ªð¦^JSON
  */
 @Component("MyAuthenticationEntryPoint")
-public class MyAuthenticationEntryPoint extends JSONAuthentication implements AuthenticationEntryPoint{
+public class MyAuthenticationEntryPoint extends JsonAuthenticationUtils implements AuthenticationEntryPoint{
 
 
 	@Override

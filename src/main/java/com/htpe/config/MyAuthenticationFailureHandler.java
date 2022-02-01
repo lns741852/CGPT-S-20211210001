@@ -10,13 +10,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
  * µn¤J¥¢±Ñªð¦^JSON
  */
 @Component
-public class MyAuthenticationFailureHandler extends JSONAuthentication implements AuthenticationFailureHandler{
+public class MyAuthenticationFailureHandler extends JsonAuthenticationUtils implements AuthenticationFailureHandler{
 
 
 	@Override

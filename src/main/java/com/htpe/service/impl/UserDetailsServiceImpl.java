@@ -18,7 +18,7 @@ import com.htpe.mapper.nnew.CsrAccountMapper;
 
 
 @Service("UserDetailsService")
-public class CsrUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	CsrAccountMapper csrAccountMapper;

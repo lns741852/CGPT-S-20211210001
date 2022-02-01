@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.stereotype.Component;
 
+import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
  * Session到期後返回JSON
  */
 @Component
-public class MyInvalidSessionStrategy extends JSONAuthentication implements InvalidSessionStrategy{
+public class MyInvalidSessionStrategy extends JsonAuthenticationUtils implements InvalidSessionStrategy{
 
 
 	@Override

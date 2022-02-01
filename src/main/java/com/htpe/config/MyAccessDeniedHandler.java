@@ -10,13 +10,14 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
+import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
  * Åv­­¤£¨¬ªð¦^JSON
  */
 @Component
-public class MyAccessDeniedHandler extends JSONAuthentication implements AccessDeniedHandler {
+public class MyAccessDeniedHandler extends JsonAuthenticationUtils implements AccessDeniedHandler {
 
 
 	@Override
