@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.htpe.bean.CsrAccount;
@@ -29,6 +28,18 @@ class NewHtpeApplicationTests {
 	
 	@Autowired
 	DataChangeNew dataChangeNew;
+	
+	@Autowired
+	CsrAccountMapper csrAccountMapper;
+	
+	
+	@Test
+	public void test() {
+		
+		CsrAccount accountByUserno = csrAccountMapper.getAccountByUserno("1111");
+		
+		System.out.println(accountByUserno);
+	}
 	
 	
 	/**

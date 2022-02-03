@@ -22,12 +22,11 @@ public class JwtUtils {
     public static final String SECRET="abccba123321";//令牌環金鑰
     public static final String TOKEN_PREFIX="Bearer";//令牌環頭標識
     public static final String HEADER_STRING="Authorization";//配置令牌環在http heads中的鍵值
-    public static final String ROLE="ROLE";//自定義欄位-角色欄位
 
     //生成令牌環
     public static String generateToken(String userRole,String userid){
         HashMap<String,Object> map=new HashMap<>();
-        map.put(ROLE,userRole);
+        map.put("auth",userRole);
         map.put("userid",userid);
         String jwt= Jwts.builder()
         		//.setHeaderParam("typ","JWT");
@@ -42,7 +41,7 @@ public class JwtUtils {
     //生成令牌環
     public static String generateToken(String userRole,String userid,long exprationtime){
         HashMap<String,Object> map=new HashMap<>();
-        map.put(ROLE,userRole);
+        map.put("auth",userRole);
         map.put("userid",userid);
         String jwt= Jwts.builder()
                 .setClaims(map)

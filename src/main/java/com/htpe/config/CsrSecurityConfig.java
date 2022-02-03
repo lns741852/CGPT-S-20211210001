@@ -114,7 +114,8 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 		.and()
 			.authorizeRequests()
-			.antMatchers("/account").hasAnyAuthority("A")
+			.antMatchers("/account").hasAnyAuthority("sys:account")
+			.antMatchers("/udi").hasAnyAuthority("sys:udi")
 			.anyRequest().authenticated()
 				
 		.and()

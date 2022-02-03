@@ -1,7 +1,7 @@
 package com.htpe.filter;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.StringUtils;
@@ -31,11 +33,12 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         	String token = httpServletRequest.getHeader(JwtUtils.HEADER_STRING);
             if (StringUtils.hasText(token)) {
                 Map<String, Object> claims = JwtUtils.validateTokenAndGetClaims(httpServletRequest);
-                String role = String.valueOf(claims.get(JwtUtils.ROLE));  
+                String role = String.valueOf(claims.get("auth")); 
                 String userid = String.valueOf(claims.get("userid"));
+                List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(role);	//封裝權限
                 //最關鍵的部分就是這裡, 我們直接注入了
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
-                        userid, null, Arrays.asList(() -> role)
+                        userid, null, auths
                 ));
 
             }

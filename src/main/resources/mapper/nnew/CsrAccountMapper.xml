@@ -1,25 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.htpe.mapper.nnew.CsrAccountMapper">
-  <sql id="Base_Column_List">
-    ID, USERNO, USERCNAME, DEPNO, USERPWD, SYSTEMRIGHT1, SYSTEMRIGHT2, SYSTEMRIGHT3, 
-    SYSTEMRIGHT4, SYSTEMRIGHT5, SYSTEMRIGHT6, SYSTEMRIGHT7, SYSTEMRIGHT8, SYSTEMRIGHT9, 
-    SYSTEMRIGHT10, SYSTEMRIGHT11, SYSTEMRIGHT12, SYSTEMRIGHT13, SYSTEMRIGHT14, SYSTEMRIGHT15, 
-    SYSTEMRIGHT16, SYSTEMRIGHT17, SYSTEMMANAGE1, SYSTEMMANAGE2, SYSTEMMANAGE3, SYSTEMMANAGE4, 
-    SYSTEMMANAGE5, SYSTEMMANAGE6, SYSTEMMANAGE7, SYSTEMMANAGE8, SYSTEMMANAGE9, SYSTEMMANAGE10, 
-    SYSTEMPRIVILEGE, CREATEDATETIME, ISCANCEL
-  </sql> 
-	<select id="getAccountByUserno" parameterType="String" resultType="CsrAccount">
-  		select
-	    <include refid="Base_Column_List" />	
-    	from CSR_ACCOUNT where USERNO = #{username}
+	<resultMap type="CsrAccount" id="account_auth">
+            <id column="ACID" property="id" />
+            <result column="USERNO" property="userno" />
+            <result column="USERCNAME" property="usercname" />
+            <result column="DEPNO" property="depno" />
+            <result column="USERPWD" property="userpwd" />
+            <result column="SYSTEMPRIVILEGE" property="systemprivilege" />
+            <result column="CREATETIME" property="createtime" />
+            <result column="ISCANCEL" property="iscancel" />
+            <collection property="csrAccountAuths" ofType="CsrAccountAuth">
+                <id column="AID" property="id" />
+                <association property="csrAuth" javaType="CsrAuth">
+                    <id column="AUID" property="id"/>
+                    <result column="AUTHNO" property="authno"/>
+                    <result column="AUTHNAME" property="authname"/>
+                    <result column="AUTHURL" property="authurl"/>
+                    <result column="TYPE" property="type"/>
+                </association>               
+            </collection>
+     </resultMap>
+ 
+	<select id="getAccountByUserno" parameterType="String" resultMap="account_auth">			
+		select AC.id ACID,userno,usercname,depno,userpwd,systemprivilege,
+		createtime,iscancel,A.id AID,AU.id AUID,authno,authname,authurl,type from CSR_ACCOUNT as AC 
+		left join 
+		CSR_ACCOUNT_AUTH as A on AC.id=A.ACCOUNTID
+		left join
+		CSR_AUTH as AU on A.authid=AU.id			
+		where AC.USERNO=#{0}
 	</select>
+	
+	<select id="getAccountById" parameterType="Integer" resultMap="account_auth">
+  		select AC.id ACID,userno,usercname,depno,userpwd,systemprivilege,
+		createtime,iscancel,A.id AID,AU.id AUID,authno,authname,authurl,type from CSR_ACCOUNT as AC 
+		left join 
+		CSR_ACCOUNT_AUTH as A on AC.id=A.ACCOUNTID
+		left join
+		CSR_AUTH as AU on A.authid=AU.id			
+		where AC.id=#{0}
+	</select>
+	
+  <insert id="insertAccount" parameterType="CsrAccount" useGeneratedKeys="true" keyProperty="id" >
+    insert into CSR_ACCOUNT (USERNO, USERCNAME, DEPNO, USERPWD, 
+    	SYSTEMPRIVILEGE, CREATETIME, ISCANCEL)
+    values (#{userno}, #{usercname}, #{depno}, #{userpwd}, 
+    	#{systemprivilege}, #{createtime}, #{iscancel})
+  </insert>
+	
+	<update id="updateAccount" parameterType="CsrAccount">
+    update CSR_ACCOUNT
+    set USERNO = #{userno},
+      USERCNAME = #{usercname},
+      DEPNO = #{depno},
+      USERPWD = #{userpwd},
+      SYSTEMPRIVILEGE = #{systemprivilege},
+      CREATETIME = #{createtime},
+      ISCANCEL = #{iscancel}
+    where ID = #{id}
+  </update>
+	
 
-	<select id="listAccount" parameterType="Map" resultType="CsrAccount">
-	    select
-	    <include refid="Base_Column_List" />	
-    	from CSR_ACCOUNT
-		<where>
+ 
+ <!-- 分頁查詢 -->
+	<resultMap type="CsrAccount" id="account_pagehelper">
+            <id column="ACID" property="id" />
+            <result column="USERNO" property="userno" />
+            <result column="USERCNAME" property="usercname" />
+            <result column="DEPNO" property="depno" />
+            <result column="USERPWD" property="userpwd" />
+            <result column="SYSTEMPRIVILEGE" property="systemprivilege" />
+            <result column="CREATETIME" property="createtime" />
+            <result column="ISCANCEL" property="iscancel" />
+            <collection property="csrAccountAuths" ofType="CsrAccountAuth" select="listAccountAuth" column="ACID"> 
+              	 
+            </collection>
+     </resultMap>
+        
+     <resultMap id="account_auth_pagehelper" type="CsrAccountAuth">     
+     	 <id column="AUID" property="id" />
+         <association property="csrAuth" javaType="CsrAuth">
+             <id column="AUID" property="id"/>
+             <result column="AUTHNO" property="authno"/>
+             <result column="AUTHNAME" property="authname"/>
+             <result column="AUTHURL" property="authurl"/>
+             <result column="TYPE" property="type"/>
+         </association>               
+     </resultMap>
+
+     <select id="listAccount" parameterType="Map" resultMap="account_pagehelper">
+     		select AC.id ACID,userno,usercname,depno,userpwd,systemprivilege,
+			createtime,iscancel from CSR_ACCOUNT as AC 
+			<where>
 			<if test="searchName!=null">
 				AND (USERNO like '%'||(#{searchName})||'%'
 					OR USERCNAME like '%'||#{searchName}||'%')
@@ -27,346 +100,15 @@
 			<if test="empNO!=null">
 				AND DEPNO like '%'||#{empNO}||'%'
 			</if>
-
-		</where>
-		order by USERNO
-	</select>
-
-	<select id="getAccountById" parameterType="Integer" resultType="CsrAccount">
-  		select
-	    <include refid="Base_Column_List" />	
-    	from CSR_ACCOUNT where ID=#{id}
-	</select>
-	
-	<insert id="insertAccount" parameterType="CsrAccount">
-    insert into CSR_ACCOUNT
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="empno != null">
-        EMPNO,
-      </if>
-      <if test="usercname != null">
-        USERCNAME,
-      </if>
-      <if test="depno != null">
-        DEPNO,
-      </if>
-      <if test="userno != null">
-        USERNO,
-      </if>
-      <if test="userpwd != null">
-        USERPWD,
-      </if>
-      <if test="systemright1 != null">
-        SYSTEMRIGHT1,
-      </if>
-      <if test="systemright2 != null">
-        SYSTEMRIGHT2,
-      </if>
-      <if test="systemright3 != null">
-        SYSTEMRIGHT3,
-      </if>
-      <if test="systemright4 != null">
-        SYSTEMRIGHT4,
-      </if>
-      <if test="systemright5 != null">
-        SYSTEMRIGHT5,
-      </if>
-      <if test="systemright6 != null">
-        SYSTEMRIGHT6,
-      </if>
-      <if test="systemright7 != null">
-        SYSTEMRIGHT7,
-      </if>
-      <if test="systemright8 != null">
-        SYSTEMRIGHT8,
-      </if>
-      <if test="systemright9 != null">
-        SYSTEMRIGHT9,
-      </if>
-      <if test="systemright10 != null">
-        SYSTEMRIGHT10,
-      </if>
-      <if test="systemright11 != null">
-        SYSTEMRIGHT11,
-      </if>
-      <if test="systemright12 != null">
-        SYSTEMRIGHT12,
-      </if>
-      <if test="systemright13 != null">
-        SYSTEMRIGHT13,
-      </if>
-      <if test="systemright14 != null">
-        SYSTEMRIGHT14,
-      </if>
-      <if test="systemright15 != null">
-        SYSTEMRIGHT15,
-      </if>
-      <if test="systemright16 != null">
-        SYSTEMRIGHT16,
-      </if>
-      <if test="systemright17 != null">
-        SYSTEMRIGHT17,
-      </if>
-      <if test="systemmanage1 != null">
-        SYSTEMMANAGE1,
-      </if>
-      <if test="systemmanage2 != null">
-        SYSTEMMANAGE2,
-      </if>
-      <if test="systemmanage3 != null">
-        SYSTEMMANAGE3,
-      </if>
-      <if test="systemmanage4 != null">
-        SYSTEMMANAGE4,
-      </if>
-      <if test="systemmanage5 != null">
-        SYSTEMMANAGE5,
-      </if>
-      <if test="systemmanage6 != null">
-        SYSTEMMANAGE6,
-      </if>
-      <if test="systemmanage7 != null">
-        SYSTEMMANAGE7,
-      </if>
-      <if test="systemmanage8 != null">
-        SYSTEMMANAGE8,
-      </if>
-      <if test="systemmanage9 != null">
-        SYSTEMMANAGE9,
-      </if>
-      <if test="systemmanage10 != null">
-        SYSTEMMANAGE10,
-      </if>
-      <if test="systemprivilege != null">
-        SYSTEMPRIVILEGE,
-      </if>
-      <if test="createdatetime != null">
-        CREATEDATETIME,
-      </if>
-      <if test="iscancel != null">
-        ISCANCEL,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="empno != null">
-        #{empno},
-      </if>
-      <if test="usercname != null">
-        #{usercname},
-      </if>
-      <if test="depno != null">
-        #{depno},
-      </if>
-      <if test="userno != null">
-        #{userno},
-      </if>
-      <if test="userpwd != null">
-        #{userpwd},
-      </if>
-      <if test="systemright1 != null">
-        #{systemright1},
-      </if>
-      <if test="systemright2 != null">
-        #{systemright2},
-      </if>
-      <if test="systemright3 != null">
-        #{systemright3},
-      </if>
-      <if test="systemright4 != null">
-        #{systemright4},
-      </if>
-      <if test="systemright5 != null">
-        #{systemright5},
-      </if>
-      <if test="systemright6 != null">
-        #{systemright6},
-      </if>
-      <if test="systemright7 != null">
-        #{systemright7},
-      </if>
-      <if test="systemright8 != null">
-        #{systemright8},
-      </if>
-      <if test="systemright9 != null">
-        #{systemright9},
-      </if>
-      <if test="systemright10 != null">
-        #{systemright10},
-      </if>
-      <if test="systemright11 != null">
-        #{systemright11},
-      </if>
-      <if test="systemright12 != null">
-        #{systemright12},
-      </if>
-      <if test="systemright13 != null">
-        #{systemright13},
-      </if>
-      <if test="systemright14 != null">
-        #{systemright14},
-      </if>
-      <if test="systemright15 != null">
-        #{systemright15},
-      </if>
-      <if test="systemright16 != null">
-        #{systemright16},
-      </if>
-      <if test="systemright17 != null">
-        #{systemright17},
-      </if>
-      <if test="systemmanage1 != null">
-        #{systemmanage1},
-      </if>
-      <if test="systemmanage2 != null">
-        #{systemmanage2},
-      </if>
-      <if test="systemmanage3 != null">
-        #{systemmanage3},
-      </if>
-      <if test="systemmanage4 != null">
-        #{systemmanage4},
-      </if>
-      <if test="systemmanage5 != null">
-        #{systemmanage5},
-      </if>
-      <if test="systemmanage6 != null">
-        #{systemmanage6},
-      </if>
-      <if test="systemmanage7 != null">
-        #{systemmanage7},
-      </if>
-      <if test="systemmanage8 != null">
-        #{systemmanage8},
-      </if>
-      <if test="systemmanage9 != null">
-        #{systemmanage9},
-      </if>
-      <if test="systemmanage10 != null">
-        #{systemmanage10},
-      </if>
-      <if test="systemprivilege != null">
-        #{systemprivilege},
-      </if>
-      <if test="createdatetime != null">
-        #{createdatetime},
-      </if>
-      <if test="iscancel != null">
-        #{iscancel},
-      </if>
-    </trim>
-  </insert>
-  
-   <update id="updateAccount" parameterType="CsrAccount">
-    update CSR_ACCOUNT
-    <set>
-      <if test="empno != null">
-        EMPNO = #{empno},
-      </if>
-      <if test="usercname != null">
-        USERCNAME = #{usercname},
-      </if>
-      <if test="depno != null">
-        DEPNO = #{depno},
-      </if>
-      <if test="userno != null">
-        USERNO = #{userno},
-      </if>
-      <if test="userpwd != null">
-        USERPWD = #{userpwd},
-      </if>
-      <if test="systemright1 != null">
-        SYSTEMRIGHT1 = #{systemright1},
-      </if>
-      <if test="systemright2 != null">
-        SYSTEMRIGHT2 = #{systemright2},
-      </if>
-      <if test="systemright3 != null">
-        SYSTEMRIGHT3 = #{systemright3},
-      </if>
-      <if test="systemright4 != null">
-        SYSTEMRIGHT4 = #{systemright4},
-      </if>
-      <if test="systemright5 != null">
-        SYSTEMRIGHT5 = #{systemright5},
-      </if>
-      <if test="systemright6 != null">
-        SYSTEMRIGHT6 = #{systemright6},
-      </if>
-      <if test="systemright7 != null">
-        SYSTEMRIGHT7 = #{systemright7},
-      </if>
-      <if test="systemright8 != null">
-        SYSTEMRIGHT8 = #{systemright8},
-      </if>
-      <if test="systemright9 != null">
-        SYSTEMRIGHT9 = #{systemright9},
-      </if>
-      <if test="systemright10 != null">
-        SYSTEMRIGHT10 = #{systemright10},
-      </if>
-      <if test="systemright11 != null">
-        SYSTEMRIGHT11 = #{systemright11},
-      </if>
-      <if test="systemright12 != null">
-        SYSTEMRIGHT12 = #{systemright12},
-      </if>
-      <if test="systemright13 != null">
-        SYSTEMRIGHT13 = #{systemright13},
-      </if>
-      <if test="systemright14 != null">
-        SYSTEMRIGHT14 = #{systemright14},
-      </if>
-      <if test="systemright15 != null">
-        SYSTEMRIGHT15 = #{systemright15},
-      </if>
-      <if test="systemright16 != null">
-        SYSTEMRIGHT16 = #{systemright16},
-      </if>
-      <if test="systemright17 != null">
-        SYSTEMRIGHT17 = #{systemright17},
-      </if>
-      <if test="systemmanage1 != null">
-        SYSTEMMANAGE1 = #{systemmanage1},
-      </if>
-      <if test="systemmanage2 != null">
-        SYSTEMMANAGE2 = #{systemmanage2},
-      </if>
-      <if test="systemmanage3 != null">
-        SYSTEMMANAGE3 = #{systemmanage3},
-      </if>
-      <if test="systemmanage4 != null">
-        SYSTEMMANAGE4 = #{systemmanage4},
-      </if>
-      <if test="systemmanage5 != null">
-        SYSTEMMANAGE5 = #{systemmanage5},
-      </if>
-      <if test="systemmanage6 != null">
-        SYSTEMMANAGE6 = #{systemmanage6},
-      </if>
-      <if test="systemmanage7 != null">
-        SYSTEMMANAGE7 = #{systemmanage7},
-      </if>
-      <if test="systemmanage8 != null">
-        SYSTEMMANAGE8 = #{systemmanage8},
-      </if>
-      <if test="systemmanage9 != null">
-        SYSTEMMANAGE9 = #{systemmanage9},
-      </if>
-      <if test="systemmanage10 != null">
-        SYSTEMMANAGE10 = #{systemmanage10},
-      </if>
-      <if test="systemprivilege != null">
-        SYSTEMPRIVILEGE = #{systemprivilege},
-      </if>
-      <if test="createdatetime != null">
-        CREATEDATETIME = #{createdatetime},
-      </if>
-      <if test="iscancel != null">
-        ISCANCEL = #{iscancel},
-      </if>
-    </set>
-    where ID = #{id}
-  </update>
-
+			</where>
+			order by USERNO
+	 </select>
+	 
+	 <select id="listAccountAuth"  resultMap="account_auth_pagehelper">
+     	select  A.id AID, AU.id AUID,authno,authname,authurl,type from CSR_ACCOUNT_AUTH as A 
+		left join
+		CSR_AUTH as AU on A.authid=AU.id	
+		where A.accountid = #{ACID}
+	 </select>
   
 </mapper>

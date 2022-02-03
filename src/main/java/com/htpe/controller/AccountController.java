@@ -1,7 +1,13 @@
 package com.htpe.controller;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.htpe.bean.CsrAccount;
@@ -45,9 +52,23 @@ public class AccountController {
 	 * 新增帳號
 	 * @throws RequestPeriodException 
 	 */
-	@PostMapping("/account")		
-	public ResultMsg DoAccountAdd(@Valid @RequestBody  CsrAccount csrAccount) throws RequestPeriodException{
-		return accountService.saveAccount(csrAccount);
+	@PostMapping("/account")
+	public ResultMsg saveAccount(@RequestBody Map<String, String> map) throws RequestPeriodException{
+		
+		for (Entry<String, String> m : map.entrySet()) {
+			if(m.getValue().equals("")) {
+				throw new RequestPeriodException(303, "值不得為空");
+			}
+		}
+		
+		CsrAccount csrAccount = new CsrAccount();
+		csrAccount.setUserno(map.get("userno"));
+		csrAccount.setUsercname(map.get("usercname"));
+		csrAccount.setDepno(map.get("depno"));
+		csrAccount.setUserpwd(map.get("userpwd"));
+		csrAccount.setSystemprivilege(map.get("systemprivilege"));
+		
+		return accountService.saveAccount(csrAccount,map.get("oneids"),map.get("twoids"));
 	}
 		
 	/**
@@ -63,9 +84,18 @@ public class AccountController {
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/account/{id}")		
-	public ResultMsg DoAccountUpdate(@Valid @RequestBody  CsrAccount csrAccount,
+	public ResultMsg DoAccountUpdate(@RequestBody Map<String, String> map,
 				@PathVariable Integer id) throws RequestPeriodException{
-			return accountService.updateAccount(csrAccount,id);
+		
+		CsrAccount csrAccount = new CsrAccount();
+		csrAccount.setId(id);
+		csrAccount.setUserno(map.get("userno"));
+		csrAccount.setUsercname(map.get("usercname"));
+		csrAccount.setDepno(map.get("depno"));
+		csrAccount.setUserpwd(map.get("userpwd"));
+		csrAccount.setSystemprivilege(map.get("systemprivilege"));
+		
+		return accountService.updateAccount(csrAccount,map.get("oneids"),map.get("twoids"));
 	}
 	
 	/**
@@ -76,6 +106,16 @@ public class AccountController {
 	public ResultMsg removeAccount(@PathVariable Integer id) throws RequestPeriodException {
 		return accountService.removeAccount(id);
 	}
+	
+	/**
+	 * all權限查詢
+	 * @throws RequestPeriodException 
+	 */
+	@GetMapping("/auth")
+	public ResultMsg listAuth(){
+		return accountService.listAuth();
+	}
+	
 
 
 }
