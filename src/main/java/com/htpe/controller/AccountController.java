@@ -44,7 +44,7 @@ public class AccountController {
 	 * 員工部門查詢
 	 */
 	@GetMapping("/account/depno")
-	public ResultMsg getDepNo(){			
+	public ResultMsg listDepNo(){			
 		return accountService.listDepno();
 	}
 		
@@ -53,22 +53,22 @@ public class AccountController {
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/account")
-	public ResultMsg saveAccount(@RequestBody Map<String, String> map) throws RequestPeriodException{
+	public ResultMsg saveAccount(@RequestBody Map<String, Object> map) throws RequestPeriodException{
 		
-		for (Entry<String, String> m : map.entrySet()) {
+		for (Entry<String, Object> m : map.entrySet()) {
 			if(m.getValue().equals("")) {
 				throw new RequestPeriodException(303, "值不得為空");
 			}
 		}
 		
 		CsrAccount csrAccount = new CsrAccount();
-		csrAccount.setUserno(map.get("userno"));
-		csrAccount.setUsercname(map.get("usercname"));
-		csrAccount.setDepno(map.get("depno"));
-		csrAccount.setUserpwd(map.get("userpwd"));
-		csrAccount.setSystemprivilege(map.get("systemprivilege"));
+		csrAccount.setUserno((String)map.get("userno"));
+		csrAccount.setUsercname((String)map.get("usercname"));
+		csrAccount.setDepno((String)map.get("depno"));
+		csrAccount.setUserpwd((String)map.get("userpwd"));
+		csrAccount.setSystemprivilege((String)map.get("systemprivilege"));
 		
-		return accountService.saveAccount(csrAccount,map.get("oneids"),map.get("twoids"));
+		return accountService.saveAccount(csrAccount,(String)map.get("oneids"),(String)map.get("twoids"));
 	}
 		
 	/**
@@ -84,18 +84,24 @@ public class AccountController {
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/account/{id}")		
-	public ResultMsg DoAccountUpdate(@RequestBody Map<String, String> map,
+	public ResultMsg DoAccountUpdate(@RequestBody Map<String, Object> map,
 				@PathVariable Integer id) throws RequestPeriodException{
+		
+		for (Entry<String, Object> m : map.entrySet()) {
+			if(m.getValue().equals("")) {
+				throw new RequestPeriodException(303, "值不得為空");
+			}
+		}
 		
 		CsrAccount csrAccount = new CsrAccount();
 		csrAccount.setId(id);
-		csrAccount.setUserno(map.get("userno"));
-		csrAccount.setUsercname(map.get("usercname"));
-		csrAccount.setDepno(map.get("depno"));
-		csrAccount.setUserpwd(map.get("userpwd"));
-		csrAccount.setSystemprivilege(map.get("systemprivilege"));
+		csrAccount.setUserno((String)map.get("userno"));
+		csrAccount.setUsercname((String)map.get("usercname"));
+		csrAccount.setDepno((String)map.get("depno"));
+		csrAccount.setUserpwd((String)map.get("userpwd"));
+		csrAccount.setSystemprivilege((String)map.get("systemprivilege"));
 		
-		return accountService.updateAccount(csrAccount,map.get("oneids"),map.get("twoids"));
+		return accountService.updateAccount(csrAccount,(String)map.get("oneids"),(String)map.get("twoids"));
 	}
 	
 	/**

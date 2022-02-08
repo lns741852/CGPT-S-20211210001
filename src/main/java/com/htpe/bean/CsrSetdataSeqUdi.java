@@ -3,9 +3,9 @@ package com.htpe.bean;
 public class CsrSetdataSeqUdi {
     private Integer id;
 
-    private String csrSetdataSeqId;
-
-    private String csrUdiId;
+    private CsrSetdataSeq csrSetdataSeq;
+    
+    private CsrUdi csrUdi;
 
     public Integer getId() {
         return id;
@@ -15,19 +15,22 @@ public class CsrSetdataSeqUdi {
         this.id = id;
     }
 
-    public String getCsrSetdataSeqId() {
-        return csrSetdataSeqId;
-    }
+	public CsrSetdataSeq getCsrSetdataSeq() {
+		return csrSetdataSeq;
+	}
 
-    public void setCsrSetdataSeqId(String csrSetdataSeqId) {
-        this.csrSetdataSeqId = csrSetdataSeqId == null ? null : csrSetdataSeqId.trim();
-    }
+	public void setCsrSetdataSeq(CsrSetdataSeq csrSetdataSeq) {
+		this.csrSetdataSeq = csrSetdataSeq;
+	}
 
-    public String getCsrUdiId() {
-        return csrUdiId;
-    }
+	public CsrUdi getCsrUdi() {
+		return csrUdi;
+	}
 
-    public void setCsrUdiId(String csrUdiId) {
-        this.csrUdiId = csrUdiId == null ? null : csrUdiId.trim();
-    }
+	public void setCsrUdi(CsrUdi csrUdi) {
+		this.csrUdi = csrUdi;
+	}
+
+
+    
 }

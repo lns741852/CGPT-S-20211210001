@@ -1,17 +1,55 @@
 package com.htpe.mapper.nnew;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
 import com.htpe.bean.CsrSetdataSeq;
 
+
+@Mapper
 public interface CsrSetdataSeqMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+	List<Map<String, Object>> listSeq(Map<String, Object> paramMap);
 
-    int insert(CsrSetdataSeq record);
+	
+	@Select("select U.ID,U.CODE,U.CNAME,U.ENAME from CSR_UDI AS U"
+			+ " left join CSR_SETDATA_SEQ_UDI AS SU on U.id=SU.CSR_UDI_ID"
+			+ " where SU.CSR_UDI_ID is null"
+			+ " Order by U.CODE")
+	List<Map<String, Object>> listUnUDI();
 
-    int insertSelective(CsrSetdataSeq record);
+	int insertSeq(CsrSetdataSeq seq);
 
-    CsrSetdataSeq selectByPrimaryKey(Integer id);
+	@Insert("insert into CSR_SETDATA_SEQ_UDI(CSR_SETDATA_SEQ_ID,CSR_UDI_ID) values(#{id}, #{UDIid})")
+	int insertSeqUDI(Integer id, String UDIid);
 
-    int updateByPrimaryKeySelective(CsrSetdataSeq record);
+	@Select("select ID,CODE,CNAME,ENAME from("
+			+ " select U.ID,U.CODE,U.CNAME,U.ENAME from CSR_UDI AS U"
+			+ " left join CSR_SETDATA_SEQ_UDI AS SU on U.id=SU.CSR_UDI_ID"
+			+ " where SU.CSR_UDI_ID is null"
+			+ " union all"
+			+ " select U.ID,U.CODE,U.CNAME,U.ENAME from CSR_UDI AS U"
+			+ " left join CSR_SETDATA_SEQ_UDI AS SU on U.id=SU.CSR_UDI_ID"
+			+ " where SU.CSR_SETDATA_SEQ_ID=#{id})"
+			+ " order by CODE")
+	List<Map<String, Object>> listUDI(Integer id);
 
-    int updateByPrimaryKey(CsrSetdataSeq record);
+
+	List<Map<String, Object>> getSeqById(Integer id);
+
+
+	int updateSeq(CsrSetdataSeq seq);
+
+
+	@Delete("delete from CSR_SETDATA_SEQ_UDI where CSR_SETDATA_SEQ_ID=#{id}")
+	int deleteSeqUdiBySeqId(Integer id);
+
+	@Delete("delete from CSR_SETDATA_SEQ where id=#{id}")
+	int deleteSeq(Integer id);
 }
+

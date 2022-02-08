@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrSetdataSeqMapper">
+	<resultMap type="CsrSetdataSeq" id="seq_udi">
+            <id column="xid" property="id" />
+            <result column="xno" property="setno" />
+            <result column="xcname" property="setnamech" />
+            <result column="xseq" property="seq" />
+            <collection property="seqUdi" ofType="CsrSetdataSeqUdi">
+                <id column="AID" property="id" />
+                <association property="csrUdi" javaType="CsrUdi">
+                    <id column="yid" property="id"/>
+                    <result column="ycode" property="code"/>
+                    <result column="ycname" property="cname"/>
+                    <result column="yename" property="ename"/>
+                </association>               
+            </collection>
+     </resultMap>
+
+
+
+  <select id="listSeq"  resultType="CsrSetdataSeq">
+    select 
+    ID, SETNO, SETNAMECH, SEQ, PUBLIC_TYPE, UPD_TYPE, DEL_TYPE, DATAUSER, DATADATE
+    from CSR_SETDATA_SEQ
+    <where>
+			<if test="searchName!=null">
+				AND (SETNO like '%'||(#{searchName})||'%'
+					OR SETNAMECH like '%'||#{searchName}||'%')
+			</if>
+	</where>
+			order by SETNO
+  </select>
+  
+    <select id="getSeqById"  resultMap="seq_udi"> 
+	select X.id xid, X.setno xno, X.setnamech xcname, X.seq xseq,
+		A.id aid, Y.id yid, Y.code ycode, y.cname ycname, y.ename yename
+	from CSR_SETDATA_SEQ AS X
+	left join CSR_SETDATA_SEQ_UDI AS A on X.id=A.CSR_SETDATA_SEQ_ID 
+	left join CSR_UDI AS Y on A.CSR_UDI_ID =Y.id
+	where X.id=#{id}
+  </select>
+  
+  
+  
+  <insert id="insertSeq" parameterType="CsrSetdataSeq" useGeneratedKeys="true" keyProperty="id" >
+    insert into CSR_SETDATA_SEQ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="setno != null">
+        SETNO,
+      </if>
+      <if test="setnamech != null">
+        SETNAMECH,
+      </if>
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="publicType != null">
+        PUBLIC_TYPE,
+      </if>
+      <if test="updType != null">
+        UPD_TYPE,
+      </if>
+      <if test="delType != null">
+        DEL_TYPE,
+      </if>
+      <if test="datauser != null">
+        DATAUSER,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="setno != null">
+        #{setno},
+      </if>
+      <if test="setnamech != null">
+        #{setnamech},
+      </if>
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="publicType != null">
+        #{publicType},
+      </if>
+      <if test="updType != null">
+        #{updType},
+      </if>
+      <if test="delType != null">
+        #{delType},
+      </if>
+      <if test="datauser != null">
+        #{datauser},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+  
+   <update id="updateSeq" parameterType="CsrSetdataSeq">
+    update CSR_SETDATA_SEQ
+    <set>
+      <if test="setno != null">
+        SETNO = #{setno},
+      </if>
+      <if test="setnamech != null">
+        SETNAMECH = #{setnamech},
+      </if>
+      <if test="seq != null">
+        SEQ = #{seq},
+      </if>
+      <if test="publicType != null">
+        PUBLIC_TYPE = #{publicType},
+      </if>
+      <if test="updType != null">
+        UPD_TYPE = #{updType},
+      </if>
+      <if test="delType != null">
+        DEL_TYPE = #{delType},
+      </if>
+      <if test="datauser != null">
+        DATAUSER = #{datauser},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  
+  
+ <!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_SETDATA_SEQ
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.htpe.bean.CsrSetdataSeq">
+    insert into JAY.CSR_SETDATA_SEQ (ID, SETNO, SETNAMECH, 
+      SEQ, PUBLIC_TYPE, UPD_TYPE, 
+      DEL_TYPE, DATAUSER, DATADATE
+      )
+    values (#{id,jdbcType=INTEGER}, #{setno,jdbcType=VARCHAR}, #{setnamech,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=VARCHAR}, #{publicType,jdbcType=VARCHAR}, #{updType,jdbcType=VARCHAR}, 
+      #{delType,jdbcType=VARCHAR}, #{datauser,jdbcType=VARCHAR}, #{datadate,jdbcType=TIMESTAMP}
+      )
+ -->
+
+</mapper>

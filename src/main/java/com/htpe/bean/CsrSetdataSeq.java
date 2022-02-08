@@ -1,6 +1,7 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class CsrSetdataSeq {
     private Integer id;
@@ -20,8 +21,19 @@ public class CsrSetdataSeq {
     private String datauser;
 
     private Date datadate;
+    
+    private List<CsrSetdataSeqUdi> seqUdi;  
+    
 
-    public Integer getId() {
+    public List<CsrSetdataSeqUdi> getSeqUdi() {
+		return seqUdi;
+	}
+
+	public void setSeqUdi(List<CsrSetdataSeqUdi> seqUdi) {
+		this.seqUdi = seqUdi;
+	}
+
+	public Integer getId() {
         return id;
     }
 
