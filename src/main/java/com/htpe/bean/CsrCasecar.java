@@ -1,6 +1,7 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class CsrCasecar {
     private Integer casecarId;
@@ -20,6 +21,8 @@ public class CsrCasecar {
     private Date moddate;
 
     private String isdelete;
+    
+    private List<CsrCasecarSetdata> casecarSetdatas;
 
     public Integer getCasecarId() {
         return casecarId;
@@ -92,4 +95,24 @@ public class CsrCasecar {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
+
+	public List<CsrCasecarSetdata> getCasecarSetdatas() {
+		return casecarSetdatas;
+	}
+
+	public void setCasecarSetdatas(List<CsrCasecarSetdata> casecarSetdatas) {
+		this.casecarSetdatas = casecarSetdatas;
+	}
+
+	@Override
+	public String toString() {
+		return "CsrCasecar [casecarId=" + casecarId + ", casecarno=" + casecarno + ", datauserno=" + datauserno
+				+ ", datausername=" + datausername + ", datadate=" + datadate + ", moduserno=" + moduserno
+				+ ", modusername=" + modusername + ", moddate=" + moddate + ", isdelete=" + isdelete
+				+ ", casecarSetdatas=" + casecarSetdatas + "]";
+	}
+    
+	
+	
+    
 }

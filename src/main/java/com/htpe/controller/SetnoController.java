@@ -19,6 +19,7 @@ import com.htpe.utils.ResultMsg;
 
 @RestController
 public class SetnoController {
+	
 	@Autowired
 	SetnoService setnoService;
 	

@@ -56,7 +56,7 @@ public class SetnoServiceImpl implements SetnoService{
 	public ResultMsg saveSetno(CsrSetdata3m csrSetdata3m) throws RequestPeriodException {
 		int count = csrSetdata3mMapper.countSetno(csrSetdata3m.getSetno());
 		if(count>=1) {			
-			return ResultMsg.fail(401,"盤包已使用").addData("");
+			return ResultMsg.fail(500,"盤包已使用").addData("");
 		}
 		if(csrSetdata3m.getSetno().substring(0).equals("W"));{
 			csrSetdata3m.setSettype("W");
@@ -84,7 +84,7 @@ public class SetnoServiceImpl implements SetnoService{
 		String changeSetno = csrSetdata3m.getSetno();
 		String setno = csrSetdata3mMapper.getSetnoColumnById(id);
 		if((!changeSetno.equals(setno)) && count >=1) {					
-			return ResultMsg.fail(401,"盤包已使用").addData("");			
+			return ResultMsg.fail(500,"盤包已使用").addData("");			
 		}
 		csrSetdata3m.setId(id);
 		int num = csrSetdata3mMapper.updateSetno(csrSetdata3m);		
@@ -109,6 +109,12 @@ public class SetnoServiceImpl implements SetnoService{
 			throw new RequestPeriodException(500, "盤包刪除失敗");
 		}		
 		return ResultMsg.success("帳號刪除成功").addData("");
+	}
+
+
+	@Override
+	public ResultMsg getSetnoByNo(String setno) {		 
+		return ResultMsg.success("盤包查詢").addData(csrSetdata3mMapper.getSetnoByNo(setno));
 	}
 
 }

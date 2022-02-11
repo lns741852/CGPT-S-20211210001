@@ -2,13 +2,18 @@ package com.htpe.utils;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 
+import com.htpe.bean.CsrAccount;
 import com.htpe.exception.RequestPeriodException;
+import com.htpe.mapper.nnew.CsrAccountMapper;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,12 +27,15 @@ public class JwtUtils {
     public static final String SECRET="abccba123321";//令牌環金鑰
     public static final String TOKEN_PREFIX="Bearer";//令牌環頭標識
     public static final String HEADER_STRING="Authorization";//配置令牌環在http heads中的鍵值
+    
 
     //生成令牌環
-    public static String generateToken(String userRole,String userid){
+    public static String generateToken(String userRole,String userid,String usercname){
+    	
         HashMap<String,Object> map=new HashMap<>();
         map.put("auth",userRole);
         map.put("userid",userid);
+        map.put("username", usercname);
         String jwt= Jwts.builder()
         		//.setHeaderParam("typ","JWT");
         		//.setSubject(userid);

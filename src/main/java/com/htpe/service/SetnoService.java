@@ -30,4 +30,7 @@ public interface SetnoService {
 
 	ResultMsg removeSetno(Integer id) throws RequestPeriodException;
 
+
+	ResultMsg getSetnoByNo(String setno);
+
 }

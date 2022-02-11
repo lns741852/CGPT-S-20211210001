@@ -1,17 +1,36 @@
 package com.htpe.mapper.nnew;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
 import com.htpe.bean.CsrCasecar;
 
+@Mapper
 public interface CsrCasecarMapper {
-    int deleteByPrimaryKey(Integer casecarId);
 
-    int insert(CsrCasecar record);
+	@Select("select CASECAR_ID,CASECARNO from CSR_CASECAR")
+	List<Map<String, Object>> listCasecar(Map<String, Object> paramMap);
 
-    int insertSelective(CsrCasecar record);
+	int insertCasecar(CsrCasecar casecar);
 
-    CsrCasecar selectByPrimaryKey(Integer casecarId);
+	@Insert("insert into CSR_CASECAR_SETDATA(CASECAR_ID,SETNO_ID,NUM)"
+			+ " values(#{casecarno}, #{setno}, #{num})")
+	int insertCasecarSetno(String casecarno, String setno,Integer num);
 
-    int updateByPrimaryKeySelective(CsrCasecar record);
+	List<Map<String, Object>> getCasecarById(Integer id);
 
-    int updateByPrimaryKey(CsrCasecar record);
-}
+	int updateCasecar(CsrCasecar casecar);
+
+	@Delete("delete from CSR_CASECAR_SETDATA where CASECAR_ID=#{casecarno}")
+	int deleteCasecarSetnoByNo(String casecarno);
+
+	@Delete("delete from CSR_CASECAR where CASECARNO=#{casecarno}")
+	int deleteCasecarByNo(String no);
+
+
+} 

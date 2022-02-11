@@ -33,7 +33,7 @@ public class AccountController {
 	 * ±b¸¹¦Cªí¬d¸ß
 	 */
 	@GetMapping("/account")
-	public ResultMsg  AccountList(
+	public ResultMsg  listAccount(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName,
@@ -84,7 +84,7 @@ public class AccountController {
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/account/{id}")		
-	public ResultMsg DoAccountUpdate(@RequestBody Map<String, Object> map,
+	public ResultMsg updateAccount(@RequestBody Map<String, Object> map,
 				@PathVariable Integer id) throws RequestPeriodException{
 		
 		for (Entry<String, Object> m : map.entrySet()) {

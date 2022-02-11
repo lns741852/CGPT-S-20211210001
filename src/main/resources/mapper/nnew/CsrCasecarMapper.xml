@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrCasecarMapper">
+  <resultMap id="casecar_setno" type="CsrCasecar">
+    <id column="xid" property="casecarId" />
+    <result column="xno"  property="casecarno" />
+    <result column="xdelete" property="isdelete" />
+    <collection property="casecarSetdatas" ofType="CsrCasecarSetdata">
+        <id column="aid" property="id" />
+        <result column="num" property="num"/>
+        <association property="csrSetdata3m" javaType="CsrSetdata3m">
+             <id column="yid" property="id"/>
+             <result column="yno" property="setno"/>
+             <result column="ycname" property="setnamech"/>
+        </association>               
+    </collection>   
+  </resultMap>
+  
+  
+    <select id="getCasecarById" parameterType="Integer" resultMap="casecar_setno">
+  		select X.CASECAR_ID xid, X.CASECARNO xno, X.ISDELETE xdelete,A.id aid, A.NUM num, Y.ID yid, Y.SETNO yno, Y.SETNAMECH ycname from CSR_CASECAR  AS X
+		left join CSR_CASECAR_SETDATA AS A on X.CASECARNO = A.CASECAR_ID
+		left join CSR_SETDATA_3M AS Y on A.SETNO_ID = Y.SETNO
+		where X.CASECAR_ID=#{id}	
+  	</select>
+
+   <insert id="insertCasecar" parameterType="CsrCasecar">
+    insert into CSR_CASECAR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="casecarno != null">
+        CASECARNO,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="casecarno != null">
+        #{casecarno},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno},
+      </if>
+      <if test="datausername != null">
+        #{datausername},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateCasecar" parameterType="CsrCasecar">
+    update CSR_CASECAR
+    <set>
+      <if test="casecarno != null">
+        CASECARNO = #{casecarno},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete},
+      </if>
+    </set>
+    where CASECAR_ID = #{casecarId}
+  </update>
+  
+ <!-- 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_CASECAR
+    where CASECAR_ID = #{casecarId,jdbcType=INTEGER}
+  </delete>
+  -->
+</mapper>

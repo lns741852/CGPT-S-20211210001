@@ -64,7 +64,7 @@ public class AccountServiceImpl  implements AccountService{
 		csrAccount.setIscancel("N");
 		int num = csrAccountMapper.insertAccount(csrAccount);
 		if(num < 1) {
-			throw new RequestPeriodException(401, "帳新增改失敗");
+			throw new RequestPeriodException(500, "帳新增改失敗");
 		}
 		
 		String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
@@ -72,7 +72,7 @@ public class AccountServiceImpl  implements AccountService{
 		for (String authorityId : authIds) {
 			int num2 =  csrAccountMapper.insertAccountAuth(csrAccount.getId(),authorityId);
 			if(num2 < 1) {
-				throw new RequestPeriodException(401, "帳新增失敗");
+				throw new RequestPeriodException(500, "帳新增失敗");
 			}
 		}
 		return ResultMsg.success("帳號新增成功").addData("");
@@ -109,7 +109,7 @@ public class AccountServiceImpl  implements AccountService{
 		for (String authorityId : authIds) {
 			int num3 =  csrAccountMapper.insertAccountAuth(csrAccount.getId(),authorityId);
 			if(num3 < 1) {
-				throw new RequestPeriodException(401, "帳號修改失敗");
+				throw new RequestPeriodException(500, "帳號修改失敗");
 			}
 		}		
 		return ResultMsg.success("帳號修改成功").addData("");

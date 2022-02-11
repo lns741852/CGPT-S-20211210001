@@ -21,7 +21,7 @@ public class ListenerException {
 	public ResultMsg messageNotReadableException(HttpMessageNotReadableException e){	
 		String message = e.getMessage();
 		String[] split = message.split("\"");
-		return ResultMsg.fail(401,split[5]+"格式錯誤").addData("");
+		return ResultMsg.fail(400,split[5]+"格式錯誤").addData("");
 	}
 
 	//request流程異常

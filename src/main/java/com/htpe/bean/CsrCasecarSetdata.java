@@ -6,6 +6,10 @@ public class CsrCasecarSetdata {
     private String casecarId;
 
     private String setnoId;
+    
+    private CsrCasecar casecar;
+    
+    private CsrSetdata3m csrSetdata3m;
 
     private Integer num;
 
@@ -39,5 +43,25 @@ public class CsrCasecarSetdata {
 
     public void setNum(Integer num) {
         this.num = num;
-    }
+    }    
+
+	public CsrCasecar getCasecar() {
+		return casecar;
+	}
+
+	public void setCasecar(CsrCasecar casecar) {
+		this.casecar = casecar;
+	}
+
+	public CsrSetdata3m getCsrSetdata3m() {
+		return csrSetdata3m;
+	}
+
+	public void setCsrSetdata3m(CsrSetdata3m csrSetdata3m) {
+		this.csrSetdata3m = csrSetdata3m;
+	}
+
+
+    
+    
 }

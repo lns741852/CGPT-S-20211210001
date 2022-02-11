@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import com.htpe.bean.CsrSetdata3m;
+import com.htpe.utils.ResultMsg;
 
 @Mapper
 public interface CsrSetdata3mMapper {
@@ -38,6 +39,9 @@ public interface CsrSetdata3mMapper {
 
 	@Delete("delete from CSR_SETDATA_3M where ID = #{id}")
 	int deleteSetno(Integer id);
+
+	@Select("select ID, SETNO, SETNAMECH from  CSR_SETDATA_3M where SETNO=#{setno}")
+	CsrSetdata3m getSetnoByNo(String setno);
 	
 	
 	

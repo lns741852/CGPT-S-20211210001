@@ -36,7 +36,7 @@ public class GlobalExceptionControllerAdvice {
         );
         
         for(String msg : errorMap.values()) {
-        	return ResultMsg.fail(401, msg).addData("");		//自定義類
+        	return ResultMsg.fail(400, msg).addData("");		//自定義類
         }
 
         return ResultMsg.fail(500, "GlobalExceptionControllerAdvice程式異常").addData("");

@@ -51,14 +51,14 @@ public class SeqServiceImpl implements SeqService {
 
 		int num = csrSetdataSeqMapper.insertSeq(seq);
 		if(num < 1) {
-			throw new RequestPeriodException(401, "盤包增改失敗");
+			throw new RequestPeriodException(500, "盤包新增失敗");
 		}
 		if(!ids.isEmpty()) {
 			String[] idsList = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值
 			for (String UDIid : idsList) {
 				int num2 =  csrSetdataSeqMapper.insertSeqUDI(seq.getId(),UDIid);
 				if(num2 < 1) {
-					throw new RequestPeriodException(401, "帳新增失敗");
+					throw new RequestPeriodException(500, "帳新增失敗");
 				}
 			}
 		}
@@ -83,7 +83,7 @@ public class SeqServiceImpl implements SeqService {
 
 		int num = csrSetdataSeqMapper.updateSeq(seq);
 		if(num < 1) {
-			throw new RequestPeriodException(401, "盤包修改失敗");
+			throw new RequestPeriodException(500, "盤包修改失敗");
 		}
 		int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(seq.getId());
 		if(num2 < 1) {
@@ -95,7 +95,7 @@ public class SeqServiceImpl implements SeqService {
 			for (String UDIid : idsList) {
 				int num3 =  csrSetdataSeqMapper.insertSeqUDI(seq.getId(),UDIid);
 				if(num3 < 1) {
-					throw new RequestPeriodException(401, "修改失敗");
+					throw new RequestPeriodException(500, "修改失敗");
 				}
 			}
 		}
