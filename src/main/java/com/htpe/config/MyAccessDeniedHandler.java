@@ -14,7 +14,7 @@ import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
- * Åv­­¤£¨¬ªğ¦^JSON
+ * æ¬Šé™ä¸è¶³è¿”å›JSON
  */
 @Component
 public class MyAccessDeniedHandler extends JsonAuthenticationUtils implements AccessDeniedHandler {
@@ -23,7 +23,7 @@ public class MyAccessDeniedHandler extends JsonAuthenticationUtils implements Ac
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		this.WriteJSON(request, response, ResultMsg.fail(403,"Åv­­¤£¨¬").addData(""));
+		this.WriteJSON(request, response, ResultMsg.fail(403,"æ¬Šé™ä¸è¶³").addData(""));
 		
 	}
 

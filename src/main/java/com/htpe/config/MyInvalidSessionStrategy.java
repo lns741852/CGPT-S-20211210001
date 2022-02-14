@@ -13,7 +13,7 @@ import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
- * Session¨ì´Á«áªð¦^JSON
+ * Sessionåˆ°æœŸå¾Œè¿”å›žJSON
  */
 @Component
 public class MyInvalidSessionStrategy extends JsonAuthenticationUtils implements InvalidSessionStrategy{
@@ -22,7 +22,7 @@ public class MyInvalidSessionStrategy extends JsonAuthenticationUtils implements
 	@Override
 	public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		ResultMsg.fail(403,"µn¤J¶W®É").addData("");
+		ResultMsg.fail(403,"ç™»å…¥è¶…æ™‚").addData("");
 		
 	}
 

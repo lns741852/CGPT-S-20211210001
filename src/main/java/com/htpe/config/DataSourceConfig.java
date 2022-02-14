@@ -11,17 +11,17 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariDataSource;
 
 /**
- * ¦h¼Æ¾Ú®w°t¸mÃş
+ * å¤šæ•¸æ“šåº«é…ç½®é¡
  *
  */
 @Configuration
 public class DataSourceConfig {
 
     /*
-    * ¼Æ¾Ú·½°t¸m
+    * æ•¸æ“šæºé…ç½®
 	*/
 	@Bean(name = "olddb")
-	@ConfigurationProperties(prefix = "spring.datasource.olddb")					//±q°t¸m¤å¥ó¤¤Àò¨ú°Ñ¼Æ
+	@ConfigurationProperties(prefix = "spring.datasource.olddb")					//å¾é…ç½®æ–‡ä»¶ä¸­ç²å–åƒæ•¸
 	public DataSource OldDataSource() {
 		return DataSourceBuilder.create().type(HikariDataSource.class).build();
 	}

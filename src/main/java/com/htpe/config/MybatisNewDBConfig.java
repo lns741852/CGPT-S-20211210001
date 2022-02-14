@@ -16,21 +16,21 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 
 /**
- * Mybatis°t¸m for NewDB
+ * Mybatisé…ç½® for NewDB
  */
 @Configuration
 @MapperScan(basePackages = { "com.htpe.mapper.nnew" }, sqlSessionFactoryRef = "sqlSessionFactory2")	
 public class MybatisNewDBConfig {
 
 	@Autowired
-	@Qualifier("newdb")		//«ü©w¨Ï¥Îªºbean
+	@Qualifier("newdb")		//æŒ‡å®šä½¿ç”¨çš„bean
 	private DataSource ds2;
 
-	@Primary				//¥D¼Æ¾Ú·½¡A°t¦h¸ê®Æ®w®É¥²­n
+	@Primary				//ä¸»æ•¸æ“šæºï¼Œé…å¤šè³‡æ–™åº«æ™‚å¿…è¦
 	@Bean 
 	public SqlSessionFactory sqlSessionFactory2() throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-		factoryBean.setDataSource(ds2); // ¨Ï¥Înew¸ê®Æ¨Ó·½, ³s½unew®w 
+		factoryBean.setDataSource(ds2); // ä½¿ç”¨newè³‡æ–™ä¾†æº, é€£ç·šnewåº« 
 		factoryBean.setTypeAliasesPackage("com.htpe.bean");
 		factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/nnew/*.xml"));
 		return factoryBean.getObject(); 
@@ -39,7 +39,7 @@ public class MybatisNewDBConfig {
 	@Primary
 	@Bean 
 	public SqlSessionTemplate sqlSessionTemplate2() throws Exception {
-		SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory2());// ¨Ï¥Î¤W­±°t¸mªºFactory 
+		SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory2());// ä½¿ç”¨ä¸Šé¢é…ç½®çš„Factory 
 		return template; 
 	} 
 }

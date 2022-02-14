@@ -7,12 +7,12 @@ import javax.validation.constraints.NotEmpty;
 public class CsrUdi {
     private Integer id;
 
-    @NotEmpty(message = "¥N½X¤£¯à¬°ªÅ")
+    @NotEmpty(message = "ä»£ç¢¼ä¸èƒ½ç‚ºç©º")
     private String code;
 
-    @NotEmpty(message = "¤¤¤å¦WºÙ¤£¯à¬°ªÅ")
+    @NotEmpty(message = "ä¸­æ–‡åç¨±ä¸èƒ½ç‚ºç©º")
     private String cname;
-
+    
     private String ename;
 
     private String desc;

@@ -29,7 +29,7 @@ public class UDIController {
 	UDIService udiService;
 	
 	/**
-	 * UDI¬d¸ß
+	 * UDIæŸ¥è©¢
 	 */
 	@GetMapping("/udi")
 	public ResultMsg  listUDI(
@@ -42,7 +42,7 @@ public class UDIController {
 	}
 	
 	/**
-	 * ·s¼W³æ¤@¾¹±ñ
+	 * æ–°å¢žå–®ä¸€å™¨æ¢°
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/udi")		
@@ -57,7 +57,7 @@ public class UDIController {
 	}
 	
 	/**
-	 * ½s¿è¾¹±ñ¬d¸ß
+	 * ç·¨è¼¯å™¨æ¢°æŸ¥è©¢
 	 */
 	@GetMapping("/udi/{id}")
 	public ResultMsg getUDIById(@PathVariable Integer id){			
@@ -65,7 +65,7 @@ public class UDIController {
 	}
 	
 	/**
-	 * ¾¹±ñ­×§ï
+	 * å™¨æ¢°ä¿®æ”¹
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/udi/{id}")
@@ -81,7 +81,7 @@ public class UDIController {
 	}
 	
 	/**
-	 * §R°£¹Ï¤ù
+	 * åˆªé™¤åœ–ç‰‡
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/udi/{id}/{filename}")
@@ -90,7 +90,7 @@ public class UDIController {
 	}
 	
 	/**
-	 * §R°£¾¹±ñ
+	 * åˆªé™¤å™¨æ¢°
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/udi/{id}")

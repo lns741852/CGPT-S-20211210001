@@ -16,7 +16,7 @@ import com.htpe.utils.JwtUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
- * ¦¨¥\«áªğ¦^JSON
+ * æˆåŠŸå¾Œè¿”å›JSON
  */
 @Component
 public class MyLogoutSuccessHandler extends JsonAuthenticationUtils implements LogoutSuccessHandler {
@@ -30,7 +30,7 @@ public class MyLogoutSuccessHandler extends JsonAuthenticationUtils implements L
 		}
 
 		response.setHeader(JwtUtils.HEADER_STRING, "");
-		this.WriteJSON(request, response, ResultMsg.success("µn¥X¦¨¥\").addData(""));
+		this.WriteJSON(request, response, ResultMsg.success("ç™»å‡ºæˆåŠŸ").addData(""));
 		
 	}
 	

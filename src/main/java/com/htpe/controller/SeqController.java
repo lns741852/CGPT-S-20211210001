@@ -5,7 +5,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,7 @@ public class SeqController {
 	SeqService seqService;
 	
 	/**
-	 * ½L¥]ºûÅ@¦Cªí¬d¸ß
+	 * ç›¤åŒ…ç¶­è­·åˆ—è¡¨æŸ¥è©¢
 	 */
 	@GetMapping("/seq")
 	public ResultMsg  listSeq(
@@ -37,7 +39,7 @@ public class SeqController {
 	}
 
 	/**
-	 * ¥¼¨Ï¥Î¾¹±ñ¬d¸ß
+	 * æœªä½¿ç”¨å™¨æ¢°æŸ¥è©¢
 	 */
 	@GetMapping("/seq/unused/udi")
 	public ResultMsg listUnUDI(){			
@@ -46,20 +48,20 @@ public class SeqController {
 		
 	
 	/**
-	 * ·s¼WºûÅ@½L¥]
+	 * æ–°å¢ç¶­è­·ç›¤åŒ…
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/seq")
 	public ResultMsg saveSeq(@RequestBody Map<String, Object> map,HttpServletRequest request) throws RequestPeriodException{
 		
 		if(((String)map.get("setno")).isEmpty()) {
-			throw new RequestPeriodException(303, "¥N¸¹¤£±o¬°ªÅ");
+			throw new RequestPeriodException(303, "ä»£è™Ÿä¸å¾—ç‚ºç©º");
 		}
 		if(((String)map.get("setnamech")).isEmpty()) {
-			throw new RequestPeriodException(303, "¦WºÙ¤£±o¬°ªÅ");
+			throw new RequestPeriodException(303, "åç¨±ä¸å¾—ç‚ºç©º");
 		}
 		if(((String)map.get("seq")).isEmpty()) {
-			throw new RequestPeriodException(303, "§Ç¸¹¤£±o¬°ªÅ");
+			throw new RequestPeriodException(303, "åºè™Ÿä¸å¾—ç‚ºç©º");
 		}
 		
 		CsrSetdataSeq seq = new CsrSetdataSeq();
@@ -71,7 +73,7 @@ public class SeqController {
 	}
 	
 	/**
-	 * ¥i¨Ï¥Î¾¹±ñ¬d¸ß
+	 * å¯ä½¿ç”¨å™¨æ¢°æŸ¥è©¢
 	 */
 	@GetMapping("/seq/used/udi/{id}")
 	public ResultMsg listUDI(@PathVariable Integer id){			
@@ -79,7 +81,7 @@ public class SeqController {
 	}
 		
 	/**
-	 * ½L¥]¬d¸ß
+	 * ç›¤åŒ…æŸ¥è©¢
 	 */
 	@GetMapping("/seq/{id}")
 	public ResultMsg getSeqById(@PathVariable Integer id){			
@@ -87,20 +89,20 @@ public class SeqController {
 	}
 	
 	/**
-	 * ½L¥]§ó·s
+	 * ç›¤åŒ…æ›´æ–°
 	 */
 	@PutMapping("/seq/{id}")
 	public ResultMsg updateSeq(@RequestBody Map<String, String> map,
 				@PathVariable Integer id,
 				HttpServletRequest request) throws RequestPeriodException{
 		if(((String)map.get("setno")).isEmpty()) {
-			throw new RequestPeriodException(303, "¥N¸¹¤£±o¬°ªÅ");
+			throw new RequestPeriodException(303, "ä»£è™Ÿä¸å¾—ç‚ºç©º");
 		}
 		if(((String)map.get("setnamech")).isEmpty()) {
-			throw new RequestPeriodException(303, "¦WºÙ¤£±o¬°ªÅ");
+			throw new RequestPeriodException(303, "åç¨±ä¸å¾—ç‚ºç©º");
 		}
 		if(((String)map.get("seq")).isEmpty()) {
-			throw new RequestPeriodException(303, "§Ç¸¹¤£±o¬°ªÅ");
+			throw new RequestPeriodException(303, "åºè™Ÿä¸å¾—ç‚ºç©º");
 		}
 		CsrSetdataSeq seq = new CsrSetdataSeq();
 		seq.setId(id);
@@ -110,7 +112,7 @@ public class SeqController {
 	}
 	
 	/**
-	 * §R°£±b¸¹
+	 * åˆªé™¤å¸³è™Ÿ
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/seq/{id}")

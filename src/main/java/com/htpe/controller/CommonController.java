@@ -17,7 +17,7 @@ public class CommonController {
 	
 	
 	/**
-	 * ½L¥]¬d¸ß
+	 * ç›¤åŒ…æŸ¥è©¢
 	 */
 	@GetMapping("/setdata")
 	public ResultMsg getSetdata(@RequestParam("setno") String setno){		

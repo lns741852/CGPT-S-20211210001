@@ -13,14 +13,14 @@ import com.htpe.utils.ResultMsg;
 
 
 /**
- * ¤H¼Æ¹L¦h½ğ¤U½u«áªğ¦^JSON
+ * äººæ•¸éå¤šè¸¢ä¸‹ç·šå¾Œè¿”å›JSON
  */
 @Component
 public class MyExpiredSessionStrategy extends JsonAuthenticationUtils implements SessionInformationExpiredStrategy{
 
 	@Override
 	public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
-		this.WriteJSON(event.getRequest(), event.getResponse(), ResultMsg.fail(403,"¥Î¤á¤Ó¦h").addData(""));
+		this.WriteJSON(event.getRequest(), event.getResponse(), ResultMsg.fail(403,"ç”¨æˆ¶å¤ªå¤š").addData(""));
 		
 	}
 

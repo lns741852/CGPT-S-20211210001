@@ -23,7 +23,7 @@ import com.htpe.utils.JwtUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
- * µn¤J¦¨¥\ªğ¦^JSON
+ * ç™»å…¥æˆåŠŸè¿”å›JSON
  */
 @Component
 public class MyAuthenticationSuccessHandler extends JsonAuthenticationUtils implements AuthenticationSuccessHandler{
@@ -37,17 +37,17 @@ public class MyAuthenticationSuccessHandler extends JsonAuthenticationUtils impl
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {	
-			//±Ncollection Âà steam Âà string ¦b¥Î","¹j¶}
+		//å°‡collection è½‰ steam è½‰ string åœ¨ç”¨","éš”é–‹
 			String authString = authentication.getAuthorities().stream().map(x -> x.toString()).collect(Collectors.joining(", "));
 			CsrAccount csrAccount = csrAccountMapper.getAccountByUserno(authentication.getName());
 
 			String jwt = JwtUtils.generateToken(authString,authentication.getName(), csrAccount.getUsercname());
 			response.setHeader(JwtUtils.HEADER_STRING, jwt);
-			//¨¾¤î¶Ã½X
+			//é˜²æ­¢äº‚ç¢¼
 			//response.setContentType("text/json;charset=utf-8");
-			//springboot¤¤·|±NÃşÂà¦¨json
-			//response.getWriter().write(new ObjectMapper().writeValueAsString(ResultMsg.success().addMap("msg", "µn¤J¦¨¥\")));
-			this.WriteJSON(request, response, ResultMsg.success("µn¤J¦¨¥\").addData(""));
+			//springbootä¸­æœƒå°‡é¡è½‰æˆjson
+			//response.getWriter().write(new ObjectMapper().writeValueAsString(ResultMsg.success().addMap("msg", "ç™»å…¥æˆåŠŸ")));
+			this.WriteJSON(request, response, ResultMsg.success("ç™»å…¥æˆåŠŸ").addData(""));
 	}
 
 }

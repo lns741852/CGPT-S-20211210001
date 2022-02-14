@@ -26,7 +26,7 @@ public class CasecarController {
 	CasecarService casecarService;
 	
 	/**
-	 * ­Ó®×¨®¦Cªí¬d¸ß
+	 * å€‹æ¡ˆè»Šåˆ—è¡¨æŸ¥è©¢
 	 */
 	@GetMapping("/casecar")
 	public ResultMsg  listCasecar(
@@ -37,7 +37,7 @@ public class CasecarController {
 	}
 	
 	/**
-	 * ·s¼W­Ó®×¨®
+	 * æ–°å¢žå€‹æ¡ˆè»Š
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/casecar")
@@ -47,7 +47,7 @@ public class CasecarController {
 	
 	
 	/**
-	 * ½s¿è­Ó®×¨®¬d¸ß
+	 * ç·¨è¼¯å€‹æ¡ˆè»ŠæŸ¥è©¢
 	 */
 	@GetMapping("/casecar/{id}")
 	public ResultMsg getUDIById(@PathVariable Integer id){			
@@ -55,7 +55,7 @@ public class CasecarController {
 	}
 	
 	/**
-	 * ­×§ï­Ó®×¨®
+	 * ä¿®æ”¹å€‹æ¡ˆè»Š
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/casecar/{id}")
@@ -67,7 +67,7 @@ public class CasecarController {
 	
 	
 	/**
-	 * §R°£­Ó®×¨®
+	 * åˆªé™¤å€‹æ¡ˆè»Š
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/casecar/{no}")

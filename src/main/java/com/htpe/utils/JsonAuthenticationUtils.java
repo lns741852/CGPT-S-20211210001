@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * «Ê¸ËJSONªğ¦^®æ¦¡
+ * å°è£JSONè¿”å›æ ¼å¼
  */
 public abstract class JsonAuthenticationUtils {
 
@@ -16,11 +16,11 @@ public abstract class JsonAuthenticationUtils {
 				HttpServletRequest request,
 				HttpServletResponse response,
 				Object data)throws IOException, ServletException {
-		//«OÃÒJSON½s½X¥¿½T
+		//ä¿è­‰JSONç·¨ç¢¼æ­£ç¢º
 		response.setContentType("text/json;charset=utf-8");
 		//response.setHeader("Access-Control-Allow-Origin", "*");
 		//response.setHeader("Access-Control-Allow-Method", "POST,GET");
-		//JSON¿é¥X
+		//JSONè¼¸å‡º
 		PrintWriter out = response.getWriter();
 		out.write(new ObjectMapper().writeValueAsString(data));
 		out.flush();

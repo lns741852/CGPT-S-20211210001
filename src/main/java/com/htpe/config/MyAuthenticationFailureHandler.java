@@ -14,7 +14,7 @@ import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
- * µn¤J¥¢±Ñªğ¦^JSON
+ * ç™»å…¥å¤±æ•—è¿”å›JSON
  */
 @Component
 public class MyAuthenticationFailureHandler extends JsonAuthenticationUtils implements AuthenticationFailureHandler{
@@ -23,13 +23,13 @@ public class MyAuthenticationFailureHandler extends JsonAuthenticationUtils impl
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		//¨¾¤î¶Ã½X
+		//é˜²æ­¢äº‚ç¢¼
 		//response.setContentType("text/json;charset=utf-8");
-		//springboot¤¤±NÃşÍD·|¦¨json
-		//response.getWriter().write(new ObjectMapper().writeValueAsString(ResultMsg.fail().addMap("msg", "µn¤J¥¢±Ñ")));
+		//springbootä¸­å°‡é¡æ²æœƒæˆjson
+		//response.getWriter().write(new ObjectMapper().writeValueAsString(ResultMsg.fail().addMap("msg", "ç™»å…¥å¤±æ•—")));
 		
-		//Ä~©ÓJSONAuthentication
-		this.WriteJSON(request, response, ResultMsg.fail(401,"µn¤J¥¢±Ñ").addData(""));
+		//ç¹¼æ‰¿JSONAuthentication
+		this.WriteJSON(request, response, ResultMsg.fail(401,"ç™»å…¥å¤±æ•—").addData(""));
 		
 	}
 

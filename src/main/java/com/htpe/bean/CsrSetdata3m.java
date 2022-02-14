@@ -5,10 +5,10 @@ import javax.validation.constraints.NotEmpty;
 public class CsrSetdata3m {
     private Integer id;
 
-    @NotEmpty(message = "½L¥]¥N¸¹¤£¯à¬°ªÅ")
+    @NotEmpty(message = "ç›¤åŒ…ä»£è™Ÿä¸èƒ½ç‚ºç©º")
     private String setno;
 
-    @NotEmpty(message = "½L¥]¤¤¤å¤£¯à¬°ªÅ")
+    @NotEmpty(message = "ç›¤åŒ…ä¸­æ–‡ä¸èƒ½ç‚ºç©º")
     private String setnamech;
 
     private String setname;

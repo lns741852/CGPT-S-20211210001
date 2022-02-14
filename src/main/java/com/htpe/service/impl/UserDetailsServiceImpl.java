@@ -34,18 +34,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     	CsrAccount csrAccount = csrAccountMapper.getAccountByUserno(username);
        	   
         if(csrAccount == null) {
-            throw new UsernameNotFoundException("¥Î¤á¤£¦s¦b");
+            throw new UsernameNotFoundException("ç”¨æˆ¶ä¸å­˜åœ¨");
         }
         
         List<CsrAccountAuth> csrAccountAuths = csrAccount.getCsrAccountAuths();
         
         for (CsrAccountAuth csrAccountAuth : csrAccountAuths) {      	
-        	authorityBuffer.append(csrAccountAuth.getCsrAuth().getAuthno() + ", ");		//«÷¸ËÅv­­authA, authB, authC
+        	authorityBuffer.append(csrAccountAuth.getCsrAuth().getAuthno() + ", ");		//æ‹¼è£æ¬Šé™authA, authB, authC
 		}
        
-         authority = authorityBuffer.deleteCharAt(authorityBuffer.length()-2).toString();		//¥h°£³Ì«á,
+         authority = authorityBuffer.deleteCharAt(authorityBuffer.length()-2).toString();		//å»é™¤æœ€å¾Œ,
     	
-        List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(authority);	//«Ê¸ËÅv­­
+        List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(authority);	//å°è£æ¬Šé™
 
         return new User(csrAccount.getUserno(),
 			new BCryptPasswordEncoder().encode(csrAccount.getUserpwd()),auths);

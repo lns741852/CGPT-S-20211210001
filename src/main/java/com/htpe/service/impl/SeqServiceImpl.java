@@ -34,12 +34,12 @@ public class SeqServiceImpl implements SeqService {
 	    PageHelper.startPage(pageNum, pageSize);
 		List<Map<String, Object>> seqList = csrSetdataSeqMapper.listSeq(paramMap);
 	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(seqList);    
-		return  ResultMsg.success("½L¥]§Ç¸¹¦Cªí").addData(pageInfo);
+		return  ResultMsg.success("ç›¤åŒ…åºè™Ÿåˆ—è¡¨").addData(pageInfo);
 	}
 
 	@Override
 	public ResultMsg listUnUDI() {
-		return  ResultMsg.success("¥¼¨Ï¥ÎUDI").addData(csrSetdataSeqMapper.listUnUDI());
+		return  ResultMsg.success("æœªä½¿ç”¨UDI").addData(csrSetdataSeqMapper.listUnUDI());
 	}
 
 	@Override
@@ -51,28 +51,28 @@ public class SeqServiceImpl implements SeqService {
 
 		int num = csrSetdataSeqMapper.insertSeq(seq);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "½L¥]·s¼W¥¢±Ñ");
+			throw new RequestPeriodException(401, "ç›¤åŒ…å¢æ”¹å¤±æ•—");
 		}
 		if(!ids.isEmpty()) {
-			String[] idsList = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //¥h°£­«½Æ­È
+			String[] idsList = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //å»é™¤é‡è¤‡å€¼
 			for (String UDIid : idsList) {
 				int num2 =  csrSetdataSeqMapper.insertSeqUDI(seq.getId(),UDIid);
 				if(num2 < 1) {
-					throw new RequestPeriodException(500, "±b·s¼W¥¢±Ñ");
+					throw new RequestPeriodException(401, "å¸³æ–°å¢å¤±æ•—");
 				}
 			}
 		}
-		return ResultMsg.success("±b¸¹·s¼W¦¨¥\").addData("");
+		return ResultMsg.success("å¸³è™Ÿæ–°å¢æˆåŠŸ").addData("");
 	}
 
 	@Override
 	public ResultMsg getSeqById(Integer id) {
-		return ResultMsg.success("¤w¨Ï¥ÎUDI").addData(csrSetdataSeqMapper.getSeqById(id));
+		return ResultMsg.success("å·²ä½¿ç”¨UDI").addData(csrSetdataSeqMapper.getSeqById(id));
 	}
 
 	@Override
 	public ResultMsg listUDI(Integer id) {
-		return  ResultMsg.success("¥i¨Ï¥ÎUDI").addData(csrSetdataSeqMapper.listUDI(id));
+		return  ResultMsg.success("å¯ä½¿ç”¨UDI").addData(csrSetdataSeqMapper.listUDI(id));
 	}
 
 	@Override
@@ -83,36 +83,36 @@ public class SeqServiceImpl implements SeqService {
 
 		int num = csrSetdataSeqMapper.updateSeq(seq);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "½L¥]­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(401, "ç›¤åŒ…ä¿®æ”¹å¤±æ•—");
 		}
 		int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(seq.getId());
 		if(num2 < 1) {
-			throw new RequestPeriodException(500, "±b¸¹­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "å¸³è™Ÿä¿®æ”¹å¤±æ•—");
 		}
 		
 		if(!ids.isEmpty()) {
-		String[] idsList = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //¥h°£­«½Æ­È
+		String[] idsList = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //å»é™¤é‡è¤‡å€¼
 			for (String UDIid : idsList) {
 				int num3 =  csrSetdataSeqMapper.insertSeqUDI(seq.getId(),UDIid);
 				if(num3 < 1) {
-					throw new RequestPeriodException(500, "­×§ï¥¢±Ñ");
+					throw new RequestPeriodException(401, "ä¿®æ”¹å¤±æ•—");
 				}
 			}
 		}
-		return ResultMsg.success("­×§ï¦¨¥\").addData("");
+		return ResultMsg.success("ä¿®æ”¹æˆåŠŸ").addData("");
 	}
 
 	@Override
 	public ResultMsg removeSeq(Integer id) throws RequestPeriodException {
 		int count = csrSetdataSeqMapper.deleteSeq(id);
 		if(count < 1) {
-			throw new RequestPeriodException(500, "½L¥]§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "ç›¤åŒ…åˆªé™¤å¤±æ•—");
 		}
 		int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(id);
 		if(num2 < 1) {
-			throw new RequestPeriodException(500, "½L¥]§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "ç›¤åŒ…åˆªé™¤å¤±æ•—");
 		}
-		return ResultMsg.success("½L¥]§R°£¦¨¥\").addData("");
+		return ResultMsg.success("ç›¤åŒ…åˆªé™¤æˆåŠŸ").addData("");
 	}
 	
 

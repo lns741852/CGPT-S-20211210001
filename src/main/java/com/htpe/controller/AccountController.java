@@ -30,10 +30,10 @@ public class AccountController {
 	AccountService accountService;	
 	
 	/**
-	 * ±b¸¹¦Cªí¬d¸ß
+	 * å¸³è™Ÿåˆ—è¡¨æŸ¥è©¢
 	 */
 	@GetMapping("/account")
-	public ResultMsg  listAccount(
+	public ResultMsg  AccountList(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName,
@@ -41,7 +41,7 @@ public class AccountController {
 	    return accountService.listAccount(pageNum,pageSize,searchName,empNO);	  
 	}
 	/**
-	 * ­û¤u³¡ªù¬d¸ß
+	 * å“¡å·¥éƒ¨é–€æŸ¥è©¢
 	 */
 	@GetMapping("/account/depno")
 	public ResultMsg listDepNo(){			
@@ -49,7 +49,7 @@ public class AccountController {
 	}
 		
 	/**
-	 * ·s¼W±b¸¹
+	 * æ–°å¢å¸³è™Ÿ
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/account")
@@ -57,7 +57,7 @@ public class AccountController {
 		
 		for (Entry<String, Object> m : map.entrySet()) {
 			if(m.getValue().equals("")) {
-				throw new RequestPeriodException(303, "­È¤£±o¬°ªÅ");
+				throw new RequestPeriodException(303, "å€¼ä¸å¾—ç‚ºç©º");
 			}
 		}
 		
@@ -72,7 +72,7 @@ public class AccountController {
 	}
 		
 	/**
-	 * ½s¿è±b¸¹¬d¸ß
+	 * ç·¨è¼¯å¸³è™ŸæŸ¥è©¢
 	 */
 	@GetMapping("/account/{id}")
 	public ResultMsg getAccountById(@PathVariable Integer id){			
@@ -80,16 +80,16 @@ public class AccountController {
 	}
 
 	/**
-	 * ­×§ï±b¸¹
+	 * ä¿®æ”¹å¸³è™Ÿ
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/account/{id}")		
-	public ResultMsg updateAccount(@RequestBody Map<String, Object> map,
+	public ResultMsg DoAccountUpdate(@RequestBody Map<String, Object> map,
 				@PathVariable Integer id) throws RequestPeriodException{
 		
 		for (Entry<String, Object> m : map.entrySet()) {
 			if(m.getValue().equals("")) {
-				throw new RequestPeriodException(303, "­È¤£±o¬°ªÅ");
+				throw new RequestPeriodException(303, "å€¼ä¸å¾—ç‚ºç©º");
 			}
 		}
 		
@@ -105,7 +105,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * §R°£±b¸¹
+	 * åˆªé™¤å¸³è™Ÿ
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/account/{id}")
@@ -114,7 +114,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * allÅv­­¬d¸ß
+	 * allæ¬Šé™æŸ¥è©¢
 	 * @throws RequestPeriodException 
 	 */
 	@GetMapping("/auth")

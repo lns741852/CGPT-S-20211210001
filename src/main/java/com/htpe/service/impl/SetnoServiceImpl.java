@@ -33,21 +33,21 @@ public class SetnoServiceImpl implements SetnoService{
 	    PageHelper.startPage(pageNum, pageSize);
 		List<Map<String, Object>> setnoList = csrSetdata3mMapper.listSetno(paramMap);
 	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(setnoList);    
-		return  ResultMsg.success("½L¥]¦Cªí").addData(pageInfo);
+		return  ResultMsg.success("ç›¤åŒ…åˆ—è¡¨").addData(pageInfo);
 	}
 
 	
 	@Override
 	public ResultMsg listPotData() {
 		List<Map<String, Object>> potData = csrSetdata3mMapper.listPotData();
-		return ResultMsg.success("®ø¬rÁç¬d¸ß").addData(potData);
+		return ResultMsg.success("æ¶ˆæ¯’é‹æŸ¥è©¢").addData(potData);
 	}
 
 	
 	@Override
 	public ResultMsg listProcess(String potdata) {
 		List<Map<String, Object>> listpotdata = csrSetdata3mMapper.listProcess(potdata);
-		return ResultMsg.success("®ø¬r¥]¬d¸ß").addData(listpotdata);
+		return ResultMsg.success("æ¶ˆæ¯’åŒ…æŸ¥è©¢").addData(listpotdata);
 	}
 
 
@@ -56,7 +56,7 @@ public class SetnoServiceImpl implements SetnoService{
 	public ResultMsg saveSetno(CsrSetdata3m csrSetdata3m) throws RequestPeriodException {
 		int count = csrSetdata3mMapper.countSetno(csrSetdata3m.getSetno());
 		if(count>=1) {			
-			return ResultMsg.fail(500,"½L¥]¤w¨Ï¥Î").addData("");
+			return ResultMsg.fail(401,"ç›¤åŒ…å·²ä½¿ç”¨").addData("");
 		}
 		if(csrSetdata3m.getSetno().substring(0).equals("W"));{
 			csrSetdata3m.setSettype("W");
@@ -64,9 +64,9 @@ public class SetnoServiceImpl implements SetnoService{
 		csrSetdata3m.setIsdelete("N");
 		int num = csrSetdata3mMapper.insertSetno(csrSetdata3m);
 		if(num<1) {
-			throw new RequestPeriodException(500, "½L¥]¥[¤J¥¢±Ñ");
+			throw new RequestPeriodException(500, "ç›¤åŒ…åŠ å…¥å¤±æ•—");
 		}
-		return ResultMsg.success("½L¥]¦¨¥\¥[¤J").addData("");
+		return ResultMsg.success("ç›¤åŒ…æˆåŠŸåŠ å…¥").addData("");
 		
 	}
 
@@ -74,7 +74,7 @@ public class SetnoServiceImpl implements SetnoService{
 	@Override
 	public ResultMsg listPosition() {
 		List<Map<String, Object>> position = csrSetdata3mMapper.listPosition();
-		return ResultMsg.success("Àx¦ì¬d¸ß").addData(position);
+		return ResultMsg.success("å„²ä½æŸ¥è©¢").addData(position);
 	}
 
 	
@@ -84,21 +84,21 @@ public class SetnoServiceImpl implements SetnoService{
 		String changeSetno = csrSetdata3m.getSetno();
 		String setno = csrSetdata3mMapper.getSetnoColumnById(id);
 		if((!changeSetno.equals(setno)) && count >=1) {					
-			return ResultMsg.fail(500,"½L¥]¤w¨Ï¥Î").addData("");			
+			return ResultMsg.fail(401,"ç›¤åŒ…å·²ä½¿ç”¨").addData("");			
 		}
 		csrSetdata3m.setId(id);
 		int num = csrSetdata3mMapper.updateSetno(csrSetdata3m);		
 		if(num<1) {
-			throw new RequestPeriodException(500, "½L¥]­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "ç›¤åŒ…ä¿®æ”¹å¤±æ•—");
 		}
-		return ResultMsg.success("½L¥]­×§ï¦¨¥\").addData("");
+		return ResultMsg.success("ç›¤åŒ…ä¿®æ”¹æˆåŠŸ").addData("");
 
 	}
 
 	
 	@Override
 	public ResultMsg getSetnoById(Integer id) {
-		return ResultMsg.success("½L¥]¬d¸ß").addData(csrSetdata3mMapper.getSetnoById(id));
+		return ResultMsg.success("ç›¤åŒ…æŸ¥è©¢").addData(csrSetdata3mMapper.getSetnoById(id));
 	}
 
 	
@@ -106,15 +106,14 @@ public class SetnoServiceImpl implements SetnoService{
 	public ResultMsg removeSetno(Integer id) throws RequestPeriodException {
 		int count = csrSetdata3mMapper.deleteSetno(id);
 		if(count< 1) {
-			throw new RequestPeriodException(500, "½L¥]§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "ç›¤åŒ…åˆªé™¤å¤±æ•—");
 		}		
-		return ResultMsg.success("±b¸¹§R°£¦¨¥\").addData("");
+		return ResultMsg.success("å¸³è™Ÿåˆªé™¤æˆåŠŸ").addData("");
 	}
-
 
 	@Override
 	public ResultMsg getSetnoByNo(String setno) {		 
-		return ResultMsg.success("½L¥]¬d¸ß").addData(csrSetdata3mMapper.getSetnoByNo(setno));
+		return ResultMsg.success("ç›¤åŒ…æŸ¥è©¢").addData(csrSetdata3mMapper.getSetnoByNo(setno));
 	}
 
 }

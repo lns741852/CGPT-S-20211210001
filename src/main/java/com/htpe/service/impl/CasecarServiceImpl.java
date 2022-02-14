@@ -35,7 +35,7 @@ public class CasecarServiceImpl implements CasecarService{
 	    PageHelper.startPage(pageNum, pageSize);
 		List<Map<String, Object>> casecarList = csrCasecarMapper.listCasecar(paramMap);
 	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(casecarList);    
-		return  ResultMsg.success("­Ó®×¨®¦Cªí").addData(pageInfo);
+		return  ResultMsg.success("å€‹æ¡ˆè»Šåˆ—è¡¨").addData(pageInfo);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class CasecarServiceImpl implements CasecarService{
 		
 		int num = csrCasecarMapper.insertCasecar(casecar);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "­Ó®×¨®·s¼W¥¢±Ñ");
+			throw new RequestPeriodException(500, "å€‹æ¡ˆè»Šæ–°å¢žå¤±æ•—");
 		}
 		
 		List<CsrCasecarSetdata> setnos = casecar.getCasecarSetdatas();
@@ -57,17 +57,17 @@ public class CasecarServiceImpl implements CasecarService{
 			for (CsrCasecarSetdata setno : setnos) {
 				int num2 =  csrCasecarMapper.insertCasecarSetno(casecar.getCasecarno(), setno.getSetnoId(), setno.getNum());
 				if(num2 < 1) {
-					throw new RequestPeriodException(500, "­Ó®×¨®¼W¥¢±Ñ");
+					throw new RequestPeriodException(500, "å€‹æ¡ˆè»Šæ–°å¢žå¤±æ•—");
 				}
 			}
 		}
 		
-		return ResultMsg.success("­Ó®×¨®·s¼W¦¨¥\").addData("");
+		return ResultMsg.success("å€‹æ¡ˆè»Šæ–°å¢žæˆåŠŸ").addData("");
 	}
 
 	@Override
 	public ResultMsg getCasecarByid(Integer id) {		
-		return ResultMsg.success("­Ó®×¨®").addData(csrCasecarMapper.getCasecarById(id));
+		return ResultMsg.success("å€‹æ¡ˆè»Š").addData(csrCasecarMapper.getCasecarById(id));
 	}
 
 	@Override
@@ -80,12 +80,12 @@ public class CasecarServiceImpl implements CasecarService{
 		
 		int num = csrCasecarMapper.updateCasecar(casecar);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "­Ó®×¨®­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "å€‹æ¡ˆè»Šä¿®æ”¹å¤±æ•—");
 		}
 
 //		int num3 = csrCasecarMapper.deleteCasecarSetnoByNo(casecar.getCasecarno());
 //		if(num3 < 1) {
-//			throw new RequestPeriodException(500, "­Ó®×¨®­×§ï¥¢±Ñ");
+//			throw new RequestPeriodException(500, "ï¿½Ó®×¨ï¿½ï¿½×§ï¥¢ï¿½ï¿½");
 //		}
 		
 		List<CsrCasecarSetdata> setnos = casecar.getCasecarSetdatas();
@@ -93,25 +93,25 @@ public class CasecarServiceImpl implements CasecarService{
 			for (CsrCasecarSetdata setno : setnos) {
 				int num2 =  csrCasecarMapper.insertCasecarSetno(casecar.getCasecarno(), setno.getSetnoId(), setno.getNum());
 				if(num2 < 1) {
-					throw new RequestPeriodException(500, "­Ó®×­×§ï¥¢±Ñ");
+					throw new RequestPeriodException(500, "å€‹æ¡ˆè»Šä¿®æ”¹å¤±æ•—");
 				}
 			}
 		}
 		
-		return ResultMsg.success("­Ó®×­×§ï¼W¦¨¥\").addData("");
+		return ResultMsg.success("å€‹æ¡ˆè»Šä¿®æ”¹æˆåŠŸ").addData("");
 	}
 
 	@Override
 	public ResultMsg removeCasecar(String no) throws RequestPeriodException {
 		int count = csrCasecarMapper.deleteCasecarByNo(no);
 		if(count < 1) {
-			throw new RequestPeriodException(500, "­Ó®×¨®§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "å€‹æ¡ˆè»Šåˆªé™¤å¤±æ•—");
 		}
 		int num2 = csrCasecarMapper.deleteCasecarSetnoByNo(no);
 		if(num2 < 1) {
-			throw new RequestPeriodException(500, "­Ó®×¨®§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "å€‹æ¡ˆè»Šåˆªé™¤å¤±æ•—");
 		}
-		return ResultMsg.success("­Ó®×¨®§R°£¦¨¥\").addData("");
+		return ResultMsg.success("å€‹æ¡ˆè»Šåˆªé™¤æˆåŠŸ").addData("");
 	}
 
 }

@@ -14,7 +14,7 @@ import com.htpe.utils.JsonAuthenticationUtils;
 import com.htpe.utils.ResultMsg;
 
 /**
- * µLÅv­­ªğ¦^JSON
+ * ç„¡æ¬Šé™è¿”å›JSON
  */
 @Component("MyAuthenticationEntryPoint")
 public class MyAuthenticationEntryPoint extends JsonAuthenticationUtils implements AuthenticationEntryPoint{
@@ -23,7 +23,7 @@ public class MyAuthenticationEntryPoint extends JsonAuthenticationUtils implemen
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		this.WriteJSON(request, response, ResultMsg.fail(403,"¨S¦³Åv­­").addData(""));
+		this.WriteJSON(request, response, ResultMsg.fail(403,"æ²’æœ‰æ¬Šé™").addData(""));
 		
 	}
 

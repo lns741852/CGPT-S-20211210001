@@ -24,7 +24,7 @@ public class SetnoController {
 	SetnoService setnoService;
 	
 	/**
-	 * ½L¥]¬d¸ß
+	 * ç›¤åŒ…åˆ—è¡¨æŸ¥è©¢
 	 */
 	@GetMapping("/setno")
 	public ResultMsg  listSetno(
@@ -35,7 +35,7 @@ public class SetnoController {
 	}
 	
 	/**
-	 * ®ø¬rÁç¬d¸ß
+	 * æ¶ˆæ¯’é‹åˆ—è¡¨æŸ¥è©¢
 	 */
 	@GetMapping("/setno/potdata")
 	public ResultMsg listPotData(){			
@@ -43,7 +43,7 @@ public class SetnoController {
 	}
 	
 	/**
-	 * ¥]¸Ë¤è¦¡¤Î¤Ñ¼Æ¬d¸ß
+	 * æ¶ˆæ¯’é‹æŸ¥è©¢
 	 */
 	@GetMapping("/setno/potdata/{potdata}")
 	public ResultMsg getProcess(@PathVariable String potdata){			
@@ -51,7 +51,7 @@ public class SetnoController {
 	}
 	
 	/**
-	 * ®ø¬rÁç¬d¸ß
+	 * å„²ä½
 	 */
 	@GetMapping("/setno/position")
 	public ResultMsg listPosition(){			
@@ -59,7 +59,7 @@ public class SetnoController {
 	}
 		
 	/**
-	 * ·s¼W½L¥]
+	 * ç›¤åŒ…æ–°å¢
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/setno")		
@@ -68,7 +68,7 @@ public class SetnoController {
 	}
 	
 	/**
-	 * ½s¿è½L¥]¬d¸ß
+	 * ç›¤åŒ…å–®ä¸€æŸ¥è©¢
 	 */
 	@GetMapping("/setno/{id}")
 	public ResultMsg getSetno(@PathVariable Integer id){			
@@ -77,7 +77,7 @@ public class SetnoController {
 	
 	
 	/**
-	 * ­×§ï½L¥]
+	 * ç›¤åŒ…ä¿®æ”¹
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/setno/{id}")		
@@ -88,7 +88,7 @@ public class SetnoController {
 	
 	
 	/**
-	 * §R°£½L¥]
+	 * ç›¤åŒ…åˆªé™¤
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/setno/{id}")

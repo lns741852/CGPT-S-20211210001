@@ -42,14 +42,14 @@ public class AccountServiceImpl  implements AccountService{
 	    PageHelper.startPage(pageNum, pageSize);
 		List<Map<String, Object>> accountList = csrAccountMapper.listAccount(paramMap);
 	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(accountList);    
-		return  ResultMsg.success("±b¸¹¦Cªí").addData(pageInfo);
+		return  ResultMsg.success("å¸³è™Ÿåˆ—è¡¨").addData(pageInfo);
 	}
 
 	
 	@Override
 	public ResultMsg listDepno() {
 		int count = csrAccountMapper.countDepno();		
-		return  ResultMsg.success("­û¤u³¡ªù").addData(csrAccountMapper.listDepno(count));
+		return  ResultMsg.success("å“¡å·¥éƒ¨é–€").addData(csrAccountMapper.listDepno(count));
 	}
 
 	
@@ -57,32 +57,32 @@ public class AccountServiceImpl  implements AccountService{
 	public ResultMsg saveAccount(CsrAccount csrAccount,String oneIds, String twoIds) throws RequestPeriodException {
 		int count = csrAccountMapper.countUserno(csrAccount.getUserno());
 		if(count >= 1) {	
-			return ResultMsg.fail(500,"±b¸¹¤w¨Ï¥Î").addData("");			
+			return ResultMsg.fail(500,"å¸³è™Ÿå·²ä½¿ç”¨").addData("");			
 		}
 		Date date = new Date();		
 		csrAccount.setCreatetime(date);
 		csrAccount.setIscancel("N");
 		int num = csrAccountMapper.insertAccount(csrAccount);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "±b·s¼W§ï¥¢±Ñ");
+			throw new RequestPeriodException(401, "å¸³æ–°å¢žæ”¹å¤±æ•—");
 		}
 		
 		String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
-		String[] authIds = authId.replaceAll("(.,)\\1+","$1").split("\\,");  //¥h°£­«½Æ­È
+		String[] authIds = authId.replaceAll("(.,)\\1+","$1").split("\\,");  //åŽ»é™¤é‡è¤‡å€¼
 		for (String authorityId : authIds) {
 			int num2 =  csrAccountMapper.insertAccountAuth(csrAccount.getId(),authorityId);
 			if(num2 < 1) {
-				throw new RequestPeriodException(500, "±b·s¼W¥¢±Ñ");
+				throw new RequestPeriodException(401, "å¸³æ–°å¢žå¤±æ•—");
 			}
 		}
-		return ResultMsg.success("±b¸¹·s¼W¦¨¥\").addData("");
+		return ResultMsg.success("å¸³è™Ÿæ–°å¢žæˆåŠŸ").addData("");
 
 	}
 
 	
 	@Override
 	public ResultMsg getAccountById(Integer id) {		
-		return ResultMsg.success("­û¤u¬d¸ß").addData(csrAccountMapper.getAccountById(id));
+		return ResultMsg.success("å“¡å·¥æŸ¥è©¢").addData(csrAccountMapper.getAccountById(id));
 	}
 
 	
@@ -92,27 +92,27 @@ public class AccountServiceImpl  implements AccountService{
 		String changeEmpno = csrAccount.getUserno();
 		String empno = csrAccountMapper.getUserNoById(csrAccount.getId());
 		if((!changeEmpno.equals(empno)) && count >=1) {					
-			return ResultMsg.fail(500,"±b¸¹¤w¨Ï¥Î").addData("");			
+			return ResultMsg.fail(500,"å¸³è™Ÿå·²ä½¿ç”¨").addData("");			
 		}
 		int num = csrAccountMapper.updateAccount(csrAccount);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "±b¸¹­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "å¸³è™Ÿä¿®æ”¹å¤±æ•—");
 		}
 		
 		int num2 = csrAccountMapper.deleteAuth(csrAccount.getId());
 		if(num2 < 1) {
-			throw new RequestPeriodException(500, "±b¸¹­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "å¸³è™Ÿä¿®æ”¹å¤±æ•—");
 		}
 		
 		String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
-		String[] authIds = authId.replaceAll("(.,)\\1+","$1").split("\\,");  //¥h°£­«½Æ­È
+		String[] authIds = authId.replaceAll("(.,)\\1+","$1").split("\\,");  //åŽ»é™¤é‡è¤‡å€¼
 		for (String authorityId : authIds) {
 			int num3 =  csrAccountMapper.insertAccountAuth(csrAccount.getId(),authorityId);
 			if(num3 < 1) {
-				throw new RequestPeriodException(500, "±b¸¹­×§ï¥¢±Ñ");
+				throw new RequestPeriodException(401, "å¸³è™Ÿä¿®æ”¹å¤±æ•—");
 			}
 		}		
-		return ResultMsg.success("±b¸¹­×§ï¦¨¥\").addData("");
+		return ResultMsg.success("å¸³è™Ÿä¿®æ”¹æˆåŠŸ").addData("");
 	}
 
 	
@@ -120,19 +120,19 @@ public class AccountServiceImpl  implements AccountService{
 	public ResultMsg removeAccount(Integer id) throws RequestPeriodException {
 		int count = csrAccountMapper.deleteAccount(id);
 		if(count < 1) {
-			throw new RequestPeriodException(500, "±b¸¹§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "å¸³è™Ÿåˆªé™¤å¤±æ•—");
 		}
 		int num2 = csrAccountMapper.deleteAuth(id);
 		if(num2 < 1) {
-			throw new RequestPeriodException(500, "±b¸¹­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "å¸³è™Ÿä¿®æ”¹å¤±æ•—");
 		}
-		return ResultMsg.success("±b¸¹§R°£¦¨¥\").addData("");
+		return ResultMsg.success("å¸³è™Ÿåˆªé™¤æˆåŠŸ").addData("");
 	}
 
 
 	@Override
 	public ResultMsg listAuth() {
-		return ResultMsg.success("©Ò¦³Åv­­").addData(csrMenuMapper.listAuth());
+		return ResultMsg.success("æ‰€æœ‰æ¬Šé™").addData(csrMenuMapper.listAuth());
 	}
 
 

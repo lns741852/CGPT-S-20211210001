@@ -17,7 +17,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 
 /**
- * Mybatis°t¸m for oldDB
+ * Mybatisé…ç½® for oldDB
  */
 @Configuration
 @MapperScan(basePackages = { "com.htpe.mapper.old" }, sqlSessionFactoryRef = "sqlSessionFactory1")
@@ -31,7 +31,7 @@ public class MybatisOldDBConfig {
 	@Bean
 	public SqlSessionFactory sqlSessionFactory1() throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-		factoryBean.setDataSource(ds1); // ¨Ï¥Îold¸ê®Æ¨Ó·½, ³s½uold®w
+		factoryBean.setDataSource(ds1); // ä½¿ç”¨oldè³‡æ–™ä¾†æº, é€£ç·šoldåº«
 		factoryBean.setTypeAliasesPackage("com.htpe.bean");
 		factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/old/*.xml"));
 		return factoryBean.getObject();
@@ -41,7 +41,7 @@ public class MybatisOldDBConfig {
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate1() throws Exception {
 		SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory1());
-		// ¨Ï¥Î¤W­±°t¸mªºFactory
+		// ä½¿ç”¨ä¸Šé¢é…ç½®çš„Factory
 		return template;
 	}
 }

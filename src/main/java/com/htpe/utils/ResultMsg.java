@@ -1,7 +1,7 @@
 package com.htpe.utils;
 
 /**
- * ªğ¦^JSON«eºİ¤½¥ÎÃş
+ * è¿”å›JSONå‰ç«¯å…¬ç”¨é¡
  *
  */
 public class ResultMsg {
@@ -33,7 +33,7 @@ public class ResultMsg {
 	}
 	
 	
-	//¨Ï¥Î¤èªk±Nmap¶Ç¤J
+	//ä½¿ç”¨æ–¹æ³•å°‡mapå‚³å…¥
 	
 	public ResultMsg addData(Object data){
 		this.data =data;

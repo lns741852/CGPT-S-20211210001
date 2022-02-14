@@ -36,7 +36,7 @@ public class UDIServiceImpl  implements UDIService{
 	    PageHelper.startPage(pageNum, pageSize);
 		List<Map<String, Object>> listUDI = csrUdiMapper.listUDI(paramMap);
 	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(listUDI);    
-		return  ResultMsg.success("³æ¤@½L¥]¦Cªí").addData(pageInfo);
+		return  ResultMsg.success("å–®ä¸€ç›¤åŒ…åˆ—è¡¨").addData(pageInfo);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class UDIServiceImpl  implements UDIService{
 		
 		int count = csrUdiMapper.countCode(csrUdi.getCode());
 		if(count >= 1) {	
-			return ResultMsg.fail(403,"¾¹±ñ¤w¨Ï¥Î").addData("");			
+			return ResultMsg.fail(403,"å™¨æ¢°å·²ä½¿ç”¨").addData("");			
 		}
 		
 		Map<String,MultipartFile> mapFiles = new HashMap<String,MultipartFile>();
@@ -66,7 +66,7 @@ public class UDIServiceImpl  implements UDIService{
 		for(Map.Entry<String, MultipartFile> file : mapFiles.entrySet()) {
 			try {
 				String filename = file.getValue().getOriginalFilename();
-				String iconpath = date.getTime()+"_"+filename;		//ÀÉ¦W
+				String iconpath = date.getTime()+"_"+filename;		//æª”å
 		
 				String filePath = System.getProperty("user.dir");
 				String realPath = filePath+"\\src\\main\\resources\\static\\file\\";
@@ -95,19 +95,19 @@ public class UDIServiceImpl  implements UDIService{
 
 				}					
 			}catch (Exception e) {
-				throw new RequestPeriodException(500, "ÀÉ®×²K¥[¥¢±Ñ");
+				throw new RequestPeriodException(500, "æª”æ¡ˆæ·»åŠ å¤±æ•—");
 			}			
 		}	
 		int num = csrUdiMapper.insertUDI(csrUdi);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "¾¹±ñ²K¥[¥¢±Ñ");
+			throw new RequestPeriodException(500, "å™¨æ¢°æ·»åŠ å¤±æ•—");
 		}
-		return ResultMsg.success("¾¹±ñ·s¼W¦¨¥\").addData("");
+		return ResultMsg.success("å™¨æ¢°æ–°å¢æˆåŠŸ").addData("");
 	}
 
 	@Override
 	public ResultMsg getUDIById(Integer id) {		
-		return ResultMsg.success("¾¹±ñ¬d¸ß").addData(csrUdiMapper.getUDIById(id));
+		return ResultMsg.success("å™¨æ¢°æŸ¥è©¢").addData(csrUdiMapper.getUDIById(id));
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class UDIServiceImpl  implements UDIService{
 		String changeCode = csrUdi.getCode();
 		String code = csrUdiMapper.getCodeById(id);
 		if((!changeCode.equals(code)) && count >=1) {					
-			return ResultMsg.fail(500,"±b¸¹¤w¨Ï¥Î").addData("");			
+			return ResultMsg.fail(500,"å¸³è™Ÿå·²ä½¿ç”¨").addData("");			
 		}
 		
 		Map<String,MultipartFile> mapFiles = new HashMap<String,MultipartFile>();
@@ -138,7 +138,7 @@ public class UDIServiceImpl  implements UDIService{
 		for(Map.Entry<String, MultipartFile> file : mapFiles.entrySet()) {
 			try {
 				String filename = file.getValue().getOriginalFilename();
-				String iconpath = date.getTime()+"_"+filename;		//ÀÉ¦W
+				String iconpath = date.getTime()+"_"+filename;		//æª”å
 		
 				String filePath = System.getProperty("user.dir");
 				String realPath = filePath+"\\src\\main\\resources\\static\\file\\";
@@ -167,14 +167,14 @@ public class UDIServiceImpl  implements UDIService{
 
 				}					
 			}catch (Exception e) {
-				throw new RequestPeriodException(500, "ÀÉ®×²K¥[¥¢±Ñ");
+				throw new RequestPeriodException(500, "æª”æ¡ˆæ·»åŠ å¤±æ•—");
 			}			
 		}	
 		int num = csrUdiMapper.updateUDI(csrUdi);
 		if(num< 1) {
-			throw new RequestPeriodException(500, "¾¹±ñ­×§ï¥¢±Ñ");
+			throw new RequestPeriodException(500, "å™¨æ¢°ä¿®æ”¹å¤±æ•—");
 		}
-		return ResultMsg.success("¾¹±ñ­×§ï¦¨¥\").addData("");
+		return ResultMsg.success("å™¨æ¢°ä¿®æ”¹æˆåŠŸ").addData("");
 	}
 
 	@Override
@@ -191,7 +191,7 @@ public class UDIServiceImpl  implements UDIService{
 					
 		int num = csrUdiMapper.deleteFile(udi);
 		if(num < 1) {
-			throw new RequestPeriodException(500, "ÀÉ®×§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "æª”æ¡ˆåˆªé™¤å¤±æ•—");
 		}		
 			
 		String filePath = System.getProperty("user.dir");
@@ -199,19 +199,19 @@ public class UDIServiceImpl  implements UDIService{
 		String path =realPath +filename;
 		File file = new File(path);
 		if(!file.delete()) {
-			throw new RequestPeriodException(500, "ÀÉ®×§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "æª”æ¡ˆåˆªé™¤å¤±æ•—");
 		}
 		
-		return ResultMsg.success("ÀÉ®×§R°£¦¨¥\¦¨¥\").addData("");
+		return ResultMsg.success("æª”æ¡ˆåˆªé™¤æˆåŠŸæˆåŠŸ").addData("");
 	}
 
 	@Override
 	public ResultMsg removeUDI(Integer id) throws RequestPeriodException {
 		int count = csrUdiMapper.deleteUDI(id);
 		if(count < 1) {
-			throw new RequestPeriodException(500, "¾¹±ñ§R°£¥¢±Ñ");
+			throw new RequestPeriodException(500, "å™¨æ¢°åˆªé™¤å¤±æ•—");
 		}
-		return ResultMsg.success("¾¹±ñ§R°£¦¨¥\").addData("");
+		return ResultMsg.success("å™¨æ¢°åˆªé™¤æˆåŠŸ").addData("");
 	}
 
 }

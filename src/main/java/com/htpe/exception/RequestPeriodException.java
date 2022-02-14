@@ -3,7 +3,7 @@ package com.htpe.exception;
 public class RequestPeriodException extends Exception{
 	
 	/**
-	 * 
+	 * 運行期間異常
 	 */
 	private static final long serialVersionUID = 1L;
 

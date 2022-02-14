@@ -19,7 +19,7 @@ import com.htpe.filter.JwtAuthenticationFilter;
 
 
 /**
- * Security°t¸mÃş
+ * Securityé…ç½®é¡
  *
  */
 @Configuration
@@ -41,8 +41,8 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MyAccessDeniedHandler myAccessDeniedHandler;
     
-    @Autowired
-    MyLogoutHandler myLogoutHandler;
+//    @Autowired
+//    MyLogoutHandler myLogoutHandler;
     
     @Autowired
     MyLogoutSuccessHandler myLogoutSuccessHandler;
@@ -54,7 +54,7 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
     MyExpiredSessionStrategy myExpiredSessionStrategy;
     
     
-    @Bean														//Security¤¤¥[±K¥Î
+    @Bean														//Securityä¸­åŠ å¯†ç”¨
     PasswordEncoder passowrd(){
         return new BCryptPasswordEncoder();
     }
@@ -74,7 +74,7 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      *
-     * ¦¹¤èªk·|Â¶¹Lspring scurity»{ÃÒ
+     * æ­¤æ–¹æ³•æœƒç¹éspring scurityèªè­‰
      */
     @Override
     public void configure(WebSecurity web) {
@@ -95,18 +95,18 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
     		 
 		http.cors()
 		.and()
-		 	.csrf().disable()		//Ãö³¬CSRF«OÅ@
+		 	.csrf().disable()		//é—œé–‰CSRFä¿è­·
 		 	.formLogin()
-		 	.successHandler(myAuthenticationSuccessHandler)		//µn¤J¦¨¥\³B²z
-			.failureHandler(myAuthenticationFailureHandler)		//µn¤J¥¢±Ñ³B²z	
+		 	.successHandler(myAuthenticationSuccessHandler)		//ç™»å…¥æˆåŠŸè™•ç†
+			.failureHandler(myAuthenticationFailureHandler)		//ç™»å…¥å¤±æ•—è™•ç†	
 			
 		.and()
 			.logout()
 			.logoutSuccessHandler(myLogoutSuccessHandler)
 			
 		.and().exceptionHandling()
-	 		.authenticationEntryPoint(myAuthenticationEntryPoint)		//µLÅv­­³B²z
-		 	.accessDeniedHandler(myAccessDeniedHandler)				//Åv­­¤£¨¬³B²z
+	 		.authenticationEntryPoint(myAuthenticationEntryPoint)		//ç„¡æ¬Šé™è™•ç†
+		 	.accessDeniedHandler(myAccessDeniedHandler)				//æ¬Šé™ä¸è¶³è™•ç†
 			
 		.and()
 			.sessionManagement()

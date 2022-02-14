@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * jsr303¦@¥Î°t¸m
+ * jsr303å…±ç”¨é…ç½®
  *
  */
 @Slf4j
@@ -36,10 +36,10 @@ public class GlobalExceptionControllerAdvice {
         );
         
         for(String msg : errorMap.values()) {
-        	return ResultMsg.fail(400, msg).addData("");		//¦Û©w¸qÃş
+        	return ResultMsg.fail(401, msg).addData("");		//è‡ªå®šç¾©é¡
         }
 
-        return ResultMsg.fail(500, "GlobalExceptionControllerAdviceµ{¦¡²§±`").addData("");
+        return ResultMsg.fail(500, "GlobalExceptionControllerAdviceç¨‹å¼ç•°å¸¸").addData("");
     }
 
 }
