@@ -1,12 +1,19 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class CsrSurgical {
     private Integer id;
 
+    @NotEmpty(message = "手術代號不能為空")
+    @Size(min = 6, max = 6,message = "手術代號長度為6")
     private String surgicalno;
 
+    @NotEmpty(message = "手術名稱代號不能為空")
     private String surgicalname;
 
     private String surgicalnamech;
@@ -24,8 +31,19 @@ public class CsrSurgical {
     private String modusername;
 
     private Date moddate;
+    
+    @NotEmpty(message = "個案車代號不能為空")
+    private List<CsrSurgicalCasecar> csrSurgicalCasecar;  
 
-    public Integer getId() {
+    public List<CsrSurgicalCasecar> getCsrSurgicalCasecar() {
+		return csrSurgicalCasecar;
+	}
+
+	public void setCsrSurgicalCasecar(List<CsrSurgicalCasecar> csrSurgicalCasecar) {
+		this.csrSurgicalCasecar = csrSurgicalCasecar;
+	}
+
+	public Integer getId() {
         return id;
     }
 

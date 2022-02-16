@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrSurgicalMapper">
+  <resultMap id="surgical_casecar" type="CsrSurgical">
+    <id column="xid" property="id" />
+    <result column="xno"  property="surgicalno" />
+    <collection property="csrSurgicalCasecar" ofType="CsrSurgicalCasecar">
+        <id column="aid" property="id" />
+        <result column="ano" property="casecarno"/>           
+    </collection>   
+  </resultMap>
+  
+     <select id="getSurgicalById" parameterType="Integer" resultMap="surgical_casecar">
+  		select X.ID xid, X.SURGICALNO xno, X.SURGICALNAMECH xcname, A.ID aid, A.SURGICALNO ano 
+		from CSR_SURGICAL AS X 
+		left join CSR_SURGICAL_CASECAR as A on X.SURGICALNO=A.SURGICALNO
+		where X.ID=#{id}
+  	</select>
+  
+    <insert id="insertSurgical" parameterType="CsrSurgical">
+    insert into CSR_SURGICAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="surgicalno != null">
+        SURGICALNO,
+      </if>
+      <if test="surgicalname != null">
+        SURGICALNAME,
+      </if>
+      <if test="surgicalnamech != null">
+        SURGICALNAMECH,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="surgicalno != null">
+        #{surgicalno},
+      </if>
+      <if test="surgicalname != null">
+        #{surgicalname},
+      </if>
+      <if test="surgicalnamech != null">
+        #{surgicalnamech},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno},
+      </if>
+      <if test="datausername != null">
+        #{datausername},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+   <update id="updateSurgical" parameterType="CsrSurgical">
+    update CSR_SURGICAL
+    <set>
+      <if test="surgicalno != null">
+        SURGICALNO = #{surgicalno},
+      </if>
+      <if test="surgicalname != null">
+        SURGICALNAME = #{surgicalname},
+      </if>
+      <if test="surgicalnamech != null">
+        SURGICALNAMECH = #{surgicalnamech},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  
+  
+ <!--  <sql id="Base_Column_List">
+    ID, SURGICALNO, SURGICALNAME, SURGICALNAMECH, ISDELETE, DATAUSERNO, DATAUSERNAME, 
+    DATADATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from JAY.CSR_SURGICAL
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_SURGICAL
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.htpe.bean.CsrSurgical">
+    insert into JAY.CSR_SURGICAL (ID, SURGICALNO, SURGICALNAME, 
+      SURGICALNAMECH, ISDELETE, DATAUSERNO, 
+      DATAUSERNAME, DATADATE)
+    values (#{id,jdbcType=INTEGER}, #{surgicalno}, #{surgicalname}, 
+      #{surgicalnamech}, #{isdelete}, #{datauserno}, 
+      #{datausername}, #{datadate})
+  </insert>
+
+ 
+  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrSurgical">
+    update JAY.CSR_SURGICAL
+    set SURGICALNO = #{surgicalno},
+      SURGICALNAME = #{surgicalname},
+      SURGICALNAMECH = #{surgicalnamech},
+      ISDELETE = #{isdelete},
+      DATAUSERNO = #{datauserno},
+      DATAUSERNAME = #{datausername},
+      DATADATE = #{datadate}
+    where ID = #{id,jdbcType=INTEGER}
+  </update> -->
+</mapper>

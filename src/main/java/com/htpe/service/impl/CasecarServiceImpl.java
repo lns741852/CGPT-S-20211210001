@@ -71,7 +71,7 @@ public class CasecarServiceImpl implements CasecarService{
 	}
 
 	@Override
-	public ResultMsg updateCasecar(CsrCasecar casecar, HttpServletRequest request, Integer id) throws RequestPeriodException {
+	public ResultMsg updateCasecar(CsrCasecar casecar, HttpServletRequest request) throws RequestPeriodException {
 		Date date = new Date();	
 		casecar.setDatadate(date);
 		casecar.setDatauserno((String)JwtUtils.validateTokenAndGetClaims(request).get("userid"));
@@ -83,10 +83,10 @@ public class CasecarServiceImpl implements CasecarService{
 			throw new RequestPeriodException(500, "個案車修改失敗");
 		}
 
-//		int num3 = csrCasecarMapper.deleteCasecarSetnoByNo(casecar.getCasecarno());
-//		if(num3 < 1) {
-//			throw new RequestPeriodException(500, "�Ӯר��ק異��");
-//		}
+		int num3 = csrCasecarMapper.deleteCasecarSetnoByNo(casecar.getCasecarno());
+		if(num3 < 1) {
+			throw new RequestPeriodException(500, "個案車修改失敗");
+		}
 		
 		List<CsrCasecarSetdata> setnos = casecar.getCasecarSetdatas();
 		if(setnos != null) {

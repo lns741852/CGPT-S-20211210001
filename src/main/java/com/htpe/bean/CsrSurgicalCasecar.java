@@ -6,8 +6,19 @@ public class CsrSurgicalCasecar {
     private String surgicalno;
 
     private String casecarno;
+    
+    private CsrCasecar casecar;
+    
 
-    public Integer getId() {
+	public CsrCasecar getCasecar() {
+		return casecar;
+	}
+
+	public void setCasecar(CsrCasecar casecar) {
+		this.casecar = casecar;
+	}
+
+	public Integer getId() {
         return id;
     }
 

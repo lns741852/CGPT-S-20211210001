@@ -1,17 +1,36 @@
 package com.htpe.mapper.nnew;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+
 import com.htpe.bean.CsrSurgical;
 
 public interface CsrSurgicalMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+	@Select("select ID,SURGICALNO from CSR_SURGICAL")
+	List<Map<String, Object>> listSurgical(Map<String, Object> paramMap);
 
-    int insert(CsrSurgical record);
+	@Select("select CASECARNO from CSR_CASECAR where CASECARNO =#{casecarNo}")
+	List<String> getCasecarByNo(String casecarNo);
 
-    int insertSelective(CsrSurgical record);
+	int insertSurgical(CsrSurgical csrSurgical);
 
-    CsrSurgical selectByPrimaryKey(Integer id);
+	@Insert("insert into CSR_SURGICAL_CASECAR(SURGICALNO,CASECARNO)"
+			+ " values(#{surgicalno}, #{casecarno})")
+	int insertSurgicalCasecar(String surgicalno, String casecarno);
 
-    int updateByPrimaryKeySelective(CsrSurgical record);
+	List<Map<String, Object>> getSurgicalById(Integer id);
 
-    int updateByPrimaryKey(CsrSurgical record);
+	int updateSurgical(CsrSurgical csrSurgical);
+
+	@Delete("delete from CSR_SURGICAL_CASECAR where SURGICALNO=#{surgicalno}")
+	int deleteSurgicalCasecarByNo(String surgicalno);
+
+	@Delete("delete from CSR_SURGICAL where SURGICALNO=#{no}")
+	int deleteSurgical(String no);
+	
 }

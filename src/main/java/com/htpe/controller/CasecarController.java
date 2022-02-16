@@ -1,7 +1,5 @@
 package com.htpe.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +48,7 @@ public class CasecarController {
 	 * 編輯個案車查詢
 	 */
 	@GetMapping("/casecar/{id}")
-	public ResultMsg getUDIById(@PathVariable Integer id){			
+	public ResultMsg getCasecerById(@PathVariable Integer id){			
 		return casecarService.getCasecarByid(id);
 	}
 	
@@ -62,7 +60,7 @@ public class CasecarController {
 	public ResultMsg updateCasecar(@RequestBody CsrCasecar csrCasecar,HttpServletRequest request,
 			@PathVariable Integer id) throws RequestPeriodException{
 		csrCasecar.setCasecarId(id);
-		return casecarService.updateCasecar(csrCasecar,request,id);
+		return casecarService.updateCasecar(csrCasecar,request);
 	}
 	
 	

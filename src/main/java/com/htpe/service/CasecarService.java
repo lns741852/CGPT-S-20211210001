@@ -15,7 +15,7 @@ public interface CasecarService {
 
 	ResultMsg getCasecarByid(Integer id);
 
-	ResultMsg updateCasecar(CsrCasecar csrCasecar, HttpServletRequest request, Integer id) throws RequestPeriodException;
+	ResultMsg updateCasecar(CsrCasecar csrCasecar, HttpServletRequest request) throws RequestPeriodException;
 
 	ResultMsg removeCasecar(String no) throws RequestPeriodException;
 
