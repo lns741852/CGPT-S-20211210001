@@ -93,41 +93,4 @@
     </set>
     where ID = #{id}
   </update>
-  
-  
- <!--  <sql id="Base_Column_List">
-    ID, SURGICALNO, SURGICALNAME, SURGICALNAMECH, ISDELETE, DATAUSERNO, DATAUSERNAME, 
-    DATADATE
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from JAY.CSR_SURGICAL
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from JAY.CSR_SURGICAL
-    where ID = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.htpe.bean.CsrSurgical">
-    insert into JAY.CSR_SURGICAL (ID, SURGICALNO, SURGICALNAME, 
-      SURGICALNAMECH, ISDELETE, DATAUSERNO, 
-      DATAUSERNAME, DATADATE)
-    values (#{id,jdbcType=INTEGER}, #{surgicalno}, #{surgicalname}, 
-      #{surgicalnamech}, #{isdelete}, #{datauserno}, 
-      #{datausername}, #{datadate})
-  </insert>
-
- 
-  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrSurgical">
-    update JAY.CSR_SURGICAL
-    set SURGICALNO = #{surgicalno},
-      SURGICALNAME = #{surgicalname},
-      SURGICALNAMECH = #{surgicalnamech},
-      ISDELETE = #{isdelete},
-      DATAUSERNO = #{datauserno},
-      DATAUSERNAME = #{datausername},
-      DATADATE = #{datadate}
-    where ID = #{id,jdbcType=INTEGER}
-  </update> -->
 </mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.CsrRoomMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrRoom">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DEPNO" jdbcType="CHAR" property="depno" />
+    <result column="ROOMNO" jdbcType="CHAR" property="roomno" />
+    <result column="ROOMNAME" jdbcType="CHAR" property="roomname" />
+    <result column="BEDNO" jdbcType="CHAR" property="bedno" />
+    <result column="ISDELETE" jdbcType="CHAR" property="isdelete" />
+    <result column="DATAUSERNO" jdbcType="CHAR" property="datauserno" />
+    <result column="DATAUSERNAME" jdbcType="CHAR" property="datausername" />
+    <result column="DATADATE" jdbcType="TIMESTAMP" property="datadate" />
+    <result column="SN" jdbcType="INTEGER" property="sn" />
+    <result column="ISALLOCATE" jdbcType="CHAR" property="isallocate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DEPNO, ROOMNO, ROOMNAME, BEDNO, ISDELETE, DATAUSERNO, DATAUSERNAME, DATADATE, 
+    SN, ISALLOCATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from JAY.CSR_ROOM
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_ROOM
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.htpe.bean.CsrRoom">
+    insert into JAY.CSR_ROOM (ID, DEPNO, ROOMNO, 
+      ROOMNAME, BEDNO, ISDELETE, DATAUSERNO, 
+      DATAUSERNAME, DATADATE, SN, 
+      ISALLOCATE)
+    values (#{id,jdbcType=INTEGER}, #{depno,jdbcType=CHAR}, #{roomno,jdbcType=CHAR}, 
+      #{roomname,jdbcType=CHAR}, #{bedno,jdbcType=CHAR}, #{isdelete,jdbcType=CHAR}, #{datauserno,jdbcType=CHAR}, 
+      #{datausername,jdbcType=CHAR}, #{datadate,jdbcType=TIMESTAMP}, #{sn,jdbcType=INTEGER}, 
+      #{isallocate,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htpe.bean.CsrRoom">
+    insert into JAY.CSR_ROOM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="depno != null">
+        DEPNO,
+      </if>
+      <if test="roomno != null">
+        ROOMNO,
+      </if>
+      <if test="roomname != null">
+        ROOMNAME,
+      </if>
+      <if test="bedno != null">
+        BEDNO,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+      <if test="sn != null">
+        SN,
+      </if>
+      <if test="isallocate != null">
+        ISALLOCATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="depno != null">
+        #{depno,jdbcType=CHAR},
+      </if>
+      <if test="roomno != null">
+        #{roomno,jdbcType=CHAR},
+      </if>
+      <if test="roomname != null">
+        #{roomname,jdbcType=CHAR},
+      </if>
+      <if test="bedno != null">
+        #{bedno,jdbcType=CHAR},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=CHAR},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno,jdbcType=CHAR},
+      </if>
+      <if test="datausername != null">
+        #{datausername,jdbcType=CHAR},
+      </if>
+      <if test="datadate != null">
+        #{datadate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="isallocate != null">
+        #{isallocate,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrRoom">
+    update JAY.CSR_ROOM
+    <set>
+      <if test="depno != null">
+        DEPNO = #{depno,jdbcType=CHAR},
+      </if>
+      <if test="roomno != null">
+        ROOMNO = #{roomno,jdbcType=CHAR},
+      </if>
+      <if test="roomname != null">
+        ROOMNAME = #{roomname,jdbcType=CHAR},
+      </if>
+      <if test="bedno != null">
+        BEDNO = #{bedno,jdbcType=CHAR},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete,jdbcType=CHAR},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno,jdbcType=CHAR},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername,jdbcType=CHAR},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null">
+        SN = #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="isallocate != null">
+        ISALLOCATE = #{isallocate,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrRoom">
+    update JAY.CSR_ROOM
+    set DEPNO = #{depno,jdbcType=CHAR},
+      ROOMNO = #{roomno,jdbcType=CHAR},
+      ROOMNAME = #{roomname,jdbcType=CHAR},
+      BEDNO = #{bedno,jdbcType=CHAR},
+      ISDELETE = #{isdelete,jdbcType=CHAR},
+      DATAUSERNO = #{datauserno,jdbcType=CHAR},
+      DATAUSERNAME = #{datausername,jdbcType=CHAR},
+      DATADATE = #{datadate,jdbcType=TIMESTAMP},
+      SN = #{sn,jdbcType=INTEGER},
+      ISALLOCATE = #{isallocate,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

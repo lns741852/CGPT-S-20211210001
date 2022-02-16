@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrProcessMapper">
+   <select id="listProcess" resultType="CsrProcess">
+	    select ID,PROCESSNO,PROCESSNAME
+	    from CSR_PROCESS
+	    <where>
+			<if test="searchName!=null">
+				AND (PROCESSNO like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by PROCESSNO
+  </select>
+  
+   <insert id="insertProcess" parameterType="com.htpe.bean.CsrProcess">
+    insert into CSR_PROCESS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="processno != null">
+        PROCESSNO,
+      </if>
+      <if test="processname != null">
+        PROCESSNAME,
+      </if>
+      <if test="day != null">
+        DAY,
+      </if>
+      <if test="datename != null">
+        DATENAME,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="processno != null">
+        #{processno},
+      </if>
+      <if test="processname != null">
+        #{processname},
+      </if>
+      <if test="day != null">
+        #{day},
+      </if>
+      <if test="datename != null">
+        #{datename},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno},
+      </if>
+      <if test="datausername != null">
+        #{datausername},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+  
+   <update id="updateProcess" parameterType="CsrProcess">
+    update CSR_PROCESS
+    <set>
+      <if test="processno != null">
+        PROCESSNO = #{processno},
+      </if>
+      <if test="processname != null">
+        PROCESSNAME = #{processname},
+      </if>
+      <if test="day != null">
+        DAY = #{day},
+      </if>
+      <if test="datename != null">
+        DATENAME = #{datename},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+</mapper>

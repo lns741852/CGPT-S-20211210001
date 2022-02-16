@@ -2,14 +2,21 @@ package com.htpe.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CsrProcess {
     private Integer id;
 
+    @NotEmpty(message = "包裝代號不能為空")
     private String processno;
 
+    @NotEmpty(message = "包裝名稱不能為空")
     private String processname;
 
     private Integer day;
+    
+    @NotEmpty(message = "日期不能為空")
+    private String datename;
 
     private String isdelete;
 
@@ -36,8 +43,16 @@ public class CsrProcess {
     public String getProcessno() {
         return processno;
     }
+    
+    public String getDatename() {
+		return datename;
+	}
 
-    public void setProcessno(String processno) {
+	public void setDatename(String datename) {
+		this.datename = datename == null ? null : datename.trim();;
+	}
+
+	public void setProcessno(String processno) {
         this.processno = processno == null ? null : processno.trim();
     }
 

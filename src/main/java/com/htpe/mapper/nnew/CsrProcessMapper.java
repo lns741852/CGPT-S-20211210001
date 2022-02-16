@@ -1,17 +1,34 @@
 package com.htpe.mapper.nnew;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
+
 import com.htpe.bean.CsrProcess;
 
 public interface CsrProcessMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(CsrProcess record);
+	List<Map<String, Object>> listProcess(Map<String, Object> paramMap);
 
-    int insertSelective(CsrProcess record);
+	@Select("select count(*) from CSR_Process where  PROCESSNO= #{processno}")
+	int countProcess(String processno);
 
-    CsrProcess selectByPrimaryKey(Integer id);
+	int insertProcess(CsrProcess csrProcess);
 
-    int updateByPrimaryKeySelective(CsrProcess record);
+	@Select("select ID,PROCESSNO,PROCESSNAME,DAY,DATENAME from CSR_Process where ID=#{id}")
+	CsrProcess getProcessById(Integer id);
 
-    int updateByPrimaryKey(CsrProcess record);
+	@Select("select trim(PROCESSNO) as PROCESSNO from CSR_Process where id= #{id}")
+	String getProcessColumnById(Integer id);
+
+	int updateProcess(CsrProcess csrProcess);
+
+	@Delete("delete from CSR_Process where ID = #{id}")
+	int deleteProcess(Integer id);
+	
+	
 }
