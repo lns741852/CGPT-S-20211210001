@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.htpe.exception.RequestPeriodException;
 import com.htpe.mapper.nnew.CsrAccountMapper;
 import com.htpe.mapper.nnew.CsrMenuMapper;
 import com.htpe.service.AccountService;
+import com.htpe.utils.JwtUtils;
 import com.htpe.utils.ResultMsg;
 
 
@@ -54,7 +56,7 @@ public class AccountServiceImpl  implements AccountService{
 
 	
 	@Override
-	public ResultMsg saveAccount(CsrAccount csrAccount,String oneIds, String twoIds) throws RequestPeriodException {
+	public ResultMsg saveAccount(CsrAccount csrAccount,String ids) throws RequestPeriodException {
 		int count = csrAccountMapper.countUserno(csrAccount.getUserno());
 		if(count >= 1) {	
 			return ResultMsg.fail(500,"帳號已使用").addData("");			
@@ -67,8 +69,8 @@ public class AccountServiceImpl  implements AccountService{
 			throw new RequestPeriodException(401, "帳新增改失敗");
 		}
 		
-		String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
-		String[] authIds = authId.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值
+		//String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
+		String[] authIds = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值
 		for (String authorityId : authIds) {
 			int num2 =  csrAccountMapper.insertAccountAuth(csrAccount.getId(),authorityId);
 			if(num2 < 1) {
@@ -134,7 +136,6 @@ public class AccountServiceImpl  implements AccountService{
 	public ResultMsg listAuth() {
 		return ResultMsg.success("所有權限").addData(csrMenuMapper.listAuth());
 	}
-
 
 	
 }

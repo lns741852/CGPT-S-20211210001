@@ -7,9 +7,17 @@ public class CsrProcessPot {
 
     private String processno;
 
-    private String isselect;
+    private Process process;
 
-    public Integer getId() {
+    public Process getProcess() {
+		return process;
+	}
+
+	public void setProcess(Process process) {
+		this.process = process;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -33,11 +41,4 @@ public class CsrProcessPot {
         this.processno = processno == null ? null : processno.trim();
     }
 
-    public String getIsselect() {
-        return isselect;
-    }
-
-    public void setIsselect(String isselect) {
-        this.isselect = isselect == null ? null : isselect.trim();
-    }
 }

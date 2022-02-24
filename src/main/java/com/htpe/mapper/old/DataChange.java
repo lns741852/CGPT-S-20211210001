@@ -38,6 +38,9 @@ public interface DataChange {
 
 	@Select("select * from VGHTPETS.CSR_POTDATA")
 	List<Map<String, Object>> listPotdata();
+	
+	@Select("select * from VGHTPETS.CSR_PROCESS_DETAIL")
+	List<Map<String, Object>> listPotdataProcess();
 
 	@Select("select P.PROCESSNO ,P.PROCESSNAME ,P.DAY  , P.ISDELETE ,P.DATAUSERNO, P.DATAUSERNAME ,P.DATADATE , D.DATENAME "
 			+ " from VGHTPETS.CSR_PROCESS as P inner join VGHTPETS.CSR_DATE as D on P.DAY=D.DAY")

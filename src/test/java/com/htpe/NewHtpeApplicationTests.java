@@ -44,7 +44,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ½L¥]´¡¤J
+	 * ï¿½Lï¿½]ï¿½ï¿½ï¿½J
 	 */
 
 	@Test
@@ -114,7 +114,7 @@ class NewHtpeApplicationTests {
 
 	/**
 	 * 
-	 * ¾¹±ñ´¡¤J
+	 * ï¿½ï¿½ï¿½ñ´¡¤J
 	 * @throws ParseException 
 	 */
 	
@@ -184,7 +184,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ¾¹±ñ_½L¥]§Ç¸¹´¡¤J
+	 * ï¿½ï¿½ï¿½ï¿½_ï¿½Lï¿½]ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -209,7 +209,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ½L¥]§Ç¸¹´¡¤J
+	 * ï¿½Lï¿½]ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½J
 	 * @throws ParseException 
 	 */
 	
@@ -260,7 +260,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ­Ó®×¨®_½L¥]´¡¤J
+	 * ï¿½Ó®×¨ï¿½_ï¿½Lï¿½]ï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -286,7 +286,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ­Ó®×¨®´¡¤J
+	 * ï¿½Ó®×¨ï¿½ï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -319,7 +319,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ¤â³N´¡¤J
+	 * ï¿½ï¿½Nï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -357,7 +357,7 @@ class NewHtpeApplicationTests {
 
 	/**
 	 * 
-	 * ¤â³N_­Ó®×¨®´¡¤J
+	 * ï¿½ï¿½N_ï¿½Ó®×¨ï¿½ï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -381,7 +381,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ³¡ªù´¡¤J
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -424,7 +424,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ®ø¬rÁç´¡¤J
+	 * ï¿½ï¿½ï¿½rï¿½ç´¡ï¿½J
 	 */
 	
 	@Test
@@ -462,44 +462,30 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * ®ø¬rÁç´¡¤J
+	 * ï¿½ï¿½ï¿½rï¿½ç´¡ï¿½J
 	 */
 	
 	@Test
-	public void potChange() {
-		List<Map<String, Object>> listPotdata = dataChange.listPotdata();
-		for (Map<String, Object> potData : listPotdata) {
-			String DISINFECTION = (String)potData.get("DISINFECTION");
+	public void potProcessChange() {
+		List<Map<String, Object>> listPotdataProcess = dataChange.listPotdataProcess();
+		for (Map<String, Object> potDataProcess : listPotdataProcess) {
+			String DISINFECTION = (String)potDataProcess.get("DISINFECTION");
 			DISINFECTION = DISINFECTION.trim();
-			String POTNAME = (String)potData.get("POTNAME");
-			POTNAME = POTNAME.trim();
-			String ISDELETE = (String)potData.get("ISDELETE");
-			ISDELETE = ISDELETE.trim();
-			String DATAUSERNO = (String)potData.get("DATAUSERNO");
-			DATAUSERNO = DATAUSERNO.trim();
-			String DATAUSERNAME = (String)potData.get("DATAUSERNAME");
-			DATAUSERNAME = DATAUSERNAME.trim();
-			Date DATADATE = (Date)potData.get("DATADATE");
-
+			String PROCESSNO = (String)potDataProcess.get("PROCESSNO");
+			PROCESSNO = PROCESSNO.trim();
 			
-
-
 			Map<String, Object> map3 = new HashMap<String, Object>();
 			
 			map3.put("DISINFECTION", DISINFECTION);
-			map3.put("POTNAME", POTNAME);
-			map3.put("ISDELETE", ISDELETE);
-			map3.put("DATAUSERNO", DATAUSERNO);
-			map3.put("DATAUSERNAME", DATAUSERNAME);
-			map3.put("DATADATE", DATADATE);
+			map3.put("PROCESSNO", PROCESSNO);
 		
-			dataChangeNew.insertPotdata(map3);
+			dataChangeNew.insertPotdataProcess(map3);
 		}
 	}
 	
 	/**
 	 * 
-	 * ®ø¬r¥]´¡¤J
+	 * ï¿½ï¿½ï¿½rï¿½]ï¿½ï¿½ï¿½J
 	 */
 	
 	@Test
@@ -542,7 +528,7 @@ class NewHtpeApplicationTests {
 	
 	/**
 	 * 
-	 * Àx¦ì´¡¤J
+	 * ï¿½xï¿½ì´¡ï¿½J
 	 * @throws ParseException 
 	 */
 	

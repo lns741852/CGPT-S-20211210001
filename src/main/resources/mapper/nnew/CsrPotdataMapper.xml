@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrPotdataMapper">
+
+  <resultMap id="potdata_process" type="CsrPotdata">
+    <id column="xid" property="id" />
+    <result column="xno"  property="disinfection" />
+    <result column="xname"  property="potname" />
+    <collection property="csrProcessPot" ofType="CsrProcessPot">
+        <id column="aid" property="id" />
+        <result column="ano" property="processno"/>           
+    </collection>   
+  </resultMap>
+  
+    <select id="getPotdataById" parameterType="Integer" resultMap="potdata_process">		  		
+		select X.id xid, X.DISINFECTION xno, X.POTNAME xname, A.ID aid, A.PROCESSNO ano from CSR_POTDATA as X 
+		left join CSR_PROCESS_POT as A on X.DISINFECTION = A.DISINFECTION
+		where X.id=#{id}
+  	</select>
+ 
+    <insert id="insertPotdata" parameterType="com.htpe.bean.CsrPotdata">
+    insert into CSR_POTDATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="disinfection != null">
+        DISINFECTION,
+      </if>
+      <if test="potname != null">
+        POTNAME,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="disinfection != null">
+        #{disinfection},
+      </if>
+      <if test="potname != null">
+        #{potname},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno},
+      </if>
+      <if test="datausername != null">
+        #{datausername},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+    <update id="updatePotdata" parameterType="CsrPotdata">
+    update CSR_POTDATA
+    <set>
+      <if test="disinfection != null">
+        DISINFECTION = #{disinfection},
+      </if>
+      <if test="potname != null">
+        POTNAME = #{potname},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+</mapper>

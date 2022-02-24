@@ -1,13 +1,9 @@
 package com.htpe.controller;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,10 +31,10 @@ public class AccountController {
 	@GetMapping("/account")
 	public ResultMsg  AccountList(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName,
-			@RequestParam(value="empNO",required = false) String empNO) {
-	    return accountService.listAccount(pageNum,pageSize,searchName,empNO);	  
+			@RequestParam(value="empNO",required = false) String depNo) {
+	    return accountService.listAccount(pageNum,pageSize,searchName,depNo);	  
 	}
 	/**
 	 * 員工部門查詢
@@ -68,7 +64,7 @@ public class AccountController {
 		csrAccount.setUserpwd((String)map.get("userpwd"));
 		csrAccount.setSystemprivilege((String)map.get("systemprivilege"));
 		
-		return accountService.saveAccount(csrAccount,(String)map.get("oneids"),(String)map.get("twoids"));
+		return accountService.saveAccount(csrAccount,(String)map.get("ids"));
 	}
 		
 	/**

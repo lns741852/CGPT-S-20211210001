@@ -57,7 +57,11 @@ public interface DataChangeNew {
 			+ "values (#{DISINFECTION}, #{POTNAME}, #{ISDELETE}, #{DATAUSERNO}, #{DATAUSERNAME}, #{DATADATE})")
 	public void insertPotdata(Map<String, Object> map3);
 
-
+	@Insert("insert into CSR_PROCESS_POT (DISINFECTION, PROCESSNO)"
+			+ "values (#{DISINFECTION}, #{PROCESSNO})")
+	public void insertPotdataProcess(Map<String, Object> map3);
+	
+	
 	@Insert("insert into CSR_PROCESS (PROCESSNO,PROCESSNAME,DAY,DATENAME,ISDELETE,DATAUSERNO,DATAUSERNAME,DATADATE)"
 			+ "values (#{PROCESSNO}, #{PROCESSNAME}, #{DAY}, #{DATENAME}, #{ISDELETE}, #{DATAUSERNO}, #{DATAUSERNAME}, #{DATADATE})")
 	public void insertProcess(Map<String, Object> map3);

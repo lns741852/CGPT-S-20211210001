@@ -1,5 +1,8 @@
 package com.htpe.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +20,7 @@ public interface AccountService {
 	ResultMsg listDepno();
 
 	
-	ResultMsg saveAccount(CsrAccount csrAccount,String oneIds, String twoIds) throws RequestPeriodException;
+	ResultMsg saveAccount(CsrAccount csrAccount,String ids) throws RequestPeriodException;
 
 	
 	ResultMsg getAccountById(Integer id);
@@ -30,5 +33,7 @@ public interface AccountService {
 
 
 	ResultMsg listAuth();
+
+
 	
 }

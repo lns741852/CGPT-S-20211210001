@@ -1,6 +1,6 @@
 package com.htpe.exception;
 
-public class RequestPeriodException extends Exception{
+public class RequestPeriodException extends RuntimeException{
 	
 	/**
 	 * 運行期間異常

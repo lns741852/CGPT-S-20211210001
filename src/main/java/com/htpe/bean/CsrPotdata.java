@@ -1,12 +1,17 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.NotEmpty;
 
 public class CsrPotdata {
     private Integer id;
 
+    @NotEmpty(message = "消毒鍋代號不能為空")
     private String disinfection;
 
+    @NotEmpty(message = "消毒鍋名稱不能為空")
     private String potname;
 
     private String isdelete;
@@ -16,8 +21,18 @@ public class CsrPotdata {
     private String datausername;
 
     private Date datadate;
+    
+    private List<CsrProcessPot> csrProcessPot;    
 
-    public Integer getId() {
+    public List<CsrProcessPot> getCsrProcessPot() {
+		return csrProcessPot;
+	}
+
+	public void setCsrProcessPot(List<CsrProcessPot> csrProcessPot) {
+		this.csrProcessPot = csrProcessPot;
+	}
+
+	public Integer getId() {
         return id;
     }
 

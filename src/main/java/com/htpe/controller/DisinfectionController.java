@@ -13,67 +13,64 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.htpe.bean.CsrCasecar;
+import com.htpe.bean.CsrPotdata;
 import com.htpe.bean.CsrSurgical;
-import com.htpe.bean.CsrSurgicalCasecar;
 import com.htpe.exception.RequestPeriodException;
-import com.htpe.service.SurgicalService;
+import com.htpe.service.DisinfectionService;
 import com.htpe.utils.ResultMsg;
 
 @RestController
-public class SurgicalController {
+public class DisinfectionController {
 	
 	@Autowired
-	SurgicalService surgicalService;
+	DisinfectionService disinfectionService;
 	
-
 	/**
-	 *手術列表查詢
+	 * 消毒鍋列表查詢
 	 */
-	@GetMapping("/surgical")
-	public ResultMsg  listSurgical(
+	@GetMapping("/disinfection")
+	public ResultMsg  listDisinfection(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "20") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName) {
-	    return   surgicalService.listSurgical(pageNum,pageSize,searchName);
+	    return disinfectionService.listDisinfection(pageNum,pageSize,searchName);	  
 	}
 	
 	/**
 	 * 
-	 * 個案車查詢，確認是否存在
+	 * 消毒包裝查詢
 	 */
-	@GetMapping("/surgical/casecar/{casecarNo}")
-	public ResultMsg  getCasecarByNo(@PathVariable String casecarNo) {
-	    return   surgicalService.getCasecarByNo(casecarNo);
+	@GetMapping("/disinfection/process")
+	public ResultMsg  listProcess() {
+	    return   disinfectionService.listProcess();
 	}
 	
 	/**
 	 * 新增手術
 	 * @throws RequestPeriodException 
 	 */
-	@PostMapping("/surgical")
-	public ResultMsg saveSurgical(@Valid @RequestBody CsrSurgical csrSurgical,HttpServletRequest request) throws RequestPeriodException{
-		return surgicalService.saveSurgical(csrSurgical,request);
+	@PostMapping("/disinfection")
+	public ResultMsg saveSurgical(@Valid @RequestBody CsrPotdata csrPotdata, HttpServletRequest request) throws RequestPeriodException{
+		return disinfectionService.saveDisinfection(csrPotdata,request);
 	}
 	
 	/**
-	 * 編輯手術查詢
+	 * 編輯消毒鍋查詢
 	 */
-	@GetMapping("/surgical/{id}")
+	@GetMapping("/disinfection/{id}")
 	public ResultMsg getSurgicalById(@PathVariable Integer id){	
-
-		return surgicalService.getSurgicalById(id);
+		return disinfectionService.getPotdataById(id);
 	}
 	
 	/**
 	 * 修改手術
 	 * @throws RequestPeriodException 
 	 */
-	@PutMapping("/surgical/{id}")
-	public ResultMsg updateSurgical(@Valid @RequestBody CsrSurgical csrSurgical,HttpServletRequest request,
+	@PutMapping("/disinfection/{id}")
+	public ResultMsg updateSurgical(@Valid @RequestBody CsrPotdata csrPotdata,HttpServletRequest request,
 			@PathVariable Integer id) throws RequestPeriodException{
-		csrSurgical.setId(id);
-		return surgicalService.updateSurgical(csrSurgical,request);
+		csrPotdata.setId(id);
+		return disinfectionService.updatePotdata(csrPotdata,request);
 	}
 	
 	
@@ -81,9 +78,9 @@ public class SurgicalController {
 	 * 刪除手術
 	 * @throws RequestPeriodException 
 	 */
-	@DeleteMapping("/surgical/{no}")
+	@DeleteMapping("/disinfection/{no}")
 	public ResultMsg removeSurgical(@PathVariable String no) throws RequestPeriodException {
-		return surgicalService.removeSurgical(no);
+		return disinfectionService.removePotdata(no);
 	}
 	
 
