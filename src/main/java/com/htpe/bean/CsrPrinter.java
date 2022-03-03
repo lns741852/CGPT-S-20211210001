@@ -1,18 +1,24 @@
 package com.htpe.bean;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CsrPrinter {
     private Integer id;
 
+    @NotEmpty(message = "名稱不能為空")
     private String printername;
 
     private String depno;
 
+    @NotEmpty(message = "IP不能為空")
     private String address;
 
+    @NotEmpty(message = "安裝檔名稱不能為空")
     private String type;
 
     private String sn;
 
+    @NotEmpty(message = "埠號不能為空")
     private Integer port;
 
     public Integer getId() {

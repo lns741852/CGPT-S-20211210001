@@ -49,4 +49,10 @@ public interface DataChange {
 	@Select("select * from VGHTPETS.CSR_SETDATA_POSITION")
 	List<Map<String, Object>> listPosition();
 	
+	@Select("select * from VGHTPETS.CSR_POT_DETAIL")
+	List<Map<String, Object>> listPotDepno();
+
+	@Select("select * from VGHTPETS.CSR_PRINTER")
+	List<Map<String, Object>> listPrinter();
+	
 }

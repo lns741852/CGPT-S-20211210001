@@ -26,7 +26,7 @@ public interface AccountService {
 	ResultMsg getAccountById(Integer id);
 
 	
-	ResultMsg updateAccount(CsrAccount csrAccount,String oneIds, String twoIds) throws RequestPeriodException;
+	ResultMsg updateAccount(CsrAccount csrAccount,String oneIds) throws RequestPeriodException;
 
 	
 	ResultMsg removeAccount(Integer id) throws RequestPeriodException;

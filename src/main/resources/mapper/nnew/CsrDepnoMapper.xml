@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrDepnoMapper">
+
+  <resultMap id="depno_potdata_printer" type="CsrDepno">
+    <id column="xid" property="id" />
+    <result column="XNO"  property="depno" />
+    <result column="XNAME" property="depnamech" />
+    <collection property="csrPotDepnos" ofType="CsrPotDepno">
+        <id column="aid" property="id" />
+        <result column="ANO" property="disinfection"/>
+        <result column="AHEAD" property="head"/>
+        <result column="ABEGIN" property="beginnum"/>
+        <result column="anum" property="potnum"/>            
+    </collection>
+    <collection property="csrPrinter" ofType="CsrPrinter">
+        <id column="YID" property="id" />
+        <result column="YNAME" property="printername"/>
+        <result column="yaddress" property="address"/> 
+        <result column="YPORT" property="port"/>                   
+    </collection>      
+  </resultMap>
+  
+
+  <select id="listDepno" parameterType="Map" resultType="CsrDepno">
+    select ID,DEPNO,DEPNAMECH
+    from CSR_DEPNO
+    	<where>
+			<if test="searchName!=null">
+				AND (DEPNO like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+  </select>
+
+  <select id="getDepnoById" parameterType="Integer" resultMap="depno_potdata_printer">
+	select X.ID xid, X.DEPNO xno, X.DEPNAMECH xname, 
+	A.ID aid, A.DISINFECTION ano, A.HEAD ahead, A.BEGINNUM abegin,A.POTNUM anum,  
+	Y.ID yid, Y.PRINTERNAME yname,Y.ADDRESS yaddress, Y.PORT yport
+	from CSR_DEPNO as X 
+	left join CSR_POT_DEPNO as A on X.DEPNO=A.DEPNO
+	left join CSR_PRINTER as Y on X.DEPNO=Y.DEPNO
+	where X.ID=#{id}
+  </select>
+
+ <insert id="insertPotDepno" parameterType="CsrPotDepno">
+    insert into CSR_POT_DEPNO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="depno != null">
+        DEPNO,
+      </if>
+      <if test="disinfection != null">
+        DISINFECTION,
+      </if>
+      <if test="potnum != null">
+        POTNUM,
+      </if>
+      <if test="beginnum != null">
+        BEGINNUM,
+      </if>
+      <if test="head != null">
+        HEAD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="depno != null">
+        #{depno},
+      </if>
+      <if test="disinfection != null">
+        #{disinfection},
+      </if>
+      <if test="potnum != null">
+        #{potnum},
+      </if>
+      <if test="beginnum != null">
+        #{beginnum},
+      </if>
+      <if test="head != null">
+        #{head},
+      </if>
+    </trim>
+  </insert>
+
+
+
+ <insert id="insertPrinter" parameterType="CsrPrinter">
+    insert into CSR_PRINTER
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="printername != null">
+        PRINTERNAME,
+      </if>
+      <if test="depno != null">
+        DEPNO,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="sn != null">
+        SN,
+      </if>
+      <if test="port != null">
+        PORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="printername != null">
+        #{printername},
+      </if>
+      <if test="depno != null">
+        #{depno},
+      </if>
+      <if test="address != null">
+        #{address},
+      </if>
+      <if test="type != null">
+        #{type},
+      </if>
+      <if test="sn != null">
+        #{sn},
+      </if>
+      <if test="port != null">
+        #{port},
+      </if>
+    </trim>
+  </insert>
+</mapper>

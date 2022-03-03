@@ -33,6 +33,7 @@ public class MybatisNewDBConfig {
 		factoryBean.setDataSource(ds2); // 使用new資料來源, 連線new庫 
 		factoryBean.setTypeAliasesPackage("com.htpe.bean");
 		factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/nnew/*.xml"));
+		factoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
 		return factoryBean.getObject(); 
 	}
 

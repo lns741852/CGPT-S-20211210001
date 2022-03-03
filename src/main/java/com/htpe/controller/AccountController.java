@@ -80,14 +80,8 @@ public class AccountController {
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/account/{id}")		
-	public ResultMsg DoAccountUpdate(@RequestBody Map<String, Object> map,
+	public ResultMsg updateAccount(@RequestBody Map<String, Object> map,
 				@PathVariable Integer id) throws RequestPeriodException{
-		
-		for (Entry<String, Object> m : map.entrySet()) {
-			if(m.getValue().equals("")) {
-				throw new RequestPeriodException(303, "值不得為空");
-			}
-		}
 		
 		CsrAccount csrAccount = new CsrAccount();
 		csrAccount.setId(id);
@@ -97,7 +91,7 @@ public class AccountController {
 		csrAccount.setUserpwd((String)map.get("userpwd"));
 		csrAccount.setSystemprivilege((String)map.get("systemprivilege"));
 		
-		return accountService.updateAccount(csrAccount,(String)map.get("oneids"),(String)map.get("twoids"));
+		return accountService.updateAccount(csrAccount,(String)map.get("ids"));
 	}
 	
 	/**

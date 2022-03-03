@@ -70,4 +70,14 @@ public interface DataChangeNew {
 	@Insert("insert into CSR_SETDATA_POSITION (CODE,NAME,PUBLIC_TYPE,UPD_TYPE,DEL_TYPE,DATAUSER,DATADATE)"
 			+ "values (#{CODE}, #{NAME}, #{PUBLIC_TYPE}, #{UPD_TYPE}, #{DEL_TYPE}, #{DATAUSER}, #{DATADATE})")
 	public void insertPosition(Map<String, Object> map3);
+
+
+	@Insert("insert into CSR_POT_DEPNO(DEPNO,DISINFECTION,POTNUM,BEGINNUM,HEAD)"
+			+ "values (#{DEPNO}, #{DISINFECTION}, #{POTNUM}, #{BEGINNUM}, #{HEAD})")
+	public void insertPotDepno(Map<String, Object> map3);
+
+
+	@Insert("insert into CSR_PRINTER(PRINTERNAME,DEPNO,ADDRESS,TYPE,SN,PORT)"
+			+ "values (#{PRINTERNAME}, #{DEPNO}, #{ADDRESS}, #{TYPE}, #{SN}, #{PORT})")
+	public void insertPrinter(Map<String, Object> map3);
 }

@@ -89,7 +89,7 @@ public class AccountServiceImpl  implements AccountService{
 
 	
 	@Override
-	public ResultMsg updateAccount(CsrAccount csrAccount,String oneIds, String twoIds) throws RequestPeriodException {
+	public ResultMsg updateAccount(CsrAccount csrAccount,String ids) throws RequestPeriodException {
 		int count = csrAccountMapper.countUserno(csrAccount.getUserno());
 		String changeEmpno = csrAccount.getUserno();
 		String empno = csrAccountMapper.getUserNoById(csrAccount.getId());
@@ -106,8 +106,8 @@ public class AccountServiceImpl  implements AccountService{
 			throw new RequestPeriodException(500, "帳號修改失敗");
 		}
 		
-		String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
-		String[] authIds = authId.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值
+		//String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
+		String[] authIds = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值
 		for (String authorityId : authIds) {
 			int num3 =  csrAccountMapper.insertAccountAuth(csrAccount.getId(),authorityId);
 			if(num3 < 1) {

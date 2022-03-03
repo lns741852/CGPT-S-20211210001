@@ -566,4 +566,74 @@ class NewHtpeApplicationTests {
 			dataChangeNew.insertPosition(map3);
 		}
 	}
+	
+	/**
+	 * 
+	 * �x�촡�J
+	 * @throws ParseException 
+	 */
+	
+	@Test
+	public void potDepnoChange() throws ParseException {
+		List<Map<String, Object>> listPotDepno = dataChange.listPotDepno();
+		for (Map<String, Object> potDepno : listPotDepno) {
+			String DEPNO = (String)potDepno.get("DEPNO");
+			DEPNO = DEPNO.trim();
+			String DISINFECTION = (String)potDepno.get("DISINFECTION");
+			DISINFECTION = DISINFECTION.trim();
+			Integer POTNUM = (Integer)potDepno.get("POTNUM");
+			Integer BEGINNUM = (Integer)potDepno.get("BEGINNUM");
+			String HEAD = (String)potDepno.get("HEAD");
+			HEAD = HEAD.trim();
+
+			Map<String, Object> map3 = new HashMap<String, Object>();
+			
+			map3.put("DEPNO", DEPNO);
+			map3.put("DISINFECTION", DISINFECTION);
+			map3.put("POTNUM", POTNUM);
+			map3.put("BEGINNUM", BEGINNUM);
+			map3.put("HEAD", HEAD);
+		
+			dataChangeNew.insertPotDepno(map3);
+		}
+	}
+	
+	/**
+	 * 
+	 * �x�촡�J
+	 * @throws ParseException 
+	 */
+	
+	@Test
+	public void printerChange() throws ParseException {
+		List<Map<String, Object>> listPrinter = dataChange.listPrinter();
+		for (Map<String, Object> printer : listPrinter) {
+			String PRINTERNAME = (String)printer.get("PRINTERNAME");
+			PRINTERNAME = PRINTERNAME.trim();
+			String DEPNO = (String)printer.get("DEPNO");
+			DEPNO = DEPNO.trim();
+			String ADDRESS = (String)printer.get("ADDRESS");
+			ADDRESS = ADDRESS.trim();
+			String TYPE = (String)printer.get("TYPE");
+			TYPE = TYPE.trim();
+			String SN = (String)printer.get("SN");
+			SN = SN.trim();
+			Integer PORT = (Integer)printer.get("PORT");
+	
+	
+			Map<String, Object> map3 = new HashMap<String, Object>();
+			
+			map3.put("PRINTERNAME", PRINTERNAME);
+			map3.put("DEPNO", DEPNO);
+			map3.put("ADDRESS", ADDRESS);
+			map3.put("TYPE", TYPE);
+			map3.put("SN", SN);
+			map3.put("PORT", PORT);
+		
+			dataChangeNew.insertPrinter(map3);
+		}
+	}
+	
+	
+	
 }

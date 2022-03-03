@@ -18,8 +18,11 @@ public interface CsrSetdata3mMapper {
 
 	List<Map<String, Object>> listSetno(Map<String, Object> paramMap);
 
-	@Select("select trim(PROCESSNO) as PROCESSNO, trim(PROCESSNAME) as  PROCESSNAME"
-			+ ", trim(DAY) as  DAY, trim(DATENAME) as  DATENAME from CSR_PROCESS")
+	@Select("select X.PROCESSNO,X.PROCESSNAME,X.DATENAME,X.DAY from CSR_PROCESS as X "
+			+ " inner join  CSR_PROCESS_POT as A on X.PROCESSNO=A.PROCESSNO"
+			+ " inner join CSR_POTDATA as Y on A.DISINFECTION=Y.DISINFECTION"
+			+ " where Y.DISINFECTION = #{potData}"
+			+ " order by X.DAY")
 	List<Map<String, Object>> listProcess(String potData);
 
 	@Select("select count(*) from CSR_SETDATA_3M where  SETNO= #{setno}")

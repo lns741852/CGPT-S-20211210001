@@ -30,8 +30,29 @@ public class CsrDepno {
     private String type;
 
     private String defaultdesinfection;
+    
+    private CsrPotDepno csrPotDepnos;
+    
+    private CsrPrinter csrPrinter;
+     
 
-    public Integer getId() {
+	public CsrPotDepno getCsrPotDepno() {
+		return csrPotDepnos;
+	}
+
+	public void setCsrPotDepno(CsrPotDepno csrPotDepno) {
+		this.csrPotDepnos = csrPotDepno;
+	}
+
+	public CsrPrinter getCsrPrinter() {
+		return csrPrinter;
+	}
+
+	public void setCsrPrinter(CsrPrinter csrPrinter) {
+		this.csrPrinter = csrPrinter;
+	}
+
+	public Integer getId() {
         return id;
     }
 
