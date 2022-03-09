@@ -175,4 +175,19 @@
     where ID = #{id}
   </update>
   
+  <update id="deleteFile" parameterType="CsrUdi">
+  	 update CSR_UDI
+    <set>
+        PICPATH1 = #{picpath1},
+        PICPATH2 = #{picpath2},
+        PICPATH3 = #{picpath3},
+        FILEPATH1 = #{filepath1},
+        FILEPATH2 = #{filepath2},
+        FILEPATH3 = #{filepath3}
+  	</set>
+  	 where ID = #{id}
+  </update>
+  
+  
+  
 </mapper>

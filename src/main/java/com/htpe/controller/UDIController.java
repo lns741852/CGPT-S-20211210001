@@ -34,7 +34,7 @@ public class UDIController {
 	@GetMapping("/udi")
 	public ResultMsg  listUDI(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "20") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName) {
 		
 
@@ -55,6 +55,7 @@ public class UDIController {
 			@RequestParam(value = "file3", required = false) MultipartFile file3) throws RequestPeriodException{	
 		return udiService.saveUDI(csrUdi,request,pic1,pic2,pic3,file1,file2,file3);		
 	}
+
 	
 	/**
 	 * 編輯器械查詢
@@ -76,7 +77,7 @@ public class UDIController {
 			@RequestParam(value = "pic3", required = false) MultipartFile pic3,
 			@RequestParam(value = "file1", required = false) MultipartFile file1,
 			@RequestParam(value = "file2", required = false) MultipartFile file2,
-			@RequestParam(value = "file3", required = false) MultipartFile file3) throws RequestPeriodException{			
+			@RequestParam(value = "file3", required = false) MultipartFile file3) throws RequestPeriodException{		
 		return udiService.updateUDIById(csrUdi,id,request,pic1,pic2,pic3,file1,file2,file3);
 	}
 	

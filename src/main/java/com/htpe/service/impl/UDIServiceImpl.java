@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -72,7 +71,7 @@ public class UDIServiceImpl  implements UDIService{
 				String realPath = filePath+"\\src\\main\\resources\\static\\file\\";
 				String path =realPath +iconpath;
 				file.getValue().transferTo(new File(path));
-							
+	
 				switch (file.getKey()) {
 					case "pic1":
 						csrUdi.setPicpath1(iconpath);
@@ -134,6 +133,8 @@ public class UDIServiceImpl  implements UDIService{
 		csrUdi.setDelType("N");
 		csrUdi.setUpdType("Y");
 		csrUdi.setDatauser(request.getUserPrincipal().getName());	
+		
+		CsrUdi udi = csrUdiMapper.getUDIById(id);
 
 		for(Map.Entry<String, MultipartFile> file : mapFiles.entrySet()) {
 			try {
@@ -145,26 +146,41 @@ public class UDIServiceImpl  implements UDIService{
 				String path =realPath +iconpath;
 				file.getValue().transferTo(new File(path));
 				
-				switch (file.getKey()) {
-					case "pic1":
-						csrUdi.setPicpath1(iconpath);
+				switch (file.getKey().substring(0, 3)) {
+					case "pic":
+						if(udi.getPicpath1().equals("")) {
+							csrUdi.setPicpath1(iconpath);
+							udi.setPicpath1(iconpath);
+							break;
+						}
+						if(udi.getPicpath2().equals("")) {
+							csrUdi.setPicpath2(iconpath);
+							udi.setPicpath2(iconpath);
+							break;
+						}
+						if(udi.getPicpath3().equals("")) {
+							csrUdi.setPicpath3(iconpath);
+							udi.setPicpath3(iconpath);
+							break;
+						}
+						break;	
+					case "fil":
+						if(udi.getFilepath1().equals("")) {
+							csrUdi.setFilepath1(iconpath);
+							udi.setFilepath1(iconpath);
+							break;
+						} 
+						if(udi.getFilepath2().equals("")) {
+							csrUdi.setFilepath2(iconpath);
+							udi.setFilepath2(iconpath);
+							break;
+						} 
+						if(udi.getFilepath3().equals("")) {
+							csrUdi.setFilepath3(iconpath);
+							udi.setFilepath3(iconpath);
+							break;
+						} 
 						break;
-					case "pic2":
-						csrUdi.setPicpath2(iconpath);
-						break;
-					case "pic3":
-						csrUdi.setPicpath3(iconpath);
-						break;
-					case "file1":
-						csrUdi.setFilepath1(iconpath);
-						break;
-					case "file2":
-						csrUdi.setFilepath2(iconpath);
-						break;
-					case "file3":
-						csrUdi.setFilepath3(iconpath);
-						break;
-
 				}					
 			}catch (Exception e) {
 				throw new RequestPeriodException(500, "檔案添加失敗");
@@ -182,12 +198,12 @@ public class UDIServiceImpl  implements UDIService{
 		CsrUdi udi = csrUdiMapper.getUDIById(id);
 		udi.setId(id);
 		
-		if(!udi.getPicpath1().equals(filename)) {udi.setPicpath1(null);}
-		if(!udi.getPicpath2().equals(filename)) {udi.setPicpath2(null);}
-		if(!udi.getPicpath3().equals(filename)) {udi.setPicpath3(null);}
-		if(!udi.getFilepath1().equals(filename)) {udi.setFilepath1(null);}
-		if(!udi.getFilepath2().equals(filename)) {udi.setFilepath2(null);}
-		if(!udi.getFilepath3().equals(filename)) {udi.setFilepath3(null);}
+		if(udi.getPicpath1().equals(filename)) {udi.setPicpath1("");}
+		if(udi.getPicpath2().equals(filename)) {udi.setPicpath2("");}
+		if(udi.getPicpath3().equals(filename)) {udi.setPicpath3("");}
+		if(udi.getFilepath1().equals(filename)) {udi.setFilepath1("");}
+		if(udi.getFilepath2().equals(filename)) {udi.setFilepath2("");}
+		if(udi.getFilepath3().equals(filename)) {udi.setFilepath3("");}
 					
 		int num = csrUdiMapper.deleteFile(udi);
 		if(num < 1) {
