@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,9 +23,19 @@ public class CommonController {
 	/**
 	 * 盤包查詢
 	 */
-	@GetMapping("/setdata")
-	public ResultMsg getSetdata(@RequestParam("setno") String setno){		
+	@GetMapping("/setdata/{setno}")
+	public ResultMsg getSetdata(@PathVariable String setno){		
 		return setnoService.getSetnoByNo(setno);
 	}
+	
+	/**
+	 * 盤包查詢
+	 */
+	@GetMapping("/setdata/all")
+	public ResultMsg getSetdataAll(){		
+		return setnoService.getSetnoAll();
+	}
+	
+	
 
 }

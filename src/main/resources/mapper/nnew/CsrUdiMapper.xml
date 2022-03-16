@@ -13,7 +13,8 @@
     from CSR_UDI
     	<where>
 			<if test="searchName!=null">
-				AND (CODE like '%'||(#{searchName})||'%')
+				AND (CODE like '%'||(#{searchName})||'%'
+					OR CNAME like '%'||#{searchName}||'%')
 			</if>
 		</where>
 		order by CODE

@@ -33,4 +33,7 @@ public interface SetnoService {
 
 	ResultMsg getSetnoByNo(String setno);
 
+
+	ResultMsg getSetnoAll();
+
 }

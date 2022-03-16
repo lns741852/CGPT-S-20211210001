@@ -13,7 +13,8 @@
     from CSR_SETDATA_3M
     	<where>
 			<if test="searchName!=null">
-				AND (SETNO like '%'||(#{searchName})||'%')
+				AND (SETNO like '%'||(#{searchName})||'%'
+					OR SETNAMECH like '%'||#{searchName}||'%')
 			</if>
 		</where>
 		order by SETNO

@@ -16,6 +16,15 @@
     </collection>   
   </resultMap>
   
+      <select id="listCasecar" parameterType="Map" resultType="CsrCasecar">
+			select CASECAR_ID,CASECARNO from CSR_CASECAR
+			<where>
+			<if test="searchName!=null">
+				AND (CASECARNO like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by CASECARNO
+  	</select>
   
     <select id="getCasecarById" parameterType="Integer" resultMap="casecar_setno">
   		select X.CASECAR_ID xid, X.CASECARNO xno, X.ISDELETE xdelete,A.id aid, A.NUM num, Y.ID yid, Y.SETNO yno, Y.SETNAMECH ycname from CSR_CASECAR  AS X

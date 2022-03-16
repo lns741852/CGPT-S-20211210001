@@ -55,7 +55,7 @@ public class CasecarServiceImpl implements CasecarService{
 		List<CsrCasecarSetdata> setnos = casecar.getCasecarSetdatas();
 		if(setnos != null) {
 			for (CsrCasecarSetdata setno : setnos) {
-				int num2 =  csrCasecarMapper.insertCasecarSetno(casecar.getCasecarno(), setno.getSetnoId(), setno.getNum());
+				int num2 =  csrCasecarMapper.insertCasecarSetno(casecar.getCasecarno(), setno.getCsrSetdata3m().getSetno(), setno.getNum());
 				if(num2 < 1) {
 					throw new RequestPeriodException(500, "個案車新增失敗");
 				}
@@ -91,7 +91,7 @@ public class CasecarServiceImpl implements CasecarService{
 		List<CsrCasecarSetdata> setnos = casecar.getCasecarSetdatas();
 		if(setnos != null) {
 			for (CsrCasecarSetdata setno : setnos) {
-				int num2 =  csrCasecarMapper.insertCasecarSetno(casecar.getCasecarno(), setno.getSetnoId(), setno.getNum());
+				int num2 =  csrCasecarMapper.insertCasecarSetno(casecar.getCasecarno(), setno.getCsrSetdata3m().getSetno(), setno.getNum());
 				if(num2 < 1) {
 					throw new RequestPeriodException(500, "個案車修改失敗");
 				}
@@ -107,10 +107,9 @@ public class CasecarServiceImpl implements CasecarService{
 		if(count < 1) {
 			throw new RequestPeriodException(500, "個案車刪除失敗");
 		}
-		int num2 = csrCasecarMapper.deleteCasecarSetnoByNo(no);
-		if(num2 < 1) {
-			throw new RequestPeriodException(500, "個案車刪除失敗");
-		}
+				
+		csrCasecarMapper.deleteCasecarSetnoByNo(no);
+
 		return ResultMsg.success("個案車刪除成功").addData("");
 	}
 

@@ -3,6 +3,7 @@ package com.htpe.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.metadata.ItemDeprecation;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ public class CasecarController {
 	@GetMapping("/casecar")
 	public ResultMsg  listCasecar(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "20") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName) {
 	    return casecarService.listCasecar(pageNum,pageSize,searchName);	  
 	}

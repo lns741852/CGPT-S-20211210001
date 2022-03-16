@@ -45,6 +45,9 @@ public interface CsrSetdata3mMapper {
 
 	@Select("select ID, SETNO, SETNAMECH from  CSR_SETDATA_3M where SETNO=#{setno}")
 	CsrSetdata3m getSetnoByNo(String setno);
+
+	@Select("select trim(setno) setno from  CSR_SETDATA_3M")
+	List<String>  getSetnoAll();
 	
 	
 	

@@ -13,7 +13,6 @@ import com.htpe.bean.CsrCasecar;
 @Mapper
 public interface CsrCasecarMapper {
 
-	@Select("select CASECAR_ID,CASECARNO from CSR_CASECAR")
 	List<Map<String, Object>> listCasecar(Map<String, Object> paramMap);
 
 	int insertCasecar(CsrCasecar casecar);
@@ -21,8 +20,8 @@ public interface CsrCasecarMapper {
 	@Insert("insert into CSR_CASECAR_SETDATA(CASECAR_ID,SETNO_ID,NUM)"
 			+ " values(#{casecarno}, #{setno}, #{num})")
 	int insertCasecarSetno(String casecarno, String setno,Integer num);
-
-	List<Map<String, Object>> getCasecarById(Integer id);
+	
+	CsrCasecar getCasecarById(Integer id);
 
 	int updateCasecar(CsrCasecar casecar);
 
@@ -31,6 +30,8 @@ public interface CsrCasecarMapper {
 
 	@Delete("delete from CSR_CASECAR where CASECARNO=#{casecarno}")
 	int deleteCasecarByNo(String no);
+
+
 
 
 } 

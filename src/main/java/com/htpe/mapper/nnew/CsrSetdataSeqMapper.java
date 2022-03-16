@@ -40,7 +40,7 @@ public interface CsrSetdataSeqMapper {
 	List<Map<String, Object>> listUDI(Integer id);
 
 
-	List<Map<String, Object>> getSeqById(Integer id);
+	CsrSetdataSeq getSeqById(Integer id);
 
 
 	int updateSeq(CsrSetdataSeq seq);
@@ -51,5 +51,8 @@ public interface CsrSetdataSeqMapper {
 
 	@Delete("delete from CSR_SETDATA_SEQ where id=#{id}")
 	int deleteSeq(Integer id);
+
+	@Select("Select count(id) from CSR_SETDATA_SEQ_UDI where CSR_SETDATA_SEQ_ID=#{id}")
+	int countSeqUdiById(Integer id);
 }
 

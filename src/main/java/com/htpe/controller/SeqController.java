@@ -33,7 +33,7 @@ public class SeqController {
 	@GetMapping("/seq")
 	public ResultMsg  listSeq(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName) {
 	    return seqService.listSeq(pageNum,pageSize,searchName);	  
 	}
@@ -41,7 +41,7 @@ public class SeqController {
 	/**
 	 * 未使用器械查詢
 	 */
-	@GetMapping("/seq/unused/udi")
+	@GetMapping("/seq/un/udi")
 	public ResultMsg listUnUDI(){			
 		return seqService.listUnUDI();
 	}

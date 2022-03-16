@@ -67,7 +67,7 @@ public class SeqServiceImpl implements SeqService {
 
 	@Override
 	public ResultMsg getSeqById(Integer id) {
-		return ResultMsg.success("已使用UDI").addData(csrSetdataSeqMapper.getSeqById(id));
+		return ResultMsg.success("維護盤包查詢").addData(csrSetdataSeqMapper.getSeqById(id));
 	}
 
 	@Override
@@ -85,11 +85,16 @@ public class SeqServiceImpl implements SeqService {
 		if(num < 1) {
 			throw new RequestPeriodException(401, "盤包修改失敗");
 		}
-		int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(seq.getId());
-		if(num2 < 1) {
-			throw new RequestPeriodException(500, "帳號修改失敗");
-		}
 		
+		int count = csrSetdataSeqMapper.countSeqUdiById(seq.getId());
+		
+		if(count>0) {
+			int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(seq.getId());
+			if(num2 < 1) {
+				throw new RequestPeriodException(500, "帳號修改失敗");
+			}		
+		}
+	
 		if(!ids.isEmpty()) {
 		String[] idsList = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值
 			for (String UDIid : idsList) {
@@ -108,9 +113,13 @@ public class SeqServiceImpl implements SeqService {
 		if(count < 1) {
 			throw new RequestPeriodException(500, "盤包刪除失敗");
 		}
-		int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(id);
-		if(num2 < 1) {
-			throw new RequestPeriodException(500, "盤包刪除失敗");
+		int count2 = csrSetdataSeqMapper.countSeqUdiById(id);
+		
+		if(count2>0) {
+			int num2 = csrSetdataSeqMapper.deleteSeqUdiBySeqId(id);
+			if(num2 < 1) {
+				throw new RequestPeriodException(500, "盤包刪除失敗");
+			}
 		}
 		return ResultMsg.success("盤包刪除成功").addData("");
 	}
