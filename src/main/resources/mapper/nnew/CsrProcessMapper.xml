@@ -9,7 +9,7 @@
 				AND (PROCESSNO like '%'||(#{searchName})||'%')
 			</if>
 		</where>
-		order by PROCESSNO
+		order by ID
   </select>
   
    <insert id="insertProcess" parameterType="com.htpe.bean.CsrProcess">

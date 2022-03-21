@@ -53,6 +53,7 @@ public class DisinfectionServiceImpl implements DisinfectionService{
 		csrPotdata.setDatausername((String)JwtUtils.validateTokenAndGetClaims(request).get("username"));
 		csrPotdata.setIsdelete("N");
 		
+		
 		int num = csrPotdataMapper.insertPotdata(csrPotdata);
 		if(num < 1) {
 			throw new RequestPeriodException(500, "消毒鍋新增失敗");
@@ -119,10 +120,8 @@ public class DisinfectionServiceImpl implements DisinfectionService{
 		if(count < 1) {
 			throw new RequestPeriodException(500, "消毒鍋刪除失敗");
 		}
-		int num2 = csrPotdataMapper.deletePotdataProcessByNo(no);
-		if(num2 < 1) {
-			throw new RequestPeriodException(500, "消毒鍋刪除失敗");
-		}
+		csrPotdataMapper.deletePotdataProcessByNo(no);
+
 		return ResultMsg.success("消毒鍋刪除成功").addData("");
 	}
 

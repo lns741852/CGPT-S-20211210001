@@ -11,6 +11,7 @@
 	<groupId>com.htpe</groupId>
 	<artifactId>cgpt-s-20211210001-B</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>NEW_HTPE</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -120,6 +121,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.htpe.NewHtpeApplication</mainClass>
 					<skipTest>true</skipTest>
 					<excludes>
 						<exclude>

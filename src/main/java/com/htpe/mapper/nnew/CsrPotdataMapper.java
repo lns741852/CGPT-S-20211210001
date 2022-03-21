@@ -16,7 +16,7 @@ import com.htpe.bean.CsrPotdata;
 @Mapper
 public interface CsrPotdataMapper {
 
-	@Select("select id, trim(disinfection) disinfection, trim(potname) potname from  CSR_POTDATA")
+
 	List<Map<String, Object>> listPotdata(Map<String, Object> paramMap);
 
 	int insertPotdata(CsrPotdata csrPotdata);

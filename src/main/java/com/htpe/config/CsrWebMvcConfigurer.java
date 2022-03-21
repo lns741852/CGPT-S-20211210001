@@ -17,14 +17,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CsrWebMvcConfigurer implements WebMvcConfigurer {
-	  @Override
-	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/**")//項目中所有接口都支持跨域
-	                .allowedOriginPatterns("*")//所有地址都可以訪問
-	                .allowCredentials(true)
-	                .allowedMethods("*")//"GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"
-	                .maxAge(3600);//允許時間
-	    }
+//	  @Override
+//	    public void addCorsMappings(CorsRegistry registry) {
+//	        registry.addMapping("/**")//項目中所有接口都支持跨域
+//	                .allowedOriginPatterns("**")//所有地址都可以訪問
+//	                .allowCredentials(true)
+//	                .allowedMethods("*")//"GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"
+//	                .maxAge(3600);//允許時間
+//	    }
 	  
 	  @Bean
 	    public CorsFilter corsFilter() {
@@ -38,7 +38,7 @@ public class CsrWebMvcConfigurer implements WebMvcConfigurer {
 	          config.addAllowedMethod("*");
 	          //放行哪些header
 	          config.addAllowedHeader("*");
-	          //暴露哪些header
+	          //暴露哪些header,前端接收header
 	          config.addExposedHeader("*");
 
 	        //2.添加映射路徑

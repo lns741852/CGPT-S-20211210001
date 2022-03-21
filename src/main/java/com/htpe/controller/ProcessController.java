@@ -31,7 +31,7 @@ public class ProcessController {
 	@GetMapping("/package")
 	public ResultMsg  listPackage(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "20") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName) {
 	    return   processService.listPackage(pageNum,pageSize,searchName);
 	}

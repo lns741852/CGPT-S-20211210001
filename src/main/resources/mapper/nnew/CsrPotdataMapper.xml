@@ -12,6 +12,17 @@
     </collection>   
   </resultMap>
   
+     <select id="listPotdata" resultType="CsrPotdata">
+	    select ID,DISINFECTION,POTNAME
+	    from CSR_POTDATA
+	    <where>
+			<if test="searchName!=null">
+				AND (DISINFECTION like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by ID
+  </select>
+  
     <select id="getPotdataById" parameterType="Integer" resultMap="potdata_process">		  		
 		select X.id xid, X.DISINFECTION xno, X.POTNAME xname, A.ID aid, A.PROCESSNO ano from CSR_POTDATA as X 
 		left join CSR_PROCESS_POT as A on X.DISINFECTION = A.DISINFECTION
