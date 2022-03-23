@@ -44,7 +44,7 @@ public class DepnoServiceImpl  implements DepnoService{
 
 	@Override
 	public ResultMsg savePotdata(CsrPotDepno csrPotDepno) {
-		int count = csrDepnoMapper.countPotdata(csrPotDepno.getDisinfection());
+		int count = csrDepnoMapper.countPotdata(csrPotDepno.getDisinfection(),csrPotDepno.getDepno());
 		if(count>=1) {			
 			return ResultMsg.fail(401,"代號已使用").addData("");
 		}

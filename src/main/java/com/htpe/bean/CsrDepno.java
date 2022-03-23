@@ -1,6 +1,7 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class CsrDepno {
     private Integer id;
@@ -31,24 +32,24 @@ public class CsrDepno {
 
     private String defaultdesinfection;
     
-    private CsrPotDepno csrPotDepnos;
+    private List<CsrPotDepno> csrPotDepnos;
     
-    private CsrPrinter csrPrinter;
+    private List<CsrPrinter> csrPrinter;
      
 
-	public CsrPotDepno getCsrPotDepno() {
+	public List<CsrPotDepno> getCsrPotDepno() {
 		return csrPotDepnos;
 	}
 
-	public void setCsrPotDepno(CsrPotDepno csrPotDepno) {
+	public void setCsrPotDepno(List<CsrPotDepno> csrPotDepno) {
 		this.csrPotDepnos = csrPotDepno;
 	}
 
-	public CsrPrinter getCsrPrinter() {
+	public List<CsrPrinter> getCsrPrinter() {
 		return csrPrinter;
 	}
 
-	public void setCsrPrinter(CsrPrinter csrPrinter) {
+	public void setCsrPrinter(List<CsrPrinter> csrPrinter) {
 		this.csrPrinter = csrPrinter;
 	}
 

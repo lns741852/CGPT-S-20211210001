@@ -10,10 +10,10 @@ public class CsrPotDepno {
     @NotEmpty(message = "代號不能為空")
     private String disinfection;
 
-    @NotEmpty(message = "數量不能為空")
+
     private Integer potnum;
 
-    @NotEmpty(message = "起始編號不能為空")
+
     private Integer beginnum;
 
     @NotEmpty(message = "字首不能為空")

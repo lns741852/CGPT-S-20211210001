@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
+import com.htpe.bean.CsrDepno;
 import com.htpe.bean.CsrPotDepno;
 import com.htpe.bean.CsrPotdata;
 import com.htpe.bean.CsrPrinter;
@@ -16,10 +17,10 @@ public interface CsrDepnoMapper {
 
 	List<Map<String, Object>> listDepno(Map<String, Object> paramMap);
 
-	List<Map<String, Object>> getDepnoById(Integer id);
+	CsrDepno getDepnoById(Integer id);
 
-	@Select("select count(*) from CSR_POT_DEPNO where  DISINFECTION= #{disinfection}")
-	int countPotdata(String disinfection);
+	@Select("select count(*) from CSR_POT_DEPNO where  disinfection= #{disinfection} and depno=#{depno}")
+	int countPotdata(String disinfection, String depno);
 
 	int insertPotDepno(CsrPotDepno csrPotDepno);
 	
