@@ -4,14 +4,25 @@
   <resultMap id="surgical_casecar" type="CsrSurgical">
     <id column="xid" property="id" />
     <result column="xno"  property="surgicalno" />
+    <result column="xcname" property="surgicalnamech"/>   
     <collection property="csrSurgicalCasecar" ofType="CsrSurgicalCasecar">
         <id column="aid" property="id" />
-        <result column="ano" property="casecarno"/>           
+        <result column="ano" property="casecarno"/>            
     </collection>   
   </resultMap>
   
+        <select id="listSurgical" parameterType="Map" resultType="CsrSurgical">
+			select ID,SURGICALNO,SURGICALNAME,SURGICALNAMECH from CSR_SURGICAL
+			<where>
+			<if test="searchName!=null">
+				AND (SURGICALNO like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by SURGICALNO
+  	</select>
+  
      <select id="getSurgicalById" parameterType="Integer" resultMap="surgical_casecar">
-  		select X.ID xid, X.SURGICALNO xno, X.SURGICALNAMECH xcname, A.ID aid, A.SURGICALNO ano 
+  		select X.ID xid, X.SURGICALNO xno, X.SURGICALNAMECH xcname, A.ID aid, A.CASECARNO ano
 		from CSR_SURGICAL AS X 
 		left join CSR_SURGICAL_CASECAR as A on X.SURGICALNO=A.SURGICALNO
 		where X.ID=#{id}

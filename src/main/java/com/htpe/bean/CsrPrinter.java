@@ -18,7 +18,6 @@ public class CsrPrinter {
 
     private String sn;
 
-    @NotEmpty(message = "埠號不能為空")
     private Integer port;
 
     public Integer getId() {

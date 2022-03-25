@@ -30,7 +30,7 @@ public class DepnoController {
 	@GetMapping("/depno")
 	public ResultMsg  listCasecar(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pagesize", required = false, defaultValue = "5") Integer pageSize,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName) {
 	    return depnoService.listDepno(pageNum,pageSize,searchName);	  
 	}

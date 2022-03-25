@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         } catch (Exception e) {
             e.printStackTrace();
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
-            return;
+            return ;
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);	//調用service層
 

@@ -27,8 +27,8 @@ public interface CsrDepnoMapper {
 	@Delete("delete from CSR_POT_DEPNO where ID = #{id}")
 	int deletePotdata(Integer id);
 
-	@Select("select count(*) from CSR_PRINTER where  PRINTERNAME= #{printername}")
-	int countPrinter(String printername);
+	@Select("select count(*) from CSR_PRINTER where  PRINTERNAME= #{printername}  and depno=#{depno}")
+	int countPrinter(String printername, String depno);
 
 	int insertPrinter(@Valid CsrPrinter csrPrinter);
 

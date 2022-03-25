@@ -91,6 +91,7 @@ public class SetnoServiceImpl implements SetnoService{
 		if(num<1) {
 			throw new RequestPeriodException(500, "盤包修改失敗");
 		}
+		csrSetdata3mMapper.updateCasecarSetno(setno,changeSetno);
 		return ResultMsg.success("盤包修改成功").addData("");
 
 	}
@@ -104,10 +105,14 @@ public class SetnoServiceImpl implements SetnoService{
 	
 	@Override
 	public ResultMsg removeSetno(Integer id) throws RequestPeriodException {
+		
+		CsrSetdata3m setno = csrSetdata3mMapper.getSetnoById(id);
 		int count = csrSetdata3mMapper.deleteSetno(id);
 		if(count< 1) {
 			throw new RequestPeriodException(500, "盤包刪除失敗");
-		}		
+		}	
+		csrSetdata3mMapper.deleteCasecarSetno(setno);
+		
 		return ResultMsg.success("帳號刪除成功").addData("");
 	}
 

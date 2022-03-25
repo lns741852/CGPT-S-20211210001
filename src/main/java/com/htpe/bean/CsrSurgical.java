@@ -12,10 +12,9 @@ public class CsrSurgical {
     @NotEmpty(message = "手術代號不能為空")
     @Size(min = 6, max = 6,message = "手術代號長度為6")
     private String surgicalno;
-
-    @NotEmpty(message = "手術名稱代號不能為空")
+    
     private String surgicalname;
-
+    @NotEmpty(message = "手術名稱代號不能為空")
     private String surgicalnamech;
 
     private String isdelete;

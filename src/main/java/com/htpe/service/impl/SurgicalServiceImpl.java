@@ -65,6 +65,7 @@ public class SurgicalServiceImpl implements SurgicalService{
 		List<CsrSurgicalCasecar> casecars = csrSurgical.getCsrSurgicalCasecar();
 		if(casecars != null) {
 			for (CsrSurgicalCasecar casecar : casecars) {
+				System.out.println(casecar.getCasecarno());
 				int num2 =  csrSurgicalMapper.insertSurgicalCasecar(csrSurgical.getSurgicalno(), casecar.getCasecarno());
 				if(num2 < 1) {
 					throw new RequestPeriodException(500, "手術新增失敗");
@@ -120,10 +121,8 @@ public class SurgicalServiceImpl implements SurgicalService{
 		if(count < 1) {
 			throw new RequestPeriodException(500, "手術刪除失敗");
 		}
-		int num2 = csrSurgicalMapper.deleteSurgicalCasecarByNo(no);
-		if(num2 < 1) {
-			throw new RequestPeriodException(500, "手術刪除失敗");
-		}
+		csrSurgicalMapper.deleteSurgicalCasecarByNo(no);
+
 		return ResultMsg.success("手術刪除成功").addData("");
 	}
 

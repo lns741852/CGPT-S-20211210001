@@ -31,6 +31,15 @@ public interface CsrCasecarMapper {
 	@Delete("delete from CSR_CASECAR where CASECARNO=#{casecarno}")
 	int deleteCasecarByNo(String no);
 
+	@Select("select trim(casecarno) casecarno from  CSR_CASECAR")
+	List<String>  getCasecarAll();
+
+	@Select("select ID, CASECARNO from  CSR_CASECAR where CASECARNO=#{casecarno}")
+	CsrCasecar getCasecarByNo(String casecarno);
+
+	@Delete("delete from CSR_SURGICAL_CASECAR where CASECARNO=#{no}")
+	void deleteCasecarSurgical(String no);
+
 
 
 

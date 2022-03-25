@@ -67,7 +67,7 @@ public class DepnoServiceImpl  implements DepnoService{
 
 	@Override
 	public ResultMsg savePrinter(@Valid CsrPrinter csrPrinter) {
-		int count = csrDepnoMapper.countPrinter(csrPrinter.getPrintername());
+		int count = csrDepnoMapper.countPrinter(csrPrinter.getPrintername(),csrPrinter.getDepno());
 		if(count>=1) {			
 			return ResultMsg.fail(401,"代號已使用").addData("");
 		}

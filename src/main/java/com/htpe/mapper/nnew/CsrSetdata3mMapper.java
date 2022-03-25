@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.utils.ResultMsg;
 
@@ -48,6 +50,12 @@ public interface CsrSetdata3mMapper {
 
 	@Select("select trim(setno) setno from  CSR_SETDATA_3M")
 	List<String>  getSetnoAll();
+
+	@Update("update CSR_CASECAR_SETDATA set SETNO_ID=#{changeSetno} where SETNO_ID=#{setno}")
+	void updateCasecarSetno(String setno, String changeSetno);
+
+	@Delete("delete from CSR_CASECAR_SETDATA where SETNO_ID = #{setno}")
+	void deleteCasecarSetno(CsrSetdata3m setno);
 	
 	
 	

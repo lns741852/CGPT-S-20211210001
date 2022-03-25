@@ -83,10 +83,7 @@ public class CasecarServiceImpl implements CasecarService{
 			throw new RequestPeriodException(500, "個案車修改失敗");
 		}
 
-		int num3 = csrCasecarMapper.deleteCasecarSetnoByNo(casecar.getCasecarno());
-		if(num3 < 1) {
-			throw new RequestPeriodException(500, "個案車修改失敗");
-		}
+		csrCasecarMapper.deleteCasecarSetnoByNo(casecar.getCasecarno());
 		
 		List<CsrCasecarSetdata> setnos = casecar.getCasecarSetdatas();
 		if(setnos != null) {
@@ -109,8 +106,20 @@ public class CasecarServiceImpl implements CasecarService{
 		}
 				
 		csrCasecarMapper.deleteCasecarSetnoByNo(no);
+		
+		csrCasecarMapper.deleteCasecarSurgical(no);
 
 		return ResultMsg.success("個案車刪除成功").addData("");
+	}
+
+	@Override
+	public ResultMsg getCasecarAll() {
+		return ResultMsg.success("所有個案車查詢").addData(csrCasecarMapper.getCasecarAll());
+	}
+
+	@Override
+	public ResultMsg getSetnoByNo(String casecarno) {
+		return ResultMsg.success("盤包查詢").addData(csrCasecarMapper.getCasecarByNo(casecarno));
 	}
 
 }

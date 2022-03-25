@@ -11,7 +11,6 @@ import com.htpe.bean.CsrSurgical;
 
 public interface CsrSurgicalMapper {
 	
-	@Select("select ID,trim(SURGICALNO) surgicalno from CSR_SURGICAL")
 	List<Map<String, Object>> listSurgical(Map<String, Object> paramMap);
 
 	@Select("select CASECARNO from CSR_CASECAR where CASECARNO =#{casecarNo}")
@@ -23,7 +22,7 @@ public interface CsrSurgicalMapper {
 			+ " values(#{surgicalno}, #{casecarno})")
 	int insertSurgicalCasecar(String surgicalno, String casecarno);
 
-	List<Map<String, Object>> getSurgicalById(Integer id);
+	CsrSurgical getSurgicalById(Integer id);
 
 	int updateSurgical(CsrSurgical csrSurgical);
 

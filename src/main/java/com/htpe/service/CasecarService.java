@@ -19,4 +19,8 @@ public interface CasecarService {
 
 	ResultMsg removeCasecar(String no) throws RequestPeriodException;
 
+	ResultMsg getCasecarAll();
+
+	ResultMsg getSetnoByNo(String casecarno);
+
 }

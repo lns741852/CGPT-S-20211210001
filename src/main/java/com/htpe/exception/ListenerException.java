@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.htpe.utils.ResultMsg;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 /**
  * 監聽異常
  * @author Administrator
@@ -29,4 +31,11 @@ public class ListenerException {
     public ResultMsg requesPeriodException(RequestPeriodException e) {
     	return ResultMsg.fail(e.getCode(),e.getMsg()).addData("");
     }
+       
+	//JWT異常
+    @ExceptionHandler(value = ExpiredJwtException.class)
+    public ResultMsg jwtException(RequestPeriodException e) {
+    	return ResultMsg.fail(403,"權限發生異常請重新登入").addData("");
+    }
+       
 }
