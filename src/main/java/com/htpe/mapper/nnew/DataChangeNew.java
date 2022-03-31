@@ -80,4 +80,9 @@ public interface DataChangeNew {
 	@Insert("insert into CSR_PRINTER(PRINTERNAME,DEPNO,ADDRESS,TYPE,SN,PORT)"
 			+ "values (#{PRINTERNAME}, #{DEPNO}, #{ADDRESS}, #{TYPE}, #{SN}, #{PORT})")
 	public void insertPrinter(Map<String, Object> map3);
+
+
+	@Insert("insert into CSR_ROOM(DEPNO,ROOMNO,ROOMNAME,BEDNO,ISDELETE,DATAUSERNO,DATAUSERNAME,DATADATE,SN,ISALLOCATE)"
+			+ "values (#{DEPNO}, #{ROOMNO}, #{ROOMNAME}, #{BEDNO}, #{ISDELETE}, #{DATAUSERNO}, #{DATAUSERNAME}, #{DATADATE}, #{SN}, #{ISALLOCATE})")
+	public void insertRoom(Map<String, Object> map3);
 }

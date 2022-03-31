@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrSetdataPositionMapper">
+  <select id="listPosition" parameterType="Map" resultType="CsrSetdataPosition">
+    select ID,CODE,NAME
+    from CSR_SETDATA_POSITION
+    	<where>
+			<if test="searchName!=null">
+				AND (CODE like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by CODE
+  </select>
+  
+  <select id="getPositionById" parameterType="INTEGER" resultType="CsrSetdataPosition">
+    select ID,CODE,NAME
+    from CSR_SETDATA_POSITION
+    where ID =#{id}    
+  </select>
+  
+  <insert id="insertPosition" parameterType="CsrSetdataPosition">
+    insert into CSR_SETDATA_POSITION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="publicType != null">
+        PUBLIC_TYPE,
+      </if>
+      <if test="updType != null">
+        UPD_TYPE,
+      </if>
+      <if test="delType != null">
+        DEL_TYPE,
+      </if>
+      <if test="datauser != null">
+        DATAUSER,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="publicType != null">
+        #{publicType},
+      </if>
+      <if test="updType != null">
+        #{updType},
+      </if>
+      <if test="delType != null">
+        #{delType},
+      </if>
+      <if test="datauser != null">
+        #{datauser},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePosition" parameterType="CsrSetdataPosition">
+    update CSR_SETDATA_POSITION
+    <set>
+      <if test="code != null">
+        CODE = #{code},
+      </if>
+      <if test="name != null">
+        NAME = #{name},
+      </if>
+      <if test="publicType != null">
+        PUBLIC_TYPE = #{publicType},
+      </if>
+      <if test="updType != null">
+        UPD_TYPE = #{updType},
+      </if>
+      <if test="delType != null">
+        DEL_TYPE = #{delType},
+      </if>
+      <if test="datauser != null">
+        DATAUSER = #{datauser},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+
+</mapper>

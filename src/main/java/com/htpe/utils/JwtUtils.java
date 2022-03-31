@@ -23,7 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtUtils {
-    public static  final long EXPIRATION_TIME=60*60*24*1000;// 令牌環有效期
+    public static  final long EXPIRATION_TIME=1000;// 令牌環有效期
     public static final String SECRET="abccba123321";//令牌環金鑰
     public static final String TOKEN_PREFIX="Bearer";//令牌環頭標識
     public static final String HEADER_STRING="Authorization";//配置令牌環在http heads中的鍵值

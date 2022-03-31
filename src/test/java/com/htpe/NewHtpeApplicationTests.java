@@ -634,6 +634,50 @@
 //		}
 //	}
 //	
+//	@Test
+//	public void roomChange() throws ParseException {
+//		List<Map<String, Object>> listRoom = dataChange.listRoom();
+//		for (Map<String, Object> room : listRoom) {
+//			String DEPNO = (String)room.get("DEPNO");
+//			DEPNO = DEPNO.trim();
+//			String ROOMNO = (String)room.get("ROOMNO");
+//			ROOMNO = ROOMNO.trim();
+//			String ROOMNAME = (String)room.get("ROOMNAME");
+//			ROOMNAME = ROOMNAME.trim();
+//			String BEDNO = (String)room.get("BEDNO");
+//			BEDNO = BEDNO.trim();
+//			String ISDELETE = (String)room.get("ISDELETE");
+//			ISDELETE = ISDELETE.trim();
+//			String DATAUSERNO = (String)room.get("DATAUSERNO");
+//			DATAUSERNO = DATAUSERNO.trim();
+//			String DATAUSERNAME = (String)room.get("DATAUSERNAME");
+//			DATAUSERNAME = DATAUSERNAME.trim();
+//			Date DATADATE = (Date)room.get("DATADATE");
+//			Integer SN = (Integer)room.get("SN");
+//			String ISALLOCATE = (String)room.get("ISALLOCATE");
+//			ISALLOCATE = ISALLOCATE.trim();
+//			
+//	
+//	
+//			Map<String, Object> map3 = new HashMap<String, Object>();
+//			
+//			map3.put("DEPNO", DEPNO);
+//			map3.put("ROOMNO", ROOMNO);
+//			map3.put("ROOMNAME", ROOMNAME);
+//			map3.put("BEDNO", BEDNO);
+//			map3.put("ISDELETE", ISDELETE);	
+//			map3.put("DATAUSERNO", DATAUSERNO);
+//			map3.put("DATAUSERNAME", DATAUSERNAME);
+//			map3.put("DATADATE", DATADATE);
+//			map3.put("SN", SN);
+//			map3.put("ISALLOCATE", ISALLOCATE);
+//			
+//			dataChangeNew.insertRoom(map3);
+//		}
+//	}
+//	
+//	
+//	
 //	
 //	
 //}

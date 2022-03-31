@@ -1,6 +1,7 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class CsrRoom {
     private Integer id;
@@ -30,8 +31,19 @@ public class CsrRoom {
     private Integer sn;
 
     private String isallocate;
+    
+    private CsrDepno csrDepno;
+    
 
-    public Integer getId() {
+	public CsrDepno getCsrDepno() {
+		return csrDepno;
+	}
+
+	public void setCsrDepno(CsrDepno csrDepno) {
+		this.csrDepno = csrDepno;
+	}
+
+	public Integer getId() {
         return id;
     }
 

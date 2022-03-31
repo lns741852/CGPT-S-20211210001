@@ -31,7 +31,7 @@ public class AccountController {
 	 * 帳號列表查詢
 	 */
 	@GetMapping("/account")
-	public ResultMsg  AccountList(
+	public ResultMsg  listAccount(
 			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
 			@RequestParam(value="searchName", required = false) String searchName,

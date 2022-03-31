@@ -46,7 +46,7 @@ public class DisinfectionController {
 	}
 	
 	/**
-	 * 新增手術
+	 * 新增消毒鍋
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/disinfection")
@@ -63,7 +63,7 @@ public class DisinfectionController {
 	}
 	
 	/**
-	 * 修改手術
+	 * 修改消毒鍋
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/disinfection/{id}")
@@ -75,7 +75,7 @@ public class DisinfectionController {
 	
 	
 	/**
-	 * 刪除手術
+	 * 刪除消毒鍋
 	 * @throws RequestPeriodException 
 	 */
 	@DeleteMapping("/disinfection/{no}")

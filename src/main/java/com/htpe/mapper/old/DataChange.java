@@ -54,5 +54,8 @@ public interface DataChange {
 
 	@Select("select * from VGHTPETS.CSR_PRINTER")
 	List<Map<String, Object>> listPrinter();
+
+	@Select("select * from VGHTPETS.CSR_ROOM")
+	List<Map<String, Object>> listRoom();
 	
 }
