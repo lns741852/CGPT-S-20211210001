@@ -1,17 +1,17 @@
 package com.htpe.mapper.nnew;
 
-import com.htpe.bean.CsrBarcode;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.htpe.bean.CsrSetdata3m;
 
 public interface CsrBarcodeMapper {
-    int deleteByPrimaryKey(Integer barcodeid);
 
-    int insert(CsrBarcode record);
+	List<CsrSetdata3m> timeoutSetno(@Param("start")String start, @Param("end")String end, @Param("todayEnd")String todayEnd);
 
-    int insertSelective(CsrBarcode record);
-
-    CsrBarcode selectByPrimaryKey(Integer barcodeid);
-
-    int updateByPrimaryKeySelective(CsrBarcode record);
-
-    int updateByPrimaryKey(CsrBarcode record);
+	Map<String, Object> getTimeoutNum(@Param("timeoutSetno")String timeoutSetno,@Param("start")String start, @Param("end")String end, @Param("todayEnd")String todayEnd);
 }

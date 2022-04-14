@@ -123,7 +123,8 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/account").hasAnyAuthority("sys:account")
 			.antMatchers("/udi").hasAnyAuthority("sys:udi")
 			.anyRequest().authenticated()
-				
+		
+		//jwt攔截器
 		.and()
 			.addFilter(jwtAuthenticationFilter())
 			.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);

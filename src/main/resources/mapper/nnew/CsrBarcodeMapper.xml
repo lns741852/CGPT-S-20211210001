@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrBarcodeMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrBarcode">
+    <id column="BARCODEID" jdbcType="INTEGER" property="barcodeid" />
+    <result column="SETNO" jdbcType="CHAR" property="setno" />
+    <result column="BARCODE" jdbcType="CHAR" property="barcode" />
+    <result column="EMPNO" jdbcType="CHAR" property="empno" />
+    <result column="USERCNAME" jdbcType="CHAR" property="usercname" />
+    <result column="SN" jdbcType="INTEGER" property="sn" />
+    <result column="EFFECTIVEDATE" jdbcType="TIMESTAMP" property="effectivedate" />
+    <result column="CREATEDATETIME" jdbcType="TIMESTAMP" property="createdatetime" />
+    <result column="DISINFECTION" jdbcType="CHAR" property="disinfection" />
+    <result column="EOD" jdbcType="CHAR" property="eod" />
+    <result column="DEPNO" jdbcType="CHAR" property="depno" />
+    <result column="SETSN" jdbcType="CHAR" property="setsn" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="REQ_ID" jdbcType="INTEGER" property="reqId" />
+    <result column="RD_ID" jdbcType="INTEGER" property="rdId" />
+    <result column="POTID" jdbcType="INTEGER" property="potid" />
+    <result column="CHECKING" jdbcType="CHAR" property="checking" />
+    <result column="CHECKINGTIME" jdbcType="TIMESTAMP" property="checkingtime" />
+    <result column="CHECK_CONFIRM" jdbcType="CHAR" property="checkConfirm" />
+    <result column="USERNO" jdbcType="CHAR" property="userno" />
+    <result column="USERNAME" jdbcType="CHAR" property="username" />
+    <result column="USERTIME" jdbcType="TIMESTAMP" property="usertime" />
+    <result column="USING" jdbcType="CHAR" property="using" />
+    <result column="RECEIVE" jdbcType="CHAR" property="receive" />
+    <result column="RECEIVETIME" jdbcType="TIMESTAMP" property="receivetime" />
+    <result column="RECEIVEUSERNO" jdbcType="CHAR" property="receiveuserno" />
+    <result column="RECEIVEUSERNAME" jdbcType="CHAR" property="receiveusername" />
+    <result column="DATATIME" jdbcType="TIMESTAMP" property="datatime" />
+    <result column="DATAUSERNAME" jdbcType="CHAR" property="datausername" />
+    <result column="DATAUSERNO" jdbcType="CHAR" property="datauserno" />
+    <result column="LOCATION" jdbcType="CHAR" property="location" />
+    <result column="WEARHOUSING" jdbcType="CHAR" property="wearhousing" />
+    <result column="WEARHOUSEUSERNO" jdbcType="CHAR" property="wearhouseuserno" />
+    <result column="WEARHOUSEUSERNAME" jdbcType="CHAR" property="wearhouseusername" />
+    <result column="WEARHOUSEDATETIME" jdbcType="TIMESTAMP" property="wearhousedatetime" />
+    <result column="PATIENTNO" jdbcType="CHAR" property="patientno" />
+    <result column="PCASENO" jdbcType="CHAR" property="pcaseno" />
+    <result column="DEPNOCRE" jdbcType="CHAR" property="depnocre" />
+    <result column="DEPNOSTORE" jdbcType="CHAR" property="depnostore" />
+    <result column="DEPNOPAY" jdbcType="CHAR" property="depnopay" />
+    <result column="DEPNOUSE" jdbcType="CHAR" property="depnouse" />
+    <result column="DELTIME" jdbcType="TIMESTAMP" property="deltime" />
+    <result column="DELDEPNO" jdbcType="CHAR" property="deldepno" />
+    <result column="DELUSER" jdbcType="CHAR" property="deluser" />
+    <result column="RECEIVEROOM" jdbcType="CHAR" property="receiveroom" />
+    <result column="CLEARUSERNO" jdbcType="CHAR" property="clearuserno" />
+    <result column="CLEARUSERNAME" jdbcType="CHAR" property="clearusername" />
+    <result column="UNPOT_USERNO" jdbcType="VARCHAR" property="unpotUserno" />
+    <result column="UNPOT_USERNAME" jdbcType="VARCHAR" property="unpotUsername" />
+    <result column="BI_HH" jdbcType="VARCHAR" property="biHh" />
+    <result column="BI_MM" jdbcType="VARCHAR" property="biMm" />
+    <result column="PACK_OK" jdbcType="VARCHAR" property="packOk" />
+    <result column="BARCODE_OK" jdbcType="VARCHAR" property="barcodeOk" />
+    <result column="COLOR_OK" jdbcType="VARCHAR" property="colorOk" />
+    <result column="DRY_OK" jdbcType="VARCHAR" property="dryOk" />
+    <result column="TEMP_OK" jdbcType="VARCHAR" property="tempOk" />
+    <result column="DPOTNAME" jdbcType="CHAR" property="dpotname" />
+    <result column="DPOTSN" jdbcType="INTEGER" property="dpotsn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    BARCODEID, SETNO, BARCODE, EMPNO, USERCNAME, SN, EFFECTIVEDATE, CREATEDATETIME, DISINFECTION, 
+    EOD, DEPNO, SETSN, STATUS, REQ_ID, RD_ID, POTID, CHECKING, CHECKINGTIME, CHECK_CONFIRM, 
+    USERNO, USERNAME, USERTIME, USING, RECEIVE, RECEIVETIME, RECEIVEUSERNO, RECEIVEUSERNAME, 
+    DATATIME, DATAUSERNAME, DATAUSERNO, LOCATION, WEARHOUSING, WEARHOUSEUSERNO, WEARHOUSEUSERNAME, 
+    WEARHOUSEDATETIME, PATIENTNO, PCASENO, DEPNOCRE, DEPNOSTORE, DEPNOPAY, DEPNOUSE, 
+    DELTIME, DELDEPNO, DELUSER, RECEIVEROOM, CLEARUSERNO, CLEARUSERNAME, UNPOT_USERNO, 
+    UNPOT_USERNAME, BI_HH, BI_MM, PACK_OK, BARCODE_OK, COLOR_OK, DRY_OK, TEMP_OK, DPOTNAME, 
+    DPOTSN
+  </sql>
+  
+  
+  <select id="timeoutSetno" parameterType="String" resultType="CsrSetdata3m">
+    SELECT B.SetNo,S.SetName, S.SetNameCH 
+	FROM VGHTPETS.CSR_BARCODE AS B 
+	left join VGHTPETS.CSR_SETDATA_3M AS S 
+	ON B.SetNo=S.SetNo 
+	WHERE 1=1 
+	AND B.EffectiveDate between #{start} and #{end}  
+	AND B.EffectiveDate &lt; #{todayEnd}
+	AND B.using = 'N'  
+	GROUP BY B.SetNo,S.SetName,S.SetNameCH ORDER BY B.SetNo;
+  </select>
+  
+  
+   <select id="getTimeoutNum" parameterType="String" resultType="Map">
+      SELECT count(barcodeID) MathBarcode ,DepNo 
+	  FROM VGHTPETS.CSR_BARCODE 
+      WHERE SetNo = #{timeoutSetno}
+      	AND EffectiveDate between #{start} and #{end}  
+		AND EffectiveDate  &lt; #{todayEnd}
+		AND using = 'N'  
+		AND status in ('1','2','3','4','19') 
+		group by DepNo 
+		union all 
+		SELECT count(barcodeID) MathBarcode ,DepNo 
+		FROM VGHTPETS.CSR_BARCODE 
+		WHERE SetNo = #{timeoutSetno}
+		AND EffectiveDate between #{start} and #{end}   
+		AND using = 'N' 
+		AND status = '18'  
+		and EffectiveDate  &lt; delTime group by DepNo
+    </select>
+
+
+</mapper>

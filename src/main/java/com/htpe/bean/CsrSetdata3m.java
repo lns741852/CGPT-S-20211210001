@@ -1,14 +1,25 @@
 package com.htpe.bean;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
-public class CsrSetdata3m {
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = false)
+public class CsrSetdata3m implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	   
     private Integer id;
 
     @NotEmpty(message = "盤包代號不能為空")
+    @Excel(name="盤包代號" ,width=15)
     private String setno;
 
     @NotEmpty(message = "盤包中文不能為空")
+    @Excel(name="盤包名稱",width=30)
     private String setnamech;
 
     private String setname;
@@ -19,16 +30,22 @@ public class CsrSetdata3m {
 
     private Integer price;
     
+    @Excel(name="CSR")
     private Integer numbaseCsr;
     
+    @Excel(name="CSR2")
     private Integer numbaseCsr2;
     
+    @Excel(name="AOR")
     private Integer numbaseOr1;
        
+    @Excel(name="BOR")
     private Integer numbaseOr2;
      
+    @Excel(name="GOR")
     private Integer numbaseOr3;
     
+    @Excel(name="WR")
     private Integer numbaseWr1;
 
     private String spotno;
@@ -42,8 +59,20 @@ public class CsrSetdata3m {
     private String positionId;
 
     private String text01;
+    
+    @Excel(name="總數")
+    private Integer total;
+      
 
-    public Integer getId() {
+    public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+
+	public Integer getId() {
         return id;
     }
 

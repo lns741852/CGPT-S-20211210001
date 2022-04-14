@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrBoxMapper">
+   <select id="listBox" resultType="CsrBox">
+	    select ID,UDI,PRICE,STATUS
+	    from CSR_UDI_BOX
+	    <where>
+			<if test="searchName!=null">
+				AND (UDI like '%'||(#{searchName})||'%')
+			</if>
+		</where>
+		order by ID
+  </select>
+  
+     <select id="getBoxById" parameterType="Integer" resultType="CsrBox">
+	    select ID,UDI,PRICE,STATUS
+	    from CSR_UDI_BOX
+		where ID=#{id}
+  </select>
+  
+   <insert id="insertBox" parameterType="com.htpe.bean.CsrBox">
+    insert into CSR_UDI_BOX
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="udi != null">
+        UDI,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="datauser != null">
+        DATAUSER,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="udi != null">
+        #{udi},
+      </if>
+      <if test="price != null">
+        #{price},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="datauser != null">
+        #{datauser},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+  
+   <update id="updateBox" parameterType="CsrBox">
+    update CSR_UDI_BOX
+    <set>
+      <if test="udi != null">
+        UDI = #{udi},
+      </if>
+      <if test="price != null">
+        PRICE = #{price},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="datauser != null">
+        DATAUSER = #{datauser},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+</mapper>
