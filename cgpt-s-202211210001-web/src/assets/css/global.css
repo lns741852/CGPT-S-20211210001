@@ -1,0 +1,132 @@
+/*全局樣式*/
+
+html {
+    font-family: sans-serif;
+    height: 100%;
+    /* 預設字型 */
+    font-size: 18px;
+    /* 調整字型大小 */
+    -ms-text-size-adjust: 100%;
+    /* IE瀏覽器 */
+    -webkit-text-size-adjust: 100%;
+    /* FireFox瀏覽器 */
+}
+
+body,
+#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.success_button {
+    background: #114f4a;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.delete_button {
+    background: #c16124;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.edit_button {
+    background: #817076;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.el-table {
+    margin: 20px 0 20px 0;
+}
+
+.el-table__inner-wrapper {
+    border: black;
+}
+
+.elTable {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.el-table__header .is-leaf.el-table__cell {
+    background-color: #E4C1AE;
+}
+
+.el-table__header .cell {
+    color: black;
+}
+
+.el-col.el-col-offset-19 {
+    margin-top: 10px;
+}
+
+.el-dialog {
+    background-color: #FEFAEE;
+}
+
+.el-dialog__header {
+    background-color: #E4C1AE;
+}
+
+
+/*checkbox樣式*/
+
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: gray;
+    border-color: gray;
+}
+
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: gray;
+}
+
+.el-checkbox.is-bordered.is-checked {
+    border-color: gray;
+}
+
+.el-checkbox__input.is-focus .el-checkbox__inner {
+    border-color: gray;
+}
+
+
+/*redio樣式*/
+
+.el-radio__input.is-checked .el-radio__inner,
+.el-radio__input.is-indeterminate .el-radio__inner {
+    background-color: gray;
+    border-color: gray;
+}
+
+.el-radio__input.is-checked+.el-radio__label {
+    color: gray;
+}
+
+.el-radio.is-bordered.is-checked {
+    border-color: gray;
+}
+
+.el-radio__input.is-focus .el-radio__inner {
+    border-color: gray;
+}
+
+
+/**收尋框*/
+
+.el-input__inner {
+    float: left;
+    border: 1px solid #114f4a;
+}
+
+.el-button.el-button--default.search_button {
+    float: left;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #114f4a;
+    color: #fff;
+}
