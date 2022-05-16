@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrPoltldMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrPoltld">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DEPNO" jdbcType="CHAR" property="depno" />
+    <result column="POTNAME" jdbcType="CHAR" property="potname" />
+    <result column="POTNO" jdbcType="CHAR" property="potno" />
+    <result column="POTSN" jdbcType="INTEGER" property="potsn" />
+    <result column="EMPNO" jdbcType="CHAR" property="empno" />
+    <result column="USERCNAME" jdbcType="CHAR" property="usercname" />
+    <result column="POTSCANTIME" jdbcType="TIMESTAMP" property="potscantime" />
+    <result column="DATAUSERNAME" jdbcType="CHAR" property="datausername" />
+    <result column="DATAUSERNO" jdbcType="CHAR" property="datauserno" />
+    <result column="RBI" jdbcType="CHAR" property="rbi" />
+    <result column="RBI_BATCH" jdbcType="CHAR" property="rbiBatch" />
+    <result column="RBI_COMPARISON" jdbcType="CHAR" property="rbiComparison" />
+    <result column="RBI_COMPARISON_BATCH" jdbcType="CHAR" property="rbiComparisonBatch" />
+    <result column="CLASS5" jdbcType="CHAR" property="class5" />
+    <result column="VACUUM" jdbcType="CHAR" property="vacuum" />
+    <result column="INSTRUMENT" jdbcType="CHAR" property="instrument" />
+    <result column="EFFICTMONITOR" jdbcType="CHAR" property="effictmonitor" />
+    <result column="FIRSTE" jdbcType="CHAR" property="firste" />
+    <result column="FIRSTF" jdbcType="CHAR" property="firstf" />
+    <result column="NORMAL" jdbcType="CHAR" property="normal" />
+    <result column="NONIMPLANT" jdbcType="CHAR" property="nonimplant" />
+    <result column="IMPLANT" jdbcType="CHAR" property="implant" />
+    <result column="QC" jdbcType="CHAR" property="qc" />
+    <result column="QUALITY" jdbcType="CHAR" property="quality" />
+    <result column="MACHANIC" jdbcType="CHAR" property="machanic" />
+    <result column="POT_TYPE" jdbcType="CHAR" property="potType" />
+    <result column="ISRIGHT" jdbcType="CHAR" property="isright" />
+    <result column="EXTERNAL_INDICATOR" jdbcType="CHAR" property="externalIndicator" />
+    <result column="INTERNAL_INICATOR" jdbcType="CHAR" property="internalInicator" />
+    <result column="PROCESS" jdbcType="CHAR" property="process" />
+    <result column="ISRECALL" jdbcType="CHAR" property="isrecall" />
+    <result column="ISPOTOPEN" jdbcType="CHAR" property="ispotopen" />
+    <result column="RBITEMPERATURE" jdbcType="CHAR" property="rbitemperature" />
+    <result column="RBITIME" jdbcType="INTEGER" property="rbitime" />
+    <result column="LEAK" jdbcType="CHAR" property="leak" />
+    <result column="LEAKVALUE" jdbcType="CHAR" property="leakvalue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DEPNO, POTNAME, POTNO, POTSN, EMPNO, USERCNAME, POTSCANTIME, DATAUSERNAME, DATAUSERNO, 
+    RBI, RBI_BATCH, RBI_COMPARISON, RBI_COMPARISON_BATCH, CLASS5, VACUUM, INSTRUMENT, 
+    EFFICTMONITOR, FIRSTE, FIRSTF, NORMAL, NONIMPLANT, IMPLANT, QC, QUALITY, MACHANIC, 
+    POT_TYPE, ISRIGHT, EXTERNAL_INDICATOR, INTERNAL_INICATOR, PROCESS, ISRECALL, ISPOTOPEN, 
+    RBITEMPERATURE, RBITIME, LEAK, LEAKVALUE
+  </sql>
+  
+  
+  
+ 
+ 
+ 
+ 
+ 
+  <insert id="insertSelective" parameterType="com.htpe.bean.CsrPoltld">
+    insert into JAY.CSR_POLTLD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="depno != null">
+        DEPNO,
+      </if>
+      <if test="potname != null">
+        POTNAME,
+      </if>
+      <if test="potno != null">
+        POTNO,
+      </if>
+      <if test="potsn != null">
+        POTSN,
+      </if>
+      <if test="empno != null">
+        EMPNO,
+      </if>
+      <if test="usercname != null">
+        USERCNAME,
+      </if>
+      <if test="potscantime != null">
+        POTSCANTIME,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="rbi != null">
+        RBI,
+      </if>
+      <if test="rbiBatch != null">
+        RBI_BATCH,
+      </if>
+      <if test="rbiComparison != null">
+        RBI_COMPARISON,
+      </if>
+      <if test="rbiComparisonBatch != null">
+        RBI_COMPARISON_BATCH,
+      </if>
+      <if test="class5 != null">
+        CLASS5,
+      </if>
+      <if test="vacuum != null">
+        VACUUM,
+      </if>
+      <if test="instrument != null">
+        INSTRUMENT,
+      </if>
+      <if test="effictmonitor != null">
+        EFFICTMONITOR,
+      </if>
+      <if test="firste != null">
+        FIRSTE,
+      </if>
+      <if test="firstf != null">
+        FIRSTF,
+      </if>
+      <if test="normal != null">
+        NORMAL,
+      </if>
+      <if test="nonimplant != null">
+        NONIMPLANT,
+      </if>
+      <if test="implant != null">
+        IMPLANT,
+      </if>
+      <if test="qc != null">
+        QC,
+      </if>
+      <if test="quality != null">
+        QUALITY,
+      </if>
+      <if test="machanic != null">
+        MACHANIC,
+      </if>
+      <if test="potType != null">
+        POT_TYPE,
+      </if>
+      <if test="isright != null">
+        ISRIGHT,
+      </if>
+      <if test="externalIndicator != null">
+        EXTERNAL_INDICATOR,
+      </if>
+      <if test="internalInicator != null">
+        INTERNAL_INICATOR,
+      </if>
+      <if test="process != null">
+        PROCESS,
+      </if>
+      <if test="isrecall != null">
+        ISRECALL,
+      </if>
+      <if test="ispotopen != null">
+        ISPOTOPEN,
+      </if>
+      <if test="rbitemperature != null">
+        RBITEMPERATURE,
+      </if>
+      <if test="rbitime != null">
+        RBITIME,
+      </if>
+      <if test="leak != null">
+        LEAK,
+      </if>
+      <if test="leakvalue != null">
+        LEAKVALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="depno != null">
+        #{depno,jdbcType=CHAR},
+      </if>
+      <if test="potname != null">
+        #{potname,jdbcType=CHAR},
+      </if>
+      <if test="potno != null">
+        #{potno,jdbcType=CHAR},
+      </if>
+      <if test="potsn != null">
+        #{potsn,jdbcType=INTEGER},
+      </if>
+      <if test="empno != null">
+        #{empno,jdbcType=CHAR},
+      </if>
+      <if test="usercname != null">
+        #{usercname,jdbcType=CHAR},
+      </if>
+      <if test="potscantime != null">
+        #{potscantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datausername != null">
+        #{datausername,jdbcType=CHAR},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno,jdbcType=CHAR},
+      </if>
+      <if test="rbi != null">
+        #{rbi,jdbcType=CHAR},
+      </if>
+      <if test="rbiBatch != null">
+        #{rbiBatch,jdbcType=CHAR},
+      </if>
+      <if test="rbiComparison != null">
+        #{rbiComparison,jdbcType=CHAR},
+      </if>
+      <if test="rbiComparisonBatch != null">
+        #{rbiComparisonBatch,jdbcType=CHAR},
+      </if>
+      <if test="class5 != null">
+        #{class5,jdbcType=CHAR},
+      </if>
+      <if test="vacuum != null">
+        #{vacuum,jdbcType=CHAR},
+      </if>
+      <if test="instrument != null">
+        #{instrument,jdbcType=CHAR},
+      </if>
+      <if test="effictmonitor != null">
+        #{effictmonitor,jdbcType=CHAR},
+      </if>
+      <if test="firste != null">
+        #{firste,jdbcType=CHAR},
+      </if>
+      <if test="firstf != null">
+        #{firstf,jdbcType=CHAR},
+      </if>
+      <if test="normal != null">
+        #{normal,jdbcType=CHAR},
+      </if>
+      <if test="nonimplant != null">
+        #{nonimplant,jdbcType=CHAR},
+      </if>
+      <if test="implant != null">
+        #{implant,jdbcType=CHAR},
+      </if>
+      <if test="qc != null">
+        #{qc,jdbcType=CHAR},
+      </if>
+      <if test="quality != null">
+        #{quality,jdbcType=CHAR},
+      </if>
+      <if test="machanic != null">
+        #{machanic,jdbcType=CHAR},
+      </if>
+      <if test="potType != null">
+        #{potType,jdbcType=CHAR},
+      </if>
+      <if test="isright != null">
+        #{isright,jdbcType=CHAR},
+      </if>
+      <if test="externalIndicator != null">
+        #{externalIndicator,jdbcType=CHAR},
+      </if>
+      <if test="internalInicator != null">
+        #{internalInicator,jdbcType=CHAR},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=CHAR},
+      </if>
+      <if test="isrecall != null">
+        #{isrecall,jdbcType=CHAR},
+      </if>
+      <if test="ispotopen != null">
+        #{ispotopen,jdbcType=CHAR},
+      </if>
+      <if test="rbitemperature != null">
+        #{rbitemperature,jdbcType=CHAR},
+      </if>
+      <if test="rbitime != null">
+        #{rbitime,jdbcType=INTEGER},
+      </if>
+      <if test="leak != null">
+        #{leak,jdbcType=CHAR},
+      </if>
+      <if test="leakvalue != null">
+        #{leakvalue,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrPoltld">
+    update JAY.CSR_POLTLD
+    <set>
+      <if test="depno != null">
+        DEPNO = #{depno,jdbcType=CHAR},
+      </if>
+      <if test="potname != null">
+        POTNAME = #{potname,jdbcType=CHAR},
+      </if>
+      <if test="potno != null">
+        POTNO = #{potno,jdbcType=CHAR},
+      </if>
+      <if test="potsn != null">
+        POTSN = #{potsn,jdbcType=INTEGER},
+      </if>
+      <if test="empno != null">
+        EMPNO = #{empno,jdbcType=CHAR},
+      </if>
+      <if test="usercname != null">
+        USERCNAME = #{usercname,jdbcType=CHAR},
+      </if>
+      <if test="potscantime != null">
+        POTSCANTIME = #{potscantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername,jdbcType=CHAR},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno,jdbcType=CHAR},
+      </if>
+      <if test="rbi != null">
+        RBI = #{rbi,jdbcType=CHAR},
+      </if>
+      <if test="rbiBatch != null">
+        RBI_BATCH = #{rbiBatch,jdbcType=CHAR},
+      </if>
+      <if test="rbiComparison != null">
+        RBI_COMPARISON = #{rbiComparison,jdbcType=CHAR},
+      </if>
+      <if test="rbiComparisonBatch != null">
+        RBI_COMPARISON_BATCH = #{rbiComparisonBatch,jdbcType=CHAR},
+      </if>
+      <if test="class5 != null">
+        CLASS5 = #{class5,jdbcType=CHAR},
+      </if>
+      <if test="vacuum != null">
+        VACUUM = #{vacuum,jdbcType=CHAR},
+      </if>
+      <if test="instrument != null">
+        INSTRUMENT = #{instrument,jdbcType=CHAR},
+      </if>
+      <if test="effictmonitor != null">
+        EFFICTMONITOR = #{effictmonitor,jdbcType=CHAR},
+      </if>
+      <if test="firste != null">
+        FIRSTE = #{firste,jdbcType=CHAR},
+      </if>
+      <if test="firstf != null">
+        FIRSTF = #{firstf,jdbcType=CHAR},
+      </if>
+      <if test="normal != null">
+        NORMAL = #{normal,jdbcType=CHAR},
+      </if>
+      <if test="nonimplant != null">
+        NONIMPLANT = #{nonimplant,jdbcType=CHAR},
+      </if>
+      <if test="implant != null">
+        IMPLANT = #{implant,jdbcType=CHAR},
+      </if>
+      <if test="qc != null">
+        QC = #{qc,jdbcType=CHAR},
+      </if>
+      <if test="quality != null">
+        QUALITY = #{quality,jdbcType=CHAR},
+      </if>
+      <if test="machanic != null">
+        MACHANIC = #{machanic,jdbcType=CHAR},
+      </if>
+      <if test="potType != null">
+        POT_TYPE = #{potType,jdbcType=CHAR},
+      </if>
+      <if test="isright != null">
+        ISRIGHT = #{isright,jdbcType=CHAR},
+      </if>
+      <if test="externalIndicator != null">
+        EXTERNAL_INDICATOR = #{externalIndicator,jdbcType=CHAR},
+      </if>
+      <if test="internalInicator != null">
+        INTERNAL_INICATOR = #{internalInicator,jdbcType=CHAR},
+      </if>
+      <if test="process != null">
+        PROCESS = #{process,jdbcType=CHAR},
+      </if>
+      <if test="isrecall != null">
+        ISRECALL = #{isrecall,jdbcType=CHAR},
+      </if>
+      <if test="ispotopen != null">
+        ISPOTOPEN = #{ispotopen,jdbcType=CHAR},
+      </if>
+      <if test="rbitemperature != null">
+        RBITEMPERATURE = #{rbitemperature,jdbcType=CHAR},
+      </if>
+      <if test="rbitime != null">
+        RBITIME = #{rbitime,jdbcType=INTEGER},
+      </if>
+      <if test="leak != null">
+        LEAK = #{leak,jdbcType=CHAR},
+      </if>
+      <if test="leakvalue != null">
+        LEAKVALUE = #{leakvalue,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrPoltld">
+    update JAY.CSR_POLTLD
+    set DEPNO = #{depno,jdbcType=CHAR},
+      POTNAME = #{potname,jdbcType=CHAR},
+      POTNO = #{potno,jdbcType=CHAR},
+      POTSN = #{potsn,jdbcType=INTEGER},
+      EMPNO = #{empno,jdbcType=CHAR},
+      USERCNAME = #{usercname,jdbcType=CHAR},
+      POTSCANTIME = #{potscantime,jdbcType=TIMESTAMP},
+      DATAUSERNAME = #{datausername,jdbcType=CHAR},
+      DATAUSERNO = #{datauserno,jdbcType=CHAR},
+      RBI = #{rbi,jdbcType=CHAR},
+      RBI_BATCH = #{rbiBatch,jdbcType=CHAR},
+      RBI_COMPARISON = #{rbiComparison,jdbcType=CHAR},
+      RBI_COMPARISON_BATCH = #{rbiComparisonBatch,jdbcType=CHAR},
+      CLASS5 = #{class5,jdbcType=CHAR},
+      VACUUM = #{vacuum,jdbcType=CHAR},
+      INSTRUMENT = #{instrument,jdbcType=CHAR},
+      EFFICTMONITOR = #{effictmonitor,jdbcType=CHAR},
+      FIRSTE = #{firste,jdbcType=CHAR},
+      FIRSTF = #{firstf,jdbcType=CHAR},
+      NORMAL = #{normal,jdbcType=CHAR},
+      NONIMPLANT = #{nonimplant,jdbcType=CHAR},
+      IMPLANT = #{implant,jdbcType=CHAR},
+      QC = #{qc,jdbcType=CHAR},
+      QUALITY = #{quality,jdbcType=CHAR},
+      MACHANIC = #{machanic,jdbcType=CHAR},
+      POT_TYPE = #{potType,jdbcType=CHAR},
+      ISRIGHT = #{isright,jdbcType=CHAR},
+      EXTERNAL_INDICATOR = #{externalIndicator,jdbcType=CHAR},
+      INTERNAL_INICATOR = #{internalInicator,jdbcType=CHAR},
+      PROCESS = #{process,jdbcType=CHAR},
+      ISRECALL = #{isrecall,jdbcType=CHAR},
+      ISPOTOPEN = #{ispotopen,jdbcType=CHAR},
+      RBITEMPERATURE = #{rbitemperature,jdbcType=CHAR},
+      RBITIME = #{rbitime,jdbcType=INTEGER},
+      LEAK = #{leak,jdbcType=CHAR},
+      LEAKVALUE = #{leakvalue,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

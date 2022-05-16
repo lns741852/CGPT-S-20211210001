@@ -48,7 +48,7 @@
             >
             <el-button
               class="delete_button"
-              @click="deleteSetno(scope.row.id, scope.row.udi)"
+              @click="deleteBox(scope.row.id, scope.row.udi)"
               >刪除</el-button
             >
           </template>
@@ -127,7 +127,7 @@
       </template>
       <template #footer>
         <div class="dialog-footer">
-          <el-button class="edit_button" @click="editPacket">確定</el-button>
+          <el-button class="edit_button" @click="editBox">確定</el-button>
           <el-button type="info" @click="editDialogVisible = false"
             >取消</el-button
           >
@@ -185,7 +185,7 @@ export default {
       this.$refs.addFormRef.resetFields();
       this.addForm = {};
     },
-    /**新增盤包 */
+    /**新增器械盒 */
     addBox() {
       this.$refs.addFormRef.validate((valid) => {
         if (!valid) return;
@@ -196,16 +196,16 @@ export default {
       });
     },
     /**編輯 */
-    editPacket() {
+    editBox() {
       this.$refs.addFormRef.validate((valid) => {
         if (!valid) return;
         
         if(this.fix){
             this.addForm.status ="3"
         }else if(this.fix==""){
-             this.addForm.status ="2"
-        }else{
              this.addForm.status ="1"
+        }else{
+             this.addForm.status ="2"
         }
         this.$axios.put("/box/" + this.addForm.id, this.addForm).then(() => {
           this.editDialogVisible = false;
@@ -228,7 +228,7 @@ export default {
       this.editDialogVisible = true;
     },
     /**刪除 */
-    deleteSetno(id, name) {
+    deleteBox(id, name) {
       this.$msgbox
         .confirm("確定要刪除 " + name + " ?", "刪除", {
           cancelButtonText: "取消",

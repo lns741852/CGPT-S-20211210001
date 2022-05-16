@@ -4,6 +4,7 @@
  */
 import instance from './interceptor'
 import { ElLoading } from "element-plus"
+// import router from '../router'
 
 /**
  * @param {url} 請求地址
@@ -13,7 +14,7 @@ import { ElLoading } from "element-plus"
  * @param mock 本次是否使用mock
  * 
  */
-function request(url, params, options = { Loading: true, mock: false, isUpload: false }, method) {
+function request(url, params, options = { Loading: true, mock: false, isUpload: false, voice: false }, method) {
     let LoadingInstance;
     // 載入中...
     if (options.Loading) LoadingInstance = ElLoading.service();
@@ -30,12 +31,13 @@ function request(url, params, options = { Loading: true, mock: false, isUpload: 
         //put使用
         if (method == 'put') data = { data: params }
 
-        // get使用params字段
+        // delete使用
         if (method == 'delete') data = { params }
 
         // mock配置
         if (options.mock) url = 'http://www.mock.com/mock/xxxx/api';
-        instance({ //攔截器
+        //調用攔截器
+        instance({
             url,
             method,
             ...data,
@@ -44,14 +46,15 @@ function request(url, params, options = { Loading: true, mock: false, isUpload: 
             // 此處可以實現擴展功能
             // 如對接多個api，數據結構調適
             // 也可添加日期，數字等等
-            if (res.data.code === 200) {
+            if (res.data.code === 200 || res.status === 200) {
                 resolve(res);
             } else {
                 reject(res);
             }
         }).catch((e) => {
-            alert(e)
-            localStorage.setItem("authorization", "reset");
+            alert("服務異常:\r\n" + e)
+                // localStorage.setItem("authorization", "reset");
+                // router.push("/login")
         }).finally(() => {
             LoadingInstance.close(); //關閉載入中...
         })
@@ -69,7 +72,7 @@ function post(url, params, options) {
 function put(url, params, options) {
     return request(url, params, options, 'put')
 }
-
+// 封裝remove
 function remove(url, params, options) {
     return request(url, params, options, 'delete')
 }

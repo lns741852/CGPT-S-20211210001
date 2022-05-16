@@ -390,27 +390,27 @@ export default {
       this.$axios.get("/udi/" + id).then((res) => {
         if (res.data.data.picpath1)
           this.urls.push(
-            "http://127.0.0.1:8282/HTPE/file/" + res.data.data.picpath1
+            "http://20.24.194.150:8282/HTPE/file/" + res.data.data.picpath1
           );
         if (res.data.data.picpath2)
           this.urls.push(
-            "http://127.0.0.1:8282/HTPE/file/" + res.data.data.picpath2
+            "http://20.24.194.150:8282/HTPE/file/" + res.data.data.picpath2
           );
         if (res.data.data.picpath3)
           this.urls.push(
-            "http://127.0.0.1:8282/HTPE/file/" + res.data.data.picpath3
+            "http://20.24.194.150:8282/HTPE/file/" + res.data.data.picpath3
           );
         if (res.data.data.filepath1)
           this.files.push(
-            "http://127.0.0.1:8282/HTPE/file/" + res.data.data.filepath1
+            "http://20.24.194.150:8282/HTPE/file/" + res.data.data.filepath1
           );
         if (res.data.data.filepath2)
           this.files.push(
-            "http://127.0.0.1:8282/HTPE/file/" + res.data.data.filepath2
+            "http://20.24.194.150:8282/HTPE/file/" + res.data.data.filepath2
           );
         if (res.data.data.filepath3)
           this.files.push(
-            "http://127.0.0.1:8282/HTPE/file/" + res.data.data.filepath3
+            "http://20.24.194.150:8282/HTPE/file/" + res.data.data.filepath3
           );
       });
       this.fileDialogVisible = true;

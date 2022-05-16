@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrHistory">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="REQ_ID" jdbcType="INTEGER" property="reqId" />
+    <result column="BARCODE" jdbcType="CHAR" property="barcode" />
+    <result column="USERNO" jdbcType="CHAR" property="userno" />
+    <result column="USERNAME" jdbcType="CHAR" property="username" />
+    <result column="DUTYNO" jdbcType="CHAR" property="dutyno" />
+    <result column="DUTYNAME" jdbcType="CHAR" property="dutyname" />
+    <result column="USERTIME" jdbcType="TIMESTAMP" property="usertime" />
+    <result column="SN" jdbcType="INTEGER" property="sn" />
+    <result column="ISLAST" jdbcType="CHAR" property="islast" />
+    <result column="DEPNO" jdbcType="CHAR" property="depno" />
+    <result column="PATIENTNO" jdbcType="CHAR" property="patientno" />
+    <result column="PCASENO" jdbcType="CHAR" property="pcaseno" />
+    <result column="ISUSED" jdbcType="CHAR" property="isused" />
+    <result column="ACTION" jdbcType="CHAR" property="action" />
+    <result column="LOCATION" jdbcType="CHAR" property="location" />
+    <result column="DEPNOLAST" jdbcType="CHAR" property="depnolast" />
+    <result column="POTNAME" jdbcType="CHAR" property="potname" />
+    <result column="POTSN" jdbcType="INTEGER" property="potsn" />
+    <result column="POTID" jdbcType="INTEGER" property="potid" />
+    <result column="POTNO" jdbcType="CHAR" property="potno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REQ_ID, BARCODE, USERNO, USERNAME, DUTYNO, DUTYNAME, USERTIME, SN, ISLAST, DEPNO, 
+    PATIENTNO, PCASENO, ISUSED, ACTION, LOCATION, DEPNOLAST, POTNAME, POTSN, POTID, POTNO
+  </sql>
+
+
+  <insert id="insertHistory" parameterType="com.htpe.bean.CsrHistory">
+    insert into CSR_HISTORY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="reqId != null">
+        REQ_ID,
+      </if>
+      <if test="barcode != null">
+        BARCODE,
+      </if>
+      <if test="userno != null">
+        USERNO,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="dutyno != null">
+        DUTYNO,
+      </if>
+      <if test="dutyname != null">
+        DUTYNAME,
+      </if>
+      <if test="usertime != null">
+        USERTIME,
+      </if>
+      <if test="sn != null">
+        SN,
+      </if>
+      <if test="islast != null">
+        ISLAST,
+      </if>
+      <if test="depno != null">
+        DEPNO,
+      </if>
+      <if test="patientno != null">
+        PATIENTNO,
+      </if>
+      <if test="pcaseno != null">
+        PCASENO,
+      </if>
+      <if test="isused != null">
+        ISUSED,
+      </if>
+      <if test="action != null">
+        ACTION,
+      </if>
+      <if test="location != null">
+        LOCATION,
+      </if>
+      <if test="depnolast != null">
+        DEPNOLAST,
+      </if>
+      <if test="potname != null">
+        POTNAME,
+      </if>
+      <if test="potsn != null">
+        POTSN,
+      </if>
+      <if test="potid != null">
+        POTID,
+      </if>
+      <if test="potno != null">
+        POTNO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reqId != null">
+        #{reqId,jdbcType=INTEGER},
+      </if>
+      <if test="barcode != null">
+        #{barcode,jdbcType=CHAR},
+      </if>
+      <if test="userno != null">
+        #{userno,jdbcType=CHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="dutyno != null">
+        #{dutyno,jdbcType=CHAR},
+      </if>
+      <if test="dutyname != null">
+        #{dutyname,jdbcType=CHAR},
+      </if>
+      <if test="usertime != null">
+        #{usertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="islast != null">
+        #{islast,jdbcType=CHAR},
+      </if>
+      <if test="depno != null">
+        #{depno,jdbcType=CHAR},
+      </if>
+      <if test="patientno != null">
+        #{patientno,jdbcType=CHAR},
+      </if>
+      <if test="pcaseno != null">
+        #{pcaseno,jdbcType=CHAR},
+      </if>
+      <if test="isused != null">
+        #{isused,jdbcType=CHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=CHAR},
+      </if>
+      <if test="depnolast != null">
+        #{depnolast,jdbcType=CHAR},
+      </if>
+      <if test="potname != null">
+        #{potname,jdbcType=CHAR},
+      </if>
+      <if test="potsn != null">
+        #{potsn,jdbcType=INTEGER},
+      </if>
+      <if test="potid != null">
+        #{potid,jdbcType=INTEGER},
+      </if>
+      <if test="potno != null">
+        #{potno,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrHistory">
+    update JAY.CSR_HISTORY
+    <set>
+      <if test="reqId != null">
+        REQ_ID = #{reqId,jdbcType=INTEGER},
+      </if>
+      <if test="barcode != null">
+        BARCODE = #{barcode,jdbcType=CHAR},
+      </if>
+      <if test="userno != null">
+        USERNO = #{userno,jdbcType=CHAR},
+      </if>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=CHAR},
+      </if>
+      <if test="dutyno != null">
+        DUTYNO = #{dutyno,jdbcType=CHAR},
+      </if>
+      <if test="dutyname != null">
+        DUTYNAME = #{dutyname,jdbcType=CHAR},
+      </if>
+      <if test="usertime != null">
+        USERTIME = #{usertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null">
+        SN = #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="islast != null">
+        ISLAST = #{islast,jdbcType=CHAR},
+      </if>
+      <if test="depno != null">
+        DEPNO = #{depno,jdbcType=CHAR},
+      </if>
+      <if test="patientno != null">
+        PATIENTNO = #{patientno,jdbcType=CHAR},
+      </if>
+      <if test="pcaseno != null">
+        PCASENO = #{pcaseno,jdbcType=CHAR},
+      </if>
+      <if test="isused != null">
+        ISUSED = #{isused,jdbcType=CHAR},
+      </if>
+      <if test="action != null">
+        ACTION = #{action,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        LOCATION = #{location,jdbcType=CHAR},
+      </if>
+      <if test="depnolast != null">
+        DEPNOLAST = #{depnolast,jdbcType=CHAR},
+      </if>
+      <if test="potname != null">
+        POTNAME = #{potname,jdbcType=CHAR},
+      </if>
+      <if test="potsn != null">
+        POTSN = #{potsn,jdbcType=INTEGER},
+      </if>
+      <if test="potid != null">
+        POTID = #{potid,jdbcType=INTEGER},
+      </if>
+      <if test="potno != null">
+        POTNO = #{potno,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrHistory">
+    update JAY.CSR_HISTORY
+    set REQ_ID = #{reqId,jdbcType=INTEGER},
+      BARCODE = #{barcode,jdbcType=CHAR},
+      USERNO = #{userno,jdbcType=CHAR},
+      USERNAME = #{username,jdbcType=CHAR},
+      DUTYNO = #{dutyno,jdbcType=CHAR},
+      DUTYNAME = #{dutyname,jdbcType=CHAR},
+      USERTIME = #{usertime,jdbcType=TIMESTAMP},
+      SN = #{sn,jdbcType=INTEGER},
+      ISLAST = #{islast,jdbcType=CHAR},
+      DEPNO = #{depno,jdbcType=CHAR},
+      PATIENTNO = #{patientno,jdbcType=CHAR},
+      PCASENO = #{pcaseno,jdbcType=CHAR},
+      ISUSED = #{isused,jdbcType=CHAR},
+      ACTION = #{action,jdbcType=CHAR},
+      LOCATION = #{location,jdbcType=CHAR},
+      DEPNOLAST = #{depnolast,jdbcType=CHAR},
+      POTNAME = #{potname,jdbcType=CHAR},
+      POTSN = #{potsn,jdbcType=INTEGER},
+      POTID = #{potid,jdbcType=INTEGER},
+      POTNO = #{potno,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

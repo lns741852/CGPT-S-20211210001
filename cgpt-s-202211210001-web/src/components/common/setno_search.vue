@@ -83,17 +83,28 @@ export default {
       this.getSetnoList();
     },
     /**顯示修改資料 */
-    showEditDialon(id) {
-      this.$axios.get("/setno/" + id).then((res) => {
-        this.addForm = res.data.data;
-      });
-      this.editDialogVisible = true;
-    }, 
+    // showEditDialon(id) {
+    //   this.$axios.get("/setno/" + id).then((res) => {
+    //     this.addForm = res.data.data;
+    //   });
+    //   this.editDialogVisible = true;
+    // }, 
     setInputValue(setno){
-      console.log(setno)
       localStorage.setItem('setno',setno)    
     }
   },
+  watch: {
+    "queryInfo.searchName": function () {
+      if (this.queryInfo.searchName != undefined) {
+        if (this.queryInfo.searchName.length === 6) {
+          this.queryInfo.searchName = this.queryInfo.searchName.toUpperCase();
+      
+        }
+      }
+    },
+  },
+
+
 };
 </script>
 

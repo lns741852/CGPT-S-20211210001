@@ -15,16 +15,24 @@ import { ElMessage } from "element-plus"
 const service = axios.create({
     // 自帶URL
     baseURL: 'http://127.0.0.1:8282/HTPE',
+    //baseURL: 'http://20.24.194.250:8282/HTPE',
     // 超時
     timeout: 5000,
     // 是否夾帶cookie
     withCredentials: false,
 });
+
 // 請求攔截器
 service.interceptors.request.use(config => {
+
+    if (config.options.voice) {
+        config.baseURL = 'voice'
+            //config.headers['Content-Type'] = 'text/html;charset=utf-8'
+        return config;
+    }
+
     if (config.options.isUpload) {
         config.headers['Content-Type'] = 'multipart/form-data'
-
     } else {
         config.headers['Content-Type'] = 'application/json;charset=utf-8'
     }
@@ -39,7 +47,7 @@ service.interceptors.response.use((response) => {
     // 獲得資料
     const res = response;
     // 成功
-    if (res.data.code === 200) {
+    if (res.data.code === 200 && res.status === 200) {
         if (res.data.data === "") {
             ElMessage.success(res.data.msg)
         }

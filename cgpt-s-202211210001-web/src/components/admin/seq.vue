@@ -74,11 +74,7 @@
               <el-col class="Edit_setno_font" span="2">盤包序號</el-col>
               <el-col span="2"><el-input v-model="addForm.seq" /></el-col>
               <el-col class="Edit_setno_font" span="2"
-                ><el-link
-                  href="http://127.0.0.1:8080/setno_search"
-                  target="_blank"
-                  >查詢盤包代號</el-link
-                ></el-col
+                ><router-link to="/setno_search" target="_blank">查詢盤包代號</router-link></el-col
               >
               <el-col span="4" :offset="2">
                 <el-button id="add_button" class="edit_button" @click="addSeq"
@@ -277,9 +273,9 @@ export default {
           this.addForm.setno = this.addForm.setno.toUpperCase();
           this.$axios.get("/setdata/" + this.addForm.setno).then((res) => {
             if (res.data.data !== null) {
-              this.inputData.setnamech = res.data.data.setnamech;
+              this.addForm.setnamech = res.data.data.setnamech;
             } else {
-              this.inputData.setnamech = "";
+              this.addForm.setnamech = "";
             }
           });
         }

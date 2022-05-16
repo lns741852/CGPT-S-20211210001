@@ -37,7 +37,7 @@
             >
             <el-button
               class="delete_button"
-              @click="deleteSetno(scope.row.id, scope.row.setnamech)"
+              @click="deletePacket(scope.row.id, scope.row.setnamech)"
               >刪除</el-button
             >
           </template>
@@ -248,7 +248,7 @@ export default {
       this.editDialogVisible = true;
     },
     /**刪除 */
-    deleteSetno(id, name) {
+    deletePacket(id, name) {
       this.$msgbox
         .confirm("確定要刪除 " + name + " ?", "刪除", {
           cancelButtonText: "取消",

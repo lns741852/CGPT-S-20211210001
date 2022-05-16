@@ -19,6 +19,7 @@
               </el-button>
             </template>
           </el-input>
+          <el-button style="margin-top:10px"  @click="getVic">獲取語音檔 </el-button>
         </el-col>
         <el-col :span="12"> </el-col>
         <el-button class="edit_button" @click="addDialogVisible = true"
@@ -258,8 +259,18 @@ export default {
           //nothing to do
         });
     },
-  },
+    getVic(){ 
+        let options={Loading: true, mock: false, isUpload: false, voice: true}
+        this.$axios.get("/getVoiceContent.aspx?CompanyID=Spl&GUID=ccb60470-fddd-4142-a6e0-18f2539e7d28&Param1=語音轉文字&UserID=",'', options).then((res) => {
+          this.queryInfo.searchName = this.$x2js.xml2js(res.data).VAIMA.VOICE[0]._STT_text
+          console.log(this.$x2js.xml2js(res.data).VAIMA.VOICE[0]._STT_text)         
+        });     
+    } 
+  }, 
+ 
 };
+
+
 </script>
 
 <style lang="less" scope>

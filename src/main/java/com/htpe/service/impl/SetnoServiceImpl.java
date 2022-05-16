@@ -127,4 +127,13 @@ public class SetnoServiceImpl implements SetnoService{
 		return ResultMsg.success("所有盤包查詢").addData(csrSetdata3mMapper.getSetnoAll());
 	}
 
+
+	@Override
+	public ResultMsg getSetnoByName(String name) {
+		return ResultMsg.success("盤包查詢").addData(csrSetdata3mMapper.getSetnoByName(name));
+	}
+
+
+
+
 }

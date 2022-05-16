@@ -51,7 +51,7 @@
         >
         <el-button
           class="delete_button"
-          @click="deleteAccount(scope.row.disinfection)"
+          @click="deleteDisinfection(scope.row.disinfection)"
           >刪除</el-button
         >
       </template>
@@ -142,7 +142,7 @@
     </template>
     <template #footer>
       <div class="dialog-footer">
-        <el-button class="edit_button" @click="editAccount">確定</el-button>
+        <el-button class="edit_button" @click="editDisinfection">確定</el-button>
         <el-button type="info" @click="editDialogVisible = false"
           >取消</el-button
         >
@@ -209,11 +209,11 @@ export default {
       });
     },
     /**權限查詢 */
-    getAuth() {
-      this.$axios.get("/auth").then((res) => {
-        this.auth = res.data.data;
-      });
-    },
+    // getAuth() {
+    //   this.$axios.get("/auth").then((res) => {
+    //     this.auth = res.data.data;
+    //   });
+    // },
     /**監聽頁面刷新 */
     handleCurrentChange(newPage) {
       this.queryInfo.pageno = newPage;
@@ -246,7 +246,7 @@ export default {
       });
     },
     /**編輯帳號 */
-    editAccount() {
+    editDisinfection() {
       this.$refs.addFormRef.validate((valid) => {
         if (!valid) return;
         this.checkboxList.forEach((e) => {
@@ -273,7 +273,7 @@ export default {
       this.editDialogVisible = true;
     },
     /**刪除 */
-    deleteAccount(name) {
+    deleteDisinfection(name) {
       this.$msgbox
         .confirm("確定要刪除 " + name + " ?", "刪除", {
           cancelButtonText: "取消",

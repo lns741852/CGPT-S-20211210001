@@ -18,4 +18,7 @@ public interface BoxService {
 
 	ResultMsg removeBox(Integer id);
 
+	ResultMsg getBoxByNameAndStatus(String name);
+
+
 }

@@ -118,8 +118,30 @@ public class CsrBarcode {
     private String dpotname;
 
     private Integer dpotsn;
+    
+    private String setnamech;
+    
+    private String box;
+    
+    
 
-    public Integer getBarcodeid() {
+    public String getBox() {
+		return box;
+	}
+
+	public void setBox(String box) {
+		this.box = box;
+	}
+
+	public String getSetnamech() {
+		return setnamech;
+	}
+
+	public void setSetnamech(String setnamech) {
+		this.setnamech = setnamech;
+	}
+
+	public Integer getBarcodeid() {
         return barcodeid;
     }
 

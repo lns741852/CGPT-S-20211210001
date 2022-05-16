@@ -36,4 +36,8 @@ public interface SetnoService {
 
 	ResultMsg getSetnoAll();
 
+
+	ResultMsg getSetnoByName(String name);
+
+
 }

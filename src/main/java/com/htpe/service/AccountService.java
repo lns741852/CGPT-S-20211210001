@@ -35,5 +35,8 @@ public interface AccountService {
 	ResultMsg listAuth();
 
 
+	ResultMsg userInfo(String name);
+
+
 	
 }

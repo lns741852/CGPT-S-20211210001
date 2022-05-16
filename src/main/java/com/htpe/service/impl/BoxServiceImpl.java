@@ -91,7 +91,19 @@ public class BoxServiceImpl  implements BoxService{
 		}		
 		return ResultMsg.success("器械盒刪除成功").addData("");
 	}
-	
+
+	@Override
+	public ResultMsg getBoxByNameAndStatus(String name) {
+		
+		CsrBox box = csrBoxMapper.getBoxByNameAndStatus(name);
+		if(box == null) {
+			throw new RequestPeriodException(500, "器械盒無法使用");
+		}	
+
+		
+		return ResultMsg.success("器械盒成功").addData("nothing to do");
+	}
+
 
 
 }

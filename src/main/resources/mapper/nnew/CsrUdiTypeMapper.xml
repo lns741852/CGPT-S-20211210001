@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrUdiTypeMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrUdiType">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NAME_SCIENTIFIC" jdbcType="VARCHAR" property="nameScientific" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="DATAUSER" jdbcType="VARCHAR" property="datauser" />
+    <result column="DATADATE" jdbcType="TIMESTAMP" property="datadate" />
+    <collection property="csrUdiImages" ofType="CsrUdiImage">
+        <id column="aid" property="id" />
+        <result column="amain" property="isMain"/> 
+        <association property="csrFileResource" javaType="CsrFileResource">
+                    <id column="yid" property="id"/>
+                    <result column="yname" property="resourceName"/>
+        </association>             
+    </collection> 
+    
+    
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+   	ID,NAME,NAME_SCIENTIFIC,SPEC,DESCRIPTION,DATAUSER,DATADATE
+  </sql>
+  
+    <select id="listUDIType" parameterType="Map" resultType="CsrUdiType">
+    select 
+    <include refid="Base_Column_List" />
+    from CSR_UDI_TYPE
+    	<where>
+			<if test="searchName!=null">
+				AND (NAME like '%'||(#{searchName})||'%'
+					OR NAME_SCIENTIFIC like '%'||#{searchName}||'%')
+			</if>
+		</where>
+		order by NAME
+  </select>
+  
+  
+  <select id="getUDITypeById" parameterType="Integer" resultMap="BaseResultMap">
+		select X.* ,A.id as aid, A.IS_MAIN as amain, Y.id as yid, y.resource_name as yname
+		from CSR_UDI_TYPE as X
+		left join CSR_UDI_IMAGE as A 
+		on X.id = A.TYPE_ID
+		left join CSR_FILE_RESOURCE as Y
+		on Y.id = A.FILE_ID
+		where X.id=#{0}
+  </select>
+  
+  
+  
+  
+  <insert id="insertUDIType" parameterType="com.htpe.bean.CsrUdiType" useGeneratedKeys="true" keyProperty="id">
+    insert into JAY.CSR_UDI_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="nameScientific != null">
+        NAME_SCIENTIFIC,
+      </if>
+      <if test="spec != null">
+        SPEC,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="datauser != null">
+        DATAUSER,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="nameScientific != null">
+        #{nameScientific},
+      </if>
+      <if test="spec != null">
+        #{spec},
+      </if>
+      <if test="description != null">
+        #{description},
+      </if>
+      <if test="datauser != null">
+        #{datauser},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if>
+    </trim>
+  </insert>
+
+
+<insert id="insertSecource" parameterType="CsrFileResource"  useGeneratedKeys="true" keyProperty="id">
+    insert into JAY.CSR_FILE_RESOURCE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="resourceName != null">
+        RESOURCE_NAME,
+      </if>
+      <if test="localPath != null">
+       LOCAL_PATH,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="datadate != null">
+        DATADATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="resourceName != null">
+        #{resourceName},
+      </if>
+      <if test="localPath != null">
+        #{localPath},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno},
+      </if>
+      <if test="datadate != null">
+        #{datadate},
+      </if> 
+    </trim>
+  </insert>
+  
+  
+  <update id="updateUDIType" parameterType="CsrUdiType">
+    update CSR_UDI_TYPE
+    <set>
+      <if test="name != null">
+        NAME = #{name},
+      </if>
+      <if test="nameScientific != null">
+        NAME_SCIENTIFIC = #{nameScientific},
+      </if>
+      <if test="spec != null">
+        SPEC = #{spec},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description},
+      </if>
+      <if test="datauser != null">
+        DATAUSER = #{datauser},
+      </if>
+      <if test="datadate != null">
+        DATADATE = #{datadate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  
+</mapper>

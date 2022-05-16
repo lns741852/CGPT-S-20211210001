@@ -20,7 +20,13 @@
 		order by SETNO
   </select>
   
-  <select id="getSetnoById" parameterType="Integer" resultType="CsrSetdata3m">
+  <select id="getSetnoByName" parameterType="String" resultType="CsrSetdata3m">
+  		select
+	    <include refid="Base_Column_List" />	
+    	from CSR_SETDATA_3M where SETNO=#{name}
+  </select>
+  
+    <select id="getSetnoById" parameterType="Integer" resultType="CsrSetdata3m">
   		select
 	    <include refid="Base_Column_List" />	
     	from CSR_SETDATA_3M where ID=#{id}

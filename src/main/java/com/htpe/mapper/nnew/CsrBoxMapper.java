@@ -26,5 +26,8 @@ public interface CsrBoxMapper {
 	int deleteBox(Integer id);
 
 	int updateBox(CsrBox csrBox);
+	
+	@Select("SELECT id from CSR_UDI_BOX where UDI=#{name} AND STATUS=1")
+	CsrBox getBoxByNameAndStatus(String name);
 
 }

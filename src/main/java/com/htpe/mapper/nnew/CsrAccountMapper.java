@@ -46,6 +46,8 @@ public interface CsrAccountMapper {
 	
 	@Delete("delete from CSR_ACCOUNT_AUTH where accountid = #{id}")
 	int deleteAuth(Integer id);
+
+	
 	
 	
 	

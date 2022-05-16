@@ -137,5 +137,11 @@ public class AccountServiceImpl  implements AccountService{
 		return ResultMsg.success("所有權限").addData(csrMenuMapper.listAuth());
 	}
 
+
+	@Override
+	public ResultMsg userInfo(String name) {
+		return ResultMsg.success("使用者info").addData(csrAccountMapper.getAccountByUserno(name));
+	}
+
 	
 }

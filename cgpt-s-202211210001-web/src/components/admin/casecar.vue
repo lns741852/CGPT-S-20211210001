@@ -244,6 +244,10 @@
 </template>
 
 <script>
+
+import { ElMessage } from "element-plus"
+
+
 export default {
   data() {
     return {
@@ -349,6 +353,7 @@ export default {
     inputSetno() {
       //數字是否正確
       if (isNaN(this.inputData.num)) {
+          ElMessage.error("請輸入正確數量");
         return true;
       }     
       var i = 0;

@@ -54,6 +54,16 @@ public class BoxController {
 	}
 	
 	/**
+	 * 包裝查詢
+	 */
+	@GetMapping("/box/name/{name}")
+	public ResultMsg getBoxByNameAndStatus(@PathVariable String name){			
+		return BoxService.getBoxByNameAndStatus(name);
+	}
+	
+
+	
+	/**
 	 * 盤包修改
 	 * @throws RequestPeriodException 
 	 */

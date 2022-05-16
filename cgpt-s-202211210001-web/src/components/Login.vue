@@ -3,18 +3,19 @@
     <div class="avatar_box">
       <img src="../assets/images/TVGHicon.png" />
     </div>
-    <h3>台北榮總滅菌物品追蹤系統</h3>
+    <h3>UDI器械盤包滅菌追蹤系統</h3>
     <!--表單-->
     <el-form
+      class="loginForm"
       :model="loginForm"
       ref="loginFormRef"
       :rules="loginFormRules"
       label-width="80px"
     >
-      <el-form-item label="帳號: " prop="username">
+      <el-form-item class="loginFormItem" label="帳號: " prop="username">
         <el-input v-model="loginForm.username" ref="username"></el-input>
       </el-form-item>
-      <el-form-item label="密碼: " prop="password">
+      <el-form-item class="loginFormItem" label="密碼: " prop="password">
         <el-input
           v-model="loginForm.password"
           type="password"
@@ -22,8 +23,12 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="sucess_button" @click="login">登入</el-button>
-        <el-button class="reset_button" @click="resetLoginForm">重製</el-button>
+        <el-button  class="sucess_button" @click="login"
+          >登入</el-button
+        >
+        <el-button  class="reset_button" @click="resetLoginForm"
+          >重製</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
@@ -54,7 +59,7 @@ export default {
     };
   },
   mounted() {
-    this.$refs.username.focus();    
+    this.$refs.username.focus();
   },
   methods: {
     //重製
@@ -70,7 +75,7 @@ export default {
         if (!valid) return;
         this.$axios.post("/login", this.loginForm).then((res) => {
           const jwt = res.headers["authorization"]; //拿token,  headers只能小寫
-          localStorage.setItem("username", this.loginForm.username); //存入token
+          localStorage.setItem("userno", this.loginForm.username); //存入token
           localStorage.setItem("authorization", jwt); //存入token
           this.$router.push("/main");
         });
@@ -80,8 +85,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-
+<style lang="less">
 .login_box {
   height: 550px;
   width: 450px;
@@ -89,44 +93,44 @@ export default {
   img {
     display: block;
     margin: auto;
-    height: 230px;
+    height: 200px;
     width: 250px;
   }
   h3 {
+    margin: 16px 0;
     text-align: center;
     font-size: 26px;
+    color: #055614;
   }
-  /deep/.el-form {
+  .loginForm {
     height: 280px;
-    background: #d4debc;
+    background: #D4DEBC;
     border-radius: 30px;
     padding-top: 30px;
-  }
-  /deep/ .el-form-item__label {
-    margin-left: 30px;
-    padding-top: 30px;
-    font-size: 18px;
-  }
-  /deep/ .el-input {
-    padding-top: 30px;
-    width: 300px;
-  }
-  /deep/ .el-form-item__error {
-    margin-top: 5px;
-    font-size: 18px;
-  }
-  .sucess_button {
-    margin: 20px 50px;
-    background: #114f4a;
-    font-size: 18px;
-    color: #fff;
-    border-radius: 5px;
-}
-  .reset_button {
-    background: #c06123;
-    font-size: 18px;
-    color: #fff;
-    border-radius: 5px;
+    .loginFormItem {
+      margin: 40px 40px;
+      width: 300px;
+    }
+    .el-form-item__label{
+      font-size: 18px;
+    }
+    .el-form-item__error {
+      margin-top: 5px;
+      font-size: 18px;
+    }
+    .sucess_button {
+      margin: 0 50px;
+      font-size: 18px;
+      border-radius: 5px;
+      background-color: #0E4F49;
+      color: #fff;
+    }
+    .reset_button {
+      font-size: 18px;
+      border-radius: 5px;
+      background-color: #C16124;
+      color: #fff;
+    }
   }
 }
 </style>

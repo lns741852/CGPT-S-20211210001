@@ -20,4 +20,6 @@ public interface DepnoService {
 
 	ResultMsg removePrinter(Integer id);
 
+	ResultMsg getDepnoByName(String name);
+
 }

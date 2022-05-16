@@ -56,6 +56,10 @@ public interface CsrSetdata3mMapper {
 
 	@Delete("delete from CSR_CASECAR_SETDATA where SETNO_ID = #{setno}")
 	void deleteCasecarSetno(CsrSetdata3m setno);
+
+	CsrSetdata3m getSetnoByName(String name);
+
+
 	
 	
 	

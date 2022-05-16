@@ -88,6 +88,11 @@ public class DepnoServiceImpl  implements DepnoService{
 		}		
 		return ResultMsg.success("印表機刪除成功").addData("");
 	}
+
+	@Override
+	public ResultMsg getDepnoByName(String name) {
+		return ResultMsg.success("部門查詢").addData(csrDepnoMapper.getDepnoByName(name));
+	}
 	
 
 }

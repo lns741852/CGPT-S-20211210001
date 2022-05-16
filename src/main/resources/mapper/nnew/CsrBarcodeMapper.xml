@@ -73,6 +73,33 @@
   </sql>
   
   
+  <select id="listReprint" parameterType="Map" resultType="CsrBarcode">
+    select 
+    <include refid="Base_Column_List" />
+    from CSR_BARCODE
+    	<where>
+			<if test="depno!=null">
+				AND (DEPNO like '%'||(#{depno})||'%')		
+			</if>
+			<if test="barcode!=null">
+				AND (BARCODE like '%'||(#{barcode})||'%')		
+			</if>
+			<if test="setno!=null">
+				AND (SETNO like '%'||(#{setno})||'%')		
+			</if>
+			AND STATUS IN('1','2','3','4','5')
+		</where>
+  </select>
+  
+  
+   <select id="getbarcodeByname" parameterType="String" resultType="CsrBarcode">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from CSR_BARCODE
+		where barcode =#{barcode} 
+  </select>
+  
+
   <select id="timeoutSetno" parameterType="String" resultType="CsrSetdata3m">
     SELECT B.SetNo,S.SetName, S.SetNameCH 
 	FROM VGHTPETS.CSR_BARCODE AS B 
@@ -104,6 +131,148 @@
 		AND status = '18'  
 		and EffectiveDate  &lt; delTime group by DepNo
     </select>
+    
+    
+    <insert id="insertBarcode" parameterType="CsrBarcode">
+    insert into CSR_BARCODE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="setno != null">
+        SETNO,
+      </if>
+      <if test="barcode != null">
+        BARCODE,
+      </if>
+      <if test="sn != null">
+        SN,
+      </if>
+      <if test="effectivedate != null">
+        EFFECTIVEDATE,
+      </if>
+      <if test="createdatetime != null">
+        CREATEDATETIME,
+      </if>
+            <if test="disinfection != null">
+        DISINFECTION,
+      </if>
+            <if test="eod != null">
+        EOD,
+      </if>
+            <if test="depno != null">
+        DEPNO,
+      </if>
+            <if test="setsn != null">
+        SETSN,
+      </if>
+            <if test="status != null">
+        STATUS,
+      </if>
+            <if test="reqId != null">
+        REQ_ID,
+      </if>
+            <if test="rdId != null">
+        RD_ID,
+      </if>
+            <if test="potid != null">
+        POTID,
+      </if>
+            <if test="checking != null">
+        CHECKING,
+      </if>
+            <if test="using != null">
+        USING,
+      </if>
+            <if test="receive != null">
+        RECEIVE,
+      </if>
+            <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+            <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+            <if test="location != null">
+        LOCATION,
+      </if>
+            <if test="wearhousing != null">
+        WEARHOUSING,
+      </if>
+            <if test="depnocre != null">
+        DEPNOCRE,
+      </if>
+     <if test="dpotsn != null">
+        DPOTSN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="setno != null">
+        #{setno},
+      </if>
+      <if test="barcode != null">
+         #{barcode},
+      </if>
+      <if test="sn != null">
+         #{sn},
+      </if>
+      <if test="effectivedate != null">
+         #{effectivedate},
+      </if>
+      <if test="createdatetime != null">
+         #{createdatetime},
+      </if>
+            <if test="disinfection != null">
+         #{disinfection},
+      </if>
+            <if test="eod != null">
+         #{eod},
+      </if>
+            <if test="depno != null">
+         #{depno},
+      </if>
+            <if test="setsn != null">
+         #{setsn},
+      </if>
+            <if test="status != null">
+         #{status},
+      </if>
+            <if test="reqId != null">
+         #{reqId},
+      </if>
+            <if test="rdId != null">
+         #{rdId},
+      </if>
+            <if test="potid != null">
+         #{potid},
+      </if>
+            <if test="checking != null">
+         #{checking},
+      </if>
+            <if test="using != null">
+         #{using},
+      </if>
+            <if test="receive != null">
+         #{receive},
+      </if>
+            <if test="datausername != null">
+         #{datausername},
+      </if>
+            <if test="datauserno != null">
+         #{datauserno},
+      </if>
+            <if test="location != null">
+         #{location},
+      </if>
+            <if test="wearhousing != null">
+         #{wearhousing},
+      </if>
+            <if test="depnocre != null">
+         #{depnocre},
+      </if>
+     <if test="dpotsn != null">
+         #{dpotsn},
+      </if>
+    </trim>
+  </insert>
+    
 
 
 </mapper>

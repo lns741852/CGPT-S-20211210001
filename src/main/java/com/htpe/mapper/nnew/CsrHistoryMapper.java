@@ -14,4 +14,6 @@ public interface CsrHistoryMapper {
     int updateByPrimaryKeySelective(CsrHistory record);
 
     int updateByPrimaryKey(CsrHistory record);
+
+	int insertHistory(CsrHistory history);
 }

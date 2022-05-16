@@ -15,11 +15,17 @@ const routes = [{
         redirect: '/login'
     },
     {
+        path: '/setno_search',
+        name: 'SetnoSearch',
+        component: () =>
+            import ('../components/common/setno_search.vue')
+    },
+    {
         path: '/main',
         name: 'Main',
         component: () =>
             import ('../components/Main.vue'),
-        redirect: '/account',
+        redirect: '/tag',
         children: [{
                 path: '/account',
                 name: 'Account',
@@ -37,6 +43,12 @@ const routes = [{
                 name: 'Udi',
                 component: () =>
                     import ('../components/admin/udi.vue')
+            },
+            {
+                path: '/udi_type',
+                name: 'UdiType',
+                component: () =>
+                    import ('../components/admin/udiType.vue')
             },
             {
                 path: '/setno',
@@ -183,6 +195,7 @@ const routes = [{
                 component: () =>
                     import ('../components/user/report02.vue')
             },
+
         ]
     },
 

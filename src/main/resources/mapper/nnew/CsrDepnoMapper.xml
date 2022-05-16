@@ -29,9 +29,9 @@
     from CSR_DEPNO
     	<where>
 			<if test="searchName!=null">
-				AND (DEPNO like '%'||(#{searchName})||'%')
-				AND TYPE IN ('B','D') 
+				AND (DEPNO like '%'||(#{searchName})||'%')				
 			</if>
+			AND TYPE IN ('B','D') 
 		</where>
   </select>
 
@@ -44,6 +44,18 @@
 	left join CSR_PRINTER as Y on X.DEPNO=Y.DEPNO
 	where X.ID=#{id}
   </select>
+  
+    <select id="getDepnoByName" parameterType="String" resultMap="depno_potdata_printer">
+	select X.ID xid, X.DEPNO xno, X.DEPNAMECH xcname, X.DEPNAME xname,
+	A.ID aid, A.DISINFECTION ano, A.HEAD ahead, A.BEGINNUM abegin,A.POTNUM anum,  
+	Y.ID yid, Y.PRINTERNAME yname,Y.ADDRESS yaddress, Y.PORT yport,Y.TYPE ytype
+	from CSR_DEPNO as X 
+	left join CSR_POT_DEPNO as A on X.DEPNO=A.DEPNO
+	left join CSR_PRINTER as Y on X.DEPNO=Y.DEPNO
+	where X.DEPNO=#{name}
+  </select>
+  
+  
 
  <insert id="insertPotDepno" parameterType="CsrPotDepno">
     insert into CSR_POT_DEPNO

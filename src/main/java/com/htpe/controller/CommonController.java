@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.htpe.service.AccountService;
+import com.htpe.service.BoxService;
 import com.htpe.service.CasecarService;
 import com.htpe.service.SetnoService;
 import com.htpe.service.impl.AccountServiceImpl;
@@ -23,6 +24,11 @@ public class CommonController {
 
 	@Autowired
 	CasecarService casecarService;
+	
+	@Autowired
+	BoxService  boxService;
+	
+	
 	/**
 	 * 盤包查詢
 	 */

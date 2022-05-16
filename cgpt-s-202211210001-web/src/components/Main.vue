@@ -1,11 +1,10 @@
 <template>
   <el-container class="home-container">
     <el-header>
-      <img  src="../assets/images/TVGHheader.png" />
+      <img src="../assets/images/TVGHheader.png" />
       <div>
-        <span
-          >&nbsp;&nbsp;&nbsp;&nbsp;{{ userName }} 您好<br />歡迎使用本系統</span
-        >
+        <span>{{ usercname }} 您好</span>
+        <span>歡迎使用本系統</span>
         <el-button class="success_button">個人資料編輯</el-button>
         <el-button class="delete_button" @click="logout">退出</el-button>
       </div>
@@ -67,28 +66,13 @@ export default {
       //{Id,<自定參數>}
       icons: {
         1: "Operation",
-        2: "1.",
-        3: "2.",
-        4: "3.",
-        5: "4.",
-        6: "5.",
-        7: "6.",
-        8: "7.",
-        9: "8.",
-        10: "9.",
-        11: "10.",
-        12: "11.",
-        13: "12.",
-        14: "13.",
-        15: "14.",
-        16: "15.",
-        17: "16.",
-        18: "Setting",
+        2: "Setting",
       },
       isCollapse: false,
       activePath: "",
-      userName: "",
+      userNo: "",
       screenWidth: document.body.clientWidth,
+      usercname:""
     };
   },
 
@@ -126,7 +110,12 @@ export default {
       this.activePath = activePath;
     },
     getUsername() {
-      this.userName = localStorage.getItem("username");
+      this.userNo = localStorage.getItem("userno");
+      this.$axios.get("/info/"+  this.userNo).then((res) => {
+        localStorage.setItem("usercname", res.data.data.usercname); //存入所有盤包
+      this.usercname =res.data.data.usercname;
+      });
+      
     },
     saveAllSetno() {
       this.$axios.get("/setdata/all").then((res) => {
@@ -150,12 +139,12 @@ export default {
         setTimeout(function () {
           // 列印screenWidth變化的值
           //console.log(that.screenWidth);
-          if (that.screenWidth < 1200) {        
+          if (that.screenWidth < 1200) {
             if (!that.isCollapse) {
               document.getElementsByClassName("toggle-button")[0].click();
             }
           }
-          if (that.screenWidth > 1200) {        
+          if (that.screenWidth > 1200) {
             if (that.isCollapse) {
               document.getElementsByClassName("toggle-button")[0].click();
             }
@@ -168,28 +157,31 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .home-container {
   height: 100%;
 }
 .el-header {
   display: flex;
   justify-content: space-between;
-  background-color: #d4dfbb;
+  background-color: #D4DEBC;
   height: 100px;
-  > div span {
-    display: block;
-    margin: 5px 25px;
-  }
-  > div /deep/ .el-button {
-    font-size: 16px;
-    margin: 5px;
-  }
   img {
     display: block;
     max-width: 100%;
     height: 100%;
   }
+  div {
+    span {
+      display: flex;
+      justify-content: center;
+    }
+  .el-button {
+    margin: 5px 20px;
+  }
+
+  }
+
 }
 .el-aside {
   background-color: #fff;

@@ -114,6 +114,16 @@ public class AccountController {
 		return accountService.listAuth();
 	}
 	
+	
+	
+	/**
+	 * 使用者info
+	 * @throws RequestPeriodException 
+	 */
+	@GetMapping("/info/{name}")
+	public ResultMsg userInfo(@PathVariable String name){
+		return accountService.userInfo(name);
+	}
 
 
 }

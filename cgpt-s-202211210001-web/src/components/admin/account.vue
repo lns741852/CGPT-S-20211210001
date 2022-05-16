@@ -355,8 +355,6 @@ export default {
           this.editForm.ids = this.editForm.ids + "," + this.ids[i];
         }
         this.editForm.ids = this.editForm.ids.substring(1);
-
-        console.log(this.editForm.userno);
         this.$axios
           .put("/account/" + this.editForm.id, this.editForm)
           .then(() => {
@@ -408,4 +406,5 @@ export default {
 .el-pagination{
    margin-top: 10px;
 }
+
 </style>

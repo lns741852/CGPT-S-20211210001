@@ -34,4 +34,6 @@ public interface CsrDepnoMapper {
 
 	@Delete("delete from CSR_PRINTER where ID = #{id}")
 	int deletePrinter(Integer id);
+
+	CsrDepno getDepnoByName(String name);
 }

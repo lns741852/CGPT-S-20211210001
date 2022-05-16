@@ -71,6 +71,7 @@ body,
 
 .el-dialog__header {
     background-color: #E4C1AE;
+    margin-right: 0px;
 }
 
 
@@ -118,10 +119,11 @@ body,
 
 /**收尋框*/
 
-.el-input__inner {
+
+/* .el-input__inner {
     float: left;
     border: 1px solid #114f4a;
-}
+} */
 
 .el-button.el-button--default.search_button {
     float: left;
