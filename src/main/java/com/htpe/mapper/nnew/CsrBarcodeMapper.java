@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrSetdata3m;
@@ -24,4 +25,8 @@ public interface CsrBarcodeMapper {
 	List<Map<String, Object>> listReprint(Map<String, Object> paramMap);
 
 	CsrBarcode getbarcodeByname(String barcode);
+
+	@Update("update CSR_BARCODE set STATUS='2',POTID=#{id}, LOCATION =#{depno} where barcode=#{barcode}")
+	int updateBarcodeByName(String barcode, Integer id, String depno);
+
 }

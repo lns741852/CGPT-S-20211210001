@@ -53,7 +53,7 @@
           </el-form-item>
           <el-form-item label="鍋次：" prop="potnum">
             <el-select v-model="potnum" placeholder="請選擇">
-              <el-option 
+              <el-option
                 v-for="item in potnumList"
                 :key="item"
                 :label="item"
@@ -115,7 +115,7 @@
           <el-form-item label="鍋次控制：">
             <el-row>
               <el-col :span="24">
-                <el-checkbox v-model="class5" label="2"
+                <el-checkbox v-model="cl" label="2"
                   >過程挑戰包 No.2</el-checkbox
                 ></el-col
               >
@@ -129,7 +129,7 @@
                 培菌時間(小時)：
                 <select v-model="rbitime">
                   <option value="">請選擇...</option>
-                  <option value="1250">0.25</option>
+                  <option value="1500">0.25</option>
                   <option value="2400" selected>0.4</option>
                 </select>
               </el-col>
@@ -152,11 +152,11 @@
     <el-table :data="potDatas">
       <el-table-column prop="barcode" label="條碼編號" width="300px">
       </el-table-column>
-      <el-table-column prop="disinfection" label="消毒方式" width="300px">
+      <el-table-column prop="potname" label="消毒方式" width="300px">
       </el-table-column>
-      <el-table-column prop="potname" label="鍋別" width="300px">
+      <el-table-column prop="potno" label="鍋別" width="300px">
       </el-table-column>
-      <el-table-column prop="potno" label="鍋次" width="300px">
+      <el-table-column prop="potsn" label="鍋次" width="300px">
       </el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
@@ -175,11 +175,6 @@ import { ElMessage } from "element-plus";
 export default {
   data() {
     return {
-      queryInfo: {
-        searchName: "",
-        pageno: "",
-        pagesize: "",
-      },
       rbitime: "",
       rbitemperature: "",
       bi_no: "",
@@ -196,6 +191,9 @@ export default {
       vacuum: "",
       leak: "",
       quality: "",
+      class5:"",
+      process:"",
+      cl:false,
       gc: "",
       nonimplant: "",
       implant: "",
@@ -203,6 +201,8 @@ export default {
       firste: "",
       pot: "",
       potnum: "",
+      rbiBatch:"",
+      rbiComparisonBatch:"",
       barcode: "",
       potList: [],
       checkList: [],
@@ -212,9 +212,7 @@ export default {
       efficiency: "",
       ispotopen: "Y",
       disinfectionList: [],
-      potnumList: [
-         '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
-      ],
+      potnumList: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
     };
   },
   created() {
@@ -227,21 +225,15 @@ export default {
   methods: {
     /**列表查詢 */
     getDepnoList() {
-      this.$axios.get("/depno", this.queryInfo).then((res) => {
+      this.$axios.get("/depno").then((res) => {
         this.total = res.data.data.total;
         this.depnoList = res.data.data.list;
       });
     },
-    getSetnoByName(name) {
-      this.$axios.get("/setno_name/" + name).then((res) => {
-        this.disinfection = res.data.data.spotno;
-        this.package = res.data.data.sprocess;
-        this.sday = res.data.data.sday;
-      });
-    },
+
     /**消毒鍋 */
     getDisinfection() {
-      this.$axios.get("/disinfection", this.queryInfo).then((res) => {
+      this.$axios.get("/disinfection").then((res) => {
         this.disinfectionList = res.data.data.list;
       });
     },
@@ -253,23 +245,37 @@ export default {
         });
       }
     },
-    //鍋別類型
+    //選擇消毒方式
     selectPot(name) {
       this.potList = [];
+      this.checkList = [];
       this.potDepnoList.forEach((item) => {
+        //鍋別修改
         if (item.disinfection === name) {
           for (let i = item.beginnum; i <= item.potnum; i++) {
             this.potList.push(item.head + i);
           }
         }
       });
-      if(name === 'Steam'){
-        this.potnumList.splice(0,0,"BD")
+      //鍋次
+      if (name === "Steam") {
+        this.potnumList.splice(0, 0, "BD");
+        this.cl = true;
+        this.rbitemperature = "55";
+        this.rbitime = "2400";
+      } else {
+        if (this.potnumList.indexOf("BD") != -1) {
+          this.potnumList.splice(0, 1);
+          this.rbitemperature = "58";
+          this.rbitime = "1500";
+        }
       }
+      this.checkList.push("C");
+      this.checkList.push("D");
     },
 
     /**盤包輸入 => 列表 */
-   async inputTag() {
+    async inputTag() {
       if (this.depno === "") {
         ElMessage.error("請輸入部門");
         return true;
@@ -358,23 +364,28 @@ export default {
         this.rbiComparison = "Y";
       }
 
+      if(this.cl === true){
+        this.process="2";
+        this.class5 ="Y";
+      }
+
       this.potDatas.push({
         depno: this.depno,
-        disinfection: this.disinfection,
-        potname: this.pot,
-        potno: this.potnum,
+        potname: this.disinfection,
+        potno: this.pot,
+        potsn: this.potnum,
         ispotopen: this.ispotopen,
         datauserno: this.userno,
         datausername: this.usercname,
         barcode: this.barcode,
         potType: this.type,
+        process: this.process,
         class5: this.class5,
         rbiBatch: this.rbiBatch,
         rbitemperature: this.rbitemperature,
         rbitime: this.rbitime,
         rbiComparisonBatch: this.rbiComparisonBatch,
       });
-
     },
     /**刪除標籤 */
     deleteTag(id) {
@@ -383,32 +394,32 @@ export default {
     //列印標籤
     submitFrom() {
       if (this.potDatas.length > 0) {
-        this.$axios.post("/tag/make", this.potDatas).then(() => {
-          (this.inputData = {
-            depno: "",
-            setno: "",
-            num: 1,
-            disinfection: "",
-            package: "",
-            box: "",
-            printer: "",
-            sn: "",
-          }),
-            (this.potDatas = []);
+        this.$axios.post("/pot", this.potDatas).then(() => {
+          this.potDatas=[];
+          this.depno ="";
+          this.disinfection ="";
+          this.pot ="";
+          this.potnum ="";
+          this.ispotopen ="Y";
+          this.type ="";
+          this.efficiency ="";
+          this.checkList =[];
+          this.cl =false;
+          this.rbiBatch ="";
+          this.rbitemperature ="";
+          this.rbitime ="";
+          this.rbiComparisonBatch ="";
+          this.barcode ="";
         });
       }
     },
 
-    // checkBox(name){
-    //     this.$axios.get("/box/name/"+name).then((res) => {
-    //       if(res.data.code === 500){
-    //         this.checkBoxitme = false
-    //         return
-    //       }
-    //        this.checkBoxitme = true
-    //     });
-    // },
   },
+  watch:{
+    rbiBatch:function(){
+      this.rbiComparisonBatch = this.rbiBatch
+    }
+  }
 };
 </script>
 

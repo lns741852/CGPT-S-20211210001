@@ -48,15 +48,9 @@
     RBITEMPERATURE, RBITIME, LEAK, LEAKVALUE
   </sql>
   
-  
-  
  
- 
- 
- 
- 
-  <insert id="insertSelective" parameterType="com.htpe.bean.CsrPoltld">
-    insert into JAY.CSR_POLTLD
+  <insert id="insertPot" parameterType="com.htpe.bean.CsrPoltld" useGeneratedKeys="true" keyProperty="id">
+    insert into CSR_POLTLD
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,

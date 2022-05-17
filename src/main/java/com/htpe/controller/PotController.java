@@ -1,10 +1,20 @@
 package com.htpe.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.htpe.bean.CsrPoltld;
+import com.htpe.bean.CsrPotdata;
+import com.htpe.exception.RequestPeriodException;
 import com.htpe.service.PotService;
 import com.htpe.utils.ResultMsg;
 
@@ -23,5 +33,15 @@ public class PotController {
 	    return   potService.getbarcodeByname(barcode);
 	}
 	
+	
+	
+	/**
+	 * 新增入鍋作業
+	 * @throws RequestPeriodException 
+	 */
+	@PostMapping("/pot")
+	public ResultMsg savePot(@RequestBody List<CsrPoltld> csrPoltld, HttpServletRequest request) throws RequestPeriodException{
+		return potService.savePot(csrPoltld,request);
+	}
 	
 }

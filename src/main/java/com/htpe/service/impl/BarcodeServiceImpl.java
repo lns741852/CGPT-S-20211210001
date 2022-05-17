@@ -99,8 +99,8 @@ public class BarcodeServiceImpl implements BarcodeService{
 		            	history.setDutyno(barcode.getDatauserno());
 		            	history.setDutyname(barcode.getDatausername());
 		            	history.setUsertime(barcode.getCreatedatetime());
-		            	history.setSn(barcode.getSn());
-		            	history.setIslast("N");
+		            	history.setSn(1);
+		            	history.setIslast("Y");
 		            	history.setDepno(barcode.getDepno());
 		            	history.setIsused("N");
 		            	history.setAction("W");

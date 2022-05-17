@@ -344,10 +344,9 @@ export default {
             if (e === this.inputData.setno) {            
               if(this.inputData.box !=""){
                 this.barcode=this.inputData.box 
-              }else{
+              }else{              
                 this.barcode=this.inputData.setno+formatDate(this.day).substring(2)
-              }
-              this.day = new Date()
+              }             
               this.tagDatas.push({
                   depno:this.inputData.depno,
                   setno:this.inputData.setno,
@@ -359,9 +358,9 @@ export default {
                   barcode:this.barcode,
                   sn:this.inputData.sn,
                   effectivedate:day(this.day), 
-                  eod:this.tomorrow    
-                         
+                  eod:this.tomorrow                           
               });  
+              this.day = new Date()
               return true;
             }          
           }); 

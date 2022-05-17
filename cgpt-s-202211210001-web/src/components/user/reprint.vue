@@ -125,7 +125,7 @@ export default {
       }
     },
     //查詢barcode
-    searchBarcode() {
+    searchBarcode() {   
       this.$axios.get("/reprint", this.queryInfo).then((res) => {
         this.total = res.data.data.total;
         this.reprintList = res.data.data.list;

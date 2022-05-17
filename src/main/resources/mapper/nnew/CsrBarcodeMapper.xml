@@ -61,6 +61,8 @@
     <result column="DPOTNAME" jdbcType="CHAR" property="dpotname" />
     <result column="DPOTSN" jdbcType="INTEGER" property="dpotsn" />
   </resultMap>
+
+  
   <sql id="Base_Column_List">
     BARCODEID, SETNO, BARCODE, EMPNO, USERCNAME, SN, EFFECTIVEDATE, CREATEDATETIME, DISINFECTION, 
     EOD, DEPNO, SETSN, STATUS, REQ_ID, RD_ID, POTID, CHECKING, CHECKINGTIME, CHECK_CONFIRM, 
@@ -73,21 +75,25 @@
   </sql>
   
   
-  <select id="listReprint" parameterType="Map" resultType="CsrBarcode">
+  
+  
+  <select id="listReprint" parameterType="Map" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from CSR_BARCODE
+    X.BARCODE as BARCODE,X.SETNO as SETNO,X.STATUS as STATUS,A.DEPNAME as LOCATION
+    from CSR_BARCODE as X
+    left join CSR_DEPNO as A
+    on X.LOCATION = A.DEPNO
     	<where>
 			<if test="depno!=null">
-				AND (DEPNO like '%'||(#{depno})||'%')		
+				AND (X.DEPNO like '%'||(#{depno})||'%')		
 			</if>
 			<if test="barcode!=null">
-				AND (BARCODE like '%'||(#{barcode})||'%')		
+				AND (X.BARCODE like '%'||(#{barcode})||'%')		
 			</if>
 			<if test="setno!=null">
-				AND (SETNO like '%'||(#{setno})||'%')		
+				AND (X.SETNO like '%'||(#{setno})||'%')		
 			</if>
-			AND STATUS IN('1','2','3','4','5')
+			AND X.STATUS IN('1','2','3','4','5')
 		</where>
   </select>
   

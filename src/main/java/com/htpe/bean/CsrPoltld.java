@@ -114,8 +114,19 @@ public class CsrPoltld {
     private String leakresult;
 
     private String indicatornote;
+    
+    private String barcode;
+    
+    
+    public String getBarcode() {
+		return barcode;
+	}
 
-    public Integer getId() {
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+	public Integer getId() {
         return id;
     }
 
