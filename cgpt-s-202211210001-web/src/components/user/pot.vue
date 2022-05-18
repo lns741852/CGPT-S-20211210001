@@ -370,6 +370,18 @@ export default {
       }
 
       this.potDatas.push({
+        leak:this.leak,
+        vacuum:this.vacuum,
+        externalIndicator:this.externalIndicator,
+        internalInicator:this.internalInicator,
+        firste:this.firste,
+        firstf:this.firstf,
+        implant:this.implant,
+        nonimplant:this.nonimplant,
+        gc:this.gc,
+        quality:this.quality,
+        rbi:this.rbi,
+        rbiComparison:this.rbiComparison,
         depno: this.depno,
         potname: this.disinfection,
         potno: this.pot,

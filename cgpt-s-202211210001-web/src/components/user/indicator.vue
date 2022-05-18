@@ -88,14 +88,14 @@
         :rules="addFormRules"
       >
         <el-form-item label="滅菌鍋狀態：" prop="ispotopen">
-          <el-radio-group v-model="ispotopen" disabled>
+          <el-radio-group v-model="inputIndicator.ispotopen" disabled>
             <el-radio label="Y">開機</el-radio>
             <el-radio label="N">未開機</el-radio>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="滅菌物品類別：" prop="type">
-          <el-radio-group v-model="type" disabled>
+          <el-radio-group v-model="inputIndicator.potType" disabled>
             <el-radio label="A">AOR </el-radio>
             <el-radio label="B">BOR </el-radio>
             <el-radio label="C">GOR </el-radio>
@@ -124,30 +124,33 @@
         </el-form-item>
         <el-form-item label="測漏結果 ：" prop="type">
           <!-- <el-input   placeholder="測漏指數..." style="width:120px; margin-right:10px" disabled></el-input> -->
-          <el-radio-group v-model="checkList" disabled>
+          <el-radio-group v-model="leakresult" :disabled="leakCheckDisabled">
             <el-radio label="A">通過</el-radio>
             <el-radio label="B">不通過</el-radio>
           </el-radio-group>
           <span style="margin-left: 10px">測漏指數：</span
-          ><input type="text" disabled style="width: 10%" />
+          ><input type="text" :disabled="leakValueDisabled" style="width: 10%" />
         </el-form-item>
 
         <el-form-item label="抽真空結果 ：" prop="type">
-          <el-radio-group v-model="checkList" disabled>
-            <el-radio label="A">通過</el-radio>
-            <el-radio label="B">不通過</el-radio>
+          <el-radio-group v-model="vacuumresult" :disabled="vacuumCheckDisabled">
+            <el-radio label="Y">通過</el-radio>
+            <el-radio label="N">不通過</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="包外化學指示劑結果 ：" prop="type">
-          <el-radio-group v-model="checkList" disabled>
-            <el-radio label="A">通過</el-radio>
-            <el-radio label="B">不通過</el-radio>
+          <el-radio-group
+            v-model="externalIndicatorResult"
+            :disabled="eCheckDisabled"
+          >
+            <el-radio label="Y">通過</el-radio>
+            <el-radio label="N">不通過</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="包內化學指示劑結果 ：" prop="type">
-          <el-radio-group v-model="checkList" disabled>
-            <el-radio label="A">通過</el-radio>
-            <el-radio label="B">不通過</el-radio>
+          <el-radio-group v-model="internalInicatorReslut" :disabled="iCheckDisabled">
+            <el-radio label="Y">通過</el-radio>
+            <el-radio label="N">不通過</el-radio>
           </el-radio-group>
         </el-form-item>
 
@@ -159,7 +162,7 @@
               ></el-col
             >
             <el-col :span="8"
-              >BI生物指示劑 批號：<input v-model="rbiBatch" disabled />
+              >BI生物指示劑 批號：<input v-model="inputIndicator.rbiBatch" disabled />
             </el-col>
             <el-col :span="8">
               <el-form-item label="結果 ：" prop="type">
@@ -170,18 +173,18 @@
               </el-form-item>
             </el-col>
             <el-col :span="9">
-              培菌溫度(℃)：<input v-model="rbitemperature" disabled
+              培菌溫度(℃)：<input v-model="inputIndicator.rbitemperature" disabled
             /></el-col>
             <el-col :span="12">
               培菌時間(小時)：
-              <select v-model="rbitime" disabled>
+              <select v-model="inputIndicator.rbitime" disabled>
                 <option value="">請選擇...</option>
                 <option value="1500">0.25</option>
                 <option value="2400" selected>0.4</option>
               </select>
             </el-col>
             <el-col :span="8"
-              >對照組 批號：<input v-model="rbiComparisonBatch" disabled />
+              >對照組 批號：<input v-model="inputIndicator.rbiComparisonBatch" disabled />
             </el-col>
             <el-col :span="8">
               <el-form-item label="結果 ：" prop="type">
@@ -205,12 +208,13 @@ import { ElMessage } from "element-plus";
 export default {
   data() {
     return {
-      queryInfo: {
-        searchName: "",
-        pageno: "",
-        pagesize: "",
-      },
+      leakValueDisabled:true,
+      leakCheckDisabled: true,
+      vacuumCheckDisabled: true,
+      eCheckDisabled: true,
+      iCheckDisabled: true,
       date: new Date(),
+      inputIndicator: {},
       rbitime: "",
       rbitemperature: "",
       bi_no: "",
@@ -295,18 +299,11 @@ export default {
       //鍋次
       if (name === "Steam") {
         this.potnumList.splice(0, 0, "BD");
-        this.cl = true;
-        this.rbitemperature = "55";
-        this.rbitime = "2400";
       } else {
         if (this.potnumList.indexOf("BD") != -1) {
           this.potnumList.splice(0, 1);
-          this.rbitemperature = "58";
-          this.rbitime = "1500";
         }
       }
-      this.checkList.push("C");
-      this.checkList.push("D");
     },
 
     /*滅菌鍋查詢*/
@@ -330,12 +327,54 @@ export default {
         ElMessage.error("請輸入鍋次");
         return true;
       }
-    //   await this.$axios.get("/pot/barcode/" + this.barcode).then((res) => {
-    //     if (res.data.code === 200) {
-    //       return;
-    //     }
-    //     this.barcode = "";
-    //   });
+
+      this.inputIndicator.depno = this.depno;
+      this.inputIndicator.potname = this.disinfection;
+      this.inputIndicator.potno = this.pot;
+      this.inputIndicator.potsn = this.potnum;
+      this.inputIndicator.potscantime = this.date;
+      await this.$axios.post("/indicator", this.inputIndicator).then((res) => {
+        this.inputIndicator = res.data.data;
+        if (this.inputIndicator.firste === "Y") {
+          this.efficiency = "A";
+        }  else if (this.inputIndicator.firstf === "Y") {
+          this.efficiency = "B";
+        } else if (this.inputIndicator.implant === "Y") {
+          this.efficiency = "C";
+        } else if (this.inputIndicator.nonimplant === "Y") {
+          this.efficiency = "D";
+        } else if (this.inputIndicator.gc === "Y") {
+          this.efficiency = "E";
+        } else if (this.inputIndicator.gc === "Y") {
+          this.efficiency = "F";
+        } else if (this.inputIndicator.quality === "Y") {
+          this.efficiency = "G";
+        } else if (this.inputIndicator.quality === "Y") {
+          this.efficiency = "H";
+        }
+
+        if (this.inputIndicator.leak === "Y") {
+          this.leakresult="Y"
+          this.leakValueDisabled=false
+          this.leakCheckDisabled = false;
+        }
+        if (this.inputIndicator.vacuum === "Y") {
+          this.vacuumresult="Y"
+          this.vacuumCheckDisabled = false;
+        }
+        if (this.inputIndicator.externalIndicator === "Y") {
+          this.externalIndicatorResult="Y"
+          this.eCheckDisabled = false;
+        }
+        if (this.inputIndicator.internalInicator === "Y") {
+          this.internalInicatorReslut="Y"
+          this.iCheckDisabled = false;
+        }
+
+        if(this.inputIndicator.class5 ==="Y"){
+          this.cl = true
+        }
+      });
     },
 
     //列印標籤

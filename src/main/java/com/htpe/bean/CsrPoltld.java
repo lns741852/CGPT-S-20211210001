@@ -117,8 +117,21 @@ public class CsrPoltld {
     
     private String barcode;
     
+    private String time;
     
-    public String getBarcode() {
+    
+    
+    
+    
+    public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getBarcode() {
 		return barcode;
 	}
 

@@ -48,7 +48,22 @@
     RBITEMPERATURE, RBITIME, LEAK, LEAKVALUE
   </sql>
   
- 
+  <select id="getPot" parameterType="com.htpe.bean.CsrPoltld" resultType="CsrPoltld">
+  	select
+  	 <include refid="Base_Column_List" />	
+  	from CSR_POLTLD
+  	Where 
+  	DEPNO =#{depno}
+  	AND
+  	POTNAME=#{potname}
+  	AND
+	POTNO=#{potno}
+	AND
+	POTSN=#{potsn}
+	AND
+	POTSCANTIME LIKE '%'||(#{time})||'%'
+	
+  </select>
   <insert id="insertPot" parameterType="com.htpe.bean.CsrPoltld" useGeneratedKeys="true" keyProperty="id">
     insert into CSR_POLTLD
     <trim prefix="(" suffix=")" suffixOverrides=",">

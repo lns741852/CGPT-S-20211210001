@@ -102,9 +102,7 @@ public class AccountServiceImpl  implements AccountService{
 		}
 		
 		int num2 = csrAccountMapper.deleteAuth(csrAccount.getId());
-		if(num2 < 1) {
-			throw new RequestPeriodException(500, "帳號修改失敗");
-		}
+
 		
 		//String authId = oneIds + "," + twoIds; //1,1,1,2,2,3,4,4
 		String[] authIds = ids.replaceAll("(.,)\\1+","$1").split("\\,");  //去除重複值

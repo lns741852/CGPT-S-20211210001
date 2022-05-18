@@ -31,7 +31,7 @@
     </el-col>
   </el-row>
   <el-row class="elPagination">
-    <el-col :xs="{span:6}"  :md="{span:6,offset:18}">
+    <el-col :xs="{ span: 6 }" :md="{ span: 6, offset: 18 }">
       <!--分頁-->
       <el-pagination
         :current-page="queryInfo.pageno"
@@ -125,28 +125,32 @@
           </el-radio-group>
         </el-form-item>
         <!--checkbox-->
-        <template v-for="item in auth" :key="item.oneId">
-          <!--一級權限-->
-          <el-form-item :label="item.oneName">
-            <!--隱藏-->
-            <el-checkbox
-              :label="item.oneId"
-              v-model="ids"
-              checked
-              v-show="false"
-            />
-            <!--級權限-->
-            <el-form-item>
-              <el-checkbox-group
-                v-model="ids"
+        <!--一級權限-->
+        <el-form-item
+          v-for="item in auth"
+          :key="item.oneId"
+          :label="item.oneName"      
+        >
+          <!--隱藏-->
+          <el-checkbox
+            :label="item.oneId"
+            v-model="ids"
+            checked
+            v-show="false"
+          />
+          <!---二級權限-->
+          <el-form-item>
+            <el-checkbox-group v-model="ids">
+              <el-checkbox
                 v-for="item in item.twoMenuList"
                 :key="item.twoId"
+                :label="item.twoId"
               >
-                <el-checkbox :label="item.twoName"/>
-              </el-checkbox-group>
-            </el-form-item>
+              {{item.twoName}}
+              </el-checkbox>
+            </el-checkbox-group>
           </el-form-item>
-        </template>
+        </el-form-item>
       </el-form>
     </template>
     <template #footer>
@@ -206,20 +210,13 @@
         <!--checkbox-->
         <template v-for="item in auth" :key="item.oneId">
           <el-form-item :label="item.oneName">
-            <el-checkbox
-              :label="item.oneId"
-              v-model="ids"
-              checked
-              v-show="false"
-            >
-            </el-checkbox>
             <el-form-item>
               <el-checkbox-group
                 v-model="ids"
                 v-for="item in item.twoMenuList"
                 :key="item.twoId"
               >
-                <el-checkbox :label="item.twoName">
+                <el-checkbox :label="item.twoId">
                   {{ item.twoName }}
                 </el-checkbox>
               </el-checkbox-group>
@@ -314,6 +311,7 @@ export default {
     getAuth() {
       this.$axios.get("/auth").then((res) => {
         this.auth = res.data.data;
+        console.log(this.auth);
       });
     },
     /**監聽頁面刷新 */
@@ -350,11 +348,11 @@ export default {
     editAccount() {
       this.$refs.addFormRef.validate((valid) => {
         if (!valid) return;
-        this.editForm["ids"] = "";
+        this.editForm.ids = "1,2";
         for (let i = 0; i < this.ids.length; i++) {
           this.editForm.ids = this.editForm.ids + "," + this.ids[i];
         }
-        this.editForm.ids = this.editForm.ids.substring(1);
+        // this.editForm.ids = this.editForm.ids.substring(1);
         this.$axios
           .put("/account/" + this.editForm.id, this.editForm)
           .then(() => {
@@ -364,14 +362,15 @@ export default {
       });
     },
     /**顯示修改帳戶 */
-    showEditDialon(id) {
-      this.$axios.get("/account/" + id).then((res) => {
+    async showEditDialon(id) {
+      await this.$axios.get("/account/" + id).then((res) => {
         this.editForm = res.data.data;
         let b = [];
-        res.data.data.csrAccountAuths.forEach(function (item) {
+        res.data.data.csrAccountAuths.forEach((item) => {
           b.push(item.csrAuth.id);
         });
         this.ids = b;
+        console.log(this.ids);
       });
       this.editDialogVisible = true;
     },
@@ -403,8 +402,7 @@ export default {
   background: #d4debc;
 }
 
-.el-pagination{
-   margin-top: 10px;
+.el-pagination {
+  margin-top: 10px;
 }
-
 </style>

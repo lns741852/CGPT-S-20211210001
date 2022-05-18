@@ -12,4 +12,6 @@ public interface CsrPoltldMapper {
 			+ " POTSCANTIME like '%'||(#{date})||'%'")
 	CsrPoltld selectPot(String depno, String potname, String potno, Integer potsn, String date);
 
+	CsrPoltld getPot(CsrPoltld csrPoltld);
+
 }
