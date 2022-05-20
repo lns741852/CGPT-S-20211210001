@@ -96,8 +96,8 @@
           </el-form-item>
           <el-form-item label="負責人員：">
             <el-row gutter="24">
-              <el-col :span="12"> 代號 <input v-model="userno" /> </el-col>
-              <el-col :span="12"> 姓名 <input v-model="usercname" /> </el-col>
+                            <el-col :span="9"> 代號 <el-input v-model="userno"  style="width:60%"/> </el-col>
+              <el-col :span="9"> 姓名 <el-input v-model="usercname"  style="width:60%"/> </el-col>
             </el-row>
           </el-form-item>
 

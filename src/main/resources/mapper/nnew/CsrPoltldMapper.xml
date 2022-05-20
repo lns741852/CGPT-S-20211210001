@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.htpe.mapper.nnew.CsrPoltldMapper">
   <resultMap id="BaseResultMap" type="com.htpe.bean.CsrPoltld">
-    <id column="ID" jdbcType="INTEGER" property="id" />
+     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="DEPNO" jdbcType="CHAR" property="depno" />
     <result column="POTNAME" jdbcType="CHAR" property="potname" />
     <result column="POTNO" jdbcType="CHAR" property="potno" />
@@ -14,11 +14,16 @@
     <result column="DATAUSERNO" jdbcType="CHAR" property="datauserno" />
     <result column="RBI" jdbcType="CHAR" property="rbi" />
     <result column="RBI_BATCH" jdbcType="CHAR" property="rbiBatch" />
+    <result column="RBI_RESULT" jdbcType="CHAR" property="rbiResult" />
     <result column="RBI_COMPARISON" jdbcType="CHAR" property="rbiComparison" />
     <result column="RBI_COMPARISON_BATCH" jdbcType="CHAR" property="rbiComparisonBatch" />
+    <result column="RBI_COMPARISON_RESULT" jdbcType="CHAR" property="rbiComparisonResult" />
     <result column="CLASS5" jdbcType="CHAR" property="class5" />
+    <result column="CLASS5_RESULT" jdbcType="CHAR" property="class5Result" />
     <result column="VACUUM" jdbcType="CHAR" property="vacuum" />
+    <result column="VACUUM_RESULT" jdbcType="CHAR" property="vacuumResult" />
     <result column="INSTRUMENT" jdbcType="CHAR" property="instrument" />
+    <result column="INSTRUMENT_RESULT" jdbcType="CHAR" property="instrumentResult" />
     <result column="EFFICTMONITOR" jdbcType="CHAR" property="effictmonitor" />
     <result column="FIRSTE" jdbcType="CHAR" property="firste" />
     <result column="FIRSTF" jdbcType="CHAR" property="firstf" />
@@ -28,24 +33,42 @@
     <result column="QC" jdbcType="CHAR" property="qc" />
     <result column="QUALITY" jdbcType="CHAR" property="quality" />
     <result column="MACHANIC" jdbcType="CHAR" property="machanic" />
+    <result column="MACHANIC_POT" jdbcType="TIMESTAMP" property="machanicPot" />
+    <result column="MACHANIC_OUT" jdbcType="TIMESTAMP" property="machanicOut" />
+    <result column="MACHANIC_DURATION_START" jdbcType="TIMESTAMP" property="machanicDurationStart" />
+    <result column="MACHANIC_DURATION_END" jdbcType="TIMESTAMP" property="machanicDurationEnd" />
     <result column="POT_TYPE" jdbcType="CHAR" property="potType" />
     <result column="ISRIGHT" jdbcType="CHAR" property="isright" />
     <result column="EXTERNAL_INDICATOR" jdbcType="CHAR" property="externalIndicator" />
     <result column="INTERNAL_INICATOR" jdbcType="CHAR" property="internalInicator" />
+    <result column="EXTERNAL_INDICATOR_RESULT" jdbcType="CHAR" property="externalIndicatorResult" />
+    <result column="INTERNAL_INICATOR_RESULT" jdbcType="CHAR" property="internalInicatorResult" />
     <result column="PROCESS" jdbcType="CHAR" property="process" />
     <result column="ISRECALL" jdbcType="CHAR" property="isrecall" />
     <result column="ISPOTOPEN" jdbcType="CHAR" property="ispotopen" />
+    <result column="MACHANIC_PRESSURE" jdbcType="CHAR" property="machanicPressure" />
+    <result column="MACHANIC_TEMPERATURE" jdbcType="CHAR" property="machanicTemperature" />
+    <result column="MACHANIC_PRESSURE1" jdbcType="CHAR" property="machanicPressure1" />
+    <result column="MACHANIC_TEMPERATURE1" jdbcType="CHAR" property="machanicTemperature1" />
+    <result column="INDIUSERNO" jdbcType="CHAR" property="indiuserno" />
+    <result column="INDIUSERNAME" jdbcType="CHAR" property="indiusername" />
     <result column="RBITEMPERATURE" jdbcType="CHAR" property="rbitemperature" />
     <result column="RBITIME" jdbcType="INTEGER" property="rbitime" />
     <result column="LEAK" jdbcType="CHAR" property="leak" />
     <result column="LEAKVALUE" jdbcType="CHAR" property="leakvalue" />
+    <result column="LEAKRESULT" jdbcType="CHAR" property="leakresult" />
+    <result column="INDICATORNOTE" jdbcType="CHAR" property="indicatornote" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, DEPNO, POTNAME, POTNO, POTSN, EMPNO, USERCNAME, POTSCANTIME, DATAUSERNAME, DATAUSERNO, 
-    RBI, RBI_BATCH, RBI_COMPARISON, RBI_COMPARISON_BATCH, CLASS5, VACUUM, INSTRUMENT, 
-    EFFICTMONITOR, FIRSTE, FIRSTF, NORMAL, NONIMPLANT, IMPLANT, QC, QUALITY, MACHANIC, 
-    POT_TYPE, ISRIGHT, EXTERNAL_INDICATOR, INTERNAL_INICATOR, PROCESS, ISRECALL, ISPOTOPEN, 
-    RBITEMPERATURE, RBITIME, LEAK, LEAKVALUE
+     ID, DEPNO, POTNAME, POTNO, POTSN, EMPNO, USERCNAME, POTSCANTIME, DATAUSERNAME, DATAUSERNO, 
+    RBI, RBI_BATCH, RBI_RESULT, RBI_COMPARISON, RBI_COMPARISON_BATCH, RBI_COMPARISON_RESULT, 
+    CLASS5, CLASS5_RESULT, VACUUM, VACUUM_RESULT, INSTRUMENT, INSTRUMENT_RESULT, EFFICTMONITOR, 
+    FIRSTE, FIRSTF, NORMAL, NONIMPLANT, IMPLANT, QC, QUALITY, MACHANIC, MACHANIC_POT, 
+    MACHANIC_OUT, MACHANIC_DURATION_START, MACHANIC_DURATION_END, POT_TYPE, ISRIGHT, 
+    EXTERNAL_INDICATOR, INTERNAL_INICATOR, EXTERNAL_INDICATOR_RESULT, INTERNAL_INICATOR_RESULT, 
+    PROCESS, ISRECALL, ISPOTOPEN, MACHANIC_PRESSURE, MACHANIC_TEMPERATURE, MACHANIC_PRESSURE1, 
+    MACHANIC_TEMPERATURE1, INDIUSERNO, INDIUSERNAME, RBITEMPERATURE, RBITIME, LEAK, LEAKVALUE, 
+    LEAKRESULT, INDICATORNOTE
   </sql>
   
   <select id="getPot" parameterType="com.htpe.bean.CsrPoltld" resultType="CsrPoltld">
@@ -293,8 +316,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrPoltld">
-    update JAY.CSR_POLTLD
+  <update id="updateIndicator" parameterType="com.htpe.bean.CsrPoltld">
+    update CSR_POLTLD
     <set>
       <if test="depno != null">
         DEPNO = #{depno,jdbcType=CHAR},
@@ -329,20 +352,35 @@
       <if test="rbiBatch != null">
         RBI_BATCH = #{rbiBatch,jdbcType=CHAR},
       </if>
+      <if test="rbiResult != null">
+        RBI_RESULT = #{rbiResult,jdbcType=CHAR},
+      </if>
       <if test="rbiComparison != null">
         RBI_COMPARISON = #{rbiComparison,jdbcType=CHAR},
       </if>
       <if test="rbiComparisonBatch != null">
         RBI_COMPARISON_BATCH = #{rbiComparisonBatch,jdbcType=CHAR},
       </if>
+      <if test="rbiComparisonResult != null">
+        RBI_COMPARISON_RESULT = #{rbiComparisonResult,jdbcType=CHAR},
+      </if>
       <if test="class5 != null">
         CLASS5 = #{class5,jdbcType=CHAR},
+      </if>
+      <if test="class5Result != null">
+        CLASS5_RESULT = #{class5Result,jdbcType=CHAR},
       </if>
       <if test="vacuum != null">
         VACUUM = #{vacuum,jdbcType=CHAR},
       </if>
+      <if test="vacuumResult != null">
+        VACUUM_RESULT = #{vacuumResult,jdbcType=CHAR},
+      </if>
       <if test="instrument != null">
         INSTRUMENT = #{instrument,jdbcType=CHAR},
+      </if>
+      <if test="instrumentResult != null">
+        INSTRUMENT_RESULT = #{instrumentResult,jdbcType=CHAR},
       </if>
       <if test="effictmonitor != null">
         EFFICTMONITOR = #{effictmonitor,jdbcType=CHAR},
@@ -371,6 +409,18 @@
       <if test="machanic != null">
         MACHANIC = #{machanic,jdbcType=CHAR},
       </if>
+      <if test="machanicPot != null">
+        MACHANIC_POT = #{machanicPot,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machanicOut != null">
+        MACHANIC_OUT = #{machanicOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machanicDurationStart != null">
+        MACHANIC_DURATION_START = #{machanicDurationStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machanicDurationEnd != null">
+        MACHANIC_DURATION_END = #{machanicDurationEnd,jdbcType=TIMESTAMP},
+      </if>
       <if test="potType != null">
         POT_TYPE = #{potType,jdbcType=CHAR},
       </if>
@@ -383,6 +433,12 @@
       <if test="internalInicator != null">
         INTERNAL_INICATOR = #{internalInicator,jdbcType=CHAR},
       </if>
+      <if test="externalIndicatorResult != null">
+        EXTERNAL_INDICATOR_RESULT = #{externalIndicatorResult,jdbcType=CHAR},
+      </if>
+      <if test="internalInicatorResult != null">
+        INTERNAL_INICATOR_RESULT = #{internalInicatorResult,jdbcType=CHAR},
+      </if>
       <if test="process != null">
         PROCESS = #{process,jdbcType=CHAR},
       </if>
@@ -391,6 +447,24 @@
       </if>
       <if test="ispotopen != null">
         ISPOTOPEN = #{ispotopen,jdbcType=CHAR},
+      </if>
+      <if test="machanicPressure != null">
+        MACHANIC_PRESSURE = #{machanicPressure,jdbcType=CHAR},
+      </if>
+      <if test="machanicTemperature != null">
+        MACHANIC_TEMPERATURE = #{machanicTemperature,jdbcType=CHAR},
+      </if>
+      <if test="machanicPressure1 != null">
+        MACHANIC_PRESSURE1 = #{machanicPressure1,jdbcType=CHAR},
+      </if>
+      <if test="machanicTemperature1 != null">
+        MACHANIC_TEMPERATURE1 = #{machanicTemperature1,jdbcType=CHAR},
+      </if>
+      <if test="indiuserno != null">
+        INDIUSERNO = #{indiuserno,jdbcType=CHAR},
+      </if>
+      <if test="indiusername != null">
+        INDIUSERNAME = #{indiusername,jdbcType=CHAR},
       </if>
       <if test="rbitemperature != null">
         RBITEMPERATURE = #{rbitemperature,jdbcType=CHAR},
@@ -404,47 +478,14 @@
       <if test="leakvalue != null">
         LEAKVALUE = #{leakvalue,jdbcType=CHAR},
       </if>
+      <if test="leakresult != null">
+        LEAKRESULT = #{leakresult,jdbcType=CHAR},
+      </if>
+      <if test="indicatornote != null">
+        INDICATORNOTE = #{indicatornote,jdbcType=CHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrPoltld">
-    update JAY.CSR_POLTLD
-    set DEPNO = #{depno,jdbcType=CHAR},
-      POTNAME = #{potname,jdbcType=CHAR},
-      POTNO = #{potno,jdbcType=CHAR},
-      POTSN = #{potsn,jdbcType=INTEGER},
-      EMPNO = #{empno,jdbcType=CHAR},
-      USERCNAME = #{usercname,jdbcType=CHAR},
-      POTSCANTIME = #{potscantime,jdbcType=TIMESTAMP},
-      DATAUSERNAME = #{datausername,jdbcType=CHAR},
-      DATAUSERNO = #{datauserno,jdbcType=CHAR},
-      RBI = #{rbi,jdbcType=CHAR},
-      RBI_BATCH = #{rbiBatch,jdbcType=CHAR},
-      RBI_COMPARISON = #{rbiComparison,jdbcType=CHAR},
-      RBI_COMPARISON_BATCH = #{rbiComparisonBatch,jdbcType=CHAR},
-      CLASS5 = #{class5,jdbcType=CHAR},
-      VACUUM = #{vacuum,jdbcType=CHAR},
-      INSTRUMENT = #{instrument,jdbcType=CHAR},
-      EFFICTMONITOR = #{effictmonitor,jdbcType=CHAR},
-      FIRSTE = #{firste,jdbcType=CHAR},
-      FIRSTF = #{firstf,jdbcType=CHAR},
-      NORMAL = #{normal,jdbcType=CHAR},
-      NONIMPLANT = #{nonimplant,jdbcType=CHAR},
-      IMPLANT = #{implant,jdbcType=CHAR},
-      QC = #{qc,jdbcType=CHAR},
-      QUALITY = #{quality,jdbcType=CHAR},
-      MACHANIC = #{machanic,jdbcType=CHAR},
-      POT_TYPE = #{potType,jdbcType=CHAR},
-      ISRIGHT = #{isright,jdbcType=CHAR},
-      EXTERNAL_INDICATOR = #{externalIndicator,jdbcType=CHAR},
-      INTERNAL_INICATOR = #{internalInicator,jdbcType=CHAR},
-      PROCESS = #{process,jdbcType=CHAR},
-      ISRECALL = #{isrecall,jdbcType=CHAR},
-      ISPOTOPEN = #{ispotopen,jdbcType=CHAR},
-      RBITEMPERATURE = #{rbitemperature,jdbcType=CHAR},
-      RBITIME = #{rbitime,jdbcType=INTEGER},
-      LEAK = #{leak,jdbcType=CHAR},
-      LEAKVALUE = #{leakvalue,jdbcType=CHAR}
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

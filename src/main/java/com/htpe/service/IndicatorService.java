@@ -7,4 +7,6 @@ public interface IndicatorService {
 
 	ResultMsg getIndicatorByAll(CsrPoltld csrPoltld);
 
+	ResultMsg updateIndicator(CsrPoltld csrPoltld);
+
 }

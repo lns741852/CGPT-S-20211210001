@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
 import com.htpe.bean.CsrBarcode;
+import com.htpe.bean.CsrPoltld;
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.utils.ResultMsg;
 
@@ -28,5 +29,7 @@ public interface CsrBarcodeMapper {
 
 	@Update("update CSR_BARCODE set STATUS='2',POTID=#{id}, LOCATION =#{depno} where barcode=#{barcode}")
 	int updateBarcodeByName(String barcode, Integer id, String depno);
+
+	List<CsrBarcode> getWarehousingList(CsrPoltld csrPoltld);
 
 }

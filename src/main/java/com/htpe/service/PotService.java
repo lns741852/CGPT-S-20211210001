@@ -13,5 +13,7 @@ public interface PotService {
 
 	ResultMsg savePot(List<CsrPoltld> csrPoltld, HttpServletRequest request);
 
+	ResultMsg getPotsn(String potname);
+
 
 }

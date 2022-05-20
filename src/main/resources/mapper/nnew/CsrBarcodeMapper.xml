@@ -74,6 +74,14 @@
     DPOTSN
   </sql>
   
+    <select id="getWarehousingList" parameterType="CsrPoltld" resultType="CsrBarcode">
+    	select * from CSR_BARCODE where 
+		POTID like (
+		select ID from CSR_POLTLD where DEPNO=#{depno} and POTNAME=#{potname} and POTNO=#{potno} and POTSN=#{potsn} and 
+		POTSCANTIME like (select distinct to_char(#{potscantime},'yyyy-MM-dd') from CSR_POLTLD
+		) ||'%');
+  </select>
+  
   
   
   

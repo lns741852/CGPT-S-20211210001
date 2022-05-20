@@ -109,5 +109,15 @@ public class PotServiceImpl implements PotService{
 		return ResultMsg.success("入鍋成功").addData("");
 	}
 
+	@Override
+	public ResultMsg getPotsn(String potname) {		
+		int count = csrPoltldMapper.getPotsnCount(potname);		
+		if(count == 1) {
+			System.out.println(csrPoltldMapper.getPotsnByName(potname));
+			return ResultMsg.success("當日過次查詢").addData(csrPoltldMapper.getPotsnByName(potname));
+		}
+		return ResultMsg.success("當日過次查詢").addData(-1);
+	}
+
 
 }

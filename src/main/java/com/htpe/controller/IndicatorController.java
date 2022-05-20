@@ -24,5 +24,15 @@ public class IndicatorController {
 	public ResultMsg  getIndicatorByAll(@RequestBody CsrPoltld csrPoltld) {
 	    return  indicatorService.getIndicatorByAll(csrPoltld);
 	}
+	
+	
+	/**
+	 *滅菌鍋監控查詢
+	 */
+	@PostMapping("/indicator/result")
+	public ResultMsg  updateIndicator(@RequestBody CsrPoltld csrPoltld) {
+	    return  indicatorService.updateIndicator(csrPoltld);
+	}
+	
 
 }

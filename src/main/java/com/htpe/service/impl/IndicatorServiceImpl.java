@@ -17,16 +17,24 @@ public class IndicatorServiceImpl  implements IndicatorService{
 	CsrPoltldMapper csrPoltldMapper;
 
 	@Override
-	public ResultMsg getIndicatorByAll(CsrPoltld csrPoltld) {			
-		if(csrPoltld != null) {
-			
+	public ResultMsg getIndicatorByAll(CsrPoltld csrPoltld) {	
 			SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String date = dFormat.format(csrPoltld.getPotscantime());
 			csrPoltld.setTime(date);
-					
-			return ResultMsg.success("滅菌監測查詢").addData(csrPoltldMapper.getPot(csrPoltld));
-		}
-	return null;
+			
+			CsrPoltld pot = csrPoltldMapper.getPot(csrPoltld);
+			if(pot != null) {					
+				return ResultMsg.success("滅菌監測查詢").addData(pot);
+			}
+			return ResultMsg.fail(500, "滅菌監測查詢失敗").addData("");
+	}
+
+	@Override
+	public ResultMsg updateIndicator(CsrPoltld csrPoltld) {		
+		csrPoltld.setIsright("Y");		
+		csrPoltldMapper.updateIndicator(csrPoltld);
+			
+		return ResultMsg.success("滅菌監測成功").addData("");		
 	}
 
 }

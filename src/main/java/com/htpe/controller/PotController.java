@@ -33,6 +33,14 @@ public class PotController {
 	    return   potService.getbarcodeByname(barcode);
 	}
 	
+	/**
+	 *入鍋過次查詢
+	 */
+	@GetMapping("/pot/potsn/{potname}")
+	public ResultMsg  getPotsn(@PathVariable String potname) {
+	    return   potService.getPotsn(potname);
+	}
+	
 	
 	
 	/**

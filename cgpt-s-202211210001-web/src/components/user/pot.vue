@@ -40,8 +40,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="鍋別：" prop="pot">
-            <el-select v-model="pot" placeholder="請選擇">
+          <el-form-item label="鍋別：" prop="pot" >
+            <el-select v-model="pot" placeholder="請選擇" @change="selectPotsn(pot)">
               <el-option
                 v-for="item in potList"
                 :key="item"
@@ -64,8 +64,12 @@
           </el-form-item>
           <el-form-item label="負責人員：">
             <el-row gutter="24">
-              <el-col :span="12"> 代號 <input v-model="userno" /> </el-col>
-              <el-col :span="12"> 姓名 <input v-model="usercname" /> </el-col>
+              <el-col :span="9">
+                代號 <el-input v-model="userno" style="width: 60%" />
+              </el-col>
+              <el-col :span="9">
+                姓名 <el-input v-model="usercname" style="width: 60%" />
+              </el-col>
             </el-row>
           </el-form-item>
 
@@ -119,23 +123,22 @@
                   >過程挑戰包 No.2</el-checkbox
                 ></el-col
               >
-              <el-col :span="24"
-                >BI生物指示劑 批號：<input v-model="rbiBatch"
-              /></el-col>
-              <el-col :span="9">
-                培菌溫度(℃)：<input v-model="rbitemperature"
-              /></el-col>
-              <el-col :span="12">
-                培菌時間(小時)：
-                <select v-model="rbitime">
-                  <option value="">請選擇...</option>
-                  <option value="1500">0.25</option>
-                  <option value="2400" selected>0.4</option>
-                </select>
-              </el-col>
-              <el-col :span="24"
-                >對照組 批號：<input v-model="rbiComparisonBatch"
-              /></el-col>
+               <el-col :span="24"
+              >BI生物指示劑 批號：<el-input v-model="rbiBatch"   style="width:20%;margin-top:10px"/>
+            </el-col>
+            <el-col :span="9">
+              培菌溫度(℃)：<el-input v-model="rbitemperature"  style="width:48%;margin-top:10px"
+            /></el-col>
+            <el-col :span="12">
+              培菌時間(小時)：
+              <el-select v-model="rbitime" style="margin-top:10px" placeholder="請選擇...">
+                <el-option value="1500" label="0.25"/>
+                <el-option value="2400" label="0.4" selected/>
+              </el-select>
+            </el-col>
+            <el-col :span="24"
+              >對照組 批號：<el-input v-model="rbiComparisonBatch"  style="width:20%;margin-top:10px" />
+            </el-col>
             </el-row>
           </el-form-item>
           <el-form-item label="讀取條碼編號：">
@@ -191,9 +194,9 @@ export default {
       vacuum: "",
       leak: "",
       quality: "",
-      class5:"",
-      process:"",
-      cl:false,
+      class5: "",
+      process: "",
+      cl: false,
       gc: "",
       nonimplant: "",
       implant: "",
@@ -201,8 +204,8 @@ export default {
       firste: "",
       pot: "",
       potnum: "",
-      rbiBatch:"",
-      rbiComparisonBatch:"",
+      rbiBatch: "",
+      rbiComparisonBatch: "",
       barcode: "",
       potList: [],
       checkList: [],
@@ -239,6 +242,7 @@ export default {
     },
     //部門對應消毒鍋
     selectDisinfection(name) {
+      this.disinfection =""
       if (name != "") {
         this.$axios.get("/depno_name/" + name).then((res) => {
           this.potDepnoList = res.data.data.csrPotDepno;
@@ -247,6 +251,7 @@ export default {
     },
     //選擇消毒方式
     selectPot(name) {
+      this.pot ="";
       this.potList = [];
       this.checkList = [];
       this.potDepnoList.forEach((item) => {
@@ -259,12 +264,12 @@ export default {
       });
       //鍋次
       if (name === "Steam") {
-        this.potnumList.splice(0, 0, "BD");
+        this.potnumList.splice(0, 0, 0);
         this.cl = true;
         this.rbitemperature = "55";
         this.rbitime = "2400";
       } else {
-        if (this.potnumList.indexOf("BD") != -1) {
+        if (this.potnumList.indexOf(0) != -1) {
           this.potnumList.splice(0, 1);
           this.rbitemperature = "58";
           this.rbitime = "1500";
@@ -273,7 +278,18 @@ export default {
       this.checkList.push("C");
       this.checkList.push("D");
     },
-
+    //鍋次查詢
+    selectPotsn(potname){
+          this.$axios.get("/pot/potsn/" + potname).then((res) => {
+            if(this.disinfection ==="Steam")
+            {
+              this.potnum = res.data.data+1
+            }else{
+               this.potnum = res.data.data +2
+            }
+            
+        });
+    },
     /**盤包輸入 => 列表 */
     async inputTag() {
       if (this.depno === "") {
@@ -364,24 +380,25 @@ export default {
         this.rbiComparison = "Y";
       }
 
-      if(this.cl === true){
-        this.process="2";
-        this.class5 ="Y";
+      if (this.cl === true) {
+        this.process = "2";
+        this.class5 = "Y";
       }
+      
 
       this.potDatas.push({
-        leak:this.leak,
-        vacuum:this.vacuum,
-        externalIndicator:this.externalIndicator,
-        internalInicator:this.internalInicator,
-        firste:this.firste,
-        firstf:this.firstf,
-        implant:this.implant,
-        nonimplant:this.nonimplant,
-        gc:this.gc,
-        quality:this.quality,
-        rbi:this.rbi,
-        rbiComparison:this.rbiComparison,
+        leak: this.leak,
+        vacuum: this.vacuum,
+        externalIndicator: this.externalIndicator,
+        internalInicator: this.internalInicator,
+        firste: this.firste,
+        firstf: this.firstf,
+        implant: this.implant,
+        nonimplant: this.nonimplant,
+        gc: this.gc,
+        quality: this.quality,
+        rbi: this.rbi,
+        rbiComparison: this.rbiComparison,
         depno: this.depno,
         potname: this.disinfection,
         potno: this.pot,
@@ -403,35 +420,36 @@ export default {
     deleteTag(id) {
       this.potDatas.splice(id, 1);
     },
+
+
     //列印標籤
     submitFrom() {
       if (this.potDatas.length > 0) {
         this.$axios.post("/pot", this.potDatas).then(() => {
-          this.potDatas=[];
-          this.depno ="";
-          this.disinfection ="";
-          this.pot ="";
-          this.potnum ="";
-          this.ispotopen ="Y";
-          this.type ="";
-          this.efficiency ="";
-          this.checkList =[];
-          this.cl =false;
-          this.rbiBatch ="";
-          this.rbitemperature ="";
-          this.rbitime ="";
-          this.rbiComparisonBatch ="";
-          this.barcode ="";
+          this.potDatas = [];
+          this.depno = "";
+          this.disinfection = "";
+          this.pot = "";
+          this.potnum = "";
+          this.ispotopen = "Y";
+          this.type = "";
+          this.efficiency = "";
+          this.checkList = [];
+          this.cl = false;
+          this.rbiBatch = "";
+          this.rbitemperature = "";
+          this.rbitime = "";
+          this.rbiComparisonBatch = "";
+          this.barcode = "";
         });
       }
     },
-
   },
-  watch:{
-    rbiBatch:function(){
-      this.rbiComparisonBatch = this.rbiBatch
-    }
-  }
+  watch: {
+    rbiBatch: function () {
+      this.rbiComparisonBatch = this.rbiBatch;
+    },
+  },
 };
 </script>
 
