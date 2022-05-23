@@ -356,7 +356,7 @@ export default {
                   datauserno:this.userno,
                   datausername:this.usercname,
                   barcode:this.barcode,
-                  sn:this.inputData.sn,
+                  setsn:this.inputData.sn,
                   effectivedate:day(this.day), 
                   eod:this.tomorrow                           
               });  

@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <h3>入鍋作業</h3>
+    <h3>入庫作業</h3>
     <el-card class="box-card">
       <!--表單驗證-->
       <template #default>
@@ -98,7 +98,7 @@
             </el-row>
           </el-form-item>
         </el-form>
-        <el-button class="edit_button" @click="inputPot()">輸入</el-button>
+        <el-button class="edit_button" @click="inputPot()">搜尋</el-button>
       </template>
     </el-card>
   </div>
@@ -225,25 +225,26 @@ export default {
     },
     /**盤包輸入 => 列表 */
     async inputPot() {
-      if (this.disinfectionDepno === "") {
-        ElMessage.error("請輸入消毒庫房");
-        return true;
-      }
+      // if (this.disinfectionDepno === "") {
+      //   ElMessage.error("請輸入消毒庫房");
+      //   return true;
+      // }
 
-      if (this.disinfection === "") {
-        ElMessage.error("請輸入消毒鍋");
-        return true;
-      }
+      // if (this.disinfection === "") {
+      //   ElMessage.error("請輸入消毒鍋");
+      //   return true;
+      // }
 
-      if (this.pot === "") {
-        ElMessage.error("請輸入鍋別");
-        return true;
-      }
+      // if (this.pot === "") {
+      //   ElMessage.error("請輸入鍋別");
+      //   return true;
+      // }
 
-      if (this.potnum === "") {
-        ElMessage.error("請輸入鍋次");
-        return true;
-      }
+      // if (this.potnum === "") {
+      //   ElMessage.error("請輸入鍋次");
+      //   return true;
+      // }
+      this.barcodeDatas =[]
 
       this.inputPotParam.depno = this.disinfectionDepno;
       this.inputPotParam.potname = this.disinfection;
@@ -253,7 +254,6 @@ export default {
       await this.$axios
         .post("/warehousing/pot", this.inputPotParam)
         .then((res) => {
-          console.log(res.data.data);
           if (res.data.data.length > 0) {
             this.barcodeDatas = res.data.data;
           }
@@ -264,25 +264,24 @@ export default {
       this.barcodeDatas.splice(id, 1);
     },
 
-    //列印標籤
-    submitFrom() {
+    //入庫
+    submitFrom() { 
+      if(this.depno ==""){
+        ElMessage.error("請輸入庫房");
+        return
+      }    
       if (this.barcodeDatas.length > 0) {
-        this.$axios.post("/pot", this.barcodeDatas).then(() => {
+        let ids ="?usercname="+this.usercname+"&depno=" + this.depno
+        this.barcodeDatas.forEach(item =>{
+          ids += "&ids=" + item.barcodeid;
+        });
+        this.$axios.put("/warehousing" + ids).then(() => {
           this.barcodeDatas = [];
-          this.depno = "";
-          this.disinfection = "";
-          this.pot = "";
-          this.potnum = "";
-          this.ispotopen = "Y";
-          this.type = "";
-          this.efficiency = "";
-          this.checkList = [];
-          this.cl = false;
-          this.rbiBatch = "";
-          this.rbitemperature = "";
-          this.rbitime = "";
-          this.rbiComparisonBatch = "";
-          this.barcode = "";
+          this.depno=""
+          this.disinfectionDepno=""
+          this.pot=""
+          this.potnum=""
+          this.disinfection=""
         });
       }
     },

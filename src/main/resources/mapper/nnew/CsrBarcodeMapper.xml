@@ -74,12 +74,36 @@
     DPOTSN
   </sql>
   
+  
+  
+  
+  
+  
     <select id="getWarehousingList" parameterType="CsrPoltld" resultType="CsrBarcode">
-    	select * from CSR_BARCODE where 
-		POTID like (
-		select ID from CSR_POLTLD where DEPNO=#{depno} and POTNAME=#{potname} and POTNO=#{potno} and POTSN=#{potsn} and 
-		POTSCANTIME like (select distinct to_char(#{potscantime},'yyyy-MM-dd') from CSR_POLTLD
-		) ||'%');
+    	select  X.BARCODE as BARCODE,X.SETNO as SETNO,X.STATUS as STATUS,
+    	X.BARCODEID as BARCODEID,X.SETSN as SETSN,
+    	A.DEPNAME as LOCATION
+    	from CSR_BARCODE as X
+	    left join CSR_DEPNO as A
+	    on X.LOCATION = A.DEPNO
+    	where 
+		X.POTID in (
+		select ID from CSR_POLTLD 
+		<where>
+			<if test="depno!=null">
+				AND (DEPNO like '%'||(#{depno})||'%')		
+			</if>
+			<if test="potname!=null">
+				AND (POTNAME like '%'||(#{potname})||'%')		
+			</if>
+			<if test="potno!=null">
+				AND (POTNO like '%'||(#{potno})||'%')		
+			</if>
+			<if test="potsn!=null">
+				AND (POTSN like '%'||(#{potsn})||'%')		
+			</if>
+			AND POTSCANTIME like (select distinct to_char(#{potscantime},'yyyy-MM-dd') from CSR_POLTLD) ||'%');
+		</where>			
   </select>
   
   
@@ -146,6 +170,17 @@
 		and EffectiveDate  &lt; delTime group by DepNo
     </select>
     
+    
+      <select id="getBarcodeById" parameterType="List" resultType="String">
+	    SELECT BARCODE FROM CSR_BARCODE
+	    where barcodeid in
+	  	<foreach item="item" index="index" collection="ids"
+	         open="(" separator="," close=")">
+	         #{item}
+	    </foreach>
+
+	  </select>
+  
     
     <insert id="insertBarcode" parameterType="CsrBarcode">
     insert into CSR_BARCODE
@@ -218,7 +253,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="setno != null">
+      <if test="setno != null">
         #{setno},
       </if>
       <if test="barcode != null">
@@ -286,7 +321,21 @@
       </if>
     </trim>
   </insert>
-    
-
+  
+  <update  id="upadteWarehousing" parameterType="Integer">
+  	update CSR_BARCODE
+  	set 
+  	STATUS='3',
+  	LOCATION=#{depno},
+  	DEPNOSTORE=#{depno},
+  	WEARHOUSEUSERNO=#{userno},
+  	WEARHOUSEUSERNAME=#{usercname},
+  	WEARHOUSEDATETIME=#{date}
+  	where BARCODEID in
+  	<foreach item="item" index="index" collection="ids"
+         open="(" separator="," close=")">
+         #{item}
+    </foreach>
+  </update>
 
 </mapper>

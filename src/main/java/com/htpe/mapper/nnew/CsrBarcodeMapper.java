@@ -32,4 +32,8 @@ public interface CsrBarcodeMapper {
 
 	List<CsrBarcode> getWarehousingList(CsrPoltld csrPoltld);
 
+	int upadteWarehousing(Integer[] ids, String depno, String userno, String usercname, Date date);
+
+	List<String> getBarcodeById(Integer[] ids);
+
 }

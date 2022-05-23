@@ -97,8 +97,10 @@ public class PotServiceImpl implements PotService{
         	history.setIsused("N");
         	history.setAction("X");
         	history.setLocation(pot.getDepno());
-        	history.setPotsn(0);
-        	history.setPotid(0);
+        	history.setPotname(pot.getPotno());
+        	history.setPotno(pot.getPotname());
+        	history.setPotsn(pot.getPotsn());
+        	history.setPotid(pot.getId());
         	
     		int num2 = csrHistoryMapper.insertHistory(history);
     		if(num2 < 1) {

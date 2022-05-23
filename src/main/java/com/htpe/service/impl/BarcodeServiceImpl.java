@@ -73,9 +73,7 @@ public class BarcodeServiceImpl implements BarcodeService{
 		            	
 		            	barcode.setBarcode(barcode.getBarcode()+numString);		            	
 		            	barcode.setCreatedatetime(date);
-		            	if(barcode.getSn() != null) {
-		            		barcode.setSetsn(barcode.getSn().toString());
-		            	}	            
+		            	barcode.setSetsn(barcode.getSetsn());
 		            	barcode.setStatus("1");
 		            	barcode.setReqId(0);
 		            	barcode.setRdId(0);
