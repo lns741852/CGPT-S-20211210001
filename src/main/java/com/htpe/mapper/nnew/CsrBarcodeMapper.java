@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.htpe.bean.CsrBarcode;
@@ -35,5 +36,9 @@ public interface CsrBarcodeMapper {
 	int upadteWarehousing(Integer[] ids, String depno, String userno, String usercname, Date date);
 
 	List<String> getBarcodeById(Integer[] ids);
+
+	
+	@Select("select Count(*) from CSR_BARCODE where CREATEDATETIME like current date ||'%'")
+	int getTodayBarcode();
 
 }

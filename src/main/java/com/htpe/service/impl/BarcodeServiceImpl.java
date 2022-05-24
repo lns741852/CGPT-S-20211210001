@@ -60,7 +60,12 @@ public class BarcodeServiceImpl implements BarcodeService{
 			            	}
 		            	}
 		            		            	      
-		            	int numBarcode = BarcodeNum.printNum();	            	
+		            	int numBarcode = BarcodeNum.printNum();	    
+		            	if(numBarcode == 1) {  
+		            		numBarcode = csrBarcodeMapper.getTodayBarcode();
+		        			numBarcode += 1;
+		            	}
+		            	
 		            	String  numString =String.valueOf(numBarcode);		            
 		            	while (numString.length()<4) {
 		            		numString = "0"+numString ;

@@ -1,17 +1,14 @@
 package com.htpe.mapper.nnew;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Select;
+
 import com.htpe.bean.CsrCostcenter;
 
 public interface CsrCostcenterMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(CsrCostcenter record);
 
-    int insertSelective(CsrCostcenter record);
-
-    CsrCostcenter selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(CsrCostcenter record);
-
-    int updateByPrimaryKey(CsrCostcenter record);
+	@Select("select ID,CENTERNAME,CENTERNO from CSR_COSTCENTER")
+	List<CsrCostcenter> listCostcenter();
 }

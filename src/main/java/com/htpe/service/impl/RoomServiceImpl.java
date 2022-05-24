@@ -96,4 +96,9 @@ public class RoomServiceImpl implements RoomService{
 		return ResultMsg.success("病房刪除成功").addData("");
 	}
 
+	@Override
+	public ResultMsg listDepnoForRoom(String depno) {
+		return ResultMsg.success("病房").addData(csrRoomMapper.listDepnoForRoom(depno));
+	}
+
 }

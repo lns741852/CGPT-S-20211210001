@@ -29,4 +29,7 @@ public interface CsrRoomMapper {
 
 	@Select("select trim(ROOMNO) ROOMNO from CSR_Room where ID=#{id}")
 	String getUserNoById(Integer id);
+
+	@Select("select ID,ROOMNO,ROOMNAME from CSR_Room where DEPNO =#{depno}")
+	List<CsrRoom> listDepnoForRoom(String depno);
 }

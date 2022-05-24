@@ -18,4 +18,6 @@ public interface RoomService {
 
 	ResultMsg removeRoom(Integer id);
 
+	ResultMsg listDepnoForRoom(String depno);
+
 }

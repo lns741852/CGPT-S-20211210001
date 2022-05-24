@@ -328,7 +328,6 @@ export default {
       this.$axios.get("/casecar/" + id).then((res) => {
         this.addForm = res.data.data;
         this.casecarSetdatas = res.data.data.casecarSetdatas;
-        console.log(this.addForm)
       });
       this.editDialogVisible = true;
     },

@@ -75,4 +75,12 @@ public class RoomController {
 		return roomService.removeRoom(id);
 	}
 	
+	/**
+	 * 部門對應病房列表查詢
+	 */
+	@GetMapping("/depno/room/{depno}")
+	public ResultMsg  listDepnoForRoom(@PathVariable String depno) {
+	    return roomService.listDepnoForRoom(depno);	  
+	}
+	
 }
