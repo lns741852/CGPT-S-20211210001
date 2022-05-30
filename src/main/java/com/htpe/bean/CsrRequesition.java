@@ -1,6 +1,7 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class CsrRequesition {
     private Integer reqId;
@@ -60,8 +61,39 @@ public class CsrRequesition {
     private Date deltime;
 
     private String centerno;
+    
+    private List<CsrReqdetail> reqdetails;
+    
+    private CsrDepno depnoName;
+    
+    private CsrRoom roomName;
+    
+    
+    public CsrDepno getDepnoName() {
+		return depnoName;
+	}
 
-    public Integer getReqId() {
+	public void setDepnoName(CsrDepno depnoName) {
+		this.depnoName = depnoName;
+	}
+
+	public CsrRoom getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(CsrRoom roomName) {
+		this.roomName = roomName;
+	}
+
+	public List<CsrReqdetail> getReqdetails() {
+		return reqdetails;
+	}
+
+	public void setReqdetails(List<CsrReqdetail> reqdetails) {
+		this.reqdetails = reqdetails;
+	}
+
+	public Integer getReqId() {
         return reqId;
     }
 

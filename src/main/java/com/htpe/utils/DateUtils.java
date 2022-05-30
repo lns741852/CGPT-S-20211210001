@@ -30,7 +30,7 @@ public  class DateUtils {
         return sdf.format(date);
     }
     
-    
+
     /**
      * 開始時間&結束時間
      * @param date 格式 yyyy-MM-dd HH:mm:ss

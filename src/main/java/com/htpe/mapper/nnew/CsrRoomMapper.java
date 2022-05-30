@@ -32,4 +32,5 @@ public interface CsrRoomMapper {
 
 	@Select("select ID,ROOMNO,ROOMNAME from CSR_Room where DEPNO =#{depno}")
 	List<CsrRoom> listDepnoForRoom(String depno);
+
 }

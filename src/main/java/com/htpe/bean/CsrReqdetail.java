@@ -4,6 +4,8 @@ public class CsrReqdetail {
     private Integer rdId;
 
     private String setno;
+    
+    private String setname;
 
     private Integer setcount;
 
@@ -18,12 +20,21 @@ public class CsrReqdetail {
     private String type;
 
     private String allocate;
-
+    
+   
     public Integer getRdId() {
         return rdId;
     }
 
-    public void setRdId(Integer rdId) {
+    public String getSetname() {
+		return setname;
+	}
+
+	public void setSetname(String setname) {
+		this.setname = setname;
+	}
+
+	public void setRdId(Integer rdId) {
         this.rdId = rdId;
     }
 

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrReqdetailMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrReqdetail">
+    <id column="RD_ID" jdbcType="INTEGER" property="rdId" />
+    <result column="SETNO" jdbcType="CHAR" property="setno" />
+    <result column="SETCOUNT" jdbcType="INTEGER" property="setcount" />
+    <result column="REQ_ID" jdbcType="INTEGER" property="reqId" />
+    <result column="REALCOUNT" jdbcType="INTEGER" property="realcount" />
+    <result column="EXCHANGECOUNT" jdbcType="INTEGER" property="exchangecount" />
+    <result column="SN" jdbcType="INTEGER" property="sn" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+    <result column="ALLOCATE" jdbcType="CHAR" property="allocate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RD_ID, SETNO, SETCOUNT, REQ_ID, REALCOUNT, EXCHANGECOUNT, SN, TYPE, ALLOCATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from JAY.CSR_REQDETAIL
+    where RD_ID = #{rdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_REQDETAIL
+    where RD_ID = #{rdId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertReqdetail" parameterType="com.htpe.bean.CsrReqdetail">
+    insert into CSR_REQDETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rdId != null">
+        RD_ID,
+      </if>
+      <if test="setno != null">
+        SETNO,
+      </if>
+      <if test="setcount != null">
+        SETCOUNT,
+      </if>
+      <if test="reqId != null">
+        REQ_ID,
+      </if>
+      <if test="realcount != null">
+        REALCOUNT,
+      </if>
+      <if test="exchangecount != null">
+        EXCHANGECOUNT,
+      </if>
+      <if test="sn != null">
+        SN,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="allocate != null">
+        ALLOCATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rdId != null">
+        #{rdId,jdbcType=INTEGER},
+      </if>
+      <if test="setno != null">
+        #{setno,jdbcType=CHAR},
+      </if>
+      <if test="setcount != null">
+        #{setcount,jdbcType=INTEGER},
+      </if>
+      <if test="reqId != null">
+        #{reqId,jdbcType=INTEGER},
+      </if>
+      <if test="realcount != null">
+        #{realcount,jdbcType=INTEGER},
+      </if>
+      <if test="exchangecount != null">
+        #{exchangecount,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="allocate != null">
+        #{allocate,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrReqdetail">
+    update JAY.CSR_REQDETAIL
+    <set>
+      <if test="setno != null">
+        SETNO = #{setno,jdbcType=CHAR},
+      </if>
+      <if test="setcount != null">
+        SETCOUNT = #{setcount,jdbcType=INTEGER},
+      </if>
+      <if test="reqId != null">
+        REQ_ID = #{reqId,jdbcType=INTEGER},
+      </if>
+      <if test="realcount != null">
+        REALCOUNT = #{realcount,jdbcType=INTEGER},
+      </if>
+      <if test="exchangecount != null">
+        EXCHANGECOUNT = #{exchangecount,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null">
+        SN = #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="allocate != null">
+        ALLOCATE = #{allocate,jdbcType=CHAR},
+      </if>
+    </set>
+    where RD_ID = #{rdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrReqdetail">
+    update JAY.CSR_REQDETAIL
+    set SETNO = #{setno,jdbcType=CHAR},
+      SETCOUNT = #{setcount,jdbcType=INTEGER},
+      REQ_ID = #{reqId,jdbcType=INTEGER},
+      REALCOUNT = #{realcount,jdbcType=INTEGER},
+      EXCHANGECOUNT = #{exchangecount,jdbcType=INTEGER},
+      SN = #{sn,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=CHAR},
+      ALLOCATE = #{allocate,jdbcType=CHAR}
+    where RD_ID = #{rdId,jdbcType=INTEGER}
+  </update>
+</mapper>

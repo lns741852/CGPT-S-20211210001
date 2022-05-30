@@ -32,6 +32,15 @@
 		left join CSR_SETDATA_3M AS Y on A.SETNO_ID = Y.SETNO
 		where X.CASECAR_ID=#{id}	
   	</select>
+  	
+  	
+  	<select id="getCasecarByno" parameterType="String" resultMap="casecar_setno">
+  		select X.CASECAR_ID xid, X.CASECARNO xno, X.ISDELETE xdelete,A.id aid, A.NUM num, Y.ID yid, Y.SETNO yno, Y.SETNAMECH ycname from CSR_CASECAR  AS X
+		left join CSR_CASECAR_SETDATA AS A on X.CASECARNO = A.CASECAR_ID
+		left join CSR_SETDATA_3M AS Y on A.SETNO_ID = Y.SETNO
+		where X.CASECARNO=#{casecarno}	
+  	</select>
+  	
 
    <insert id="insertCasecar" parameterType="CsrCasecar">
     insert into CSR_CASECAR

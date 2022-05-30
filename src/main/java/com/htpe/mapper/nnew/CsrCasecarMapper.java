@@ -39,6 +39,8 @@ public interface CsrCasecarMapper {
 
 	@Delete("delete from CSR_SURGICAL_CASECAR where CASECARNO=#{no}")
 	void deleteCasecarSurgical(String no);
+	
+	CsrCasecar getCasecarByno(String casecarno);
 
 
 

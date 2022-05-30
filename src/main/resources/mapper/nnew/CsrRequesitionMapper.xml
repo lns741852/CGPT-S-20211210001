@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.CsrRequesitionMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrRequesition">
+    <id column="REQ_ID" jdbcType="INTEGER" property="reqId" />
+    <result column="REQNO" jdbcType="CHAR" property="reqno" />
+    <result column="EMPNO" jdbcType="CHAR" property="empno" />
+    <result column="USERCNAME" jdbcType="CHAR" property="usercname" />
+    <result column="DEPNO" jdbcType="CHAR" property="depno" />
+    <result column="DEPNOASK" jdbcType="CHAR" property="depnoask" />
+    <result column="DATATIME" jdbcType="TIMESTAMP" property="datatime" />
+    <result column="DATAUSERNAME" jdbcType="CHAR" property="datausername" />
+    <result column="DATAUSERNO" jdbcType="CHAR" property="datauserno" />
+    <result column="CHECKING" jdbcType="CHAR" property="checking" />
+    <result column="USE_UP" jdbcType="CHAR" property="useUp" />
+    <result column="ROOMNO" jdbcType="CHAR" property="roomno" />
+    <result column="SURGICALNO" jdbcType="CHAR" property="surgicalno" />
+    <result column="SURGICALNAME" jdbcType="CHAR" property="surgicalname" />
+    <result column="PATIENTNO" jdbcType="CHAR" property="patientno" />
+    <result column="PCASENO" jdbcType="CHAR" property="pcaseno" />
+    <result column="CASECARLIST" jdbcType="CHAR" property="casecarlist" />
+    <result column="ISURGENT" jdbcType="CHAR" property="isurgent" />
+    <result column="NOTE1" jdbcType="CHAR" property="note1" />
+    <result column="NOTE2" jdbcType="CHAR" property="note2" />
+    <result column="ALLOCATETIME" jdbcType="TIMESTAMP" property="allocatetime" />
+    <result column="ALLOCATETYPE" jdbcType="CHAR" property="allocatetype" />
+    <result column="MANUALSN" jdbcType="CHAR" property="manualsn" />
+    <result column="TERN" jdbcType="CHAR" property="tern" />
+    <result column="DELUSERNO" jdbcType="CHAR" property="deluserno" />
+    <result column="DELUSERNAME" jdbcType="CHAR" property="delusername" />
+    <result column="DELTIME" jdbcType="TIMESTAMP" property="deltime" />
+    <result column="CENTERNO" jdbcType="CHAR" property="centerno" />
+  </resultMap>
+  
+    <resultMap id="Req_Detail" type="com.htpe.bean.CsrRequesition" extends="BaseResultMap">
+        <collection property="reqdetails" ofType="com.htpe.bean.CsrReqdetail">
+            <id column="bid" property="rdId" />
+            <result column="bsetno" property="setno" />
+            <result column="bsetcount" property="setcount" />          
+        </collection>
+    </resultMap>
+    
+    
+    
+    <resultMap id="getReqByDepnoMap" type="com.htpe.bean.CsrRequesition" extends="BaseResultMap">
+         <association property="depnoName" javaType="com.htpe.bean.CsrDepno">
+            <id column="did" property="id" />
+            <result column="dname" property="depname" />      
+         </association>
+         <association property="roomName" javaType="com.htpe.bean.CsrRoom">
+            <id column="rid" property="id" />
+            <result column="rname" property="roomname" />      
+         </association>
+    </resultMap>
+    
+
+  <sql id="Base_Column_List">
+    REQ_ID, REQNO, EMPNO, USERCNAME, DEPNO, DEPNOASK, DATATIME, DATAUSERNAME, DATAUSERNO, 
+    CHECKING, USE_UP, ROOMNO, SURGICALNO, SURGICALNAME, PATIENTNO, PCASENO, CASECARLIST, 
+    ISURGENT, NOTE1, NOTE2, ALLOCATETIME, ALLOCATETYPE, MANUALSN, TERN, DELUSERNO, DELUSERNAME, 
+    DELTIME, CENTERNO
+  </sql>
+  
+   <select id="getReqPrint" parameterType="java.lang.Integer"  resultMap="Req_Detail">
+	    select 
+	    	A.*,
+	    	B.RD_ID as bid,
+	    	B.SETNO as bsetno, 
+	    	B.SETCOUNT as bsetcount
+		from 
+			CSR_REQUESITION as A
+		inner join
+			CSR_REQDETAIL as B
+		on
+			A.REQ_ID = B.REQ_ID
+		where
+			A.REQ_ID = #{reqId}
+    </select>
+
+  
+  
+     <select id="getReqByDepno" parameterType="String"  resultMap="getReqByDepnoMap">
+	    select 
+			A.*,
+			D.id as did,
+			D.depname as dname,
+			R.id as rid,
+			R.roomname as rname 
+		from 
+			CSR_REQUESITION as A
+		left join
+			CSR_DEPNO as D
+		on
+			A.depnoask = D.depno
+		left join
+			CSR_ROOM as R
+		on
+			A.roomno = R.roomno
+		where
+		  	A.DEPNO=#{depno}
+		AND 
+		   A.CHECKING ='N'
+    </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from JAY.CSR_REQUESITION
+    where REQ_ID = #{reqId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_REQUESITION
+    where REQ_ID = #{reqId,jdbcType=INTEGER}
+  </delete>
+  
+
+  <insert id="insertApply" parameterType="com.htpe.bean.CsrRequesition"  useGeneratedKeys="true" keyProperty="reqId">
+    insert into CSR_REQUESITION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reqId != null">
+        REQ_ID,
+      </if>
+      <if test="reqno != null">
+        REQNO,
+      </if>
+      <if test="empno != null">
+        EMPNO,
+      </if>
+      <if test="usercname != null">
+        USERCNAME,
+      </if>
+      <if test="depno != null">
+        DEPNO,
+      </if>
+      <if test="depnoask != null">
+        DEPNOASK,
+      </if>
+      <if test="datatime != null">
+        DATATIME,
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME,
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO,
+      </if>
+      <if test="checking != null">
+        CHECKING,
+      </if>
+      <if test="useUp != null">
+        USE_UP,
+      </if>
+      <if test="roomno != null">
+        ROOMNO,
+      </if>
+      <if test="surgicalno != null">
+        SURGICALNO,
+      </if>
+      <if test="surgicalname != null">
+        SURGICALNAME,
+      </if>
+      <if test="patientno != null">
+        PATIENTNO,
+      </if>
+      <if test="pcaseno != null">
+        PCASENO,
+      </if>
+      <if test="casecarlist != null">
+        CASECARLIST,
+      </if>
+      <if test="isurgent != null">
+        ISURGENT,
+      </if>
+      <if test="note1 != null">
+        NOTE1,
+      </if>
+      <if test="note2 != null">
+        NOTE2,
+      </if>
+      <if test="allocatetime != null">
+        ALLOCATETIME,
+      </if>
+      <if test="allocatetype != null">
+        ALLOCATETYPE,
+      </if>
+      <if test="manualsn != null">
+        MANUALSN,
+      </if>
+      <if test="tern != null">
+        TERN,
+      </if>
+      <if test="deluserno != null">
+        DELUSERNO,
+      </if>
+      <if test="delusername != null">
+        DELUSERNAME,
+      </if>
+      <if test="deltime != null">
+        DELTIME,
+      </if>
+      <if test="centerno != null">
+        CENTERNO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reqId != null">
+        #{reqId,jdbcType=INTEGER},
+      </if>
+      <if test="reqno != null">
+        #{reqno,jdbcType=CHAR},
+      </if>
+      <if test="empno != null">
+        #{empno,jdbcType=CHAR},
+      </if>
+      <if test="usercname != null">
+        #{usercname,jdbcType=CHAR},
+      </if>
+      <if test="depno != null">
+        #{depno,jdbcType=CHAR},
+      </if>
+      <if test="depnoask != null">
+        #{depnoask,jdbcType=CHAR},
+      </if>
+      <if test="datatime != null">
+        #{datatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datausername != null">
+        #{datausername,jdbcType=CHAR},
+      </if>
+      <if test="datauserno != null">
+        #{datauserno,jdbcType=CHAR},
+      </if>
+      <if test="checking != null">
+        #{checking,jdbcType=CHAR},
+      </if>
+      <if test="useUp != null">
+        #{useUp,jdbcType=CHAR},
+      </if>
+      <if test="roomno != null">
+        #{roomno,jdbcType=CHAR},
+      </if>
+      <if test="surgicalno != null">
+        #{surgicalno,jdbcType=CHAR},
+      </if>
+      <if test="surgicalname != null">
+        #{surgicalname,jdbcType=CHAR},
+      </if>
+      <if test="patientno != null">
+        #{patientno,jdbcType=CHAR},
+      </if>
+      <if test="pcaseno != null">
+        #{pcaseno,jdbcType=CHAR},
+      </if>
+      <if test="casecarlist != null">
+        #{casecarlist,jdbcType=CHAR},
+      </if>
+      <if test="isurgent != null">
+        #{isurgent,jdbcType=CHAR},
+      </if>
+      <if test="note1 != null">
+        #{note1,jdbcType=CHAR},
+      </if>
+      <if test="note2 != null">
+        #{note2,jdbcType=CHAR},
+      </if>
+      <if test="allocatetime != null">
+        #{allocatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allocatetype != null">
+        #{allocatetype,jdbcType=CHAR},
+      </if>
+      <if test="manualsn != null">
+        #{manualsn,jdbcType=CHAR},
+      </if>
+      <if test="tern != null">
+        #{tern,jdbcType=CHAR},
+      </if>
+      <if test="deluserno != null">
+        #{deluserno,jdbcType=CHAR},
+      </if>
+      <if test="delusername != null">
+        #{delusername,jdbcType=CHAR},
+      </if>
+      <if test="deltime != null">
+        #{deltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="centerno != null">
+        #{centerno,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateReq" parameterType="com.htpe.bean.CsrRequesition" >
+    update CSR_REQUESITION
+    <set>
+      <if test="reqno != null">
+        REQNO = #{reqno,jdbcType=CHAR},
+      </if>
+      <if test="empno != null">
+        EMPNO = #{empno,jdbcType=CHAR},
+      </if>
+      <if test="usercname != null">
+        USERCNAME = #{usercname,jdbcType=CHAR},
+      </if>
+      <if test="depno != null">
+        DEPNO = #{depno,jdbcType=CHAR},
+      </if>
+      <if test="depnoask != null">
+        DEPNOASK = #{depnoask,jdbcType=CHAR},
+      </if>
+      <if test="datatime != null">
+        DATATIME = #{datatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datausername != null">
+        DATAUSERNAME = #{datausername,jdbcType=CHAR},
+      </if>
+      <if test="datauserno != null">
+        DATAUSERNO = #{datauserno,jdbcType=CHAR},
+      </if>
+      <if test="checking != null">
+        CHECKING = #{checking,jdbcType=CHAR},
+      </if>
+      <if test="useUp != null">
+        USE_UP = #{useUp,jdbcType=CHAR},
+      </if>
+      <if test="roomno != null">
+        ROOMNO = #{roomno,jdbcType=CHAR},
+      </if>
+      <if test="surgicalno != null">
+        SURGICALNO = #{surgicalno,jdbcType=CHAR},
+      </if>
+      <if test="surgicalname != null">
+        SURGICALNAME = #{surgicalname,jdbcType=CHAR},
+      </if>
+      <if test="patientno != null">
+        PATIENTNO = #{patientno,jdbcType=CHAR},
+      </if>
+      <if test="pcaseno != null">
+        PCASENO = #{pcaseno,jdbcType=CHAR},
+      </if>
+      <if test="casecarlist != null">
+        CASECARLIST = #{casecarlist,jdbcType=CHAR},
+      </if>
+      <if test="isurgent != null">
+        ISURGENT = #{isurgent,jdbcType=CHAR},
+      </if>
+      <if test="note1 != null">
+        NOTE1 = #{note1,jdbcType=CHAR},
+      </if>
+      <if test="note2 != null">
+        NOTE2 = #{note2,jdbcType=CHAR},
+      </if>
+      <if test="allocatetime != null">
+        ALLOCATETIME = #{allocatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allocatetype != null">
+        ALLOCATETYPE = #{allocatetype,jdbcType=CHAR},
+      </if>
+      <if test="manualsn != null">
+        MANUALSN = #{manualsn,jdbcType=CHAR},
+      </if>
+      <if test="tern != null">
+        TERN = #{tern,jdbcType=CHAR},
+      </if>
+      <if test="deluserno != null">
+        DELUSERNO = #{deluserno,jdbcType=CHAR},
+      </if>
+      <if test="delusername != null">
+        DELUSERNAME = #{delusername,jdbcType=CHAR},
+      </if>
+      <if test="deltime != null">
+        DELTIME = #{deltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="centerno != null">
+        CENTERNO = #{centerno,jdbcType=CHAR},
+      </if>
+    </set>
+    where REQ_ID = #{reqId,jdbcType=INTEGER}
+  </update>
+
+</mapper>
