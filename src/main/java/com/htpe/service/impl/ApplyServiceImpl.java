@@ -9,11 +9,13 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrCostcenter;
 import com.htpe.bean.CsrDepno;
 import com.htpe.bean.CsrReqdetail;
 import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.CsrSetdata3m;
+import com.htpe.mapper.nnew.CsrBarcodeMapper;
 import com.htpe.mapper.nnew.CsrCasecarMapper;
 import com.htpe.mapper.nnew.CsrCostcenterMapper;
 import com.htpe.mapper.nnew.CsrDepnoMapper;
@@ -43,6 +45,9 @@ public class ApplyServiceImpl implements ApplyService {
 	
 	@Autowired
 	CsrSetdata3mMapper csrSetdata3mMapper;
+	
+	@Autowired
+	CsrBarcodeMapper csrBarcodeMapper;
 
 	
 	@Override
@@ -106,6 +111,9 @@ public class ApplyServiceImpl implements ApplyService {
 		for(CsrReqdetail csrReqdetail : reqPrint.getReqdetails()) {
 			CsrSetdata3m setnoByNo = csrSetdata3mMapper.getSetnoByNo(csrReqdetail.getSetno());
 			csrReqdetail.setSetname(setnoByNo.getSetnamech());
+			
+			List<CsrBarcode> barcodeByRdid = csrBarcodeMapper.getBarcodeByRdid(csrReqdetail.getRdId());			
+			csrReqdetail.setBarcodeName(barcodeByRdid);
 		}
 
 		

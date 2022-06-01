@@ -47,9 +47,7 @@ public class ApplyController {
 	 * 申領列印查詢
 	 */
 	@GetMapping("/apply/print/{reqId}")
-	public ResultMsg getReqPrint(@PathVariable Integer reqId){			
-		
-		
+	public ResultMsg getReqPrint(@PathVariable Integer reqId){				
 		return applyService.getReqPrint(reqId);
 	}
 	
