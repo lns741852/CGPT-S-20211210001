@@ -41,4 +41,10 @@ public interface CsrBarcodeMapper {
 	@Select("select Count(*) from CSR_BARCODE where CREATEDATETIME like current date ||'%'")
 	int getTodayBarcode();
 
+	int updateBarcodeById(CsrBarcode barcode);
+
+	
+	@Select("select * from CSR_BARCODE where RD_ID=#{rdId}")
+	List<CsrBarcode>  getBarcodeByRdid(Integer rdId);
+
 }

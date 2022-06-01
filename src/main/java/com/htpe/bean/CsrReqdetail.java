@@ -1,5 +1,7 @@
 package com.htpe.bean;
 
+import java.util.List;
+
 public class CsrReqdetail {
     private Integer rdId;
 
@@ -21,8 +23,28 @@ public class CsrReqdetail {
 
     private String allocate;
     
+    private CsrSetdata3m setnoName;
+    
+    private List<CsrBarcode> barcodeName;
+    
    
-    public Integer getRdId() {
+    public List<CsrBarcode> getBarcodeName() {
+		return barcodeName;
+	}
+
+	public void setBarcodeName(List<CsrBarcode> barcodeName) {
+		this.barcodeName = barcodeName;
+	}
+
+	public CsrSetdata3m getSetnoName() {
+		return setnoName;
+	}
+
+	public void setSetnoName(CsrSetdata3m setnoName) {
+		this.setnoName = setnoName;
+	}
+
+	public Integer getRdId() {
         return rdId;
     }
 

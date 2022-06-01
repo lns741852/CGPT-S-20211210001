@@ -8,13 +8,6 @@ import com.htpe.bean.CsrCostcenter;
 import com.htpe.bean.CsrRequesition;
 
 public interface CsrRequesitionMapper {
-    int deleteByPrimaryKey(Integer reqId);
-
-    CsrRequesition selectByPrimaryKey(Integer reqId);
-
-    int updateByPrimaryKeySelective(CsrRequesition record);
-
-    int updateByPrimaryKey(CsrRequesition record);
 
 	int insertApply(CsrRequesition csrRequesition);
 
@@ -27,4 +20,11 @@ public interface CsrRequesitionMapper {
 	List<CsrRequesition> getReqByDepno(String depno);
 	
 	int updateReq(CsrRequesition csrRequesition);
+
+	CsrRequesition getReqByIdforChecking(Integer id);
+	
+	
+	@Select("select * from CSR_REQUESITION where REQ_ID=#{id}")
+	CsrRequesition getReqById(Integer id);
+
 }

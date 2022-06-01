@@ -87,8 +87,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrReqdetail">
-    update JAY.CSR_REQDETAIL
+  <update id="updateReqDetail" parameterType="com.htpe.bean.CsrReqdetail">
+    update CSR_REQDETAIL
     <set>
       <if test="setno != null">
         SETNO = #{setno,jdbcType=CHAR},

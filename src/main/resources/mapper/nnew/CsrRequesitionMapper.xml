@@ -32,13 +32,19 @@
     <result column="CENTERNO" jdbcType="CHAR" property="centerno" />
   </resultMap>
   
-    <resultMap id="Req_Detail" type="com.htpe.bean.CsrRequesition" extends="BaseResultMap">
+    <resultMap id="Req_Detail" type="com.htpe.bean.CsrRequesition" extends="getReqByDepnoMap">
         <collection property="reqdetails" ofType="com.htpe.bean.CsrReqdetail">
             <id column="bid" property="rdId" />
             <result column="bsetno" property="setno" />
-            <result column="bsetcount" property="setcount" />          
+            <result column="bsetcount" property="setcount" />  
+            <result column="brealcount" property="realcount" />  
+        	<association property="setnoName" javaType="com.htpe.bean.CsrSetdata3m">
+	            <id column="sid" property="id" />
+	            <result column="sname" property="setnamech" />      
+	         </association>             
         </collection>
     </resultMap>
+    
     
     
     
@@ -66,7 +72,8 @@
 	    	A.*,
 	    	B.RD_ID as bid,
 	    	B.SETNO as bsetno, 
-	    	B.SETCOUNT as bsetcount
+	    	B.SETCOUNT as bsetcount,
+	    	B.REALCOUNT as brealcount
 		from 
 			CSR_REQUESITION as A
 		inner join
@@ -101,6 +108,48 @@
 		AND 
 		   A.CHECKING ='N'
     </select>
+  
+       <select id="getReqByIdforChecking" parameterType="Integer"  resultMap="Req_Detail">
+	    select 
+			A.*,
+			D.id as did,
+			D.depname as dname,
+			R.id as rid,
+			R.roomname as rname,
+			B.RD_ID as bid,
+	    	B.SETNO as bsetno, 
+	    	B.SETCOUNT as bsetcount, 
+			B.REALCOUNT as brealcount,
+			S.ID as sid,
+			S.SETNAMECH as sname
+		from 
+			CSR_REQUESITION as A
+		left join
+			CSR_DEPNO as D
+		on
+			A.depnoask = D.depno
+		left join
+			CSR_ROOM as R
+		on
+			A.roomno = R.roomno
+		left join
+			CSR_REQDETAIL as B
+		on
+			A.REQ_ID = B.REQ_ID			
+		left join
+			CSR_SETDATA_3M as S
+		on
+			B.SETNO = S.SETNO						
+		where
+		  	A.REQ_ID=#{id}
+		AND 
+		   A.CHECKING ='N'
+    </select>
+  
+  
+  
+  
+  
   
   
   
