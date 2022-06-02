@@ -415,6 +415,8 @@ export default {
         rbitime: this.rbitime,
         rbiComparisonBatch: this.rbiComparisonBatch,
       });
+
+       this.barcode =""
     },
     /**刪除標籤 */
     deleteTag(id) {

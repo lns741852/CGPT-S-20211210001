@@ -27,4 +27,6 @@ public interface CsrRequesitionMapper {
 	@Select("select * from CSR_REQUESITION where REQ_ID=#{id}")
 	CsrRequesition getReqById(Integer id);
 
+	CsrRequesition getreqByNoAndPatient(CsrRequesition csrRequesition);
+
 }

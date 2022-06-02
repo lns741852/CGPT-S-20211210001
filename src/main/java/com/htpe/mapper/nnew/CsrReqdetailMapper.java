@@ -7,4 +7,6 @@ public interface CsrReqdetailMapper {
 	int insertReqdetail(CsrReqdetail req);
 
 	int updateReqDetail(CsrReqdetail req);
+
+	CsrReqdetail getRdById(Integer rdId);
 }

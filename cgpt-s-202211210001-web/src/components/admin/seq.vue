@@ -204,7 +204,6 @@ export default {
         }
 
         this.addForm.ids = this.addForm.ids.substring(1);
-        console.log(this.addForm);
         this.$axios.put("/seq/" + this.addForm.id, this.addForm).then(() => {
           this.clearForm();
           document.getElementById("tab-0").click();

@@ -195,6 +195,24 @@ const routes = [{
                 component: () =>
                     import ('../components/user/report02.vue')
             },
+            {
+                path: '/apply/print/:id',
+                name: 'ApplyPrint',
+                component: () =>
+                    import ('../components/user/applyPrint.vue')
+            },
+            {
+                path: '/allocate2/:id',
+                name: 'Allocate2',
+                component: () =>
+                    import ('../components/user/allocate2.vue')
+            },
+            {
+                path: '/allocate3/:id',
+                name: 'Allocate3',
+                component: () =>
+                    import ('../components/user/allocate3.vue')
+            },
 
         ]
     },

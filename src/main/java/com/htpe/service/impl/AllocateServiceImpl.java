@@ -113,9 +113,9 @@ public class AllocateServiceImpl  implements AllocateService{
 
 			for(CsrBarcode barcode : csrBarcodes) {
 				barcode.setReqId(id);
-				barcode.setStatus("4");				
+				barcode.setStatus("4");	
+				barcode.setPatientno(reqById.getPatientno());
 				if(req.getSetno().equals(barcode.getSetno()) && (barcode.getRdId() == null)) {	
-					System.out.println(barcode.getRdId());
 					barcode.setRdId(req.getRdId());
 					csrBarcodeMapper.updateBarcodeById(barcode);
 				}
@@ -127,7 +127,7 @@ public class AllocateServiceImpl  implements AllocateService{
 	        	
 	    		int updateCount1 = csrHistoryMapper.updateHistory(history);
 	    		if(updateCount1 < 1) {
-	    			throw new RequestPeriodException(500, "入庫作業失敗");
+	    			throw new RequestPeriodException(500, "配送失敗");
 	    		}
 	    		
 				int countHistory = csrHistoryMapper.countHistory(history);
@@ -145,10 +145,11 @@ public class AllocateServiceImpl  implements AllocateService{
 	        	history.setUsername(reqById.getUsercname());
 	        	history.setDutyno(reqById.getDatauserno());
 	        	history.setDutyname(reqById.getDatausername());
+	        	history.setPatientno(reqById.getPatientno());
 	
 	    		int num2 = csrHistoryMapper.insertHistory(history);
 	    		if(num2 < 1) {
-	    			throw new RequestPeriodException(500, "入庫作業失敗");
+	    			throw new RequestPeriodException(500, "配送失敗");
 	    		}
 		
 			}

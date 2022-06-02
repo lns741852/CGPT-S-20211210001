@@ -13,6 +13,7 @@ import locale from 'element-plus/lib/locale/lang/zh-tw';
 import * as ElIconModules from '@element-plus/icons-vue'
 import { downloadRequest } from './api/download';
 import X2JS from 'x2js';
+import Print from 'vue3-print-nb'
 
 const app = createApp(App)
 app.config.productionTip = false
@@ -25,4 +26,4 @@ for (let iconName in ElIconModules) {
     app.component(iconName, ElIconModules[iconName])
 }
 
-app.use(store).use(router).use(ElementPlus, { locale }).mount('#app')
+app.use(store).use(router).use(Print).use(ElementPlus, { locale }).mount('#app')

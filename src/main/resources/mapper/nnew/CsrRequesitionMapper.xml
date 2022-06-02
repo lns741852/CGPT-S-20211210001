@@ -147,17 +147,22 @@
     </select>
   
   
-  
-  
-  
-  
-  
-  
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="getreqByNoAndPatient" parameterType="com.htpe.bean.CsrRequesition" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from JAY.CSR_REQUESITION
-    where REQ_ID = #{reqId,jdbcType=INTEGER}
+    from 
+		CSR_REQUESITION
+    <where>
+	<if test="reqno!=null">
+		AND REQNO like '%'||(#{reqno})||'%'
+	</if>
+	<if test="patientno!=null">
+		AND PATIENTNO like '%'||(#{patientno})||'%'
+	</if>		
+		AND CHECKING = 'Y'
+		AND USE_UP ='N'
+	</where>	
+		
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

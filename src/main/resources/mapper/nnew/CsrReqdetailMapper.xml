@@ -15,12 +15,18 @@
   <sql id="Base_Column_List">
     RD_ID, SETNO, SETCOUNT, REQ_ID, REALCOUNT, EXCHANGECOUNT, SN, TYPE, ALLOCATE
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  
+  
+  
+  <select id="getRdById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from JAY.CSR_REQDETAIL
+    from CSR_REQDETAIL
     where RD_ID = #{rdId,jdbcType=INTEGER}
   </select>
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from JAY.CSR_REQDETAIL
     where RD_ID = #{rdId,jdbcType=INTEGER}

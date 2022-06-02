@@ -5,13 +5,13 @@
       <!--表單驗證-->
       <template #default>
         <el-form
-          ref="addFormRef"
-          :model="addForm"
+          ref="inputDataRef"
+          :model="inputData"
           label-width="120px"
-          :rules="addFormRules"
+          :rules="inputDataRules"
         >
           <el-form-item label="來源入庫庫房：">
-            <el-select v-model="addForm.depno" placeholder="請選擇">
+            <el-select v-model="inputData.depno" placeholder="請選擇">
               <el-option
                 v-for="item in depnoList"
                 :key="item.depno"
@@ -23,7 +23,7 @@
           </el-form-item>
 
           <el-form-item label="成本中心：">
-            <el-select v-model="addForm.centerno" placeholder="請選擇">
+            <el-select v-model="inputData.centerno" placeholder="請選擇">
               <el-option
                 v-for="item in costcenterList"
                 :key="item.centerno"
@@ -36,9 +36,9 @@
 
           <el-form-item label="申領單位：">
             <el-select
-              v-model="addForm.depnoask"
+              v-model="inputData.depnoask"
               placeholder="請選擇"
-              @change="getRoomList(addForm.depnoask)"
+              @change="getRoomList(inputData.depnoask)"
             >
               <el-option
                 v-for="item in depnoList"
@@ -51,7 +51,7 @@
           </el-form-item>
 
           <el-form-item label="室別：">
-            <el-select v-model="addForm.roomno" placeholder="請選擇">
+            <el-select v-model="inputData.roomno" placeholder="請選擇">
               <el-option
                 v-for="item in roomList"
                 :key="item.roomno"
@@ -62,50 +62,62 @@
             </el-select>
           </el-form-item>
           <el-form-item label="病歷號：">
-            <el-input v-model="addForm.patientno" style="width: 30%" />
+            <el-input v-model="inputData.patientno" style="width: 30%" />
           </el-form-item>
           <el-form-item label="負責人員：">
             <el-row gutter="24">
               <el-col :span="9">
-                代號 <el-input v-model="addForm.userno" style="width: 60%" />
+                代號 <el-input v-model="inputData.empno" style="width: 60%" />
               </el-col>
               <el-col :span="9">
-                姓名 <el-input v-model="addForm.usercname" style="width: 60%" />
+                姓名
+                <el-input v-model="inputData.usercname" style="width: 60%" />
               </el-col>
             </el-row>
           </el-form-item>
-          
-          <el-form-item label="盤包代號：">             
-            <el-row gutter="10">
-              <el-col :span="8"
-                >代號<el-input v-model="addForm.setno"
-              /></el-col>
-              <el-col :span="8"
-                >名稱<el-input v-model="addForm.setnamech"
-              /></el-col>
-              <el-col :span="8">數量<el-input v-model="addForm.num" /></el-col>
-              <el-col class="Edit_setno_font" span="2"></el-col>
-            </el-row>
-          </el-form-item>
+          <el-divider></el-divider>
+
+          <el-row :gutter="20">
+            <el-col :span="3"> </el-col>
+            <el-col :span="6"> 代號 </el-col>
+            <el-col :span="6"> 名稱 </el-col>
+            <el-col :span="6"> 數量 </el-col>
+          </el-row>
+
+          <el-row :gutter="20" style="margin-top: 10px">
+            <el-col :span="3">個案車/套組：</el-col>
+            <el-col :span="6"
+              ><el-input v-model="inputData.casecarno"
+            /></el-col>
+            <el-col :span="6"><el-input /></el-col>
+            <el-col :span="6"
+              ><el-input v-model="inputData.casecarnum"
+            /></el-col>
+          </el-row>
+
+          <el-row :gutter="20" style="margin-top: 10px">
+            <el-col :span="3">&nbsp;&nbsp;&nbsp;&nbsp;盤包代號：</el-col>
+            <el-col :span="6"><el-input v-model="inputData.setno" /></el-col>
+            <el-col :span="6"
+              ><el-input v-model="inputData.setnamech"
+            /></el-col>
+            <el-col :span="6"><el-input v-model="inputData.num" /></el-col>
+          </el-row>
         </el-form>
-        <el-button class="edit_button" @click="inputPot()">輸入</el-button>
+        <el-divider></el-divider>
+        <el-button class="edit_button" @click="inputSetno()">輸入</el-button>
       </template>
     </el-card>
   </div>
 
   <el-card style="margin-top: 10px">
-    <el-table :data="barcodeDatas">
-      <el-table-column prop="barcode" label="條碼編號" width="300px">
+    <el-table :data="setnoDatas">
+      <el-table-column prop="setno" label="盤包代號">
       </el-table-column>
-      <el-table-column prop="setno" label="盤包代號"> </el-table-column>
-      <el-table-column prop="setsn" label="序號"> </el-table-column>
-      <el-table-column prop="status" label="狀態">
-        <template #default="scope">
-          <el-tag v-if="scope.row.status > 2">已入庫</el-tag>
-          <el-tag v-else type="info">未入庫 </el-tag>
-        </template>
+      <el-table-column prop="setnamech" label="盤包名稱">
       </el-table-column>
-      <el-table-column prop="location" label="位置"> </el-table-column>
+      <el-table-column prop="setcount" label="申領數量">
+      </el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button class="delete_button" @click="deleteTag(scope.$index)"
@@ -123,17 +135,26 @@ import { ElMessage } from "element-plus";
 export default {
   data() {
     return {
-      addForm: {},
+      inputData: {
+        casecarno: "",
+        roomno:"",
+        depno:"",
+        centerno:"",
+        depnoask:"",
+        patientno:"",
+        casecarlist:""
+      },
       depnoList: [],
       roomList: [],
       costcenterList: [],
+      setnoDatas: [],
     };
   },
   created() {
     this.getDepnoList();
     this.getCostcenterList();
-    this.addForm.userno = localStorage.getItem("userno");
-    this.addForm.usercname = localStorage.getItem("usercname");
+    this.inputData.empno = localStorage.getItem("userno");
+    this.inputData.usercname = localStorage.getItem("usercname");
   },
   methods: {
     /**部門查詢 */
@@ -152,90 +173,164 @@ export default {
 
     /**病房查詢 */
     getRoomList(depno) {
+      this.inputData.roomno =""
       this.$axios.get("/depno/room/" + depno).then((res) => {
         this.roomList = res.data.data;
       });
     },
 
     /**盤包輸入 => 列表 */
-    async inputPot() {
-      // if (this.disinfectionDepno === "") {
-      //   ElMessage.error("請輸入消毒庫房");
-      //   return true;
-      // }
+    async inputSetno() {
+      if (this.inputData.casecarno != "") {
+        await this.$axios
+          .get("/apply/casecar/" + this.inputData.casecarno)
+          .then((res) => {
+              if(res.data.data === null){
+                  return
+              }
+              this.inputData.casecarlist += this.inputData.casecarno 
+            res.data.data.casecarSetdatas.forEach((item) => {
+              if (item != null) {
+                  let i = 0;
+                this.setnoCheckList = localStorage.getItem("setnoAll").split(",");
+                //盤包重複判斷
+                this.setnoDatas.some((e) => {
+                  if (e.setno === item.csrSetdata3m.setno) {
+                    e.setcount =
+                      Number(e.setcount) +
+                      Number(item.num);
+                    i = i + 1;
+                  }
+                });
+                if (i !== 0) {
+                  return ;
+                }
 
-      // if (this.disinfection === "") {
-      //   ElMessage.error("請輸入消毒鍋");
-      //   return true;
-      // }
+                //盤包是否正確
+                this.setnoCheckList.some((e) => {
+                    if (e === item.csrSetdata3m.setno) {
+                    this.setnoDatas.push({
+                        setno: item.csrSetdata3m.setno,
+                        setcount: item.num,
+                        setnamech: item.csrSetdata3m.setnamech,
+                    });
+                    return true;
+                    }
+                });
 
-      // if (this.pot === "") {
-      //   ElMessage.error("請輸入鍋別");
-      //   return true;
-      // }
 
-      // if (this.potnum === "") {
-      //   ElMessage.error("請輸入鍋次");
-      //   return true;
-      // }
-      this.barcodeDatas = [];
 
-      this.inputPotParam.depno = this.disinfectionDepno;
-      this.inputPotParam.potname = this.disinfection;
-      this.inputPotParam.potno = this.pot;
-      this.inputPotParam.potsn = this.potnum;
-      this.inputPotParam.potscantime = this.date;
-      await this.$axios
-        .post("/warehousing/pot", this.inputPotParam)
-        .then((res) => {
-          if (res.data.data.length > 0) {
-            this.barcodeDatas = res.data.data;
-          }
-        });
+              }
+            });
+          });
+      }
+        this.inputData.casecarno=""
+        this.inputData.casecarnum=""
+
+      //數字是否正確
+      if (isNaN(this.inputData.num)) {
+        return true;
+      }
+      let i = 0;
+      this.setnoCheckList = localStorage.getItem("setnoAll").split(",");
+      //盤包重複判斷
+      this.setnoDatas.some((e) => {
+        if (e.setno === this.inputData.setno) {
+          e.setcount =
+            Number(e.setcount) + Number(this.inputData.num);
+          i = i + 1;
+        }
+      });
+      if (i !== 0) {
+        this.inputData.setno=""
+        this.inputData.setnamech=""       
+        this.inputData.num=""
+        return true;
+      }
+      //盤包是否正確
+      this.setnoCheckList.some((e) => {
+        if (e === this.inputData.setno) {
+          this.setnoDatas.push({
+              setno: this.inputData.setno,
+              setcount: this.inputData.num,
+              setnamech: this.inputData.setnamech,
+          });
+          return true;
+        }
+      });
+        this.inputData.setno=""
+        this.inputData.setnamech=""       
+        this.inputData.num=""
     },
+
     /**刪除標籤 */
     deleteTag(id) {
-      this.barcodeDatas.splice(id, 1);
+      this.setnoDatas.splice(id, 1);
     },
 
-    //入庫
-    submitFrom() {
-      if (this.depno == "") {
-        ElMessage.error("請輸入庫房");
-        return;
+    //申領確認
+    submitFrom(){
+
+      if (this.inputData.depno === "") {
+        ElMessage.error("請輸入來源庫房");
+        return true;
       }
-      if (this.barcodeDatas.length > 0) {
-        let ids = "?usercname=" + this.usercname + "&depno=" + this.depno;
-        this.barcodeDatas.forEach((item) => {
-          ids += "&ids=" + item.barcodeid;
-        });
-        this.$axios.put("/warehousing" + ids).then(() => {
-          this.barcodeDatas = [];
-          this.depno = "";
-          this.disinfectionDepno = "";
-          this.pot = "";
-          this.potnum = "";
-          this.disinfection = "";
-        });
+
+      if (this.inputData.centerno === "") {
+        ElMessage.error("請輸入成本中心");
+        return true;
       }
+
+      if (this.inputData.depnoask === "") {
+        ElMessage.error("請輸入申領單位");
+        return true;
+      }
+
+      if(this.setnoDatas.length <1){
+          ElMessage.error("請輸入申領盤包")
+          return;
+      }
+
+      this.inputData.reqdetails = this.setnoDatas;
+      this.$axios.post("/apply", this.inputData).then((res) => {
+        if(res.data.code != 200){
+            return
+        }
+        const id  = res.data.data
+        this.$router.push({path: `/apply/print/${id}`});
+      });
     },
+
+
+
+
   },
-    watch: {
-    "addForm.setno": function () {
-      if (this.addForm.setno != undefined) {
-        if (this.addForm.setno.length === 6) {
-          this.addForm.setno = this.addForm.setno.toUpperCase();
-          this.$axios.get("/setdata/" + this.addForm.setno).then((res) => {
-            if(res.data.data !== null){
-              this.addForm.setnamech = res.data.data.setnamech;
-            }else{
-              this.addForm.setnamech=""              
+  watch: {
+    "inputData.setno": function () {
+      if (this.inputData.setno != undefined) {
+        if (this.inputData.setno.length === 6) {
+          this.inputData.setno = this.inputData.setno.toUpperCase();
+          this.$axios.get("/setdata/" + this.inputData.setno).then((res) => {
+            if (res.data.data !== null) {
+              this.inputData.setnamech = res.data.data.setnamech;
+              this.inputData.num = 1;
+            } else {
+              this.inputData.setnamech = "";
             }
           });
         }
       }
     },
-    }
+    "inputData.casecarno": function () {
+      if (this.inputData.casecarno != undefined) {
+        if (this.inputData.casecarno.length === 6) {
+          this.inputData.casecarno = this.inputData.casecarno.toUpperCase();
+            this.inputData.casecarnum = 1;
+        }
+      }
+    },
+
+  },
 };
 </script>
 
