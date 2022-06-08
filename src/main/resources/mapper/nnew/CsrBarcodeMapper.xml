@@ -111,6 +111,7 @@
   
   <select id="listReprint" parameterType="Map" resultMap="BaseResultMap">
     select 
+    X.BARCODEID as BARCODEID,
     X.BARCODE as BARCODE,X.SETNO as SETNO,X.STATUS as STATUS,A.DEPNAME as LOCATION
     from CSR_BARCODE as X
     left join CSR_DEPNO as A

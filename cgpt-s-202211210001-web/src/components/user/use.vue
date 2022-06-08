@@ -114,7 +114,6 @@ export default {
           .then((res) => {
             if (res.data.code === 200) {
               this.dpotList = res.data.data;
-              console.log( this.dpotList)
               return;
             }
           });
@@ -154,11 +153,6 @@ export default {
           };
         });
       }
-    },
-  },
-  watch: {
-    rbiBatch: function () {
-      this.rbiComparisonBatch = this.rbiBatch;
     },
   },
 };

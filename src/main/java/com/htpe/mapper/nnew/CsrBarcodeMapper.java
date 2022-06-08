@@ -53,5 +53,9 @@ public interface CsrBarcodeMapper {
 	
 	@Select("select * from CSR_BARCODE where barcode=#{barcode} and status='4'")
 	List<CsrBarcode> gebarcodeByNoForUse(String barcode);
+	
+	
+	@Select("select * from CSR_BARCODE where REQ_ID=#{reqId} AND STATUS !='6'")
+	List<CsrBarcode> getBarcodeByReqIdForReceive(Integer reqId);
 
 }

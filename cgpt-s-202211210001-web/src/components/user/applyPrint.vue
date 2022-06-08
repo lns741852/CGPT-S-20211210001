@@ -1,5 +1,5 @@
 <template>
-  <div id="printTest">
+  <div id="printContent">
     <div style="width: 100%">
       <h3>申領作業通知單</h3>
       <el-card class="box-card">
@@ -69,8 +69,8 @@
               <template #label>
                 <div class="cell-item">申領類別</div>
               </template>
-                <span v-if="applyPrint.allocatetype == 'G'"> 緊急</span>
-                <span v-else-if="applyPrint.allocatetype == 'H'"> 常規</span>
+              <span v-if="applyPrint.allocatetype == 'G'"> 緊急</span>
+              <span v-else-if="applyPrint.allocatetype == 'H'"> 常規</span>
             </el-descriptions-item>
             <el-descriptions-item>
               <template #label>
@@ -85,14 +85,13 @@
 
     <el-card style="margin-top: 10px">
       <el-table :data="applyPrint.reqdetails">
-        <el-table-column prop="setno" label="盤包代號"> </el-table-column>
-        <el-table-column prop="setname" label="盤包名稱"> </el-table-column>
-        <el-table-column prop="setcount" label="申領數量"> </el-table-column>
+        <el-table-column prop="setno" label="盤包代號"  width="200"> </el-table-column>
+        <el-table-column prop="setname" label="盤包名稱"  width="300"> </el-table-column>
+        <el-table-column prop="setcount" label="申領數量"  width="200"> </el-table-column>
       </el-table>
       <el-button
         class="edit_button"
-        v-print="'#printTest'"
-        @click="submitFrom()"
+        v-print="Print"
         >確認</el-button
       >
     </el-card>
@@ -111,6 +110,12 @@ export default {
       costcenterList: [],
       setnoDatas: [],
       applyPrint: {},
+      Print: {
+        id: "printContent",
+        popTitle: "頂部文字",
+        standard: "html5",
+        closeCallback (vue) { vue.submitFrom() },
+      },
     };
   },
   created() {
@@ -145,7 +150,7 @@ export default {
       });
     },
     submitFrom() {
-      this.$router.push({path: "/apply"});
+      this.$router.push({ path: "/apply" });
     },
   },
 };

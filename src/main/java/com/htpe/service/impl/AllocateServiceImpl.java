@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrHistory;
@@ -39,7 +40,9 @@ public class AllocateServiceImpl  implements AllocateService{
 
 	@Override
 	public ResultMsg listAllocate(String depno) {
-		return ResultMsg.success("申領確認列表").addData(csrRequesitionMapper.getReqByDepno(depno));
+		List<CsrRequesition> reqByDepno = csrRequesitionMapper.getReqByDepno(depno);
+		CollectionUtils.isEmpty(reqByDepno);		
+		return ResultMsg.success("申領確認列表").addData(reqByDepno);
 	}
 
 	@Override

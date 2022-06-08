@@ -50,7 +50,7 @@
                     <el-form-item label="配備人員：">
             <el-row gutter="24">
               <el-col :span="9">
-                代號 <el-input  v-model="inputData.datauserno" style="width: 60%" />
+                代號 <el-input  v-model="inputData.datauserno" @blur="getUsername" style="width: 60%" />
               </el-col>
               <el-col :span="9">
                 姓名
@@ -248,6 +248,15 @@ export default {
                   this.$router.push({path: `/allocate3/${this.reqId}`});
           }
         });
+    },
+        getUsername(){
+        this.$axios.get("/info/"+ this.inputData.datauserno).then((res) => {
+            if(res.data.data ===null){
+                this.inputData.datausername=""
+                return
+            }
+             this.inputData.datausername=res.data.data.usercname;     
+      });
     }
   },
   watch: {
