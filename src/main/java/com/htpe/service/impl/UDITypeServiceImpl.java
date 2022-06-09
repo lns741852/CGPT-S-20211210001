@@ -125,18 +125,19 @@ public class UDITypeServiceImpl  implements UDITypeService{
 		if(num < 1) {
 			throw new RequestPeriodException(500, "器械類型類型添加失敗");
 		}
-		
-		csrUdiTypeMapper.deleteUDIImage(csrUdi.getId());
-		
+			
 		int i=0;
 		
 		StringBuffer buffer = new StringBuffer();
-		for(MultipartFile multipartFile : file) {
-			String str = fileUpload(multipartFile,request,csrUdi.getId(),i);
-			i+=1;
+		System.out.println(file);
+		if(file != null) {
+			for(MultipartFile multipartFile : file) {
+				String str = fileUpload(multipartFile,request,csrUdi.getId(),i);
+				i+=1;
+			}		
 		}
 
-		return ResultMsg.success("器械類型新增成功").addData("");
+		return ResultMsg.success("器械類型修改成功").addData("");
 	
 	}
 	

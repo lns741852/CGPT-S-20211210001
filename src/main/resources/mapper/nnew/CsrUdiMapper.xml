@@ -1,194 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.htpe.mapper.nnew.CsrUdiMapper">
+  <resultMap id="BaseResultMap" type="com.htpe.bean.CsrUdi">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="UDI" jdbcType="VARCHAR" property="udi" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="PRICE" jdbcType="INTEGER" property="price" />
+    <result column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
+    <result column="PACKAGE_ID" jdbcType="INTEGER" property="packageId" />
+    <result column="CREATE_ID" jdbcType="CHAR" property="createId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_ID" jdbcType="VARCHAR" property="updateId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
   <sql id="Base_Column_List">
-    ID, CODE, CNAME, ENAME, DESC, PICPATH1, PICPATH2, PICPATH3, FILEPATH1, FILEPATH2, 
-    FILEPATH3, PUBLIC_TYPE, UPD_TYPE, DEL_TYPE, DATAUSER, DATADATE
+    ID, UDI, STATUS, PRICE, TYPE_ID, PACKAGE_ID, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME
   </sql>
+
   
-  
-  <select id="listUDI" parameterType="Map" resultType="CsrUdi">
+  <select id="listUDI" parameterType="Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from CSR_UDI
-    	<where>
-			<if test="searchName!=null">
-				AND (CODE like '%'||(#{searchName})||'%'
-					OR CNAME like '%'||#{searchName}||'%')
-			</if>
-		</where>
-		order by CODE
+    where TYPE_ID = #{typeId}
   </select>
- 
-  <select id="getUDIById" parameterType="Integer" resultType="CsrUdi">
-  		select
-	    <include refid="Base_Column_List" />	
-    	from CSR_UDI where ID=#{id}
+  
+  
+   <select id="getUDIById" parameterType="Integer" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from CSR_UDI
+	    where ID = #{id}
   </select>
- 
-  <insert id="insertUDI" parameterType="CsrUdi">
+  
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from JAY.CSR_UDI
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertUDI" parameterType="com.htpe.bean.CsrUdi">
     insert into CSR_UDI
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        CODE,
+      <if test="id != null">
+        ID,
       </if>
-      <if test="cname != null">
-        CNAME,
+      <if test="udi != null">
+        UDI,
       </if>
-      <if test="ename != null">
-        ENAME,
+      <if test="status != null">
+        STATUS,
       </if>
-      <if test="desc != null">
-        DESC,
+      <if test="price != null">
+        PRICE,
       </if>
-      <if test="picpath1 != null">
-        PICPATH1,
+      <if test="typeId != null">
+        TYPE_ID,
       </if>
-      <if test="picpath2 != null">
-        PICPATH2,
+      <if test="packageId != null">
+        PACKAGE_ID,
       </if>
-      <if test="picpath3 != null">
-        PICPATH3,
+      <if test="createId != null">
+        CREATE_ID,
       </if>
-      <if test="filepath1 != null">
-        FILEPATH1,
+      <if test="createTime != null">
+        CREATE_TIME,
       </if>
-      <if test="filepath2 != null">
-        FILEPATH2,
+      <if test="updateId != null">
+        UPDATE_ID,
       </if>
-      <if test="filepath3 != null">
-        FILEPATH3,
-      </if>
-      <if test="publicType != null">
-        PUBLIC_TYPE,
-      </if>
-      <if test="updType != null">
-        UPD_TYPE,
-      </if>
-      <if test="delType != null">
-        DEL_TYPE,
-      </if>
-      <if test="datauser != null">
-        DATAUSER,
-      </if>
-      <if test="datadate != null">
-        DATADATE,
+      <if test="updateTime != null">
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="cname != null">
-        #{cname},
+      <if test="udi != null">
+        #{udi,jdbcType=VARCHAR},
       </if>
-      <if test="ename != null">
-        #{ename},
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc},
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
       </if>
-      <if test="picpath1 != null">
-        #{picpath1},
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="picpath2 != null">
-        #{picpath2},
+      <if test="packageId != null">
+        #{packageId,jdbcType=INTEGER},
       </if>
-      <if test="picpath3 != null">
-        #{picpath3},
+      <if test="createId != null">
+        #{createId,jdbcType=CHAR},
       </if>
-      <if test="filepath1 != null">
-        #{filepath1},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="filepath2 != null">
-        #{filepath2},
+      <if test="updateId != null">
+        #{updateId,jdbcType=VARCHAR},
       </if>
-      <if test="filepath3 != null">
-        #{filepath3},
-      </if>
-      <if test="publicType != null">
-        #{publicType},
-      </if>
-      <if test="updType != null">
-        #{updType},
-      </if>
-      <if test="delType != null">
-        #{delType},
-      </if>
-      <if test="datauser != null">
-        #{datauser},
-      </if>
-      <if test="datadate != null">
-        #{datadate},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   
-  <update id="updateUDI" parameterType="CsrUdi">
+  <update id="updateUDI" parameterType="com.htpe.bean.CsrUdi">
     update CSR_UDI
     <set>
-      <if test="code != null">
-        CODE = #{code},
+      <if test="udi != null">
+        UDI = #{udi},
       </if>
-      <if test="cname != null">
-        CNAME = #{cname},
+      <if test="status != null">
+        STATUS = #{status},
       </if>
-      <if test="ename != null">
-        ENAME = #{ename},
+      <if test="price != null">
+        PRICE = #{price},
       </if>
-      <if test="desc != null">
-        DESC = #{desc},
+      <if test="typeId != null">
+        TYPE_ID = #{typeId},
       </if>
-      <if test="picpath1 != null">
-        PICPATH1 = #{picpath1},
+      <if test="packageId != null">
+        PACKAGE_ID = #{packageId},
       </if>
-      <if test="picpath2 != null">
-        PICPATH2 = #{picpath2},
+      <if test="createId != null">
+        CREATE_ID = #{createId},
       </if>
-      <if test="picpath3 != null">
-        PICPATH3 = #{picpath3},
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime},
       </if>
-      <if test="filepath1 != null">
-        FILEPATH1 = #{filepath1},
+      <if test="updateId != null">
+        UPDATE_ID = #{updateId},
       </if>
-      <if test="filepath2 != null">
-        FILEPATH2 = #{filepath2},
-      </if>
-      <if test="filepath3 != null">
-        FILEPATH3 = #{filepath3},
-      </if>
-      <if test="publicType != null">
-        PUBLIC_TYPE = #{publicType},
-      </if>
-      <if test="updType != null">
-        UPD_TYPE = #{updType},
-      </if>
-      <if test="delType != null">
-        DEL_TYPE = #{delType},
-      </if>
-      <if test="datauser != null">
-        DATAUSER = #{datauser},
-      </if>
-      <if test="datadate != null">
-        DATADATE = #{datadate},
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime},
       </if>
     </set>
     where ID = #{id}
   </update>
-  
-  <update id="deleteFile" parameterType="CsrUdi">
-  	 update CSR_UDI
-    <set>
-        PICPATH1 = #{picpath1},
-        PICPATH2 = #{picpath2},
-        PICPATH3 = #{picpath3},
-        FILEPATH1 = #{filepath1},
-        FILEPATH2 = #{filepath2},
-        FILEPATH3 = #{filepath3}
-  	</set>
-  	 where ID = #{id}
-  </update>
-  
-  
-  
+
 </mapper>

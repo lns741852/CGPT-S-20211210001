@@ -61,7 +61,7 @@ public class UDITypeController {
 	}
 	
 	/**
-	 * 新增器械類
+	 * 修改器械類
 	 * @throws RequestPeriodException 
 	 */
 	@PutMapping("/udi_type/{id}")		

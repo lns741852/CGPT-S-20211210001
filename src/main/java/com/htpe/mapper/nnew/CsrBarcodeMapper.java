@@ -57,5 +57,9 @@ public interface CsrBarcodeMapper {
 	
 	@Select("select * from CSR_BARCODE where REQ_ID=#{reqId} AND STATUS !='6'")
 	List<CsrBarcode> getBarcodeByReqIdForReceive(Integer reqId);
+	
+	
+
+	List<Map<String, Object>> listBarcodeByAll(Map<String, Object> paramMap);
 
 }

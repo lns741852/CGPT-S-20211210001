@@ -10,17 +10,15 @@ import com.htpe.utils.ResultMsg;
 
 public interface UDIService {
 
-	ResultMsg listUDI(Integer pageNum, Integer pageSize, String searchName);
+	ResultMsg listUDI(Integer typeId);
 
-	ResultMsg saveUDI(CsrUdi csrUdi, HttpServletRequest request, MultipartFile pic1, MultipartFile pic2,
-			MultipartFile pic3, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws RequestPeriodException;
+	ResultMsg saveUDI(CsrUdi csrUdi, HttpServletRequest request);
 
 	ResultMsg getUDIById(Integer id);
 
-	ResultMsg updateUDIById(CsrUdi csrUdi, Integer id, HttpServletRequest request, MultipartFile pic1,
-			MultipartFile pic2, MultipartFile pic3, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws RequestPeriodException;
+	ResultMsg updateUDIById(CsrUdi csrUdi, Integer id, HttpServletRequest request) throws RequestPeriodException;
 
-	ResultMsg removeFile(Integer id, String filename) throws RequestPeriodException;
+//	ResultMsg removeFile(Integer id, String filename) throws RequestPeriodException;
 
 	ResultMsg removeUDI(Integer id) throws RequestPeriodException;
 

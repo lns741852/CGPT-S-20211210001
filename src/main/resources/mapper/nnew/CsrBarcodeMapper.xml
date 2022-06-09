@@ -179,8 +179,52 @@
 	         open="(" separator="," close=")">
 	         #{item}
 	    </foreach>
-
 	  </select>
+  
+  
+        <select id="listBarcodeByAll" parameterType="Map" resultMap="BaseResultMap">
+	    SELECT 
+	     	<include refid="Base_Column_List" />
+	    FROM 
+	    	CSR_BARCODE
+	    <where>
+			<if test="depno!=''">
+				AND DEPNO =#{depno}
+			</if>
+			<if test="barcode!=''">
+				AND BARCODE =#{barcode}
+			</if>
+			<if test="patientno!=''">
+				AND PATIENTNO =#{patientno}
+			</if>
+			<if test="setno!=''">
+				AND SETNO =#{setno}
+			</if>
+			<if test="setsn!=''">
+				AND SETSN =#{setsn}
+			</if>
+			<if test="status!=''">
+				AND STATUS =#{status}
+			</if>
+			<if test="reqno!=''">
+				AND REQ_ID = (select REQ_ID from CSR_REQUESITION where REQNO=#{reqno})
+			</if>					
+			<if test="timeoutStatus==1">
+				AND EFFECTIVEDATE &gt;= (values current date)
+			</if>
+			<if test="timeoutStatus==2">
+				AND EFFECTIVEDATE BETWEEN (values current date)+1 AND (values current date)+2
+			</if>
+			<if test="timeoutStatus==3">
+				AND EFFECTIVEDATE &lt; (values current date)
+			</if>		
+		</where>		
+		ORDER BY CREATEDATETIME	 DESC	    
+	  </select>
+  
+  
+  
+  
   
     
     <insert id="insertBarcode" parameterType="CsrBarcode">

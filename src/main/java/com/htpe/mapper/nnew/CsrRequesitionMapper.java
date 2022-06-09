@@ -1,6 +1,7 @@
 package com.htpe.mapper.nnew;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
@@ -28,5 +29,6 @@ public interface CsrRequesitionMapper {
 	CsrRequesition getReqById(Integer id);
 
 	CsrRequesition getreqByNoAndPatient(CsrRequesition csrRequesition);
+	
 
 }

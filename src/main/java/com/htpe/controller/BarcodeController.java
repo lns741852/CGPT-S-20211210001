@@ -57,4 +57,9 @@ public class BarcodeController {
 	    return   barcodeService.listReprint(pageNum,pageSize,depno,barcode,setno);
 	}
 	
+	
+	
+	
+	
+	
 }

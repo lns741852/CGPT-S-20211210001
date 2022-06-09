@@ -162,8 +162,8 @@
 		AND CHECKING = 'Y'
 		AND USE_UP ='N'
 	</where>	
-		
   </select>
+  
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from JAY.CSR_REQUESITION

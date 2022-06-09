@@ -121,7 +121,7 @@ public class CsrSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 			.antMatchers("/account").hasAnyAuthority("sys:account")
-			.antMatchers("/udi").hasAnyAuthority("sys:udi")
+//			.antMatchers("/udi").hasAnyAuthority("sys:udi")
 			.anyRequest().authenticated()
 		
 		//jwt攔截器

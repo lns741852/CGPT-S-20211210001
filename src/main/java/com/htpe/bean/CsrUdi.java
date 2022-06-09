@@ -2,42 +2,26 @@ package com.htpe.bean;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
-
 public class CsrUdi {
     private Integer id;
 
-    @NotEmpty(message = "代碼不能為空")
-    private String code;
+    private String udi;
 
-    @NotEmpty(message = "中文名稱不能為空")
-    private String cname;
-    
-    private String ename;
+    private String status;
 
-    private String desc;
+    private Integer price;
 
-    private String picpath1;
+    private Integer typeId;
 
-    private String picpath2;
+    private Integer packageId;
 
-    private String picpath3;
+    private String createId;
 
-    private String filepath1;
+    private Date createTime;
 
-    private String filepath2;
+    private String updateId;
 
-    private String filepath3;
-
-    private String publicType;
-
-    private String updType;
-
-    private String delType;
-
-    private String datauser;
-
-    private Date datadate;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -47,123 +31,75 @@ public class CsrUdi {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getUdi() {
+        return udi;
     }
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+    public void setUdi(String udi) {
+        this.udi = udi == null ? null : udi.trim();
     }
 
-    public String getCname() {
-        return cname;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname == null ? null : cname.trim();
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
-    public String getEname() {
-        return ename;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setEname(String ename) {
-        this.ename = ename == null ? null : ename.trim();
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public String getDesc() {
-        return desc;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public String getPicpath1() {
-        return picpath1;
+    public Integer getPackageId() {
+        return packageId;
     }
 
-    public void setPicpath1(String picpath1) {
-        this.picpath1 = picpath1 == null ? null : picpath1.trim();
+    public void setPackageId(Integer packageId) {
+        this.packageId = packageId;
     }
 
-    public String getPicpath2() {
-        return picpath2;
+    public String getCreateId() {
+        return createId;
     }
 
-    public void setPicpath2(String picpath2) {
-        this.picpath2 = picpath2 == null ? null : picpath2.trim();
+    public void setCreateId(String createId) {
+        this.createId = createId == null ? null : createId.trim();
     }
 
-    public String getPicpath3() {
-        return picpath3;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setPicpath3(String picpath3) {
-        this.picpath3 = picpath3 == null ? null : picpath3.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getFilepath1() {
-        return filepath1;
+    public String getUpdateId() {
+        return updateId;
     }
 
-    public void setFilepath1(String filepath1) {
-        this.filepath1 = filepath1 == null ? null : filepath1.trim();
+    public void setUpdateId(String updateId) {
+        this.updateId = updateId == null ? null : updateId.trim();
     }
 
-    public String getFilepath2() {
-        return filepath2;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setFilepath2(String filepath2) {
-        this.filepath2 = filepath2 == null ? null : filepath2.trim();
-    }
-
-    public String getFilepath3() {
-        return filepath3;
-    }
-
-    public void setFilepath3(String filepath3) {
-        this.filepath3 = filepath3 == null ? null : filepath3.trim();
-    }
-
-    public String getPublicType() {
-        return publicType;
-    }
-
-    public void setPublicType(String publicType) {
-        this.publicType = publicType == null ? null : publicType.trim();
-    }
-
-    public String getUpdType() {
-        return updType;
-    }
-
-    public void setUpdType(String updType) {
-        this.updType = updType == null ? null : updType.trim();
-    }
-
-    public String getDelType() {
-        return delType;
-    }
-
-    public void setDelType(String delType) {
-        this.delType = delType == null ? null : delType.trim();
-    }
-
-    public String getDatauser() {
-        return datauser;
-    }
-
-    public void setDatauser(String datauser) {
-        this.datauser = datauser == null ? null : datauser.trim();
-    }
-
-    public Date getDatadate() {
-        return datadate;
-    }
-
-    public void setDatadate(Date datadate) {
-        this.datadate = datadate;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

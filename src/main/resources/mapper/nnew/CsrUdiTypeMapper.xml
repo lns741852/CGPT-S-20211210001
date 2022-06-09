@@ -25,17 +25,30 @@
    	ID,NAME,NAME_SCIENTIFIC,SPEC,DESCRIPTION,DATAUSER,DATADATE
   </sql>
   
-    <select id="listUDIType" parameterType="Map" resultType="CsrUdiType">
-    select 
-    <include refid="Base_Column_List" />
-    from CSR_UDI_TYPE
+    <select id="listUDIType" parameterType="Map" resultMap="BaseResultMap">
+	    select 
+	    	X.*,
+	    	A.id as aid, A.IS_MAIN as amain,
+	    	Y.id as yid, y.resource_name as yname
+	    from 
+	    	CSR_UDI_TYPE AS X
+	    LEFT JOIN
+	    	CSR_UDI_IMAGE AS A
+	    ON
+	    	X.ID =A.TYPE_ID
+	    LEFT JOIN
+	    	CSR_FILE_RESOURCE AS Y
+	    ON
+	    	Y.ID =A.FILE_ID
+
     	<where>
 			<if test="searchName!=null">
-				AND (NAME like '%'||(#{searchName})||'%'
-					OR NAME_SCIENTIFIC like '%'||#{searchName}||'%')
+				AND (X.NAME like '%'||(#{searchName})||'%'
+					OR X.NAME_SCIENTIFIC like '%'||#{searchName}||'%')
 			</if>
+				AND A.IS_MAIN ='1'
 		</where>
-		order by NAME
+		order by X.NAME 
   </select>
   
   
