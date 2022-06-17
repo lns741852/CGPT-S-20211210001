@@ -51,15 +51,16 @@ public interface CsrBarcodeMapper {
 	List<CsrBarcode> getBarcodeByReqId(Integer reqId);
 
 	
-	@Select("select * from CSR_BARCODE where barcode=#{barcode} and status='4'")
-	List<CsrBarcode> gebarcodeByNoForUse(String barcode);
+	@Select("select * from CSR_BARCODE where barcode=#{barcode} and LOCATION=#{depno} and status='4' ")
+	List<CsrBarcode> gebarcodeByNoForUse( Map<String, Object>  barcode);
 	
 	
 	@Select("select * from CSR_BARCODE where REQ_ID=#{reqId} AND STATUS !='6'")
 	List<CsrBarcode> getBarcodeByReqIdForReceive(Integer reqId);
 	
-	
-
 	List<Map<String, Object>> listBarcodeByAll(Map<String, Object> paramMap);
+
+	Map<String, Object> getbarcodeByname2(String barcode);
+
 
 }

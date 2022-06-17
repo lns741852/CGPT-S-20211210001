@@ -43,6 +43,15 @@
   
   
   
+   <select id="listSeqByType"  resultType="CsrSetdataSeq"> 
+	select ID,SETNO,SETNAMECH,SEQ from CSR_SETDATA_SEQ where PUBLIC_TYPE='Y' AND DEL_TYPE='N';
+  </select>
+  
+   <select id="getSeqBySetnoAndSn" parameterType="String"  resultType="CsrSetdataSeq"> 
+	select ID,SETNO,SETNAMECH,SEQ from CSR_SETDATA_SEQ where  DEL_TYPE='N' AND SETNO=#{setno} AND SEQ=#{setsn};
+  </select>
+  
+  
   <insert id="insertSeq" parameterType="CsrSetdataSeq" useGeneratedKeys="true" keyProperty="id" >
     insert into CSR_SETDATA_SEQ
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -132,11 +141,11 @@
   
   
  <!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from JAY.CSR_SETDATA_SEQ
+    delete from CSR_SETDATA_SEQ
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.htpe.bean.CsrSetdataSeq">
-    insert into JAY.CSR_SETDATA_SEQ (ID, SETNO, SETNAMECH, 
+    insert into CSR_SETDATA_SEQ (ID, SETNO, SETNAMECH, 
       SEQ, PUBLIC_TYPE, UPD_TYPE, 
       DEL_TYPE, DATAUSER, DATADATE
       )

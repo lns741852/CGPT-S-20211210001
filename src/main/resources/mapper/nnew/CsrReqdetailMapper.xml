@@ -28,7 +28,7 @@
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from JAY.CSR_REQDETAIL
+    delete from CSR_REQDETAIL
     where RD_ID = #{rdId,jdbcType=INTEGER}
   </delete>
 
@@ -124,7 +124,7 @@
     where RD_ID = #{rdId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrReqdetail">
-    update JAY.CSR_REQDETAIL
+    update CSR_REQDETAIL
     set SETNO = #{setno,jdbcType=CHAR},
       SETCOUNT = #{setcount,jdbcType=INTEGER},
       REQ_ID = #{reqId,jdbcType=INTEGER},

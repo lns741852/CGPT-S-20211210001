@@ -19,11 +19,14 @@ import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrBox;
 import com.htpe.bean.CsrHistory;
 import com.htpe.bean.CsrSetdata3m;
+import com.htpe.bean.CsrSetdataSeq;
 import com.htpe.exception.RequestPeriodException;
 import com.htpe.mapper.nnew.CsrBarcodeMapper;
 import com.htpe.mapper.nnew.CsrBoxMapper;
 import com.htpe.mapper.nnew.CsrHistoryMapper;
 import com.htpe.mapper.nnew.CsrSetdata3mMapper;
+import com.htpe.mapper.nnew.CsrSetdataSeqMapper;
+import com.htpe.mapper.nnew.CsrSetdataSeqUdiMapper;
 import com.htpe.service.BarcodeService;
 import com.htpe.utils.ResultMsg;
 
@@ -41,10 +44,17 @@ public class BarcodeServiceImpl implements BarcodeService{
 	
 	@Autowired
 	CsrSetdata3mMapper csrSetdata3m;
+	
+	@Autowired
+	CsrSetdataSeqMapper csrSetdataSeqMapper;
 
 	@Override
 	public ResultMsg saveBarcode(List<CsrBarcode> csrBarcodes, HttpServletRequest request) {
 		
+				csrBarcodes.forEach(e ->{
+					csrSetdataSeqMapper.updateSeqTypeById(e.getSeqId());
+				});
+	
 				Date date = new Date();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				

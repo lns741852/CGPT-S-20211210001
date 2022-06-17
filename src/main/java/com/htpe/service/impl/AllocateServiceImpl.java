@@ -1,5 +1,6 @@
 package com.htpe.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -77,9 +78,13 @@ public class AllocateServiceImpl  implements AllocateService{
 		if(barocdeRes == null || !(barocdeRes.getStatus().equals("3"))) {
 			throw new RequestPeriodException(500, "條碼無法使用");
 		}
-		
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();		
-		if(date.compareTo(barocdeRes.getEffectivedate())> 0) {
+		
+		  String date1 = sdf.format(date);
+		  String date2 = sdf.format(barocdeRes.getEffectivedate());
+
+		if(date1.compareTo(date2)> 0) {
 			throw new RequestPeriodException(500, "條碼已過期");
 		};
 	
@@ -117,7 +122,9 @@ public class AllocateServiceImpl  implements AllocateService{
 			for(CsrBarcode barcode : csrBarcodes) {
 				barcode.setReqId(id);
 				barcode.setStatus("4");	
+				barcode.setDepnopay(reqById.getCenterno());
 				barcode.setPatientno(reqById.getPatientno());
+				barcode.setLocation(reqById.getDepnoask());
 				if(req.getSetno().equals(barcode.getSetno()) && (barcode.getRdId() == null)) {	
 					barcode.setRdId(req.getRdId());
 					csrBarcodeMapper.updateBarcodeById(barcode);

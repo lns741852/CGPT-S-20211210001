@@ -39,7 +39,7 @@ const routes = [{
                     import ('../components/admin/casecar.vue')
             },
             {
-                path: '/udi',
+                path: '/udi/:id',
                 name: 'Udi',
                 component: () =>
                     import ('../components/admin/udi.vue')
@@ -55,6 +55,12 @@ const routes = [{
                 name: 'Setno',
                 component: () =>
                     import ('../components/admin/setno.vue')
+            },
+            {
+                path: '/setno2/:id',
+                name: 'Setno2',
+                component: () =>
+                    import ('../components/admin/setno2.vue')
             },
             {
                 path: '/package',
@@ -148,10 +154,10 @@ const routes = [{
                     import ('../components/user/relocate.vue')
             },
             {
-                path: '/errolocate',
-                name: 'Errolocate',
+                path: '/relocate2/:id',
+                name: 'Relocate2',
                 component: () =>
-                    import ('../components/user/errolocate.vue')
+                    import ('../components/user/relocate2.vue')
             },
             {
                 path: '/report',
@@ -190,10 +196,10 @@ const routes = [{
                     import ('../components/admin/seq.vue')
             },
             {
-                path: '/report/02',
-                name: 'Report02',
+                path: '/report2',
+                name: 'Report2',
                 component: () =>
-                    import ('../components/user/report02.vue')
+                    import ('../components/user/report2.vue')
             },
             {
                 path: '/apply/print/:id',
@@ -213,6 +219,38 @@ const routes = [{
                 component: () =>
                     import ('../components/user/allocate3.vue')
             },
+            {
+                path: '/search',
+                name: 'Search',
+                component: () =>
+                    import ('../components/user/search.vue')
+            },
+            {
+                path: '/search2',
+                name: 'Search2',
+                component: () =>
+                    import ('../components/user/search2.vue')
+            },
+            {
+                path: '/search2_2/:barcode',
+                name: 'Search2_2',
+                component: () =>
+                    import ('../components/user/search2_2.vue')
+            },
+            {
+                path: '/setno_udi',
+                name: 'Setno_udi',
+                component: () =>
+                    import ('../components/user/setno_udi.vue')
+            },
+            {
+                path: '/setno_udi2/:id',
+                name: 'Setno_udi2',
+                component: () =>
+                    import ('../components/user/setno_udi2.vue')
+            },
+
+
 
         ]
     },

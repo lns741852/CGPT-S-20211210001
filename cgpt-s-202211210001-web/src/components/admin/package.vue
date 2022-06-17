@@ -26,7 +26,7 @@
         >
       </el-row>
       <!--列表-->
-      <el-table :data="packageList" style="width: 100%">
+      <el-table :data="packageList" style="width: 100%" stripe>
         <el-table-column type="index" label="編號" width="80" />
         <el-table-column prop="processno" label="包裝程序代號" />
         <el-table-column prop="processname" label="包裝程序名稱" />
@@ -77,6 +77,7 @@
           <!--新增_下拉選單-->
           <el-form-item label="保存日期" prop="day">
             <el-select
+             popper-class="dropdownbox"
               v-model="addForm.day"
               placeholder="請選擇"
               clearable
@@ -125,6 +126,7 @@
           <!--修改_下拉選單-->
           <el-form-item label="保存日期" prop="day">
             <el-select
+             popper-class="dropdownbox"
               v-model="addForm.day"
               placeholder="請選擇"
               clearable

@@ -13,4 +13,6 @@ public interface ApplyService {
 
 	ResultMsg getReqPrint(Integer reqId);
 
+	ResultMsg saveRelocate(CsrRequesition csrRequesition);
+
 }

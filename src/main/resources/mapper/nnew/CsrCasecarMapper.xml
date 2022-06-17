@@ -104,7 +104,7 @@
   
  <!-- 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from JAY.CSR_CASECAR
+    delete from CSR_CASECAR
     where CASECAR_ID = #{casecarId,jdbcType=INTEGER}
   </delete>
   -->

@@ -132,3 +132,7 @@ body,
     background: #114f4a;
     color: #fff;
 }
+
+.dropdownbox {
+    z-index: 10001!important;
+}

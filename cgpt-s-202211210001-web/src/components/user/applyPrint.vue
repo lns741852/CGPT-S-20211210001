@@ -104,7 +104,6 @@ export default {
   data() {
     return {
       reqId: this.$route.params.id,
-
       depnoList: [],
       roomList: [],
       costcenterList: [],

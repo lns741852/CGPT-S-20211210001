@@ -61,8 +61,8 @@
     <result column="DPOTNAME" jdbcType="CHAR" property="dpotname" />
     <result column="DPOTSN" jdbcType="INTEGER" property="dpotsn" />
   </resultMap>
-
   
+ 
   <sql id="Base_Column_List">
     BARCODEID, SETNO, BARCODE, EMPNO, USERCNAME, SN, EFFECTIVEDATE, CREATEDATETIME, DISINFECTION, 
     EOD, DEPNO, SETSN, STATUS, REQ_ID, RD_ID, POTID, CHECKING, CHECKINGTIME, CHECK_CONFIRM, 
@@ -73,12 +73,7 @@
     UNPOT_USERNAME, BI_HH, BI_MM, PACK_OK, BARCODE_OK, COLOR_OK, DRY_OK, TEMP_OK, DPOTNAME, 
     DPOTSN
   </sql>
-  
-  
-  
-  
-  
-  
+   
     <select id="getWarehousingList" parameterType="CsrPoltld" resultType="CsrBarcode">
     	select  X.BARCODE as BARCODE,X.SETNO as SETNO,X.STATUS as STATUS,
     	X.BARCODEID as BARCODEID,X.SETSN as SETSN,
@@ -106,13 +101,14 @@
 		</where>			
   </select>
   
-  
-  
-  
   <select id="listReprint" parameterType="Map" resultMap="BaseResultMap">
     select 
     X.BARCODEID as BARCODEID,
-    X.BARCODE as BARCODE,X.SETNO as SETNO,X.STATUS as STATUS,A.DEPNAME as LOCATION
+    X.BARCODE as BARCODE,
+    X.SETNO as SETNO,
+    X.STATUS as STATUS,
+    X.SETSN as SETSN,
+    A.DEPNAME as LOCATION
     from CSR_BARCODE as X
     left join CSR_DEPNO as A
     on X.LOCATION = A.DEPNO
@@ -137,6 +133,33 @@
 	    from CSR_BARCODE
 		where barcode =#{barcode} 
   </select>
+  
+  
+     <select id="getbarcodeByname2" parameterType="String" resultType="Map">
+	    select 
+	    B.*,
+	    P.ID as PID,
+	    P.DEPNO as PDEP,
+	    P.POTNAME as pname,
+	    P.POTNO as pno,
+	    P.POTSN as psn,
+	    P.POTSCANTIME as ptime,
+	    P.DATAUSERNAME as puser,
+	    S.SETNAMECH as scname,
+	    S.SETNAME as sename
+	    from 
+			CSR_BARCODE AS B
+		left join
+			CSR_POLTLD AS P
+		on
+			B.POTID = P.ID
+		left join
+			CSR_SETDATA_3M AS S
+		on
+			B.SETNO = S.SETNO
+		where barcode =#{barcode} 	
+  	</select>
+  
   
 
   <select id="timeoutSetno" parameterType="String" resultType="CsrSetdata3m">
@@ -213,7 +236,7 @@
 				AND EFFECTIVEDATE &gt;= (values current date)
 			</if>
 			<if test="timeoutStatus==2">
-				AND EFFECTIVEDATE BETWEEN (values current date)+1 AND (values current date)+2
+				AND EFFECTIVEDATE BETWEEN (values current date) AND (values current date)+1
 			</if>
 			<if test="timeoutStatus==3">
 				AND EFFECTIVEDATE &lt; (values current date)

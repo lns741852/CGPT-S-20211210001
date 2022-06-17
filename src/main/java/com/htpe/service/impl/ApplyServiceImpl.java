@@ -2,8 +2,10 @@ package com.htpe.service.impl;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.compress.archivers.zip.X000A_NTFS;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +84,7 @@ public class ApplyServiceImpl implements ApplyService {
 		
 		for(CsrReqdetail req : reqdetails) {
 			req.setReqId(csrRequesition.getReqId());
-			req.setAllocate("n");
+			req.setAllocate("N");
 			req.setRealcount(0);
 			req.setExchangecount(0);
 			
@@ -104,9 +106,11 @@ public class ApplyServiceImpl implements ApplyService {
 		CsrDepno depnoByName2 = csrDepnoMapper.getDepnoByName(reqPrint.getDepno());
 		reqPrint.setDepno(depnoByName2.getDepname());
 		
-		
-		CsrCostcenter centerByno = csrRequesitionMapper.getCenterByno(reqPrint.getCenterno());
-		reqPrint.setCenterno(centerByno.getCentername());
+		if(!reqPrint.getCenterno().equals("")) {
+			CsrCostcenter centerByno = csrRequesitionMapper.getCenterByno(reqPrint.getCenterno());
+			reqPrint.setCenterno(centerByno.getCentername());
+		}
+
 		
 		for(CsrReqdetail csrReqdetail : reqPrint.getReqdetails()) {
 			CsrSetdata3m setnoByNo = csrSetdata3mMapper.getSetnoByNo(csrReqdetail.getSetno());
@@ -118,6 +122,39 @@ public class ApplyServiceImpl implements ApplyService {
 
 		
 		return ResultMsg.success("申領單").addData(reqPrint);
+	}
+
+	@Override
+	public ResultMsg saveRelocate(CsrRequesition csrRequesition) {
+		Date date = new Date();		
+		csrRequesition.setReqno(DateFormatUtils.format(date, "yyyyMMddHHmmSSss"));
+		csrRequesition.setDatatime(date);
+		csrRequesition.setChecking("Y");
+		csrRequesition.setUseUp("N");
+		csrRequesition.setAllocatetime(date);
+		csrRequesition.setDeltime(null);
+		
+		if(csrRequesition.getRoomno().equals("")) {
+			csrRequesition.setRoomno("All");
+		}		
+		
+		
+		csrRequesitionMapper.insertApply(csrRequesition);
+		
+		List<CsrReqdetail> reqdetails = csrRequesition.getReqdetails();
+				
+		for(CsrReqdetail req : reqdetails) {			
+			req.setReqId(csrRequesition.getReqId());
+			req.setAllocate(csrRequesition.getAllocatetype());
+			req.setSetcount(1);
+			req.setRealcount(1);
+			req.setExchangecount(0);
+			
+			csrReqdetailMapper.insertReqdetail(req);
+			
+		}
+			
+		return ResultMsg.success("補輸成功").addData(csrRequesition.getReqId());
 	}
 
 

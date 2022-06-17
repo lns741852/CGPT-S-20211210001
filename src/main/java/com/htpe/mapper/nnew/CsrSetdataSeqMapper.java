@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.htpe.bean.CsrSetdataSeq;
 
@@ -54,5 +55,16 @@ public interface CsrSetdataSeqMapper {
 
 	@Select("Select count(id) from CSR_SETDATA_SEQ_UDI where CSR_SETDATA_SEQ_ID=#{id}")
 	int countSeqUdiById(Integer id);
+
+	@Select("Select count(id) from CSR_SETDATA_SEQ where SETNO=#{setno} AND SEQ=#{seq}")
+	int countSeqBySnAndSetno(CsrSetdataSeq seq);
+
+	List<CsrSetdataSeq> listSeqByType();
+
+	@Update("update CSR_SETDATA_SEQ set PUBLIC_TYPE='N' where ID=#{seqId}")
+	void updateSeqTypeById(String seqId);
+
+	CsrSetdataSeq getSeqBySetnoAndSn(String setno, String setsn);
+
 }
 

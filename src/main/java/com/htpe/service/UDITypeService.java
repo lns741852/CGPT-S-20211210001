@@ -1,5 +1,8 @@
 package com.htpe.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -17,5 +20,9 @@ public interface UDITypeService {
 	ResultMsg saveUDIType(CsrUdiType csrUdi, HttpServletRequest request, MultipartFile[] file);
 
 	ResultMsg updateUDITypeById(CsrUdiType csrUdi, HttpServletRequest request, MultipartFile[] file);
+
+	ResultMsg saveSetnoUDI(String id, List<Map<String, Object>> csrUdiTypes);
+
+	ResultMsg getSetnoUDI(Integer id);
 
 }

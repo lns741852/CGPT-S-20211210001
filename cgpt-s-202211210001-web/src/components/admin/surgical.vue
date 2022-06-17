@@ -190,7 +190,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button class="edit_button" @click="editSurgical">確定</el-button>
-          <el-button type="info" @click="addDialogVisible = false"
+          <el-button type="info" @click="editDialogVisible = false"
             >取消</el-button
           >
         </div>
@@ -280,7 +280,6 @@ export default {
       this.$axios.get("/surgical/" + id).then((res) => {
         this.addForm = res.data.data;
         this.csrSurgicalCasecar = res.data.data.csrSurgicalCasecar;
-        console.log(this.addForm)
       });
       this.editDialogVisible = true;
     },

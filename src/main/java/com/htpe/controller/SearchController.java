@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +50,22 @@ public class SearchController {
 		    paramMap.put("timeoutStatus", timeoutStatus);
 		
 	    return   searchService.getBarcodeByAll(pageNum,pageSize,paramMap);
+	}
+	
+	/**
+	 * Barcode資料查詢
+	 */
+	@GetMapping("/search/barcode/{barcode}")
+	public ResultMsg getBarcodeBybarcode(@PathVariable String barcode){			
+		return searchService.getBarcodeBybarcode(barcode);
+	}
+	
+	/**
+	 * History資料查詢
+	 */
+	@GetMapping("/search/history/{barcode}")
+	public ResultMsg getHistoryBybarocde(@PathVariable String barcode){			
+		return searchService.getHistoryBybarocde(barcode);
 	}
 	
 

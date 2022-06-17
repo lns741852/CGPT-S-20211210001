@@ -76,6 +76,7 @@
             <!--下拉選單-->
             <el-form-item label="消毒鍋代號" prop="disinfection">
               <el-select
+               popper-class="dropdownbox"
                 v-model="csrPotDepno.disinfection"
                 placeholder="請選擇"
                 clearable
@@ -95,6 +96,7 @@
             <!--下拉選單-->
             <el-form-item label="起始編號" prop="x">
               <el-select
+               popper-class="dropdownbox"
                 v-model="csrPotDepno.beginnum"
                 placeholder="請選擇"
                 clearable
@@ -111,6 +113,7 @@
             <!--下拉選單-->
             <el-form-item label="鍋別數量" prop="x">
               <el-select
+               popper-class="dropdownbox"
                 v-model="csrPotDepno.potnum"
                 placeholder="請選擇"
                 clearable

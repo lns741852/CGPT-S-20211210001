@@ -16,7 +16,7 @@
 
           <el-form-item label="申領單位：">
             <el-input
-             readonly
+              readonly
               v-model="inputData.depnoName.depname"
               style="width: 30%"
             />
@@ -24,33 +24,55 @@
 
           <el-form-item label="室別：">
             <el-input
-            readonly
+              readonly
               v-model="inputData.roomName.roomname"
               style="width: 30%"
             />
           </el-form-item>
 
           <el-form-item label="病歷號：">
-            <el-input readonly v-model="inputData.patientno" style="width: 30%" />
+            <el-input
+              readonly
+              v-model="inputData.patientno"
+              style="width: 30%"
+            />
           </el-form-item>
           <el-form-item label="手術名稱：">
-            <el-input readonly v-model="inputData.surgicalname" style="width: 30%" />
+            <el-input
+              readonly
+              v-model="inputData.surgicalname"
+              style="width: 30%"
+            />
           </el-form-item>
           <el-form-item label="申領人員：">
             <el-row gutter="24">
               <el-col :span="9">
-                代號 <el-input readonly v-model="inputData.empno" style="width: 60%" />
+                代號
+                <el-input
+                  readonly
+                  v-model="inputData.empno"
+                  style="width: 60%"
+                />
               </el-col>
               <el-col :span="9">
                 姓名
-                <el-input readonly v-model="inputData.usercname" style="width: 60%" />
+                <el-input
+                  readonly
+                  v-model="inputData.usercname"
+                  style="width: 60%"
+                />
               </el-col>
             </el-row>
           </el-form-item>
-                    <el-form-item label="配備人員：">
+          <el-form-item label="配備人員：">
             <el-row gutter="24">
               <el-col :span="9">
-                代號 <el-input  v-model="inputData.datauserno" @blur="getUsername" style="width: 60%" />
+                代號
+                <el-input
+                  v-model="inputData.datauserno"
+                  @blur="getUsername"
+                  style="width: 60%"
+                />
               </el-col>
               <el-col :span="9">
                 姓名
@@ -74,11 +96,15 @@
           <div v-for="item in inputData.reqdetails" :key="item">
             <el-row :gutter="20" style="margin-top: 10px">
               <el-col :span="1"></el-col>
-              <el-col :span="5"><el-input readonly v-model="item.setno" /></el-col>
+              <el-col :span="5"
+                ><el-input readonly v-model="item.setno"
+              /></el-col>
               <el-col :span="5"
                 ><el-input readonly v-model="item.setnoName.setnamech"
               /></el-col>
-              <el-col :span="5"><el-input readonly v-model="item.setcount" /></el-col>
+              <el-col :span="5"
+                ><el-input readonly v-model="item.setcount"
+              /></el-col>
               <el-col :span="5"><el-input v-model="item.realcount" /></el-col>
             </el-row>
           </div>
@@ -124,13 +150,11 @@ export default {
       barcode: "",
       depnoList: [],
       roomList: [],
-      costcenterList: [],
       setnoDatas: [],
     };
   },
   created() {
     this.selectReqById();
-
   },
   methods: {
     selectReqById() {
@@ -141,14 +165,14 @@ export default {
             roomName: "",
           };
         }
-         this.inputData.datauserno = this.inputData.empno
-         this.inputData.datausername = this.inputData.usercname
+        this.inputData.datauserno = this.inputData.empno;
+        this.inputData.datausername = this.inputData.usercname;
       });
     },
 
     /**條碼輸入 => 列表 */
     async inputBarcode() {
-      let count=0;
+      let count = 0;
       let barcode = {};
       //barcode判斷
       if (this.barcode != "") {
@@ -176,25 +200,24 @@ export default {
         return;
       }
 
-      await this.inputData.reqdetails.forEach(item =>{
-        if(item.setno === barcode.setno){
-          item.realcount +=1
-          count +=1;
+      await this.inputData.reqdetails.forEach((item) => {
+        if (item.setno === barcode.setno) {
+          item.realcount += 1;
+          count += 1;
         }
       });
 
-      if(count === 0){
-         ElMessage.error("條碼錯誤");
-         this.barcode = "";
-        return
+      if (count === 0) {
+        ElMessage.error("條碼錯誤");
+        this.barcode = "";
+        return;
       }
 
       this.setnoDatas.push({
-        barcodeid:barcode.barcodeid,
+        barcodeid: barcode.barcodeid,
         barcode: barcode.barcode,
         setno: barcode.setno,
       });
-
 
       this.barcode = "";
     },
@@ -206,61 +229,64 @@ export default {
 
     //申領確認
     async clickConfirm() {
-      let count =0
-      this.inputData.reqdetails.forEach(item =>{
-        if(item.setcount != item.realcount){
+      let count = 0;
+      this.inputData.reqdetails.forEach((item) => {
+        if (item.setcount != item.realcount) {
           count += 1;
         }
       });
-      if(count != 0){
+      if (count != 0) {
         await this.$msgbox
-        .confirm("盤包申領數量與配送數量不符，確定要繼續?", {
-          cancelButtonText: "取消",
-          confirmButtonText: "確定",
-          type: "warning",
-        })
-        .then(() => {
-          this.submitForm();
-        })
-        .catch(() => {
-          return
-        });       
-      }else{
-         this.submitForm();
+          .confirm("盤包申領數量與配送數量不符，確定要繼續?", {
+            cancelButtonText: "取消",
+            confirmButtonText: "確定",
+            type: "warning",
+          })
+          .then(() => {
+            this.submitForm();
+          })
+          .catch(() => {
+            return;
+          });
+      } else {
+        this.submitForm();
       }
     },
 
-    submitForm(){
-        this.inputData.allocatetime =null;
-        this.inputData.datatime =null;
-        this.inputData.deltime =null;
-        
-        this.$axios.put("/allocate",this.inputData).then((res) => {
-          if(res.data.code === 200){
-            this.submitForm2()
-          }
-        });
+    //申領單確認
+    submitForm() {
+      this.inputData.allocatetime = null;
+      this.inputData.datatime = null;
+      this.inputData.deltime = null;
 
+      this.$axios.put("/allocate", this.inputData).then((res) => {
+        if (res.data.code === 200) {
+          this.submitForm2();
+        }
+      });
     },
-    submitForm2(){
-        this.$axios.put("/allocate/"+this.inputData.reqId , this.setnoDatas ).then((res) => {
-          if(res.data.code === 200){
-                  this.$router.push({path: `/allocate3/${this.reqId}`});
+    //Barcode修改
+    submitForm2() {
+      this.$axios
+        .put("/allocate/" + this.inputData.reqId, this.setnoDatas)
+        .then((res) => {
+          if (res.data.code === 200) {
+            this.$router.push({ path: `/allocate3/${this.reqId}` });
           }
         });
     },
-        getUsername(){
-        this.$axios.get("/info/"+ this.inputData.datauserno).then((res) => {
-            if(res.data.data ===null){
-                this.inputData.datausername=""
-                return
-            }
-             this.inputData.datausername=res.data.data.usercname;     
+    //人員名稱
+    getUsername() {
+      this.$axios.get("/info/" + this.inputData.datauserno).then((res) => {
+        if (res.data.data === null) {
+          this.inputData.datausername = "";
+          return;
+        }
+        this.inputData.datausername = res.data.data.usercname;
       });
-    }
+    },
   },
-  watch: {
-  },
+  watch: {},
 };
 </script>
 

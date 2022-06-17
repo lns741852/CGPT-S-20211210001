@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.htpe.service.DepnoService;
+import com.htpe.service.SeqService;
 import com.htpe.service.SetnoService;
 import com.htpe.utils.ResultMsg;
 
@@ -20,6 +21,9 @@ public class TagController {
 	
 	@Autowired
 	DepnoService depnoService;
+	
+	@Autowired
+	SeqService seqService;
 	
 	/**
 	 * 盤包單一查詢
@@ -37,6 +41,14 @@ public class TagController {
 		return depnoService.getDepnoByName(name);
 	}
 	
+	
+	/**
+	 * 建立盤包查詢
+	 */
+	@GetMapping("/tag/seq")
+	public ResultMsg getSeq(){			
+		return seqService.getSeq();
+	}
 	
 	
 

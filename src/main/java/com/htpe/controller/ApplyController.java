@@ -38,10 +38,20 @@ public class ApplyController {
 	/**
 	 * 申領作業
 	 */
+	@PostMapping("/apply/relocate")
+	public ResultMsg saveRelocate(@RequestBody CsrRequesition csrRequesition){			
+		return applyService.saveRelocate(csrRequesition);
+	}
+	
+	
+	/**
+	 * 補輸作業
+	 */
 	@PostMapping("/apply")
 	public ResultMsg saveApply(@RequestBody CsrRequesition csrRequesition){			
 		return applyService.saveApply(csrRequesition);
 	}
+	
 	
 	/**
 	 * 申領列印查詢

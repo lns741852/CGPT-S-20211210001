@@ -1,6 +1,7 @@
 package com.htpe.service.impl;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
@@ -78,8 +80,13 @@ public class UDITypeServiceImpl  implements UDITypeService{
 			String filename = file.getOriginalFilename();				//檔名
 			String iconpath = date.getTime()+"_"+filename;		
 			
-			String filePath = System.getProperty("user.dir");						//項目路徑
-			String realPath = filePath+"\\src\\main\\resources\\static\\file\\";	//上傳路徑
+//			String filePath = System.getProperty("user.dir");						//項目路徑
+//			String realPath = filePath+"\\static\\file\\";							//正式環境，需再targe中新建資料夾
+//			String realPath = filePath+"\\src\\main\\resources\\static\\file\\";	//測試環境上傳路徑
+			
+			
+			String path2 = ClassUtils.getDefaultClassLoader().getResource("static").getPath();	//target/classes/static		
+			String realPath = path2+"\\file\\";	
 			String path =realPath +iconpath;
 			
 			file.transferTo(new File(path));					//上傳
@@ -91,9 +98,7 @@ public class UDITypeServiceImpl  implements UDITypeService{
 //			resource.setLocalPath(path);
 			resource.setDatadate(date);
 			resource.setDatauserno(request.getUserPrincipal().getName());
-			
-			
-			
+					
 			Integer sourceNum = csrUdiTypeMapper.insertSecource(resource);
 			if(sourceNum < 1) {
 				throw new RequestPeriodException(500, "器械類型類型添加失敗");
@@ -129,7 +134,6 @@ public class UDITypeServiceImpl  implements UDITypeService{
 		int i=0;
 		
 		StringBuffer buffer = new StringBuffer();
-		System.out.println(file);
 		if(file != null) {
 			for(MultipartFile multipartFile : file) {
 				String str = fileUpload(multipartFile,request,csrUdi.getId(),i);
@@ -139,6 +143,23 @@ public class UDITypeServiceImpl  implements UDITypeService{
 
 		return ResultMsg.success("器械類型修改成功").addData("");
 	
+	}
+
+	@Override
+	public ResultMsg saveSetnoUDI(String id,  List<Map<String, Object>> csrUdiTypes) {	
+		
+		csrUdiTypeMapper.deleteUDIBySetNO(id);	
+		
+		csrUdiTypes.forEach(i ->{		
+			csrUdiTypeMapper.insertSetnoUDI(id,i.get("udiId"), i.get("num"));
+		});
+			
+		return ResultMsg.success("盤包建立成功").addData("");
+	}
+
+	@Override
+	public ResultMsg getSetnoUDI(Integer id) {	
+		return ResultMsg.success("器械數量查詢").addData(csrUdiTypeMapper.getSetnoUDI(id));
 	}
 	
 	

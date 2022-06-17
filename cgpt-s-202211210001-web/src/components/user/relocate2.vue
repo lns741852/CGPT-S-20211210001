@@ -1,12 +1,12 @@
 <template>
   <div id="printContent2" style="width: 100%">
-    <h3>申領確認通知單</h3>
+    <h3>補輸通知單-列印 </h3>
     <el-card class="box-card">
       <!--表單驗證-->
       <template #default>
         <el-descriptions
           class="margin-top"
-          title="申領確認通知單"
+          title="補輸通知單-列印 "
           :column="3"
           border
         >
@@ -18,21 +18,28 @@
           </el-descriptions-item>
           <el-descriptions-item>
             <template #label>
-              <div class="cell-item">申領單位</div>
+              <div class="cell-item">配送單位</div>
             </template>
             {{ allocatePrint.depnoask }}
           </el-descriptions-item>
 
           <el-descriptions-item>
             <template #label>
-              <div class="cell-item">申領日期</div>
+              <div class="cell-item">補包日期</div>
             </template>
             {{ allocatePrint.datatime }}
           </el-descriptions-item>
 
           <el-descriptions-item>
             <template #label>
-              <div class="cell-item">申領人員</div>
+              <div class="cell-item">補包單位</div>
+            </template>
+            {{ allocatePrint.depno }}
+          </el-descriptions-item>
+
+          <el-descriptions-item>
+            <template #label>
+              <div class="cell-item">補輸人員</div>
             </template>
             {{ usercname }}
           </el-descriptions-item>
@@ -45,53 +52,43 @@
 
           <el-descriptions-item>
             <template #label>
-              <div class="cell-item">物品來源庫房</div>
-            </template>
-            {{ allocatePrint.depno }}
-          </el-descriptions-item>
-
-          <el-descriptions-item>
-            <template #label>
               <div class="cell-item">病歷號碼</div>
             </template>
             {{ allocatePrint.patientno }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template #label>
-              <div class="cell-item">手術個案車代碼</div>
-            </template>
-            {{ allocatePrint.casecarlist }}
-          </el-descriptions-item>
-
-          <el-descriptions-item>
-            <template #label>
-              <div class="cell-item">適用手術名稱</div>
-            </template>
-            {{ allocatePrint.surgicalname }}
-          </el-descriptions-item>
-
-          <el-descriptions-item>
-            <template #label>
               <div class="cell-item">申領類別</div>
             </template>
             <span v-if="allocatePrint.allocatetype == 'G'"> 緊急</span>
             <span v-else-if="allocatePrint.allocatetype == 'H'"> 常規</span>
+            <span v-else-if="allocatePrint.allocatetype == 'I'"> 瑕疵包補輸</span>
+            <span v-else-if="allocatePrint.allocatetype == 'B'"> 補輸</span>
           </el-descriptions-item>
+
+          <el-descriptions-item>
+            <template #label>
+              <div class="cell-item">備註</div>
+            </template>
+            {{ allocatePrint.note2 }}
+          </el-descriptions-item>
+
+
         </el-descriptions>
       </template>
     </el-card>
 
     <el-card style="margin-top: 10px">
-      <el-table class="tablePrint" :data="allocatePrint.reqdetails">
+      <el-table class="tablePrint" :data="allocatePrint.reqdetails" >
         <el-table-column prop="setno" label="盤包代號" width="100">
         </el-table-column>
-        <el-table-column prop="setname" label="盤包名稱" width="180">
+        <el-table-column prop="setname" label="盤包名稱" width="180" align="center">
         </el-table-column>
         <el-table-column prop="setcount" label="申領數量" width="100" align="center">
         </el-table-column>
         <el-table-column prop="realcount" label="配送數量" width="100" align="center">
         </el-table-column>
-        <el-table-column label="條碼編號">
+        <el-table-column label="條碼編號" >
           <template #default="scope">
             <li
               class="tableBarcode"
@@ -122,10 +119,9 @@ export default {
         id: "printContent2",
         popTitle: "頂部文字",
         standard: "html5",
-         closeCallback(vue) {
+        closeCallback(vue) {
           vue.submitFrom();
         },
-
       },
     };
   },
@@ -138,7 +134,7 @@ export default {
     getReq() {
       this.$axios.get("/apply/print/" + this.reqId).then((res) => {
         this.allocatePrint = res.data.data;
-
+        console.log(this.allocatePrint);
         let date = new Date(res.data.data.datatime);
 
         const formatDate = (date) => {
@@ -161,7 +157,7 @@ export default {
       });
     },
     submitFrom() {
-        this.$router.push({ path: "/allocate" });
+      this.$router.push({ path: "/relocate" });
     },
   },
 };

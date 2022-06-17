@@ -117,5 +117,10 @@ public class UDIServiceImpl  implements UDIService{
 		return ResultMsg.success("器械刪除成功").addData("");
 	}
 
+	@Override
+	public ResultMsg getUDIByName(String udi) {
+		return ResultMsg.success("器械查詢").addData(csrUdiMapper.getUDIByName(udi));
+	}
+
 }
 

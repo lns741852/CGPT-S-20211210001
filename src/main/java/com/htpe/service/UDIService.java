@@ -22,4 +22,6 @@ public interface UDIService {
 
 	ResultMsg removeUDI(Integer id) throws RequestPeriodException;
 
+	ResultMsg getUDIByName(String udi);
+
 }

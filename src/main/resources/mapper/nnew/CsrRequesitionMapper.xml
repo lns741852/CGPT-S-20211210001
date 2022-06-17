@@ -147,12 +147,15 @@
     </select>
   
   
-  <select id="getreqByNoAndPatient" parameterType="com.htpe.bean.CsrRequesition" resultMap="BaseResultMap">
+  <select id="getreqByNoAndPatientAndDepno" parameterType="com.htpe.bean.CsrRequesition" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from 
 		CSR_REQUESITION
     <where>
+    <if test="depno!=null">
+		AND DEPNOASK like '%'||(#{depno})||'%'
+	</if>
 	<if test="reqno!=null">
 		AND REQNO like '%'||(#{reqno})||'%'
 	</if>
@@ -166,7 +169,7 @@
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from JAY.CSR_REQUESITION
+    delete from CSR_REQUESITION
     where REQ_ID = #{reqId,jdbcType=INTEGER}
   </delete>
   

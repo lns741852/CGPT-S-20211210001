@@ -26,21 +26,24 @@
         >
       </el-row>
       <!--列表-->
-      <el-table :data="setnoList" style="width: 100%">
-        <el-table-column type="index" label="編號" width="40" />
-        <el-table-column prop="setno" label="盤包代號" />
+      <el-table :data="setnoList" style="width: 100%" stripe>
+        <el-table-column type="index" label="編號" width="60" />
+        <el-table-column prop="setno" label="盤包代號" width="160" />
         <el-table-column prop="setname" label="英文名稱" />
         <el-table-column prop="setnamech" label="中文名稱" />
-        <el-table-column prop="positionId" label="儲位" width="180" />
-        <el-table-column prop="numbaseCsr" label="CSR庫存量" width="80" />
+        <!-- <el-table-column prop="positionId" label="儲位" width="180" /> -->
+        <!-- <el-table-column prop="numbaseCsr" label="CSR庫存量" width="80" />
         <el-table-column prop="numbaseCsr2" label="CSR2庫存量" width="80" />
         <el-table-column prop="numbaseOr1" label="AOR庫存量" width="80" />
         <el-table-column prop="numbaseOr2" label="BOR庫存量" width="80" />
         <el-table-column prop="numbaseOr3" label="GOR庫存量" width="80" />
-        <el-table-column prop="numbaseWr1" label="WR庫存量" width="80" />
-        <el-table-column prop="price" label="成本" width="80" />
+        <el-table-column prop="numbaseWr1" label="WR庫存量" width="80" /> -->
+        <el-table-column prop="price" label="成本" />
         <el-table-column label="操作">
           <template #default="scope">
+            <el-button  type="primary" @click="addUdi(scope.row.id)"
+              >添加器械</el-button
+            >
             <el-button class="edit_button" @click="showEditDialon(scope.row.id)"
               >修改</el-button
             >
@@ -90,6 +93,7 @@
           <el-form-item label="標籤製作預設值">
             <el-form-item label="消毒方式" prop="spotno">
               <el-select
+                popper-class="dropdownbox"
                 v-model="addForm.spotno"
                 placeholder="請選擇"
                 @change="getProcess"
@@ -106,6 +110,7 @@
             </el-form-item>
             <el-form-item label="包裝方式" prop="sprocess">
               <el-select
+                popper-class="dropdownbox"
                 v-model="addForm.sprocess"
                 placeholder="請選擇"
                 clearable
@@ -120,7 +125,12 @@
               </el-select>
             </el-form-item>
             <el-form-item label="保存天數" prop="sday">
-              <el-select v-model="addForm.sday" placeholder="請選擇" clearable>
+              <el-select
+                popper-class="dropdownbox"
+                v-model="addForm.sday"
+                placeholder="請選擇"
+                clearable
+              >
                 <el-option
                   v-for="item in dateList"
                   :key="item"
@@ -194,6 +204,7 @@
           <el-form-item label="標籤製作預設值" prop="x">
             <el-form-item label="消毒方式" prop="spotno">
               <el-select
+                popper-class="dropdownbox"
                 v-model="addForm.spotno"
                 placeholder="請選擇"
                 @change="getProcess"
@@ -210,6 +221,7 @@
             </el-form-item>
             <el-form-item label="包裝方式" prop="sprocess">
               <el-select
+                popper-class="dropdownbox"
                 v-model="addForm.sprocess"
                 placeholder="請選擇"
                 clearable
@@ -224,7 +236,12 @@
               </el-select>
             </el-form-item>
             <el-form-item label="保存天數" prop="sday">
-              <el-select v-model="addForm.sday" placeholder="請選擇" clearable>
+              <el-select
+                popper-class="dropdownbox"
+                v-model="addForm.sday"
+                placeholder="請選擇"
+                clearable
+              >
                 <el-option
                   v-for="item in dateList"
                   :key="item"
@@ -428,6 +445,18 @@ export default {
         .catch(() => {
           //nothing to do
         });
+    },
+    addUdi(id) {
+      this.$router.push({ path: `/setno2/${id}` });
+    },
+  },
+  watch: {
+    "addForm.setno": function () {
+      if (this.addForm.setno != undefined) {
+        if (this.addForm.setno.length === 6) {
+          this.addForm.setno = this.addForm.setno.toUpperCase();
+        }
+      }
     },
   },
 };

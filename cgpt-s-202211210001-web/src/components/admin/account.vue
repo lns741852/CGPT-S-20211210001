@@ -99,7 +99,7 @@
         </el-form-item>
         <!--新增_下拉選單-->
         <el-form-item label="部門" prop="depno">
-          <el-select v-model="addForm.depno" placeholder="部門" clearable>
+          <el-select  popper-class="dropdownbox" v-model="addForm.depno" placeholder="部門" clearable>
             <el-option
               v-for="item in depnoList"
               :key="item.DEPNO"
@@ -182,7 +182,7 @@
         </el-form-item>
         <!--修改_下拉選單-->
         <el-form-item label="部門" prop="depno">
-          <el-select v-model="editForm.depno" placeholder="部門" clearable>
+          <el-select  popper-class="dropdownbox" v-model="editForm.depno" placeholder="部門" clearable>
             <el-option
               v-for="item in depnoList"
               :key="item.DEPNO"
@@ -311,7 +311,6 @@ export default {
     getAuth() {
       this.$axios.get("/auth").then((res) => {
         this.auth = res.data.data;
-        console.log(this.auth);
       });
     },
     /**監聽頁面刷新 */
@@ -370,7 +369,6 @@ export default {
           b.push(item.csrAuth.id);
         });
         this.ids = b;
-        console.log(this.ids);
       });
       this.editDialogVisible = true;
     },

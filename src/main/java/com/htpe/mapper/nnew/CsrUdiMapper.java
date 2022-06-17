@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.htpe.bean.CsrUdi;
 
@@ -28,6 +29,11 @@ public interface CsrUdiMapper {
     
 	@Delete("delete from CSR_UDI where id = #{id}")
 	int deleteUDI(Integer id);
+
+	CsrUdi getUDIByName(String udi);
+
+	@Update("update CSR_UDI set status='0' where package_id=#{id}")
+	void updatUDIBySeqId(Integer id);
 
 //	int deleteFile(CsrUdi csrUdi);
 

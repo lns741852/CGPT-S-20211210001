@@ -19,7 +19,7 @@
               </el-button>
             </template>
           </el-input>
-          <el-button style="margin-top:10px"  @click="getVic">獲取語音檔 </el-button>
+          <!-- <el-button style="margin-top:10px"  @click="getVic">獲取語音檔 </el-button> -->
         </el-col>
         <el-col :span="12"> </el-col>
         <el-button class="edit_button" @click="addDialogVisible = true"
@@ -56,7 +56,7 @@
       </el-pagination>
     </el-card>
     <!--新增用戶對話框-->
-    <el-dialog
+    <el-dialog 
       v-model="addDialogVisible"
       @close="addDialogClosed"
       width="40%"
@@ -79,6 +79,7 @@
           <!--新增_下拉選單-->
           <el-form-item label="部門" prop="day">
             <el-select
+              popper-class="dropdownbox"
               v-model="addForm.depno"
               placeholder="請選擇"
               clearable
@@ -101,7 +102,6 @@
             >取消</el-button
           >
         </div>
-
       </template>
     </el-dialog>
     <!--修改_對話框-->
@@ -128,6 +128,7 @@
           <!--修改_下拉選單-->
           <el-form-item label="部門" prop="day">
             <el-select
+              popper-class="dropdownbox"
               v-model="addForm.depno"
               placeholder="請選擇"
               clearable

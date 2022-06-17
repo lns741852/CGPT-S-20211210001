@@ -15,7 +15,7 @@ import { ElMessage } from "element-plus"
 const service = axios.create({
     // 自帶URL
     baseURL: 'http://127.0.0.1:8282/HTPE',
-    //baseURL: 'http://20.24.194.250:8282/HTPE',
+    // baseURL: 'http://20.24.194.250:8282/HTPE',
     // 超時
     timeout: 5000,
     // 是否夾帶cookie
@@ -38,7 +38,7 @@ service.interceptors.request.use(config => {
     }
 
     if (localStorage.getItem("authorization") !== "reset") {
-        config.headers['authorization'] = localStorage.getItem("authorization");
+        config.headers['Authorization'] = localStorage.getItem("authorization");
     }
     return config;
 });

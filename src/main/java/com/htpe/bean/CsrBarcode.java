@@ -1,6 +1,7 @@
 package com.htpe.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class CsrBarcode {
     private Integer barcodeid;
@@ -123,8 +124,18 @@ public class CsrBarcode {
     
     private String box;
     
+    private String seqId;
     
-    public String getBox() {
+   
+	public String getSeqId() {
+		return seqId;
+	}
+
+	public void setSeqId(String seqId) {
+		this.seqId = seqId;
+	}
+
+	public String getBox() {
 		return box;
 	}
 

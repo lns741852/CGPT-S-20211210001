@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       reportList: [
-        { name: "每月過期包一覽表（CSR） ", url: "/#/report/02" },
+        { name: "每月過期包一覽表（CSR） ", url: "/#/report2" },
         { name: "每月製作盤包種類及數目分佈圖  ", url: "/report/02" },
         { name: "人員製作盤包數量統計 ", url: "/report/02" },
         { name: "清洗人員盤包數量統計表 ", url: "/report/02" },

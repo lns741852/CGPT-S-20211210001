@@ -21,19 +21,28 @@
       </el-col>
       <el-col :span="12"> </el-col>
       <el-button class="edit_button" @click="addDialogVisible = true"
-        >新增器械</el-button
+        >新增器械類</el-button
       >
     </el-row>
     <!--列表-->
     <el-table :data="UDIList" style="width: 100%">
-      <el-table-column type="index" label="編號" width="100" />
-      <el-table-column prop="name" label="器械名稱" />
+      <el-table-column label="器械類型" width="100">
+        <template #default="item">
+          <div>
+            <el-image
+              style="width: 100px; height: 100px"
+              :src="item.row.url"
+            ></el-image>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name"  />
       <el-table-column prop="nameScientific" label="英文名稱" />
       <el-table-column prop="spec" label="規格" />
       <el-table-column label="操作">
         <template #default="scope">
           <el-button type="primary" @click="showFile(scope.row.id)"
-            >瀏覽</el-button
+            >UDI預覽</el-button
           >
           <el-button class="edit_button" @click="showEditDialog(scope.row.id)"
             >修改</el-button
@@ -151,22 +160,19 @@
       >
         <el-icon><plus /></el-icon>
       </el-upload>
-      <el-dialog  v-model="dialogVisible">
-        <img w-full  :src="dialogImageUrl" alt="">
+      <el-dialog v-model="dialogVisible">
+        <img w-full :src="dialogImageUrl" alt="" />
       </el-dialog>
-
-
     </template>
     <template #footer>
       <div class="dialog-footer">
-        <!-- <el-button class="edit_button" @click="editUDI">確定</el-button> -->
+        <el-button class="edit_button" @click="editUDI">確定</el-button>
         <el-button type="info" @click="editDialogVisible = false"
           >取消</el-button
         >
       </div>
     </template>
   </el-dialog>
- 
 </template>
 
 <script>
@@ -186,10 +192,10 @@ export default {
       addForm: {},
       urls: [],
       files: [],
-      fileList:[],
+      fileList: [],
       dialogImageUrl: "",
       dialogVisible: false,
-      file:{},
+      file: {},
       addFormRules: {
         name: [{ required: true, message: "請輸入代號...", trigger: "blur" }],
         nameScientific: [
@@ -211,6 +217,9 @@ export default {
       this.$axios.get("/udi_type", this.queryInfo).then((res) => {
         this.total = res.data.data.total;
         this.UDIList = res.data.data.list;
+        this.UDIList.forEach(item=>{
+          item.url =  "http://127.0.0.1:8282/HTPE/file/" +item.csrUdiImages[0].csrFileResource.resourceName
+        })
       });
     },
     /**監聽頁面刷新 */
@@ -222,13 +231,13 @@ export default {
     addDialogClosed() {
       this.$refs.addFormRef.resetFields();
       this.$refs.upload.clearFiles();
-      this.fileList = []
+      this.fileList = [];
     },
     /**清空編輯視窗訊息 */
     editDialogClosed() {
       this.$refs.addFormRef.resetFields();
       this.$refs.editUpload.clearFiles();
-      this.fileList = []
+      this.fileList = [];
     },
     /**清空圖片 */
     fileDialogClosed() {
@@ -277,7 +286,6 @@ export default {
             });
             return (filetype = false);
           }
-          console.log(file)
           formData.append("file", file.raw);
         });
         if (filetype === false) return;
@@ -294,7 +302,7 @@ export default {
             this.addDialogVisible = false;
             this.getUDITypeList();
           });
-       });
+      });
     },
 
     /**修改*/
@@ -315,12 +323,14 @@ export default {
               message: "當前文件格式不符合要求",
               type: "error",
             });
-            return (filetype = false);       
-          }     
-           file.type="image/jpeg"
-          console.log(file)
-         
-          formData.append("file", file);
+            return (filetype = false);
+          }
+          file.type = "image/jpeg";
+
+
+          if(file.status ==='ready'){
+              formData.append("file", file.raw);
+          }
         });
         if (filetype === false) return;
 
@@ -329,13 +339,13 @@ export default {
         formData.append("spec", this.addForm.spec);
         formData.append("description", this.addForm.description);
 
-       
         this.$axios
           .put("/udi_type/" + this.addForm.id, formData, {
             Loading: true,
             isUpload: true,
           })
           .then(() => {
+            this.fileList = [];
             this.editDialogClosed();
             this.editDialogVisible = false;
             this.getUDITypeList();
@@ -346,21 +356,24 @@ export default {
     showEditDialog(id) {
       this.$axios.get("/udi_type/" + id).then((res) => {
         this.addForm = res.data.data;
-        this.addForm.csrUdiImages.forEach(item =>{
-          let name=item.csrFileResource.resourceName          
-          let url='http://127.0.0.1:8282/HTPE/file/'+item.csrFileResource.resourceName
-          this.fileList.push({name: name.substring(14), url:url}) 
-        })
+        this.addForm.csrUdiImages.forEach((item) => {
+          let name = item.csrFileResource.resourceName;
+          let url =
+            "http://127.0.0.1:8282/HTPE/file/" +
+            item.csrFileResource.resourceName;
+          this.fileList.push({ name: name.substring(14), url: url });
+        });
       });
       this.editDialogVisible = true;
     },
- 
     //圖片展示
-     handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      }
-
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    showFile(id){
+      this.$router.push({path: `/udi/${id}`});
+    }
   },
 };
 </script>

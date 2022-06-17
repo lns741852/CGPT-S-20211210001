@@ -1,16 +1,20 @@
 package com.htpe.controller;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +54,26 @@ public class UDITypeController {
 			@RequestParam(value = "file", required = false) MultipartFile[] file) throws RequestPeriodException{	
 		return udiTypeService.saveUDIType(csrUdi,request,file);		
 	}
+	
+	/**
+	 * 配盤
+	 * @throws RequestPeriodException 
+	 */
+	@PostMapping("/udi_type/{id}")		
+	public ResultMsg saveSetnoUDI(@PathVariable String id,
+			@RequestBody List<Map<String, Object>> csrUdiTypes)	{
+		return udiTypeService.saveSetnoUDI(id,csrUdiTypes);		
+	}
 
+
+	
+	/**
+	 * 編輯器械查詢
+	 */
+	@GetMapping("/setno/udi/{id}")
+	public ResultMsg getSetnoUDI(@PathVariable Integer id){			
+		return udiTypeService.getSetnoUDI(id);
+	}
 	
 	/**
 	 * 編輯器械查詢
@@ -73,6 +96,9 @@ public class UDITypeController {
 		return udiTypeService.updateUDITypeById(csrUdi,request,file);		
 	}
 
+	
+	
+	
 		
 	
 }

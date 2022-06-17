@@ -28,6 +28,26 @@
     ID, REQ_ID, BARCODE, USERNO, USERNAME, DUTYNO, DUTYNAME, USERTIME, SN, ISLAST, DEPNO, 
     PATIENTNO, PCASENO, ISUSED, ACTION, LOCATION, DEPNOLAST, POTNAME, POTSN, POTID, POTNO
   </sql>
+   
+  <select id="getHistoryBybarcode" parameterType="String" resultType="Map">
+    select
+     	H.*,
+     	R.REQ_ID as rid,
+     	R.REQNO as rno    	
+    from 
+    	CSR_HISTORY as H
+    left join
+    	CSR_REQUESITION	as R
+    on
+     	H.REQ_ID =R.REQ_ID 	
+    where
+    	BARCODE=#{barcode}
+    
+  </select>
+  
+  
+  
+  
 
 
   <insert id="insertHistory" parameterType="com.htpe.bean.CsrHistory">
@@ -164,7 +184,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.htpe.bean.CsrHistory">
-    update JAY.CSR_HISTORY
+    update CSR_HISTORY
     <set>
       <if test="reqId != null">
         REQ_ID = #{reqId,jdbcType=INTEGER},
@@ -230,7 +250,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.htpe.bean.CsrHistory">
-    update JAY.CSR_HISTORY
+    update CSR_HISTORY
     set REQ_ID = #{reqId,jdbcType=INTEGER},
       BARCODE = #{barcode,jdbcType=CHAR},
       USERNO = #{userno,jdbcType=CHAR},

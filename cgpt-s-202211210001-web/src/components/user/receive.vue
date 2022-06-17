@@ -138,7 +138,7 @@ export default {
     /**盤包輸入 => 列表 */
     async inputReceive() {
       if (this.inputData.depno === "") {
-        ElMessage.error("請輸入使用單位");
+        ElMessage.error("請輸入歸還部門");
         return true;
       }
 

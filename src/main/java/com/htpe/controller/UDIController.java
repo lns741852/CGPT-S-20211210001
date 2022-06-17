@@ -84,4 +84,13 @@ public class UDIController {
 	}
 	
 	
+	/**
+	 * 編輯器械查詢
+	 */
+	@GetMapping("/udi/name/{udi}")
+	public ResultMsg getUDIByName(@PathVariable String udi){			
+		return udiService.getUDIByName(udi);
+	}
+	
+	
 }

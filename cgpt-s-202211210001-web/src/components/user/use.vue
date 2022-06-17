@@ -110,7 +110,7 @@ export default {
     async inputReq() {
       if (this.inputData.barcode != "") {
         await this.$axios
-          .post("/use/barcode", this.inputData.barcode)
+          .post("/use/barcode", this.inputData)
           .then((res) => {
             if (res.data.code === 200) {
               this.dpotList = res.data.data;
@@ -141,7 +141,7 @@ export default {
       this.dpotList.splice(id, 1);
     },
 
-    //列印標籤
+    //修改
     submitFrom() {
       if (this.dpotList.length > 0) {
         this.$axios.put("/use", this.dpotList).then(() => {

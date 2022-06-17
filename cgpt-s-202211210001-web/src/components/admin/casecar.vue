@@ -234,7 +234,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button class="edit_button" @click="editCasecar">確定</el-button>
-          <el-button type="info" @click="addDialogVisible = false"
+          <el-button type="info" @click="editDialogVisible = false"
             >取消</el-button
           >
         </div>
@@ -370,7 +370,6 @@ export default {
       //盤包是否正確
       this.setnoCheckList.some((e) => {
         if (e === this.inputData.setno) {
-
           this.casecarSetdatas.push({
             csrSetdata3m: {
               setno: this.inputData.setno,
@@ -380,7 +379,7 @@ export default {
           });         
           return true;
         }
-      });            
+      });       
     },
     /**刪除盤包 */
     deleteSetno(id) {

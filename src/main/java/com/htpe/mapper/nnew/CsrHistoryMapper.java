@@ -1,5 +1,8 @@
 package com.htpe.mapper.nnew;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -27,5 +30,7 @@ public interface CsrHistoryMapper {
 	
 	@Select("select count(*) as count from CSR_HISTORY where barcode=#{barcode}")
 	int countHistory(CsrHistory history);
+
+	List<Map<String, Object>> getHistoryBybarcode(String barcode);
 	
 }

@@ -1,6 +1,7 @@
 package com.htpe.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,9 +37,18 @@ public class UseController {
 	 *病患使用查詢
 	 */
 	@PostMapping("/use/barcode")
-	public ResultMsg  getBarcode2(@RequestBody String barcode) {
+	public ResultMsg  getBarcode2(@RequestBody Map<String, Object> barcode) {
 	    return   useService.getBarcode2(barcode);
 	}
+	
+	/**
+	 *申領病房查詢
+	 */
+	@GetMapping("/use/req/{id}")
+	public ResultMsg  getReqByBarcode(@PathVariable Integer id) {
+	    return   useService.getReqByBarcode(id);
+	}
+	
 	
 	/**
 	 *病患使用確認
@@ -48,5 +58,15 @@ public class UseController {
 	    return   useService.updateBarcode(csrBarcodes,request);
 	}
 	
+	
+	/**
+	 *未用品轉移
+	 */
+	@PutMapping("/use/req/{roomno}")
+	public ResultMsg  updateReqById(@RequestBody List<CsrBarcode> csrBarcodes,
+			@PathVariable String roomno,
+			HttpServletRequest request) {
+	    return   useService.updateReqById(csrBarcodes,roomno,request);
+	}
 
 }
