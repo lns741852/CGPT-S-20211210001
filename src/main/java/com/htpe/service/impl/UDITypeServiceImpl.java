@@ -80,14 +80,17 @@ public class UDITypeServiceImpl  implements UDITypeService{
 			String filename = file.getOriginalFilename();				//檔名
 			String iconpath = date.getTime()+"_"+filename;		
 			
-//			String filePath = System.getProperty("user.dir");						//項目路徑
-//			String realPath = filePath+"\\static\\file\\";							//正式環境，需再targe中新建資料夾
+			String filePath = System.getProperty("user.dir");						//項目路徑
+			String realPath = filePath+"\\static\\file\\";							//正式環境，需再targe中新建資料夾
 //			String realPath = filePath+"\\src\\main\\resources\\static\\file\\";	//測試環境上傳路徑
 			
 			
-			String path2 = ClassUtils.getDefaultClassLoader().getResource("static").getPath();	//target/classes/static		
-			String realPath = path2+"\\file\\";	
+//			String path2 = ClassUtils.getDefaultClassLoader().getResource("static").getPath();	//target/classes/static		
+//			String realPath = path2+"\\file\\";	
 			String path =realPath +iconpath;
+			System.out.println(path);
+			
+			
 			
 			file.transferTo(new File(path));					//上傳
 			

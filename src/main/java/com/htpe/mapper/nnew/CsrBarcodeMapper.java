@@ -62,5 +62,9 @@ public interface CsrBarcodeMapper {
 
 	Map<String, Object> getbarcodeByname2(String barcode);
 
+	CsrBarcode getbarcodeBynameForPot(String barcode);
+
+	CsrBarcode getbarcodeBynameForAllocate(String barcode);
+
 
 }

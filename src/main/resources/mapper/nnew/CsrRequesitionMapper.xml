@@ -108,7 +108,8 @@
 		AND 
 		   A.CHECKING ='N'
     </select>
-  
+    
+
        <select id="getReqByIdforChecking" parameterType="Integer"  resultMap="Req_Detail">
 	    select 
 			A.*,
@@ -166,6 +167,42 @@
 		AND USE_UP ='N'
 	</where>	
   </select>
+  
+  
+  <select id="listReqForSearch5" parameterType="CsrRequesition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+		CSR_REQUESITION
+    <where>
+    <if test="depno!=null">
+		AND DEPNO =#{depno}
+	</if>
+	<if test="depnoask!=null">
+		AND DEPNOASK= #{depnoask}
+	</if>
+		<if test="datatime!=null">
+		AND DATATIME  like (values to_char(#{datatime},'yyyy-MM-dd')) ||'%'
+	</if>
+		<if test="checking!=null">
+		AND CHECKING =#{checking}
+	</if>
+		<if test="useUp!=null">
+		AND USE_UP =#{useUp}
+	</if>
+		<if test="roomno!=null">
+		AND ROOMNO =#{roomno}
+	</if>
+		<if test="centerno!=null">
+		AND CENTERNO=#{centerno}
+	</if>
+		<if test="reqno!=null">
+		AND REQNO =#{reqno}
+	</if>
+	</where>	
+  </select>
+  
+  
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

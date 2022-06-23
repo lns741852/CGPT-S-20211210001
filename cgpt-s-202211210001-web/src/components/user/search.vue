@@ -20,10 +20,8 @@ export default {
     return {
       reportList: [
         { name: "物品清單查詢", url: "/#/search2" },
-        { name: "物品目前分布查詢（庫房） ", url: "/report/02" },
-        { name: "物品目前分布查詢（病房/室別）", url: "/report/02" },
-        { name: "交易查詢 ", url: "/report/02" },
-        { name: "申領單數量 ", url: "/report/02" },
+        { name: "器械查詢 ", url: "/#/search3" },
+        { name: "交易查詢 ", url: "/#/search5" },
         { name: "手術對應盤包資料查詢 ", url: "/report/02" },
         { name: "物品再處理流程監控查詢 ", url: "/report/02" },
         { name: "物品再處理流程監控查詢 ", url: "/report/02" },

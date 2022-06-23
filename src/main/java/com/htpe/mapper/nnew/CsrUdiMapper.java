@@ -17,7 +17,7 @@ public interface CsrUdiMapper {
 	
     @Select("select count(*) from CSR_UDI where  UDI= #{udi}")
 	int countCode(String udi);
-    
+     
 	int insertUDI(CsrUdi csrUdi);
      
     CsrUdi getUDIById(Integer id);
@@ -32,8 +32,10 @@ public interface CsrUdiMapper {
 
 	CsrUdi getUDIByName(String udi);
 
-	@Update("update CSR_UDI set status='0' where package_id=#{id}")
+	@Update("update CSR_UDI set status='0',package_id=null  where package_id=#{id}")
 	void updatUDIBySeqId(Integer id);
+
+	CsrUdi getUDIByNameForSearch(String udi);
 
 //	int deleteFile(CsrUdi csrUdi);
 

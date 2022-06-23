@@ -25,16 +25,59 @@
             <el-input style="width: 20%" v-model="queryInfo.barcode" />
           </el-form-item>
           <el-form-item label="盤包代號：">
-            <el-input style="width: 20%" maxlength="6" v-model="queryInfo.setno" />
+            <el-input
+              style="width: 20%"
+              maxlength="6"
+              v-model="queryInfo.setno"
+            />
           </el-form-item>
           <el-form-item label="條碼序號：">
-            <el-input style="width: 20%" maxlength="3" v-model="queryInfo.setsn" />
+            <el-input
+              style="width: 20%"
+              maxlength="3"
+              v-model="queryInfo.setsn"
+            />
           </el-form-item>
           <el-form-item label="交易序號：">
             <el-input style="width: 20%" v-model="queryInfo.reqno" />
           </el-form-item>
           <el-form-item label="病歷號碼：">
-            <el-input style="width: 20%" maxlength="8" v-model="queryInfo.patientno" />
+            <el-input
+              style="width: 20%"
+              maxlength="8"
+              v-model="queryInfo.patientno"
+            />
+          </el-form-item>
+             <el-form-item label="申領庫房：">
+            <el-select
+              v-model="queryInfo.depnoask"
+              placeholder="請選擇"
+              @change="getRoomList(queryInfo.depnoask)"
+              clearable
+            >
+              <el-option
+                v-for="item in depnoList"
+                :key="item.depno"
+                :label="item.depname"
+                :value="item.depno"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="室別：" prop="depno">
+            <el-select
+              v-model="queryInfo.roomno"
+              clearable
+              placeholder="請選擇"
+            >
+              <el-option
+                v-for="item in roomList"
+                :key="item.roomno"
+                :label="item.roomname"
+                :value="item.roomno"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
 
           <el-form-item label="狀態：">
@@ -79,9 +122,11 @@
     </el-pagination>
     <!--表格-->
     <el-table :data="barcodeList" @selection-change="handleSelectionChange">
-      <el-table-column  label="條碼名稱" width="300px">
+      <el-table-column label="條碼名稱" width="300px">
         <template #default="scope">
-          <el-link type="primary" :href="'/#/search2_2/'+scope.row.barcode">{{ scope.row.barcode }}</el-link>
+          <el-link type="primary" :href="'/#/search2_2/' + scope.row.barcode">{{
+            scope.row.barcode
+          }}</el-link>
         </template>
       </el-table-column>
       <el-table-column prop="setno" label="盤包名稱" width="300px">
@@ -131,6 +176,8 @@ export default {
         setsn: "",
         pageno: "",
         pagesize: "",
+        depnoask:"",
+        roomno:""
       },
       statusList: [
         { value: "1", lable: "待入鍋" },
@@ -144,8 +191,10 @@ export default {
       dateParse: "",
       barcodeList: [],
       depnoList: [],
+      roomList:[],
       printerList: [],
       multipleSelection: [],
+      depno:{}
     };
   },
   created() {
@@ -159,6 +208,18 @@ export default {
       this.$axios.get("/depno", this.queryInfo).then((res) => {
         this.total = res.data.data.total;
         this.depnoList = res.data.data.list;
+        this.depnoList.forEach((i) => {
+          this.depno[i.depno] = `${i.depname}`;
+        });
+      });
+    },
+        /**病房查詢 */
+    getRoomList(depno) {
+      this.queryInfo.roomno = "";
+      this.$axios.get("/depno/room/" + depno).then((res) => {
+        this.roomList = res.data.data;
+
+
       });
     },
 
@@ -169,6 +230,10 @@ export default {
         this.barcodeList = res.data.data.list;
 
         this.barcodeList.forEach((item) => {
+
+        item.location =
+          this.depno[item.location.trim()];
+
           item.effectivedate = item.effectivedate.substring(0, 10);
           item.effectivedateView = DateFmt.countDays(
             DateFmt.parseDate(item.effectivedate),

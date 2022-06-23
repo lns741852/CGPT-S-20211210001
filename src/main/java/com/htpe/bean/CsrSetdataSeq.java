@@ -22,10 +22,21 @@ public class CsrSetdataSeq {
 
     private Date datadate;
     
+    private CsrBarcode csrBarcode;
+    
     private List<CsrSetdataSeqUdi> seqUdi;  
     
+    
 
-    public List<CsrSetdataSeqUdi> getSeqUdi() {
+    public CsrBarcode getCsrBarcode() {
+		return csrBarcode;
+	}
+
+	public void setCsrBarcode(CsrBarcode csrBarcode) {
+		this.csrBarcode = csrBarcode;
+	}
+
+	public List<CsrSetdataSeqUdi> getSeqUdi() {
 		return seqUdi;
 	}
 

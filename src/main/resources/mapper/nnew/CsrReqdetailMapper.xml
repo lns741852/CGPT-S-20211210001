@@ -25,6 +25,13 @@
     where RD_ID = #{rdId,jdbcType=INTEGER}
   </select>
   
+    <select id="getRdByReqId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CSR_REQDETAIL
+    where REQ_ID = #{id}
+  </select>
+  
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

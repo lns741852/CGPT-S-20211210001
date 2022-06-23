@@ -52,7 +52,10 @@ public class BarcodeServiceImpl implements BarcodeService{
 	public ResultMsg saveBarcode(List<CsrBarcode> csrBarcodes, HttpServletRequest request) {
 		
 				csrBarcodes.forEach(e ->{
-					csrSetdataSeqMapper.updateSeqTypeById(e.getSeqId());
+					if(e.getReqId() != null) {
+						csrSetdataSeqMapper.updateSeqTypeById(e.getSeqId());
+					}
+					
 				});
 	
 				Date date = new Date();
@@ -179,9 +182,7 @@ public class BarcodeServiceImpl implements BarcodeService{
             // Constructs a FileWriter object given a file name.
             FileWriter fw = null;
             for(CsrBarcode barcode : csrBarcodes) {
-            	System.out.println(barcode.getBarcode());
-            	         	
-	            	
+   	
 	            	if(fw ==null) {
 	            		fw = new FileWriter("D://Printer//TEST.txt");
 	            	}

@@ -15,7 +15,7 @@ import { ElMessage } from "element-plus"
 const service = axios.create({
     // 自帶URL
     baseURL: 'http://127.0.0.1:8282/HTPE',
-    // baseURL: 'http://20.24.194.250:8282/HTPE',
+    // baseURL: 'http://20.24.194.250:8081/HTPE',
     // 超時
     timeout: 5000,
     // 是否夾帶cookie

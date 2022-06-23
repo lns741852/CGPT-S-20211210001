@@ -135,8 +135,34 @@
   </select>
   
   
-     <select id="getbarcodeByname2" parameterType="String" resultType="Map">
+  <select id="getbarcodeBynameForPot" parameterType="String" resultType="CsrBarcode">
 	    select 
+	    <include refid="Base_Column_List" />
+	    from CSR_BARCODE
+		where 
+			barcode =#{barcode} 
+		and
+			status ='1'
+  </select>
+  
+    
+  <select id="getbarcodeBynameForAllocate" parameterType="String" resultType="CsrBarcode">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from CSR_BARCODE
+		where 
+			barcode =#{barcode} 
+		and
+			status ='3'
+  </select>
+  
+  
+
+  
+ 
+  
+     <select id="getbarcodeByname2" parameterType="String" resultType="Map">
+	     select 
 	    B.*,
 	    P.ID as PID,
 	    P.DEPNO as PDEP,
@@ -157,7 +183,9 @@
 			CSR_SETDATA_3M AS S
 		on
 			B.SETNO = S.SETNO
-		where barcode =#{barcode} 	
+		where  
+			BARCODEID= (select max(barcodeid) from CSR_BARCODE where barcode =#{barcode}) 
+
   	</select>
   
   
@@ -207,7 +235,7 @@
   
         <select id="listBarcodeByAll" parameterType="Map" resultMap="BaseResultMap">
 	    SELECT 
-	     	<include refid="Base_Column_List" />
+	     	 <include refid="Base_Column_List" />
 	    FROM 
 	    	CSR_BARCODE
 	    <where>
@@ -240,7 +268,17 @@
 			</if>
 			<if test="timeoutStatus==3">
 				AND EFFECTIVEDATE &lt; (values current date)
-			</if>		
+			</if>
+
+			<choose>
+				<when  test="roomno!=''">
+					AND REQ_ID in (select REQ_ID from CSR_REQUESITION where ROOMNO=#{roomno})
+				</when>
+				<when test="depnoask!=''">
+		   				AND REQ_ID in (select REQ_ID from CSR_REQUESITION where DEPNOASK=#{depnoask})
+		  		</when>	
+			</choose>
+			
 		</where>		
 		ORDER BY CREATEDATETIME	 DESC	    
 	  </select>

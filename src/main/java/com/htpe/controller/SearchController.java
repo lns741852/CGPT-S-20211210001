@@ -6,10 +6,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.util.DateUtils;
 
 import com.github.pagehelper.PageHelper;
+import com.htpe.bean.CsrRequesition;
+import com.htpe.bean.Search;
 import com.htpe.service.SearchService;
 import com.htpe.utils.ResultMsg;
 
@@ -35,7 +40,9 @@ public class SearchController {
 			@RequestParam(value="reqno", required = false) String reqno,
 			@RequestParam(value="setsn", required = false) String setsn,
 			@RequestParam(value="status", required = false) String status,
-			@RequestParam(value="timeoutStatus", required = false) String timeoutStatus) {
+			@RequestParam(value="timeoutStatus", required = false) String timeoutStatus,
+			@RequestParam(value="roomno", required = false) String roomno,
+			@RequestParam(value="depnoask", required = false) String depnoask) {
 		
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 		    paramMap.put("pageNum", pageNum);
@@ -48,9 +55,23 @@ public class SearchController {
 		    paramMap.put("setsn", setsn);
 		    paramMap.put("status", status);
 		    paramMap.put("timeoutStatus", timeoutStatus);
+		    paramMap.put("depnoask", depnoask);
+		    paramMap.put("roomno", roomno);
 		
 	    return   searchService.getBarcodeByAll(pageNum,pageSize,paramMap);
 	}
+	
+	/**
+	 *物品清單查詢
+	 */
+	@GetMapping("/search3")
+	public ResultMsg  search3(String udi,String barcode) {
+		
+	    return   searchService.search3(udi,barcode);
+	}
+	
+	
+	
 	
 	/**
 	 * Barcode資料查詢
@@ -66,6 +87,25 @@ public class SearchController {
 	@GetMapping("/search/history/{barcode}")
 	public ResultMsg getHistoryBybarocde(@PathVariable String barcode){			
 		return searchService.getHistoryBybarocde(barcode);
+	}
+	
+	
+	/**
+	 * 交易查詢
+	 */
+	@PostMapping("/search/req")
+	public ResultMsg listReqForSearch5(@RequestBody Search search){					
+		return searchService.listReqForSearch5(search);
+	}
+	
+	
+	
+	/**
+	 * 單位申請單列表
+	 */
+	@GetMapping("/search/req/{id}")
+	public ResultMsg getReqById(@PathVariable Integer id){					
+		return searchService.getReqById(id);
 	}
 	
 

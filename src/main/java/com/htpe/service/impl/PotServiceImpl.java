@@ -34,9 +34,9 @@ public class PotServiceImpl implements PotService{
 	
 	@Override
 	public ResultMsg getbarcodeByname(String barcode) {
-		CsrBarcode barocdeRes = csrBarcodeMapper.getbarcodeByname(barcode);
+		CsrBarcode barocdeRes = csrBarcodeMapper.getbarcodeBynameForPot(barcode);
 			
-		if(barocdeRes == null || !(barocdeRes.getStatus().equals("1"))) {
+		if(barocdeRes == null) {
 			throw new RequestPeriodException(500, "條碼無法使用");
 		}
 		

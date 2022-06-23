@@ -56,7 +56,7 @@ public interface CsrSetdataSeqMapper {
 	@Select("Select count(id) from CSR_SETDATA_SEQ_UDI where CSR_SETDATA_SEQ_ID=#{id}")
 	int countSeqUdiById(Integer id);
 
-	@Select("Select count(id) from CSR_SETDATA_SEQ where SETNO=#{setno} AND SEQ=#{seq}")
+	@Select("Select count(id) from CSR_SETDATA_SEQ where SETNO=#{setno} AND SEQ=#{seq} AND DEL_TYPE='N'")
 	int countSeqBySnAndSetno(CsrSetdataSeq seq);
 
 	List<CsrSetdataSeq> listSeqByType();

@@ -232,10 +232,34 @@ const routes = [{
                     import ('../components/user/search2.vue')
             },
             {
+                path: '/search3',
+                name: 'Search3',
+                component: () =>
+                    import ('../components/user/search3.vue')
+            },
+            {
+                path: '/search4',
+                name: 'Search4',
+                component: () =>
+                    import ('../components/user/search4.vue')
+            },
+            {
+                path: '/search5',
+                name: 'Search5',
+                component: () =>
+                    import ('../components/user/search5.vue')
+            },
+            {
                 path: '/search2_2/:barcode',
                 name: 'Search2_2',
                 component: () =>
                     import ('../components/user/search2_2.vue')
+            },
+            {
+                path: '/search2_3/:id',
+                name: 'Search2_3',
+                component: () =>
+                    import ('../components/user/search2_3.vue')
             },
             {
                 path: '/setno_udi',

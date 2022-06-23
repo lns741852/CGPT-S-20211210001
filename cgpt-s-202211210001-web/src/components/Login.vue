@@ -74,7 +74,7 @@ export default {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return;
         this.$axios.post("/login", this.loginForm).then((res) => {
-          const jwt = res.headers["authorization"]; //拿token,  headers只能小寫
+          const jwt = res.headers["authorization"]; //拿token
           localStorage.setItem("userno", this.loginForm.username); //存入token
           localStorage.setItem("authorization", jwt); //存入token
           this.$router.push("/main");

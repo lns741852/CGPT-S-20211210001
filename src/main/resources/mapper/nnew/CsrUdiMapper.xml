@@ -13,6 +13,37 @@
     <result column="UPDATE_ID" jdbcType="VARCHAR" property="updateId" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+  
+  	 <resultMap id="UDIInfo" type="com.htpe.bean.CsrUdi" extends="BaseResultMap">
+		     <association property="udiType" javaType="com.htpe.bean.CsrUdiType">
+			        <id column="tid" property="id" />
+			        <result column="tname" property="name" />
+			        <result column="tname" property="nameScientific" /> 
+			        <result column="tname" property="spec" /> 
+			        <result column="tname" property="description" />  
+			        <collection property="csrUdiImages" ofType="com.htpe.bean.CsrUdiImage">
+					      <id column="iid" property="id" />
+						  <result column="amain" property="isMain"/> 
+					      <association property="csrFileResource" javaType="CsrFileResource">
+					            <id column="fid" property="id"/>
+					            <result column="fname" property="resourceName"/>
+					      </association>    
+				    </collection>     
+		     </association>
+		      <association property="csrSetdataSeq" javaType="com.htpe.bean.CsrSetdataSeq">
+			        <id column="sid" property="id" />
+					<association property="csrBarcode" javaType="com.htpe.bean.CsrBarcode">
+			        	<id column="bid" property="barcodeid" />
+			        	<result column="bname" property="barcode"/>
+		    	</association>
+		     </association>
+	  </resultMap>
+  
+  
+  
+  
+  
+  
   <sql id="Base_Column_List">
     ID, UDI, STATUS, PRICE, TYPE_ID, PACKAGE_ID, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME
   </sql>
@@ -33,12 +64,53 @@
 	    where ID = #{id}
   </select>
   
-    <select id="getUDIByName" parameterType="String" resultMap="BaseResultMap">
+   <select id="getUDIByName" parameterType="String" resultMap="BaseResultMap">
 	    select 
 	    <include refid="Base_Column_List" />
 	    from CSR_UDI
 	    where UDI = #{udi}
   </select>
+  
+   <select id="getUDIByNameForSearch" parameterType="String" resultMap="UDIInfo">
+		select 
+			U.ID,
+			U.UDI,
+			T.ID as tid,
+			T.NAME as tname,
+			T.SPEC,
+			T.DESCRIPTION,
+			I.ID as iid,
+			F.ID as fid,
+			F.RESOURCE_NAME as fname,
+			S.ID as sid,
+			B.BARCODEID as bid,
+			B.BARCODE as bname 	
+		from 
+			CSR_UDI AS U
+		left join
+			CSR_UDI_TYPE as T
+		on
+			U.type_id = T.ID
+		left join
+			CSR_UDI_IMAGE as I
+		on
+			T.ID = I.TYPE_ID
+		left join
+			CSR_FILE_RESOURCE AS F
+		on
+			I.FILE_ID=F.ID	
+		left join
+			CSR_SETDATA_SEQ AS S
+		on
+			U.PACKAGE_ID = S.ID
+		left join
+			CSR_BARCODE AS B
+		on
+			S.SETNO=B.SETNO AND S.SEQ=B.SETSN AND B.STATUS != '6'
+		where
+			U.udi =#{udi}
+  </select>
+  
   
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

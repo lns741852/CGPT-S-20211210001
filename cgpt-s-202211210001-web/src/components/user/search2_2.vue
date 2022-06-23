@@ -175,7 +175,13 @@
 
   <el-card style="margin-top: 10px">
     <el-table :data="HistoryList">
-      <el-table-column prop="RNO" label="交易序號"> </el-table-column>
+      <el-table-column prop="RNO" label="交易序號"> 
+        <template #default="scope">
+          <el-link type="primary" :href="'/#/search2_3/' + scope.row.REQ_ID">{{
+            scope.row.RNO
+          }}</el-link>
+        </template>
+      </el-table-column>
       <el-table-column prop="LOCATION" label="位置" width="100px">
       </el-table-column>
       <el-table-column prop="USERNAME" label="使用人員" width="150px">
@@ -212,12 +218,12 @@ export default {
       depnopay: {},
     };
   },
-  created() {
-    this.getCostcenterList();
-    this.getDepnoList();
-    this.getDisinfection();
-    this.getBarcode();
-    this.getHistoryList();
+  async created() {
+    await this.getCostcenterList();
+    await this.getDepnoList();
+    await this.getDisinfection();
+    await this.getBarcode();
+    await this.getHistoryList();
   },
   mounted() {},
   methods: {

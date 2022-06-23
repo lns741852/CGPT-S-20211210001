@@ -4,7 +4,7 @@
  */
 import instance from './interceptor'
 import { ElLoading } from "element-plus"
-import router from '../router'
+// import router from '../router'
 
 /**
  * @param {url} 請求地址
@@ -52,9 +52,8 @@ function request(url, params, options = { Loading: true, mock: false, isUpload: 
                 reject(res);
             }
         }).catch(() => {
-            // alert("服務異常:\r\n" + e)
-            localStorage.setItem("authorization", "reset");
-            router.push("/login")
+            // localStorage.setItem("authorization", "reset");
+            // router.push("/login")
         }).finally(() => {
             LoadingInstance.close(); //關閉載入中...
         })

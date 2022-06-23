@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 
 import com.htpe.bean.CsrCostcenter;
 import com.htpe.bean.CsrRequesition;
+import com.htpe.bean.Search;
+import com.htpe.utils.ResultMsg;
 
 public interface CsrRequesitionMapper {
 
@@ -30,5 +32,8 @@ public interface CsrRequesitionMapper {
 
 	CsrRequesition getreqByNoAndPatientAndDepno(CsrRequesition csrRequesition);
 
+	List<CsrRequesition> listReqForSearch5(Search search);
+
+	List<CsrRequesition>  getReqByDepnoAndRoom(String roomno, String depnoask);
 
 }

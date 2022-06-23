@@ -73,12 +73,12 @@ public class AllocateServiceImpl  implements AllocateService{
 
 	@Override
 	public ResultMsg getbarcodeByname(String barcode) {
-		CsrBarcode barocdeRes = csrBarcodeMapper.getbarcodeByname(barcode);
+		CsrBarcode barocdeRes = csrBarcodeMapper.getbarcodeBynameForAllocate(barcode);
 		
-		if(barocdeRes == null || !(barocdeRes.getStatus().equals("3"))) {
+		if(barocdeRes == null) {
 			throw new RequestPeriodException(500, "條碼無法使用");
 		}
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();		
 		
 		  String date1 = sdf.format(date);

@@ -22,8 +22,30 @@ public class CsrUdi {
     private String updateId;
 
     private Date updateTime;
+     
+    private CsrUdiType udiType;
+    
+    private CsrSetdataSeq csrSetdataSeq;
+       
+    
 
-    public Integer getId() {
+    public CsrSetdataSeq getCsrSetdataSeq() {
+		return csrSetdataSeq;
+	}
+
+	public void setCsrSetdataSeq(CsrSetdataSeq csrSetdataSeq) {
+		this.csrSetdataSeq = csrSetdataSeq;
+	}
+
+	public CsrUdiType getUdiType() {
+		return udiType;
+	}
+
+	public void setUdiType(CsrUdiType udiType) {
+		this.udiType = udiType;
+	}
+
+	public Integer getId() {
         return id;
     }
 

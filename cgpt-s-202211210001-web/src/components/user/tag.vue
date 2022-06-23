@@ -289,7 +289,7 @@ export default {
       }
     },
     /**盤包輸入 => 列表 */
-    inputTag() {
+   async inputTag() {
       //時間格式化
       const formatDate = (date) => {
         let formatted_date;
@@ -360,8 +360,8 @@ export default {
           ElMessage.error("數量大於1");
           return true;
         }
-        this.checkBox(this.inputData.box);
-        if (!this.checkBoxitme) {
+      await this.checkBox(this.inputData.box);
+        if (! this.checkBoxitme) {
           return true;
         }
       }
@@ -407,6 +407,7 @@ export default {
     //列印標籤
     submitFrom() {
       if (this.tagDatas.length > 0) {
+        console.log(this.tagDatas)
         this.$axios.post("/tag/make", this.tagDatas).then(() => {
           (this.inputData = {
             depno: "",
@@ -425,13 +426,18 @@ export default {
       }
     },
     //器械盒查詢
-    async checkBox(name) {
-      await this.$axios.get("/box/name/" + name).then((res) => {
+     async checkBox(name) {
+         await this.$axios.get("/box/name/" + name).then((res) => {
         if (res.data.code === 500) {
           this.checkBoxitme = false;
           return;
         }
         this.checkBoxitme = true;
+        this.tagDatas.forEach(i=>{
+          if(i.barcode === name){
+              this.checkBoxitme = false;
+          }
+        })      
       });
     },
     getSeqList() {
