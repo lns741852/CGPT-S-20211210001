@@ -17,41 +17,41 @@
       </template>
     </el-card>
     <el-card v-show="udi != ''" style="margin: 20px auto">
-      <el-row gutter="20" >
-        <el-col  :span="12" >
+      <el-row  >
+        <el-col :offset="1" :span="10" >
           <div
             v-for="(item, index) in udiType.csrUdiImages"
             :key="index"
+            style=" width:100%"
           >
-            <div v-if="index == '0'" style="width: 300px;" >
-              <el-image
-                :src="
-                  'http://127.0.0.1:8282/HTPE/file/' +
-                  item.csrFileResource.resourceName
-                "
-                :preview-src-list="srcList"
-              >
-              </el-image>
-            </div>
-            <div v-else style="width: 100px; float: left; margin: 10px 10px">
-              <el-image
+              <el-image v-if="index !=0" class="secondPic"
                 :src="
                   'http://127.0.0.1:8282/HTPE/file/' +
                   item.csrFileResource.resourceName
                 "
               >
               </el-image>
-            </div>
+              <el-image v-else-if="index ==0" class="onePic"
+                :src="
+                  'http://127.0.0.1:8282/HTPE/file/' +
+                  item.csrFileResource.resourceName
+                "
+              >
+              </el-image>
           </div>
+
+        
         </el-col>
         <el-col :offset="1" :span="10" v-if="udi != ''">
           <el-descriptions title="UDI資料" column="1">
             <el-descriptions-item label="UDI代號">{{
               udi
             }}</el-descriptions-item>
-            <el-descriptions-item label="條碼代號">{{
-              csrBarcode.barcode
-            }}</el-descriptions-item>
+            <el-descriptions-item label="條碼代號">
+                <el-link type="primary" :href="'/#/search2_2/' +csrBarcode.barcode">{{
+                  csrBarcode.barcode
+                }}</el-link>
+            </el-descriptions-item>
             <el-descriptions-item label="中文名稱">{{
               udiType.name
             }}</el-descriptions-item>
@@ -64,6 +64,12 @@
             <el-descriptions-item label="描述">{{
               udiType.description
             }}</el-descriptions-item>
+            <el-descriptions-item label="狀態">
+                <el-tag type="info" v-if="status == 0"> 未使用</el-tag >
+                <el-tag type="success"  v-else-if="status == 1 &&  csrBarcode.barcode !=''"> 已使用</el-tag >
+                 <el-tag type="success"  v-else-if="status == 1 &&  csrBarcode.barcode ==''"> 已配盤</el-tag >
+                <el-tag type="warning" v-else-if="status == 2"> 維修中</el-tag >
+            </el-descriptions-item>
           </el-descriptions>
         </el-col>
       </el-row>
@@ -85,6 +91,7 @@ export default {
       },
 
       udi: "",
+      status:"",
       csrBarcode: {
         barcode: "",
       },
@@ -149,8 +156,12 @@ export default {
       this.$axios.get("/search3/?" + url).then((res) => {
         if (res.data.data) {
           this.udi = res.data.data.udi;
+          this.status= res.data.data.status;
           if (res.data.data.csrSetdataSeq) {
-            this.csrBarcode = res.data.data.csrSetdataSeq.csrBarcode;
+            if(res.data.data.csrSetdataSeq.csrBarcode){
+                  this.csrBarcode = res.data.data.csrSetdataSeq.csrBarcode;
+            }
+          
           }
           if (res.data.data.udiType) {
             this.udiType = res.data.data.udiType;
@@ -200,4 +211,17 @@ export default {
 </script>
 
 <style lang="less" scope>
+
+.secondPic{
+  float: left;
+  margin: 10px 20px 0 0;
+  width: 30%;
+  border-width:1px; border-style:solid;
+}
+.onePic{
+  display: block;
+  margin-top: 20px;
+  width: 100%;
+  border-width:1px; border-style:solid;
+}
 </style>

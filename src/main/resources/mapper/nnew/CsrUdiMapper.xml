@@ -75,6 +75,7 @@
 		select 
 			U.ID,
 			U.UDI,
+			U.STATUS,
 			T.ID as tid,
 			T.NAME as tname,
 			T.SPEC,

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.DateUtils;
 
 import com.github.pagehelper.PageHelper;
+import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.Search;
 import com.htpe.service.SearchService;
@@ -65,8 +66,7 @@ public class SearchController {
 	 *物品清單查詢
 	 */
 	@GetMapping("/search3")
-	public ResultMsg  search3(String udi,String barcode) {
-		
+	public ResultMsg  search3(String udi,String barcode) {	
 	    return   searchService.search3(udi,barcode);
 	}
 	
@@ -106,6 +106,19 @@ public class SearchController {
 	@GetMapping("/search/req/{id}")
 	public ResultMsg getReqById(@PathVariable Integer id){					
 		return searchService.getReqById(id);
+	}
+	
+	
+	
+	/**
+	 * 單位申請單列表
+	 */
+	@GetMapping("/search/pot/warehousingn")
+	public ResultMsg getPotWarehousing(
+			@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
+            CsrBarcode csrBarcode){				
+		return searchService.getPotWarehousing(pageNum,pageSize,csrBarcode);
 	}
 	
 

@@ -1,7 +1,10 @@
 package com.htpe.bean;
 
 import java.util.Date;
-import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class CsrBarcode {
     private Integer barcodeid;
@@ -18,6 +21,8 @@ public class CsrBarcode {
 
     private Date effectivedate;
 
+    @DateTimeFormat(pattern= "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     private Date createdatetime;
 
     private String disinfection;

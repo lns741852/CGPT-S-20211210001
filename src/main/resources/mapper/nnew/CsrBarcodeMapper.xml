@@ -61,7 +61,7 @@
     <result column="DPOTNAME" jdbcType="CHAR" property="dpotname" />
     <result column="DPOTSN" jdbcType="INTEGER" property="dpotsn" />
   </resultMap>
-  
+
  
   <sql id="Base_Column_List">
     BARCODEID, SETNO, BARCODE, EMPNO, USERCNAME, SN, EFFECTIVEDATE, CREATEDATETIME, DISINFECTION, 
@@ -231,6 +231,38 @@
 	         #{item}
 	    </foreach>
 	  </select>
+	  
+	  
+	  <select id="listBarcodeForSearch4"  resultMap="BaseResultMap">
+	    SELECT 
+	     	 <include refid="Base_Column_List" />
+	     	 
+	    FROM 
+	    	CSR_BARCODE
+	    <where>
+			<if test="depno!=null">
+				AND DEPNO =#{depno}
+			</if>
+						<if test="setno!=null">
+				AND SETNO =#{setno} 
+			</if>
+			<if test="status == 1">
+				AND STATUS =#{status} 
+				AND CREATEDATETIME &lt; (values TIMESTAMP (current  timestamp)-8 HOUR)
+			</if>
+			<if test="status == 2">
+				AND STATUS =#{status} 
+				AND USERTIME &lt; (values TIMESTAMP (current  timestamp)-8 HOUR)
+			</if>
+			<if test="createdatetime!=null">
+				AND CREATEDATETIME =#{createdatetime}
+			</if>
+
+		</where>		
+		ORDER BY CREATEDATETIME	 DESC	    
+	  </select>
+	  
+	  
   
   
         <select id="listBarcodeByAll" parameterType="Map" resultMap="BaseResultMap">

@@ -2,6 +2,7 @@ package com.htpe.service;
 
 import java.util.Map;
 
+import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.Search;
 import com.htpe.utils.ResultMsg;
@@ -19,5 +20,7 @@ public interface SearchService {
 	ResultMsg getReqById(Integer id);
 
 	ResultMsg search3(String udi, String barcode);
+
+	ResultMsg getPotWarehousing(Integer pageNum, Integer pageSize, CsrBarcode csrBarcode);
 
 }

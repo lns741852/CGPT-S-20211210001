@@ -46,12 +46,6 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public ResultMsg getBarcodeByAll(Integer pageNum, Integer pageSize, Map<String, Object> paramMap) {
-		
-//			if(paramMap.get("roomno") != null || paramMap.get("depnoask")  != null) {
-//				csrRequesitionMapper.getReqByDepnoAndRoom((String)paramMap.get("roomno"),(String)paramMap.get("depnoask"));
-//			}
-
-		
 		 	PageHelper.startPage(pageNum, pageSize);
 			List<Map<String, Object>> barcodeList = csrBarcodeMapper.listBarcodeByAll(paramMap);
 		    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(barcodeList);    
@@ -95,6 +89,14 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public ResultMsg search3(String udi, String barcode) {
 		return ResultMsg.success("UDI查詢").addData(	csrUdiMapper.getUDIByNameForSearch(udi));
+	}
+
+	@Override
+	public ResultMsg getPotWarehousing(Integer pageNum, Integer pageSize, CsrBarcode csrBarcode) {	
+	 	PageHelper.startPage(pageNum, pageSize);
+		List<Map<String, Object>> barcodeList = csrBarcodeMapper.listBarcodeForSearch4(csrBarcode);
+	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(barcodeList);    
+		return  ResultMsg.success("Barcode列表").addData(pageInfo);
 	}
 
 
