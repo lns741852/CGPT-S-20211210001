@@ -3,6 +3,7 @@ package com.htpe.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.xmlbeans.impl.jam.mutable.MPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.Search;
 import com.htpe.service.SearchService;
 import com.htpe.utils.ResultMsg;
+
+import ch.qos.logback.core.pattern.color.MagentaCompositeConverter;
 
 @RestController
 public class SearchController {
@@ -109,7 +112,6 @@ public class SearchController {
 	}
 	
 	
-	
 	/**
 	 * 單位申請單列表
 	 */
@@ -119,6 +121,16 @@ public class SearchController {
             @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pageSize,
             CsrBarcode csrBarcode){				
 		return searchService.getPotWarehousing(pageNum,pageSize,csrBarcode);
+	}
+	
+	
+	
+	/**
+	 * 點班表查詢
+	 */
+	@GetMapping("/search6")
+	public ResultMsg listSearch6(String depno,String setno,String baseNum,String warehousingNum){		
+		return searchService.listSearch6(depno,setno,baseNum,warehousingNum);
 	}
 	
 

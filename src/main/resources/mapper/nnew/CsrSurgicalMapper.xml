@@ -16,6 +16,7 @@
 			<where>
 			<if test="searchName!=null">
 				AND (SURGICALNO like '%'||(#{searchName})||'%')
+				OR (SURGICALNAMECH like '%'||(#{searchName})||'%')
 			</if>
 		</where>
 		order by SURGICALNO

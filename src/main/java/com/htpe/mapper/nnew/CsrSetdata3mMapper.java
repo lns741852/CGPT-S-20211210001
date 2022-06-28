@@ -59,8 +59,6 @@ public interface CsrSetdata3mMapper {
 
 	CsrSetdata3m getSetnoByName(String name);
 
-
-	
-	
+	List<Map<String, Object>> listSetno2(String depno, String setno);	
 	
 }

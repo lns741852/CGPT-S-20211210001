@@ -20,6 +20,38 @@
 		order by SETNO
   </select>
   
+  
+    <select id="listSetno2" resultType="Map">
+    select 
+    	SETNO,SETNAMECH,
+    	<if test="depno=='CSR'">
+			NUMBASE_CSR as baseNum,
+		</if>
+		<if test="depno=='CSR2'">
+			NUMBASE_CSR2 as baseNum,
+		</if>	
+		<if test="depno=='OR1'">
+			NUMBASE_OR1 as baseNum,
+		</if>	
+		<if test="depno=='OR2'">
+			NUMBASE_OR2 as baseNum,
+		</if>
+		<if test="depno=='OR3'">
+			NUMBASE_OR3 as baseNum,
+		</if>	
+		<if test="depno=='WR1'">
+			NUMBASE_WR1 as baseNum,
+		</if>			
+    	POSITION_ID
+    from CSR_SETDATA_3M
+    	<where>
+			<if test="setno!=null">
+				AND SETNO =#{setno}
+			</if>	
+		</where>
+  </select>
+
+  
   <select id="getSetnoByName" parameterType="String" resultType="CsrSetdata3m">
   		select
 	    <include refid="Base_Column_List" />	

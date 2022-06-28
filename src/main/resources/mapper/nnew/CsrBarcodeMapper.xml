@@ -61,6 +61,8 @@
     <result column="DPOTNAME" jdbcType="CHAR" property="dpotname" />
     <result column="DPOTSN" jdbcType="INTEGER" property="dpotsn" />
   </resultMap>
+  
+
 
  
   <sql id="Base_Column_List">

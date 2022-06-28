@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.htpe.bean.CsrCasecar;
 import com.htpe.exception.RequestPeriodException;
+import com.htpe.service.ApplyService;
 import com.htpe.service.CasecarService;
 import com.htpe.utils.ResultMsg;
 
@@ -23,6 +24,9 @@ public class CasecarController {
 	
 	@Autowired
 	CasecarService casecarService;
+	
+	@Autowired
+	ApplyService applyService;
 	
 	/**
 	 * 個案車列表查詢
@@ -51,6 +55,14 @@ public class CasecarController {
 	@GetMapping("/casecar/{id}")
 	public ResultMsg getCasecerById(@PathVariable Integer id){			
 		return casecarService.getCasecarByid(id);
+	}
+	
+	/**
+	 * 編輯個案車查詢
+	 */
+	@GetMapping("/casecar/no/{no}")
+	public ResultMsg getCasecerByNo(@PathVariable String no){			
+		return casecarService.getCasecerByNo(no);
 	}
 	
 	/**

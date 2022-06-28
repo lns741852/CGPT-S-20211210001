@@ -18,6 +18,7 @@ import com.htpe.mapper.nnew.CsrHistoryMapper;
 import com.htpe.mapper.nnew.CsrReqdetailMapper;
 import com.htpe.mapper.nnew.CsrRequesitionMapper;
 import com.htpe.mapper.nnew.CsrSearchMapper;
+import com.htpe.mapper.nnew.CsrSetdata3mMapper;
 import com.htpe.mapper.nnew.CsrUdiMapper;
 import com.htpe.service.SearchService;
 import com.htpe.utils.DateUtils;
@@ -43,6 +44,9 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
 	CsrUdiMapper csrUdiMapper;
+	
+	@Autowired
+	CsrSetdata3mMapper csrSetdata3mMapper;
 
 	@Override
 	public ResultMsg getBarcodeByAll(Integer pageNum, Integer pageSize, Map<String, Object> paramMap) {
@@ -97,6 +101,21 @@ public class SearchServiceImpl implements SearchService {
 		List<Map<String, Object>> barcodeList = csrBarcodeMapper.listBarcodeForSearch4(csrBarcode);
 	    PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(barcodeList);    
 		return  ResultMsg.success("Barcode列表").addData(pageInfo);
+	}
+
+
+	@Override
+	public ResultMsg listSearch6(String depno, String setno, String baseNum, String warehousingNum) {
+		List<Map<String, Object>> list = csrSetdata3mMapper.listSetno2(depno,setno);
+		
+		for(Map<String, Object> map : list) {
+			csrBarcodeMapper.getCountByNO(setno);
+			
+			map.put("tagNum", list);
+			map.put("potNum", list);
+		}
+		
+		return null;
 	}
 
 

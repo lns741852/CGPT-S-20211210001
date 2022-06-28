@@ -23,4 +23,6 @@ public interface CasecarService {
 
 	ResultMsg getSetnoByNo(String casecarno);
 
+	ResultMsg getCasecerByNo(String no);
+
 }

@@ -23,4 +23,6 @@ public interface SearchService {
 
 	ResultMsg getPotWarehousing(Integer pageNum, Integer pageSize, CsrBarcode csrBarcode);
 
+	ResultMsg listSearch6(String depno, String setno, String baseNum, String warehousingNum);
+
 }

@@ -122,4 +122,10 @@ public class CasecarServiceImpl implements CasecarService{
 		return ResultMsg.success("盤包查詢").addData(csrCasecarMapper.getCasecarByNo(casecarno));
 	}
 
+	@Override
+	public ResultMsg getCasecerByNo(String no) {
+		CsrCasecar casecarByNo = csrCasecarMapper.getCasecarByNo(no);	
+		return ResultMsg.success("個案車").addData(csrCasecarMapper.getCasecarById(casecarByNo.getCasecarId()));
+	}
+
 }
