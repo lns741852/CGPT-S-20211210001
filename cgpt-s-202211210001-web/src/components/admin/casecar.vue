@@ -325,6 +325,7 @@ export default {
     },
     /**顯示修改資料 */
     showEditDialon(id) {
+      console.log(id)
       this.$axios.get("/casecar/" + id).then((res) => {
         this.addForm = res.data.data;
         this.casecarSetdatas = res.data.data.casecarSetdatas;

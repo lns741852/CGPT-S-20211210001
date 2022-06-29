@@ -195,8 +195,6 @@ export default {
       this.inputData.roomno = "";
       this.$axios.get("/depno/room/" + depno).then((res) => {
         this.roomList = res.data.data;
-
-
       });
     },
 

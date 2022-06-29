@@ -140,7 +140,8 @@ export default {
       addDialogVisible: false,
       editDialogVisible: false,
       fileDialogVisible: false,
-      setnoData: {},
+      setnoData: {      
+      },
       setnoData2: {
         name: "",
         nameScientific: "",
@@ -163,6 +164,7 @@ export default {
     getSetno() {
       this.$axios.get("/setno/" + this.id).then((res) => {
         this.setnoData = res.data.data;
+        this.setnoData.seq =""
       });
     },
     getUDIType() {

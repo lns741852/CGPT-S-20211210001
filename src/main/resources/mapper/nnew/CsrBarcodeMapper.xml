@@ -147,6 +147,18 @@
 			status ='1'
   </select>
   
+    <select id="getCountByNO" resultType="Integer">
+	    select
+			count(*) as num
+		from 
+			CSR_BARCODE
+		where
+			SETNO=#{setno}	
+		group by
+			status
+  </select>
+  
+  
     
   <select id="getbarcodeBynameForAllocate" parameterType="String" resultType="CsrBarcode">
 	    select 

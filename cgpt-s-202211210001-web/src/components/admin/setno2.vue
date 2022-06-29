@@ -195,7 +195,7 @@ export default {
         this.UDIList = res.data.data.list;
         this.UDIList.forEach((item) => {
           item.url =
-            "http://20.24.194.250:8081/HTPE/file/" +
+            "http://127.0.0.1:8282/HTPE/file/" +
             item.csrUdiImages[0].csrFileResource.resourceName;
         });
       });

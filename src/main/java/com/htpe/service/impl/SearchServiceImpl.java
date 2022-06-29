@@ -1,7 +1,10 @@
 package com.htpe.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Consumer;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,18 +109,77 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public ResultMsg listSearch6(String depno, String setno, String baseNum, String warehousingNum) {
-		List<Map<String, Object>> list = csrSetdata3mMapper.listSetno2(depno,setno);
 		
+		List<Map<String, Object>> list = csrSetdata3mMapper.listSetno2(depno,setno);
+							
 		for(Map<String, Object> map : list) {
-			csrBarcodeMapper.getCountByNO(setno);
 			
-			map.put("tagNum", list);
-			map.put("potNum", list);
+			map.put("tagNum", 0);
+			map.put("potNum", 0);
+			map.put("warehousingNum", 0);
+			map.put("reNum",0);
+			
+			List<Integer> countByNO = csrBarcodeMapper.getCountByNO((String)map.get("SETNO"));
+			int tagNum=0;
+			int potNum=0;
+			int warehousingNum1=0;
+			
+			int baseNum1 = (int) map.get("BASENUM");
+					
+			for (int i=0; i< countByNO.size(); i++) {
+				
+				if(i==0) {
+					map.put("tagNum", countByNO.get(0));
+					tagNum = countByNO.get(0);
+					
+				}
+				if(i==1) {
+					map.put("potNum", countByNO.get(1));	
+					potNum = countByNO.get(1);
+				}
+				if(i==2) {
+					map.put("warehousingNum", countByNO.get(2));
+					warehousingNum1 = countByNO.get(2);
+					
+				}
+				
+				map.put("reNum", baseNum1-tagNum-potNum-warehousingNum1);
+		}
+				
+		
+	}
+		Set<Integer> set = new HashSet<Integer>();
+		int index =0;
+		if(baseNum != null && baseNum.equals("1")) {
+			for(Map<String, Object> map : list) {			
+				if((int) map.get("BASENUM") != 0) {
+					set.add(index);
+				}
+			index++;
+			}
+		}
+		index=0;
+		if(warehousingNum != null && warehousingNum.equals("1")) {
+			for(Map<String, Object> map : list) {
+				if(!map.isEmpty()) {
+					if(!map.get("warehousingNum").equals(0) ) {
+						set.add(index);
+					}			
+				}
+				index++;
+			}
 		}
 		
-		return null;
+		int j= 0;
+		for(int i : set) {
+			if(j != 0) {
+				i--;
+			}
+			list.remove(i);
+			j++;
+		}
+		
+		
+	return ResultMsg.success("點班作業報表").addData(list);
 	}
-
-
-
 }

@@ -22,8 +22,9 @@ export default {
         { name: "物品清單查詢", url: "/#/search2" },
         { name: "器械查詢 ", url: "/#/search3" },
         { name: "交易查詢 ", url: "/#/search5" },
-        { name: "8小時未入鍋入庫清單表  ", url: "/#/search4" },
-        // { name: "手術對應盤包資料查詢 ", url: "/report/02" },
+        { name: "8小時未入鍋入庫清單  ", url: "/#/search4" },
+        { name: "手術對應盤包資料查詢 ", url: "/#/search6" },
+        { name: "點班作業報表 ", url: "/#/search7" },
         // { name: "物品再處理流程監控查詢 ", url: "/report/02" },
       ],
     };

@@ -23,7 +23,7 @@
   
     <select id="listSetno2" resultType="Map">
     select 
-    	SETNO,SETNAMECH,
+    	trim(SETNO) as SETNO,SETNAMECH,
     	<if test="depno=='CSR'">
 			NUMBASE_CSR as baseNum,
 		</if>
@@ -47,7 +47,7 @@
     	<where>
 			<if test="setno!=null">
 				AND SETNO =#{setno}
-			</if>	
+			</if>
 		</where>
   </select>
 

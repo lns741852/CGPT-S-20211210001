@@ -68,5 +68,7 @@ public interface CsrBarcodeMapper {
 
 	List<Map<String, Object>> listBarcodeForSearch4(CsrBarcode csrBarcode);
 
+	List<Integer> getCountByNO(String setno);
+
 
 }

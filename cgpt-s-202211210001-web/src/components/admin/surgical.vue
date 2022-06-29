@@ -6,7 +6,7 @@
       <el-col :span="8">
         <!--輸入框-->
         <el-input
-          placeholder="手術代號"
+          placeholder="手術代號 / 手術名稱"
           v-model="queryInfo.searchName"
           clearable
           @clear="getSurgicalList"
@@ -40,7 +40,7 @@
     >
       <!--下拉框-->
       <el-table-column type="expand" label="#" width="100">
-        <el-card style="width: 100%">
+        <el-card style="width: 80%;margin:0 auto">
           <el-table :data="csrSurgicalCasecar">
             <el-table-column
               prop="casecarno"
@@ -50,9 +50,8 @@
           </el-table>
         </el-card>
       </el-table-column>
-
-      <el-table-column type="index" label="編號" width="100" align="center" />
-      <el-table-column prop="surgicalno" label="手術代號" align="center" />
+      <el-table-column prop="surgicalno" label="手術代號"  />
+      <el-table-column prop="surgicalnamech" label="手術名稱" />
       <el-table-column label="操作">
         <template #default="scope">
           <el-button class="edit_button" @click="showEditDialon(scope.row.id)"

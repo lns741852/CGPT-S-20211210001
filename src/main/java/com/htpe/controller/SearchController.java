@@ -73,9 +73,7 @@ public class SearchController {
 	    return   searchService.search3(udi,barcode);
 	}
 	
-	
-	
-	
+
 	/**
 	 * Barcode資料查詢
 	 */

@@ -250,6 +250,24 @@ const routes = [{
                     import ('../components/user/search5.vue')
             },
             {
+                path: '/search6',
+                name: 'Search6',
+                component: () =>
+                    import ('../components/user/search6.vue')
+            },
+            {
+                path: '/search6_2/:casecarno',
+                name: 'Search6_2',
+                component: () =>
+                    import ('../components/user/search6_2.vue')
+            },
+            {
+                path: '/search7',
+                name: 'Search7',
+                component: () =>
+                    import ('../components/user/search7.vue')
+            },
+            {
                 path: '/search2_2/:barcode',
                 name: 'Search2_2',
                 component: () =>
@@ -274,12 +292,8 @@ const routes = [{
                     import ('../components/user/setno_udi2.vue')
             },
 
-
-
         ]
     },
-
-
 ]
 
 const router = createRouter({
