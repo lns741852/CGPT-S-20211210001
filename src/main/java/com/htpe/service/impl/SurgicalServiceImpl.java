@@ -96,9 +96,9 @@ public class SurgicalServiceImpl implements SurgicalService{
 		}
 		
 		int num3 = csrSurgicalMapper.deleteSurgicalCasecarByNo(csrSurgical.getSurgicalno());
-		if(num3 < 1) {
-			throw new RequestPeriodException(500, "手術修改失敗");
-		}
+//		if(num3 < 1) {
+//			throw new RequestPeriodException(500, "手術修改失敗");
+//		}
 		
 		List<CsrSurgicalCasecar> casecars = csrSurgical.getCsrSurgicalCasecar();
 		if(casecars != null) {

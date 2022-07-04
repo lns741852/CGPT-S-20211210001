@@ -157,12 +157,29 @@ public class SearchServiceImpl implements SearchService {
 				}
 			index++;
 			}
-		}
+		}else if(baseNum != null && baseNum.equals("0")) {
+			for(Map<String, Object> map : list) {			
+				if((int) map.get("BASENUM") == 0) {
+					set.add(index);
+				}
+			index++;
+			}
+		}		
+		
 		index=0;
 		if(warehousingNum != null && warehousingNum.equals("1")) {
 			for(Map<String, Object> map : list) {
 				if(!map.isEmpty()) {
 					if(!map.get("warehousingNum").equals(0) ) {
+						set.add(index);
+					}			
+				}
+				index++;
+			}
+		}else if(warehousingNum != null && warehousingNum.equals("0")) {
+			for(Map<String, Object> map : list) {
+				if(!map.isEmpty()) {
+					if(map.get("warehousingNum").equals(0) ) {
 						set.add(index);
 					}			
 				}

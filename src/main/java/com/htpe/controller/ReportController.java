@@ -59,8 +59,8 @@ public class ReportController {
 	        try {
 	            //流形式
 	            response.setHeader("content-type","application/octet-stream");
-	            //中文乱码
-	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("測試.xlsx","UTF-8"));
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("每月過期包一覽表.xlsx","UTF-8"));
 	            outputStream = response.getOutputStream();
 	            workbook.write(outputStream);
 	        } catch (Exception e) {

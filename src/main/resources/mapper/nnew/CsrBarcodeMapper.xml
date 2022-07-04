@@ -219,7 +219,7 @@
   
    <select id="getTimeoutNum" parameterType="String" resultType="Map">
       SELECT count(barcodeID) MathBarcode ,DepNo 
-	  FROM VGHTPETS.CSR_BARCODE 
+	  FROM CSR_BARCODE 
       WHERE SetNo = #{timeoutSetno}
       	AND EffectiveDate between #{start} and #{end}  
 		AND EffectiveDate  &lt; #{todayEnd}
@@ -228,7 +228,7 @@
 		group by DepNo 
 		union all 
 		SELECT count(barcodeID) MathBarcode ,DepNo 
-		FROM VGHTPETS.CSR_BARCODE 
+		FROM CSR_BARCODE 
 		WHERE SetNo = #{timeoutSetno}
 		AND EffectiveDate between #{start} and #{end}   
 		AND using = 'N' 

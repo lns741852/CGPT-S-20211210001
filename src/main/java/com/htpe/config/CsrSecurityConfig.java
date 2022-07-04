@@ -19,8 +19,6 @@ import org.springframework.web.cors.CorsUtils;
 
 import com.htpe.filter.JwtAuthenticationFilter;
 
-
-
 /**
  * Security配置類
  *

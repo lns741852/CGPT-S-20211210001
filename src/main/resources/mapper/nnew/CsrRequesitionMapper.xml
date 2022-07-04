@@ -154,14 +154,14 @@
     from 
 		CSR_REQUESITION
     <where>
-    <if test="depno!=null">
-		AND DEPNOASK like '%'||(#{depno})||'%'
+    <if test="depno!=null and depno!=''">
+		AND DEPNOASK =#{depno}
 	</if>
-	<if test="reqno!=null">
-		AND REQNO like '%'||(#{reqno})||'%'
+	<if test="reqno!=null and reqno!=''">
+		AND REQNO =#{reqno}
 	</if>
-	<if test="patientno!=null">
-		AND PATIENTNO like '%'||(#{patientno})||'%'
+	<if test="patientno!=null and patientno!=''">
+		AND PATIENTNO =#{patientno}
 	</if>		
 		AND CHECKING = 'Y'
 		AND USE_UP ='N'

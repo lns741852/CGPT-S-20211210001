@@ -15,7 +15,7 @@ public class CsrSetdata3m implements Serializable {
     private Integer id;
 
     @NotEmpty(message = "盤包代號不能為空")
-    @Excel(name="盤包代號" ,width=15)
+    @Excel(name="盤包代號" ,width=15 ,orderNum="0")
     private String setno;
 
     @NotEmpty(message = "盤包中文不能為空")
