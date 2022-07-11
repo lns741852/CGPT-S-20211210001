@@ -206,8 +206,8 @@
 
   <select id="timeoutSetno" parameterType="String" resultType="CsrSetdata3m">
     SELECT B.SetNo,S.SetName, S.SetNameCH 
-	FROM VGHTPETS.CSR_BARCODE AS B 
-	left join VGHTPETS.CSR_SETDATA_3M AS S 
+	FROM CSR_BARCODE AS B 
+	left join CSR_SETDATA_3M AS S 
 	ON B.SetNo=S.SetNo 
 	WHERE 1=1 
 	AND B.EffectiveDate between #{start} and #{end}  
@@ -215,6 +215,8 @@
 	AND B.using = 'N'  
 	GROUP BY B.SetNo,S.SetName,S.SetNameCH ORDER BY B.SetNo;
   </select>
+  
+
   
   
    <select id="getTimeoutNum" parameterType="String" resultType="Map">
@@ -234,6 +236,64 @@
 		AND using = 'N' 
 		AND status = '18'  
 		and EffectiveDate  &lt; delTime group by DepNo
+    </select>
+    
+    <select id="listReport03"  resultType="CsrSetdata3m">
+	    SELECT B.SetNo,S.SetName, S.SetNameCH 
+		FROM CSR_BARCODE AS B 
+		left join CSR_SETDATA_3M AS S 
+		ON B.SetNo=S.SetNo 
+		<where>
+			<if test="setno!=null">
+				AND B.SETNO =#{setno}
+			</if>
+			<if test="status==1 and userno != null">
+			AND DATAUSERNO=#{userno}
+			</if>
+			<if test="status==2 and userno != null">
+				AND EMPNO=#{userno}
+			</if>	
+			<if test="status==3 and userno != null">
+				AND RECEIVEUSERNO=#{userno}
+			</if>
+			<if test="status==4 and userno != null">
+				AND CLEARUSERNO=#{userno}
+			</if>
+
+			AND B.CREATEDATETIME between #{startTime} and #{endTime}  
+		</where>
+		
+		GROUP BY B.SetNo,S.SetName,S.SetNameCH ORDER BY B.SetNo;
+	  </select>
+	  
+    
+     <select id="getReport03Count"  resultType="Map">
+      SELECT count(barcodeID) MathBarcode ,DepNo 
+	  FROM CSR_BARCODE 
+      WHERE SetNo = #{setno}
+      	AND CREATEDATETIME between #{report.startTime} and #{report.endTime}  
+		group by DepNo 
+    </select>
+    
+    <select id="getReport04Count"  resultType="Map">
+      SELECT count(barcodeID) MathBarcode,DepNo 
+	  FROM CSR_BARCODE 
+	  where SetNo = #{setno}
+	  	<if test="report.status==1 and report.userno != null">
+			AND DATAUSERNO=#{report.userno}
+		</if>
+		<if test="report.status==2 and report.userno != null">
+			AND EMPNO=#{report.userno}
+		</if>	
+		<if test="report.status==3 and report.userno != null">
+			AND RECEIVEUSERNO=#{report.userno}
+		</if>
+		<if test="report.status==4 and report.userno != null">
+			AND CLEARUSERNO=#{report.userno}
+		</if>
+
+		AND CREATEDATETIME between #{report.startTime} and #{report.endTime}  
+		group by DepNo 
     </select>
     
     

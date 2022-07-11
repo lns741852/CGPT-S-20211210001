@@ -41,7 +41,7 @@ public class UseServiceImpl  implements UseService{
 
 	@Override
 	public ResultMsg getBarcode(CsrRequesition csrRequesition) {
-		CsrRequesition getreqByNoAndPatient = csrRequesitionMapper.getreqByNoAndPatientAndDepno(csrRequesition);
+		CsrRequesition getreqByNoAndPatient = csrRequesitionMapper.getreqByNoAndAndDepno(csrRequesition);
 		
 		if(getreqByNoAndPatient == null) {
 			return ResultMsg.success("滅菌鍋查詢").addData(null);

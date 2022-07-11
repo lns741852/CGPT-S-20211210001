@@ -2,12 +2,15 @@ package com.htpe.service.impl;
 
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.htpe.bean.CsrPoltld;
 import com.htpe.mapper.nnew.CsrPoltldMapper;
 import com.htpe.service.IndicatorService;
+import com.htpe.utils.JwtUtils;
 import com.htpe.utils.ResultMsg;
 
 @Service
@@ -30,8 +33,10 @@ public class IndicatorServiceImpl  implements IndicatorService{
 	}
 
 	@Override
-	public ResultMsg updateIndicator(CsrPoltld csrPoltld) {		
+	public ResultMsg updateIndicator(CsrPoltld csrPoltld,HttpServletRequest request) {		
 		csrPoltld.setIsright("Y");		
+		csrPoltld.setIndiuserno((String)JwtUtils.validateTokenAndGetClaims(request).get("userid"));
+		csrPoltld.setIndiusername((String)JwtUtils.validateTokenAndGetClaims(request).get("username"));
 		csrPoltldMapper.updateIndicator(csrPoltld);
 			
 		return ResultMsg.success("滅菌監測成功").addData("");		

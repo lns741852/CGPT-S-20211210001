@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +16,12 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.htpe.bean.CsrBarcode;
+import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.CsrSetdata3m;
+import com.htpe.bean.Report;
+import com.htpe.bean.Report5;
 import com.htpe.mapper.nnew.CsrBarcodeMapper;
-
+import com.htpe.mapper.nnew.CsrRequesitionMapper;
 import com.htpe.service.ReportService;
 import com.htpe.utils.DateUtils;
 import com.htpe.utils.ResultMsg;
@@ -27,6 +31,9 @@ public class ReportServiceImpl  implements ReportService{
 	
 	@Autowired
 	CsrBarcodeMapper csrBarcodeMapper;
+	
+	@Autowired
+	CsrRequesitionMapper csrRequesitionMapper;
 	
 	/**
 	 * 每月過期包一覽表(CSR)
@@ -46,47 +53,13 @@ public class ReportServiceImpl  implements ReportService{
 		List<CsrSetdata3m> list = new ArrayList<>();
 				
 		
-		timeoutSetno.forEach((e) -> {			
+		timeoutSetno.forEach((e) -> {		
+			List<Map<String, Object>> timeoutNums = csrBarcodeMapper.getTimeoutNum(e.getSetno(),start2,end2,todayEnd);						
+			timeoutNums.forEach(i ->{
+				depnoCount(i,e);
+			});
+			list.add(e);
 
-			Map<String, Object> timeoutNum = csrBarcodeMapper.getTimeoutNum(e.getSetno(),start2,end2,todayEnd);				
-			if(timeoutNum != null) {		
-				if(e.getTotal() == null) {
-					e.setTotal(0);
-					e.setNumbaseCsr(0);
-					e.setNumbaseCsr2(0);
-					e.setNumbaseOr1(0);
-					e.setNumbaseOr2(0);
-					e.setNumbaseOr3(0);
-					e.setNumbaseWr1(0);
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("CSR")) {
-					e.setNumbaseCsr((Integer)timeoutNum.get("MATHBARCODE"));	
-						e.setTotal(e.getTotal()+e.getNumbaseCsr());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("CSR2")) {
-					e.setNumbaseCsr2((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseCsr2());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("OR1")) {
-					e.setNumbaseOr1((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseOr1());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("OR2")) {
-					e.setNumbaseOr2((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseOr2());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("OR3")) {
-					e.setNumbaseOr3((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseOr3());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("WR1")) {
-					e.setNumbaseWr1((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseWr1());
-				}
-				
-				list.add(e);
-			}
-					
 		});
 		
 		return  ResultMsg.success("每月過期包一覽表(CSR)").addData(list);
@@ -102,52 +75,147 @@ public class ReportServiceImpl  implements ReportService{
 		List<CsrSetdata3m> timeoutSetno = csrBarcodeMapper.timeoutSetno(start2,end2,todayEnd);
 		
 		List<CsrSetdata3m> list = new ArrayList<>();
-				
-		
-		timeoutSetno.forEach((e) -> {			
+						
+		timeoutSetno.forEach((e) -> {		
+			List<Map<String, Object>> timeoutNums= csrBarcodeMapper.getTimeoutNum(e.getSetno(),start2,end2,todayEnd);						
+			timeoutNums.forEach(i ->{
+				depnoCount(i,e);
+			});
+			list.add(e);
 
-			Map<String, Object> timeoutNum = csrBarcodeMapper.getTimeoutNum(e.getSetno(),start2,end2,todayEnd);				
-			if(timeoutNum != null) {		
-				if(e.getTotal() == null) {
-					e.setTotal(0);
-					e.setNumbaseCsr(0);
-					e.setNumbaseCsr2(0);
-					e.setNumbaseOr1(0);
-					e.setNumbaseOr2(0);
-					e.setNumbaseOr3(0);
-					e.setNumbaseWr1(0);
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("CSR")) {
-					e.setNumbaseCsr((Integer)timeoutNum.get("MATHBARCODE"));	
-						e.setTotal(e.getTotal()+e.getNumbaseCsr());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("CSR2")) {
-					e.setNumbaseCsr2((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseCsr2());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("OR1")) {
-					e.setNumbaseOr1((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseOr1());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("OR2")) {
-					e.setNumbaseOr2((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseOr2());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("OR3")) {
-					e.setNumbaseOr3((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseOr3());
-				}
-				if(timeoutNum.get("DEPNO").toString().trim().equals("WR1")) {
-					e.setNumbaseWr1((Integer)timeoutNum.get("MATHBARCODE"));
-					e.setTotal(e.getTotal()+e.getNumbaseWr1());
-				}
-				
-				list.add(e);
-			}
-					
 		});
 		
 		return  list;
 	}
+
+	@Override
+	public ResultMsg listReport03(Report report) {	
+		List<CsrSetdata3m> timeoutSetno = csrBarcodeMapper.listReport03(report);
+		
+		List<CsrSetdata3m> list = new ArrayList<>();
+		
+		timeoutSetno.forEach((e) -> {	
+			List<Map<String, Object>> timeoutNums= csrBarcodeMapper.getReport03Count(e.getSetno(),report);		
+			timeoutNums.forEach(i ->{
+				depnoCount(i,e);
+			});
+			list.add(e);
+
+		});
+		
+		return  ResultMsg.success("每月製作盤包種類及數目分佈圖").addData(list);
+	}
+	
+	
+	@Override
+	public List<CsrSetdata3m> exportReport03(Report report) {
+		List<CsrSetdata3m> timeoutSetno = csrBarcodeMapper.listReport03(report);
+		
+		List<CsrSetdata3m> list = new ArrayList<>();
+
+						
+		timeoutSetno.forEach((e) -> {	
+			List<Map<String, Object>> timeoutNums= csrBarcodeMapper.getReport03Count(e.getSetno(),report);		
+			timeoutNums.forEach(i ->{
+				depnoCount(i,e);
+			});
+			list.add(e);
+
+		});
+		
+		return  list;
+	}
+	
+	
+	@Override
+	public ResultMsg listReport04(Report report) {
+		List<CsrSetdata3m> timeoutSetno = csrBarcodeMapper.listReport03(report);
+		
+		List<CsrSetdata3m> list = new ArrayList<>();
+						
+		timeoutSetno.forEach((e) -> {		
+			List<Map<String, Object>> timeoutNums = csrBarcodeMapper.getReport04Count(e.getSetno(),report);							
+			timeoutNums.forEach(i ->{
+				depnoCount(i,e);
+			});
+			list.add(e);
+
+		});
+		
+		return  ResultMsg.success("人員操作盤包數量統計").addData(list);
+	}
+
+	@Override
+	public List<CsrSetdata3m> exportReport04(Report report) {
+	List<CsrSetdata3m> timeoutSetno = csrBarcodeMapper.listReport03(report);
+		
+		List<CsrSetdata3m> list = new ArrayList<>();
+					
+		timeoutSetno.forEach((e) -> {	
+			List<Map<String, Object>> timeoutNums= csrBarcodeMapper.getReport04Count(e.getSetno(),report);		
+			timeoutNums.forEach(i ->{
+				depnoCount(i,e);
+			});
+			list.add(e);
+
+		});	
+		return  list;
+	}
+
+
+	@Override
+	public ResultMsg listReport05(Report report) {
+		return ResultMsg.success("申領作業統計表").addData(csrRequesitionMapper.listReport05(report));
+	}
+	
+	@Override
+	public List<Report5> exportReport05(Report report) {
+		return csrRequesitionMapper.listReport05(report);
+	}
+
+
+	
+	//部門數量加總
+	public CsrSetdata3m depnoCount(Map<String, Object> timeoutNum, CsrSetdata3m e){	
+		if(timeoutNum != null) {		
+			if(e.getTotal() == null) {
+				e.setTotal(0);
+				e.setNumbaseCsr(0);
+				e.setNumbaseCsr2(0);
+				e.setNumbaseOr1(0);
+				e.setNumbaseOr2(0);
+				e.setNumbaseOr3(0);
+				e.setNumbaseWr1(0);
+			}
+			if(timeoutNum.get("DEPNO").toString().trim().equals("CSR")) {
+				e.setNumbaseCsr((Integer)timeoutNum.get("MATHBARCODE"));	
+					e.setTotal(e.getTotal()+e.getNumbaseCsr());
+			}
+			if(timeoutNum.get("DEPNO").toString().trim().equals("CSR2")) {
+				e.setNumbaseCsr2((Integer)timeoutNum.get("MATHBARCODE"));
+				e.setTotal(e.getTotal()+e.getNumbaseCsr2());
+			}
+			if(timeoutNum.get("DEPNO").toString().trim().equals("OR1")) {
+				e.setNumbaseOr1((Integer)timeoutNum.get("MATHBARCODE"));
+				e.setTotal(e.getTotal()+e.getNumbaseOr1());
+			}
+			if(timeoutNum.get("DEPNO").toString().trim().equals("OR2")) {
+				e.setNumbaseOr2((Integer)timeoutNum.get("MATHBARCODE"));
+				e.setTotal(e.getTotal()+e.getNumbaseOr2());
+			}
+			if(timeoutNum.get("DEPNO").toString().trim().equals("OR3")) {
+				e.setNumbaseOr3((Integer)timeoutNum.get("MATHBARCODE"));
+				e.setTotal(e.getTotal()+e.getNumbaseOr3());
+			}
+			if(timeoutNum.get("DEPNO").toString().trim().equals("WR1")) {
+				e.setNumbaseWr1((Integer)timeoutNum.get("MATHBARCODE"));
+				e.setTotal(e.getTotal()+e.getNumbaseWr1());
+			}
+			
+		}
+		return e;
+	}
+
+
 
 }

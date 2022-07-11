@@ -34,7 +34,7 @@ public class ListenerException {
        
 	//JWT異常
     @ExceptionHandler(value = ExpiredJwtException.class)
-    public ResultMsg jwtException(RequestPeriodException e) {
+    public ResultMsg jwtException(ExpiredJwtException e) {
     	return ResultMsg.fail(403,"權限發生異常請重新登入").addData("");
     }
        

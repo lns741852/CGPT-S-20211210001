@@ -12,13 +12,14 @@ import org.apache.ibatis.annotations.Update;
 import com.htpe.bean.CsrBarcode;
 import com.htpe.bean.CsrPoltld;
 import com.htpe.bean.CsrSetdata3m;
+import com.htpe.bean.Report;
 import com.htpe.utils.ResultMsg;
 
 public interface CsrBarcodeMapper {
 
 	List<CsrSetdata3m> timeoutSetno(@Param("start")String start, @Param("end")String end, @Param("todayEnd")String todayEnd);
 
-	Map<String, Object> getTimeoutNum(@Param("timeoutSetno")String timeoutSetno,@Param("start")String start, @Param("end")String end, @Param("todayEnd")String todayEnd);
+	List<Map<String, Object>> getTimeoutNum(@Param("timeoutSetno")String timeoutSetno,@Param("start")String start, @Param("end")String end, @Param("todayEnd")String todayEnd);
 
 	int insertPotdata(CsrBarcode barcode);
 
@@ -69,6 +70,13 @@ public interface CsrBarcodeMapper {
 	List<Map<String, Object>> listBarcodeForSearch4(CsrBarcode csrBarcode);
 
 	List<Integer> getCountByNO(String setno);
+
+	List<CsrSetdata3m> listReport03(Report report);
+
+	List<Map<String, Object>> getReport03Count(String setno, Report report);
+
+	List<Map<String, Object>> getReport04Count(String setno, Report report);
+
 
 
 }

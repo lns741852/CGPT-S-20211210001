@@ -1,5 +1,6 @@
 package com.htpe.utils;
 
+import java.io.Console;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.htpe.bean.CsrAccount;
 import com.htpe.exception.RequestPeriodException;
 import com.htpe.mapper.nnew.CsrAccountMapper;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -60,17 +62,24 @@ public class JwtUtils {
     }
 
     //令牌環校驗
-    public static Map<String,Object> validateTokenAndGetClaims(HttpServletRequest request) throws RequestPeriodException{
+    public static Claims validateTokenAndGetClaims(HttpServletRequest request) throws RequestPeriodException{
         String token=request.getHeader(HEADER_STRING);
         if(token==null){
             throw new RequestPeriodException(403, "Token沒有值");
         }
-        else{
-            Map<String,Object> map= Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX,""))
-                    .getBody();
-            return map;
+        else{       	
+            Claims claims = null;
+            try {
+        		 claims= Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(token.replace(TOKEN_PREFIX,""))
+                        .getBody();  
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+    
+                return claims;
         }
     }
    

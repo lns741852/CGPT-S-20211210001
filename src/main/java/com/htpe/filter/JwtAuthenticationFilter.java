@@ -18,6 +18,8 @@ import org.springframework.util.StringUtils;
 
 import com.htpe.utils.JwtUtils;
 
+import io.jsonwebtoken.Claims;
+
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
@@ -32,14 +34,21 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         try {
         	String token = httpServletRequest.getHeader(JwtUtils.HEADER_STRING);
             if (StringUtils.hasText(token)) {
-                Map<String, Object> claims = JwtUtils.validateTokenAndGetClaims(httpServletRequest);
-                String role = String.valueOf(claims.get("auth")); 
-                String userid = String.valueOf(claims.get("userid"));
-                List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(role);	//封裝權限
-                //最關鍵的部分就是這裡, 我們直接注入了
-                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
-                        userid, null, auths
-                ));
+
+                Claims claims = JwtUtils.validateTokenAndGetClaims(httpServletRequest);
+                
+                if(claims != null) {
+                    
+                    String role = String.valueOf(claims.get("auth")); 
+                    String userid = String.valueOf(claims.get("userid"));
+                    List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(role);	//封裝權限
+                    //最關鍵的部分就是這裡, 我們直接注入了
+                    SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
+                            userid, null, auths
+                    ));
+                }
+                	
+
 
             }
         } catch (Exception e) {

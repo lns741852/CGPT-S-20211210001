@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 
 import com.htpe.bean.CsrCostcenter;
 import com.htpe.bean.CsrRequesition;
+import com.htpe.bean.Report;
+import com.htpe.bean.Report5;
 import com.htpe.bean.Search;
 import com.htpe.utils.ResultMsg;
 
@@ -30,10 +32,12 @@ public interface CsrRequesitionMapper {
 	@Select("select * from CSR_REQUESITION where REQ_ID=#{id}")
 	CsrRequesition getReqById(Integer id);
 
-	CsrRequesition getreqByNoAndPatientAndDepno(CsrRequesition csrRequesition);
+	CsrRequesition getreqByNoAndAndDepno(CsrRequesition csrRequesition);
 
 	List<CsrRequesition> listReqForSearch5(Search search);
 
 	List<CsrRequesition>  getReqByDepnoAndRoom(String roomno, String depnoask);
+
+	List<Report5> listReport05(Report report);
 
 }

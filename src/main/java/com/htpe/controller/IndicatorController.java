@@ -1,5 +1,7 @@
 package com.htpe.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +32,8 @@ public class IndicatorController {
 	 *滅菌鍋監控查詢
 	 */
 	@PostMapping("/indicator/result")
-	public ResultMsg  updateIndicator(@RequestBody CsrPoltld csrPoltld) {
-	    return  indicatorService.updateIndicator(csrPoltld);
+	public ResultMsg  updateIndicator(@RequestBody CsrPoltld csrPoltld,HttpServletRequest request) {
+	    return  indicatorService.updateIndicator(csrPoltld,request);
 	}
 	
 

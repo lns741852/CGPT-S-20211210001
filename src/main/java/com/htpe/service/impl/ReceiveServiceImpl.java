@@ -106,7 +106,7 @@ public class ReceiveServiceImpl  implements ReceiveService{
 
 	@Override
 	public ResultMsg getBarcode(CsrRequesition csrRequesition) {
-		CsrRequesition getreqByNoAndPatient = csrRequesitionMapper.getreqByNoAndPatientAndDepno(csrRequesition);
+		CsrRequesition getreqByNoAndPatient = csrRequesitionMapper.getreqByNoAndAndDepno(csrRequesition);
 		
 		if(getreqByNoAndPatient == null) {
 			return ResultMsg.success("滅菌鍋查詢").addData("no Data");

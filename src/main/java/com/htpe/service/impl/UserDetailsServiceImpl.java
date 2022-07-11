@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     	StringBuffer authorityBuffer = new StringBuffer(authority);
    	
     	CsrAccount csrAccount = csrAccountMapper.getAccountByUserno(username);
-       	   
+    	   
         if(csrAccount == null) {
             throw new UsernameNotFoundException("用戶不存在");
         }

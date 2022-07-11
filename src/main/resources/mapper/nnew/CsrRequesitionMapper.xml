@@ -148,7 +148,7 @@
     </select>
   
   
-  <select id="getreqByNoAndPatientAndDepno" parameterType="com.htpe.bean.CsrRequesition" resultMap="BaseResultMap">
+  <select id="getreqByNoAndAndDepno" parameterType="com.htpe.bean.CsrRequesition" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from 
@@ -159,10 +159,7 @@
 	</if>
 	<if test="reqno!=null and reqno!=''">
 		AND REQNO =#{reqno}
-	</if>
-	<if test="patientno!=null and patientno!=''">
-		AND PATIENTNO =#{patientno}
-	</if>		
+	</if>	
 		AND CHECKING = 'Y'
 		AND USE_UP ='N'
 	</where>	
@@ -200,6 +197,33 @@
 		AND REQNO =#{reqno}
 	</if>
 	</where>	
+  </select>
+  
+  
+  <select id="listReport05"  resultType="Report5">
+	  	SELECT  
+			cr.DATATIME as datatime, cr.REQNO as reqno, cc.CENTERNAME as centername,
+			cr.ALLOCATETYPE as allocatetype,cr2.SETNO as setno,csm.SETNAMECH as setnamech,
+			cr2.SETCOUNT as setcount,cr2.REALCOUNT as realcount 
+		FROM CSR_REQUESITION cr
+		INNER JOIN CSR_COSTCENTER cc 
+		ON cr.CENTERNO = cc.CENTERNO 
+		INNER  JOIN  CSR_REQDETAIL cr2 
+		ON cr.REQ_ID =cr2.REQ_ID 
+		INNER  JOIN CSR_SETDATA_3M csm 
+		ON cr2.SETNO = csm.SETNO
+		<where>
+			DATATIME BETWEEN #{startTime} AND #{endTime}
+			<if test="depno!=null">
+				AND cr.DEPNO = #{depno}
+			</if>
+			<if test="depnoask!=null">
+				AND cr.DEPNOASK =#{depnoask}
+			</if>
+			<if test="centerno!=null">
+				AND cr.CENTERNO =#{centerno}
+			</if>
+		</where>		
   </select>
   
   
