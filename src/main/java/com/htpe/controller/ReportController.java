@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.bean.Report;
 import com.htpe.bean.Report5;
+import com.htpe.bean.Report6;
+import com.htpe.bean.Report7;
 import com.htpe.service.ReportService;
 import com.htpe.utils.ResultMsg;
 
@@ -209,5 +211,93 @@ public class ReportController {
 	        }
 		
 	}
+	
+	
+	/**
+	 *製作及回收統計
+	 */
+	@GetMapping("/report/06")
+	public ResultMsg  listReport06(Report report) {		
+	    return   reportService.listReport06(report); 
+	}
+	
+	/**
+	 *製作人員盤包分布表
+	 */
+	@GetMapping(value="/report/06/export",produces = "application/octet-stream")
+	public void  exportReport06(Report report,
+			HttpServletResponse response) {
+		
+		 List<Report6> exportReport06 = reportService.exportReport06(report);
+		
+		 ExportParams params = new ExportParams("製作及歸還盤包統計","工作頁",ExcelType.XSSF);
+		 Workbook workbook = ExcelExportUtil.exportExcel(params, Report6.class, exportReport06);
+	        ServletOutputStream outputStream = null;
+	        try {
+	            //流形式
+	            response.setHeader("content-type","application/octet-stream");
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("製作及歸還盤包統計.xlsx","UTF-8"));
+	            outputStream = response.getOutputStream();
+	            workbook.write(outputStream);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            if (null != outputStream){
+	                try {
+	                    outputStream.flush();
+	                    outputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+		
+	}
+	
+	
+	/**
+	 *未使用歸還次數統計報表
+	 */
+	@GetMapping("/report/07")
+	public ResultMsg  listReport07(Report report) {		
+	    return   reportService.listReport07(report); 
+	}
+	
+	
+	/**
+	 *未使用歸還次數統計報表
+	 */
+	@GetMapping(value="/report/07/export",produces = "application/octet-stream")
+	public void  exportReport07(Report report,
+			HttpServletResponse response) {
+		
+		 List<Report7> exportReport07 = reportService.exportReport07(report);
+		
+		 ExportParams params = new ExportParams("未使用歸還次數統計報表","工作頁",ExcelType.XSSF);
+		 Workbook workbook = ExcelExportUtil.exportExcel(params, Report7.class, exportReport07);
+	        ServletOutputStream outputStream = null;
+	        try {
+	            //流形式
+	            response.setHeader("content-type","application/octet-stream");
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("未使用歸還次數統計報表.xlsx","UTF-8"));
+	            outputStream = response.getOutputStream();
+	            workbook.write(outputStream);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            if (null != outputStream){
+	                try {
+	                    outputStream.flush();
+	                    outputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+		
+	}
+	
 
 }

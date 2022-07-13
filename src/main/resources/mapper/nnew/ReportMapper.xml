@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.ReportMapper">
+		
+	<select id="listReport06"  resultType="Report6">
+		SELECT A.setno,A.setnamech,A.mknum,B.rnum FROM
+			(SELECT 
+				csm.SETNO AS setno,
+				csm.SETNAMECH AS setnamech,
+				COUNT(*) AS mkNum
+			FROM
+				CSR_SETDATA_3M csm 
+			INNER JOIN 
+				CSR_BARCODE cb 
+			ON
+				csm.SETNO = cb.SETNO 
+			WHERE 
+				cb.CREATEDATETIME BETWEEN  #{startTime} and #{endTime}
+			AND 
+	 			cb.DEPNO =#{depno}
+			GROUP BY 
+				csm.SETNO,csm.SETNAMECH) A 
+		LEFT  join		
+			(SELECT 
+				cb2.SETNO AS SETNO ,
+				COUNT(*) AS rNum 
+			FROM
+				CSR_BARCODE cb2 
+			WHERE 
+				cb2.STATUS ='6'
+			AND
+				cb2.CREATEDATETIME BETWEEN  #{startTime} and #{endTime}
+			AND 
+	 			cb2.DEPNO =#{depno}
+			GROUP BY 
+				cb2.SETNO) B
+		ON 
+			A.setno = B.setno	
+
+	</select>	
+	
+	
+	<select id="listReport07"  resultType="Report7">
+		SELECT csm.SETNO AS setno , csm.SETNAMECH AS setnamech, COUNT(*) AS nrcount  FROM CSR_BARCODE br
+		INNER JOIN
+			CSR_SETDATA_3M csm 
+		ON
+			br.SETNO =csm.SETNO 
+		WHERE 
+			br.USING ='N'
+		AND
+			br.STATUS ='6'
+		AND 
+			br.RECEIVETIME BETWEEN  #{startTime} and #{endTime}
+		AND 
+			br.DEPNO =#{depno}
+		GROUP BY 
+			csm.SETNO , csm.SETNAMECH
+	</select>	
+</mapper>

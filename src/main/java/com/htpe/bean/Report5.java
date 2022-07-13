@@ -25,6 +25,7 @@ public class Report5 {
 	private Integer setcount;
 	@Excel(name = "配送數",width = 10)
 	private Integer realcount;
+
 	/**
 	 * @return the reqno
 	 */

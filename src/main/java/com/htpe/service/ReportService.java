@@ -5,6 +5,8 @@ import java.util.List;
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.bean.Report;
 import com.htpe.bean.Report5;
+import com.htpe.bean.Report6;
+import com.htpe.bean.Report7;
 import com.htpe.utils.ResultMsg;
 
 public interface ReportService {
@@ -24,5 +26,15 @@ public interface ReportService {
 	ResultMsg listReport05(Report report);
 	
 	List<Report5> exportReport05(Report report);
+
+	ResultMsg listReport06(Report report);
+
+	List<Report6> exportReport06(Report report);
+
+	ResultMsg listReport07(Report report);
+
+	List<Report7> exportReport07(Report report);
+
+
 
 }

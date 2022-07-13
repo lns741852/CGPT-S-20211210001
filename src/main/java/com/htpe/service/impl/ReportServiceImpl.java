@@ -20,8 +20,11 @@ import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.bean.Report;
 import com.htpe.bean.Report5;
+import com.htpe.bean.Report6;
+import com.htpe.bean.Report7;
 import com.htpe.mapper.nnew.CsrBarcodeMapper;
 import com.htpe.mapper.nnew.CsrRequesitionMapper;
+import com.htpe.mapper.nnew.ReportMapper;
 import com.htpe.service.ReportService;
 import com.htpe.utils.DateUtils;
 import com.htpe.utils.ResultMsg;
@@ -34,6 +37,9 @@ public class ReportServiceImpl  implements ReportService{
 	
 	@Autowired
 	CsrRequesitionMapper csrRequesitionMapper;
+	
+	@Autowired
+	ReportMapper reportMapper;
 	
 	/**
 	 * 每月過期包一覽表(CSR)
@@ -172,8 +178,27 @@ public class ReportServiceImpl  implements ReportService{
 	public List<Report5> exportReport05(Report report) {
 		return csrRequesitionMapper.listReport05(report);
 	}
+	
+	@Override
+	public ResultMsg listReport06(Report report) {
+		return ResultMsg.success("製作及回收統計").addData(reportMapper.listReport06(report));
+	}
+	
+	@Override
+	public List<Report6> exportReport06(Report report) {
+		 return reportMapper.listReport06(report);
+	}
+	
 
+	@Override
+	public ResultMsg listReport07(Report report) {
+		return ResultMsg.success("未使用歸還次數統計報表").addData(reportMapper.listReport07(report));
+	}
 
+	@Override
+	public List<Report7> exportReport07(Report report) {
+		 return reportMapper.listReport07(report);
+	}
 	
 	//部門數量加總
 	public CsrSetdata3m depnoCount(Map<String, Object> timeoutNum, CsrSetdata3m e){	
@@ -215,7 +240,5 @@ public class ReportServiceImpl  implements ReportService{
 		}
 		return e;
 	}
-
-
 
 }
