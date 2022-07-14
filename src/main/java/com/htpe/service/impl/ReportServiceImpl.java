@@ -22,6 +22,7 @@ import com.htpe.bean.Report;
 import com.htpe.bean.Report5;
 import com.htpe.bean.Report6;
 import com.htpe.bean.Report7;
+import com.htpe.bean.Report8;
 import com.htpe.mapper.nnew.CsrBarcodeMapper;
 import com.htpe.mapper.nnew.CsrRequesitionMapper;
 import com.htpe.mapper.nnew.ReportMapper;
@@ -200,6 +201,132 @@ public class ReportServiceImpl  implements ReportService{
 		 return reportMapper.listReport07(report);
 	}
 	
+	@Override
+	public ResultMsg listReport08(Report report) {
+		List<Report8> list = reportMapper.listReport08(report);
+		list.forEach(it ->{
+			if(it.getRbitime() != null) {
+				switch (it.getRbitime()) {
+				case "2400":
+					it.setRbitime("0.4");
+					break;
+				case "2500":
+					it.setRbitime("0.5");
+					break;
+				}
+			}
+			
+			if(it.getPotType() != null) {
+				switch (it.getPotType()) {
+				case "A":
+					it.setPotType("AOR");
+					break;
+				case "B":
+					it.setPotType("BOR");
+					break;
+				case "C":
+					it.setPotType("GOR");
+					break;
+				case "D":
+					it.setPotType("CSR");
+					break;
+				case "E":
+					it.setPotType("病房");
+					break;
+				case "F":
+					it.setPotType("布類");
+					break;
+				case "G":
+					it.setPotType("臉盆");
+					break;
+				case "H":
+					it.setPotType("皮消");
+					break;
+				case "I":
+					it.setPotType("刷子");
+					break;
+				case "J":
+					it.setPotType("燈把");
+					break;
+				case "K":
+					it.setPotType("其他");
+					break;
+				}
+			}
+			
+			
+			
+		});
+		
+		return ResultMsg.success("滅菌鍋操作及測試紀錄報表").addData(reportMapper.listReport08(report));
+	}
+	
+	
+	
+	@Override
+	public List<Report8> exportReport08(Report report) {
+		List<Report8> list = reportMapper.listReport08(report);
+		list.forEach(it ->{
+			if(it.getRbitime() != null) {
+				switch (it.getRbitime()) {
+				case "2400":
+					it.setRbitime("0.4");
+					break;
+				case "2500":
+					it.setRbitime("0.5");
+					break;
+				}
+			}
+			
+			if(it.getPotType() != null) {
+				switch (it.getPotType()) {
+				case "A":
+					it.setPotType("AOR");
+					break;
+				case "B":
+					it.setPotType("BOR");
+					break;
+				case "C":
+					it.setPotType("GOR");
+					break;
+				case "D":
+					it.setPotType("CSR");
+					break;
+				case "E":
+					it.setPotType("病房");
+					break;
+				case "F":
+					it.setPotType("布類");
+					break;
+				case "G":
+					it.setPotType("臉盆");
+					break;
+				case "H":
+					it.setPotType("皮消");
+					break;
+				case "I":
+					it.setPotType("刷子");
+					break;
+				case "J":
+					it.setPotType("燈把");
+					break;
+				case "K":
+					it.setPotType("其他");
+					break;
+				}
+			}
+			
+			
+			
+		});
+		
+		return reportMapper.listReport08(report);
+	}
+
+	
+	
+	
+	
 	//部門數量加總
 	public CsrSetdata3m depnoCount(Map<String, Object> timeoutNum, CsrSetdata3m e){	
 		if(timeoutNum != null) {		
@@ -240,5 +367,8 @@ public class ReportServiceImpl  implements ReportService{
 		}
 		return e;
 	}
+
+
+
 
 }

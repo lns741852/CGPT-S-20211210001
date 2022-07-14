@@ -20,6 +20,7 @@ import com.htpe.bean.Report;
 import com.htpe.bean.Report5;
 import com.htpe.bean.Report6;
 import com.htpe.bean.Report7;
+import com.htpe.bean.Report8;
 import com.htpe.service.ReportService;
 import com.htpe.utils.ResultMsg;
 
@@ -298,6 +299,49 @@ public class ReportController {
 	        }
 		
 	}
+	
+	/**
+	 *滅菌鍋操作及測試紀錄報表
+	 */
+	@GetMapping("/report/08")
+	public ResultMsg  listReport08(Report report) {		
+	    return   reportService.listReport08(report); 
+	}
+	
+	/**
+	 *滅菌鍋操作及測試紀錄報表
+	 */
+	@GetMapping(value="/report/08/export",produces = "application/octet-stream")
+	public void  exportReport08(Report report,
+			HttpServletResponse response) {
+		
+		 List<Report8> exportReport08 = reportService.exportReport08(report);
+		
+		 ExportParams params = new ExportParams("滅菌鍋操作及測試紀錄報表","工作頁",ExcelType.XSSF);
+		 Workbook workbook = ExcelExportUtil.exportExcel(params, Report8.class, exportReport08);
+	        ServletOutputStream outputStream = null;
+	        try {
+	            //流形式
+	            response.setHeader("content-type","application/octet-stream");
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("滅菌鍋操作及測試紀錄報表.xlsx","UTF-8"));
+	            outputStream = response.getOutputStream();
+	            workbook.write(outputStream);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            if (null != outputStream){
+	                try {
+	                    outputStream.flush();
+	                    outputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+		
+	}
+	
 	
 
 }

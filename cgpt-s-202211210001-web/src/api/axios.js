@@ -46,7 +46,7 @@ function request(url, params, options = { Loading: true, mock: false, isUpload: 
             // 此處可以實現擴展功能
             // 如對接多個api，數據結構調適
             // 也可添加日期，數字等等
-            if (res.data.code === 200 || res.status === 200) {
+            if (res.data.code === 200 && res.status === 200) {
                 resolve(res);
             } else {
                 reject(res);

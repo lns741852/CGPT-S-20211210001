@@ -27,8 +27,41 @@ public class Report {
 	private String centerno;
 	
 	private String status;
+	
+    private String disinfection;
+
+    private String pot;
+
+    private Integer potnum;
 
 	
+    
+    
+
+
+	public String getDisinfection() {
+		return disinfection;
+	}
+
+	public void setDisinfection(String disinfection) {
+		this.disinfection = disinfection;
+	}
+
+	public String getPot() {
+		return pot;
+	}
+
+	public void setPot(String pot) {
+		this.pot = pot;
+	}
+
+	public Integer getPotnum() {
+		return potnum;
+	}
+
+	public void setPotnum(Integer potnum) {
+		this.potnum = potnum;
+	}
 
 	/**
 	 * @return the depno

@@ -295,8 +295,13 @@
                 style="margin-top: 10px"
                 placeholder="請選擇..."
               >
-                <el-option value="1500" label="0.25" />
-                <el-option value="2400" label="0.4" selected />
+              <el-option
+                v-for="item in timeList"
+                :key="item"
+                :label="timeObj[item]"
+                :value="item"
+              >
+              </el-option>
               </el-select>
             </el-col>
             <el-col :span="8"
@@ -372,6 +377,8 @@ export default {
       potList: [],
       checkList: [],
       potDepnoList: [],
+      timeList:[1250,2400],
+      timeObj:{1250:0.25,2400:0.4},
       efficiency: "",
       disinfectionList: [],
       potnumList: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
@@ -475,8 +482,10 @@ export default {
         if (res.data.data == "") {
           return;
         }
+        console.log(res.data.data)
         if (res.data.data.isright == "Y") {
           alert("該滅菌鍋已完成檢測");
+          
         }
 
         this.inputIndicator = res.data.data;

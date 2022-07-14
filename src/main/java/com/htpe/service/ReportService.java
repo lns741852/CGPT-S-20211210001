@@ -7,6 +7,7 @@ import com.htpe.bean.Report;
 import com.htpe.bean.Report5;
 import com.htpe.bean.Report6;
 import com.htpe.bean.Report7;
+import com.htpe.bean.Report8;
 import com.htpe.utils.ResultMsg;
 
 public interface ReportService {
@@ -34,6 +35,10 @@ public interface ReportService {
 	ResultMsg listReport07(Report report);
 
 	List<Report7> exportReport07(Report report);
+
+	ResultMsg listReport08(Report report);
+
+	List<Report8> exportReport08(Report report);
 
 
 

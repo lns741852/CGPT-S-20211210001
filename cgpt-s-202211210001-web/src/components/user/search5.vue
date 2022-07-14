@@ -208,7 +208,6 @@ export default {
     /**盤包輸入 => 列表 */
     async searchReq() {
       if (this.inputData.status != null) {
-        alert(11);
         switch (this.inputData.status) {
           case "0":
             this.inputData.checking = "N";

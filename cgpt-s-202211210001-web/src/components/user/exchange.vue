@@ -168,8 +168,8 @@ export default {
           return true;
         }
 
-        if (this.inputData.patientno === "" && this.inputData.reqno === "") {
-          ElMessage.error("請輸入病歷號或交易序號");
+        if (this.inputData.reqno === "") {
+          ElMessage.error("交易序號");
           return true;
         }
 

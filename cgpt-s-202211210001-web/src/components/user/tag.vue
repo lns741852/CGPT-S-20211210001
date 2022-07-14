@@ -407,7 +407,6 @@ export default {
     //列印標籤
     submitFrom() {
       if (this.tagDatas.length > 0) {
-        console.log(this.tagDatas)
         this.$axios.post("/tag/make", this.tagDatas).then(() => {
           (this.inputData = {
             depno: "",

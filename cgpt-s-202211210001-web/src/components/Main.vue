@@ -70,7 +70,7 @@
               :rules="addFormRules"
             >
               <el-form-item label="員工編號" prop="userno">
-                <el-input v-model="editForm.userno"></el-input>
+                <el-input v-model="editForm.userno" disabled></el-input>
               </el-form-item>
               <!--修改_下拉選單-->
               <el-form-item label="部門" prop="depno">
@@ -79,6 +79,7 @@
                   v-model="editForm.depno"
                   placeholder="部門"
                   clearable
+                  disabled
                 >
                   <el-option
                     v-for="item in depnoList"
@@ -97,7 +98,7 @@
               </el-form-item>
               <!--radio-->
               <el-form-item label="權限" prop="systemprivilege">
-                <el-radio-group v-model="editForm.systemprivilege">
+                <el-radio-group v-model="editForm.systemprivilege" disabled>
                   <el-radio label="A">管理員</el-radio>
                   <el-radio label="B">護理長</el-radio>
                   <el-radio label="C">供應室職員</el-radio>
@@ -112,6 +113,7 @@
                       v-model="ids"
                       v-for="item in item.twoMenuList"
                       :key="item.twoId"
+                      disabled
                     >
                       <el-checkbox :label="item.twoId">
                         {{ item.twoName }}
@@ -154,6 +156,7 @@ export default {
       screenWidth: document.body.clientWidth,
       usercname: "",
       userInfo: {},
+      editForm:{},
       editDialogVisible: false,
         auth: [],
     };
@@ -229,6 +232,18 @@ export default {
         this.auth = res.data.data;
       });
     },
+      /**編輯帳號 */
+    // editAccount() {
+    //   console.log(localStorage.getItem("userno"))
+
+    //     this.$axios
+    //       .put("/account/" + this.editForm.id, this.editForm)
+    //       .then(() => {
+    //         this.editDialogVisible = false;
+    //         this.getAccountList();
+    //       });
+
+    // },
   },
   watch: {
     screenWidth(val) {

@@ -202,6 +202,42 @@ const routes = [{
                     import ('../components/user/report2.vue')
             },
             {
+                path: '/report3',
+                name: 'Report3',
+                component: () =>
+                    import ('../components/user/report3.vue')
+            },
+            {
+                path: '/report4',
+                name: 'Report4',
+                component: () =>
+                    import ('../components/user/report4.vue')
+            },
+            {
+                path: '/report5',
+                name: 'Report5',
+                component: () =>
+                    import ('../components/user/report5.vue')
+            },
+            {
+                path: '/report6',
+                name: 'Report6',
+                component: () =>
+                    import ('../components/user/report6.vue')
+            },
+            {
+                path: '/report7',
+                name: 'Report7',
+                component: () =>
+                    import ('../components/user/report7.vue')
+            },
+            {
+                path: '/report8',
+                name: 'Report8',
+                component: () =>
+                    import ('../components/user/report8.vue')
+            },
+            {
                 path: '/apply/print/:id',
                 name: 'ApplyPrint',
                 component: () =>
