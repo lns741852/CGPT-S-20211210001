@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.bean.Report;
+import com.htpe.bean.Report10;
 import com.htpe.bean.Report5;
 import com.htpe.bean.Report6;
 import com.htpe.bean.Report7;
 import com.htpe.bean.Report8;
+import com.htpe.bean.Report9;
 import com.htpe.service.ReportService;
 import com.htpe.utils.ResultMsg;
 
@@ -342,6 +344,90 @@ public class ReportController {
 		
 	}
 	
+	
+	/**
+	 *瑕疵包補輸報表
+	 */
+	@GetMapping("/report/09")
+	public ResultMsg  listReport09(Report report) {		
+	    return   reportService.listReport09(report); 
+	}
+	
+	/**
+	 *滅菌鍋操作及測試紀錄報表
+	 */
+	@GetMapping(value="/report/09/export",produces = "application/octet-stream")
+	public void  exportReport09(Report report,
+			HttpServletResponse response) {
+		
+		 List<Report9> exportReport09 = reportService.exportReport09(report);
+		
+		 ExportParams params = new ExportParams("瑕疵包補輸報表","工作頁",ExcelType.XSSF);
+		 Workbook workbook = ExcelExportUtil.exportExcel(params, Report9.class, exportReport09);
+	        ServletOutputStream outputStream = null;
+	        try {
+	            //流形式
+	            response.setHeader("content-type","application/octet-stream");
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("瑕疵包補輸報表.xlsx","UTF-8"));
+	            outputStream = response.getOutputStream();
+	            workbook.write(outputStream);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            if (null != outputStream){
+	                try {
+	                    outputStream.flush();
+	                    outputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+		
+	}
+	
+	/**
+	 *瑕疵包補輸報表
+	 */
+	@GetMapping("/report/10")
+	public ResultMsg  listReport10(Report report) {		
+	    return   reportService.listReport10(report); 
+	}
+	
+	/**
+	 *滅菌鍋操作及測試紀錄報表
+	 */
+	@GetMapping(value="/report/10/export",produces = "application/octet-stream")
+	public void  exportReport10(Report report,
+			HttpServletResponse response) {
+		
+		 List<Report10> exportReport10 = reportService.exportReport10(report);
+		
+		 ExportParams params = new ExportParams("緊急申領包盤統計","工作頁",ExcelType.XSSF);
+		 Workbook workbook = ExcelExportUtil.exportExcel(params, Report10.class, exportReport10);
+	        ServletOutputStream outputStream = null;
+	        try {
+	            //流形式
+	            response.setHeader("content-type","application/octet-stream");
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("緊急申領包盤統計.xlsx","UTF-8"));
+	            outputStream = response.getOutputStream();
+	            workbook.write(outputStream);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            if (null != outputStream){
+	                try {
+	                    outputStream.flush();
+	                    outputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+		
+	}
 	
 
 }

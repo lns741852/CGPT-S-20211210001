@@ -87,5 +87,54 @@
 			EXTERNAL_INDICATOR_RESULT,INTERNAL_INICATOR_RESULT,CLASS5_RESULT,RBI_RESULT,IMPLANT,INDIUSERNAME,
 			POT_TYPE,RBITIME
 		
+	</select>
+	
+	<select id="listReport09"  resultType="Report9">
+		SELECT cr.ROOMNO,csm.SETNO ,csm.SETNAMECH,count(*) num  FROM
+			CSR_REQUESITION cr 
+		INNER JOIN
+			CSR_REQDETAIL cr2 
+		ON
+			cr.REQ_ID =cr2.REQ_ID 
+		INNER JOIN 
+			CSR_SETDATA_3M csm 
+		ON
+			cr2.SETNO =csm.SETNO 
+		WHERE 
+			cr.ALLOCATETYPE ='B'
+		AND
+			cr.DATATIME BETWEEN  #{startTime} and #{endTime}
+		AND 
+			cr.DEPNO =#{depno}
+		GROUP BY
+			cr.ROOMNO,csm.SETNO ,csm.SETNAMECH 	
+	</select>	
+	
+	
+	<select id="listReport10"  resultType="Report10">
+		SELECT csm.SETNO ,csm.SETNAMECH,count(*) num  FROM
+			CSR_REQUESITION cr 
+		INNER JOIN
+			CSR_REQDETAIL cr2 
+		ON
+			cr.REQ_ID =cr2.REQ_ID 
+		INNER JOIN 
+			CSR_SETDATA_3M csm 
+		ON
+			cr2.SETNO =csm.SETNO 
+		WHERE 
+			cr.ALLOCATETYPE ='G'
+		AND
+			cr.DATATIME BETWEEN  #{startTime} and #{endTime}
+		AND 
+			cr.DEPNO =#{depno}
+		<if test="depnoask != null">
+        	AND cr.DEPNOASK =#{depnoask}	
+      	</if>
+      	<if test="setno != null">
+        	AND csm.SETNO =#{setno}	
+      	</if>	
+		GROUP BY
+			csm.SETNO ,csm.SETNAMECH 	
 	</select>	
 </mapper>
