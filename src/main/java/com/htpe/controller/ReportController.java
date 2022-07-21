@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.bean.Report;
 import com.htpe.bean.Report10;
+import com.htpe.bean.Report11;
 import com.htpe.bean.Report5;
 import com.htpe.bean.Report6;
 import com.htpe.bean.Report7;
@@ -429,5 +430,46 @@ public class ReportController {
 		
 	}
 	
+	/**
+	 *維修器械查詢
+	 */
+	@GetMapping("/report/11")
+	public ResultMsg  listReport11(Report report) {		
+	    return   reportService.listReport11(report); 
+	}
+	
+	/**
+	 *維修器械查詢
+	 */
+	@GetMapping(value="/report/11/export",produces = "application/octet-stream")
+	public void  exportReport11(Report report,
+			HttpServletResponse response) {
+		
+		 List<Report11> exportReport11 = reportService.exportReport11(report);
+		
+		 ExportParams params = new ExportParams("器械送修紀錄查詢","工作頁",ExcelType.XSSF);
+		 Workbook workbook = ExcelExportUtil.exportExcel(params, Report11.class, exportReport11);
+	        ServletOutputStream outputStream = null;
+	        try {
+	            //流形式
+	            response.setHeader("content-type","application/octet-stream");
+	            //檔案名稱
+	            response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode("器械送修紀錄查詢.xlsx","UTF-8"));
+	            outputStream = response.getOutputStream();
+	            workbook.write(outputStream);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            if (null != outputStream){
+	                try {
+	                    outputStream.flush();
+	                    outputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+		
+	}
 
 }

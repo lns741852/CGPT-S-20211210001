@@ -15,6 +15,7 @@ import { downloadRequest } from './api/download';
 import X2JS from 'x2js';
 import Print from 'vue3-print-nb'
 
+
 const app = createApp(App)
 app.config.productionTip = false
 app.config.globalProperties.$axios = axios //配置成全局組件

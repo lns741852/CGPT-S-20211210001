@@ -84,7 +84,6 @@
 export default {
   data() {
     return {
-      picList: [],
       queryInfo: {
         udi: "",
         barcode: "",
@@ -103,35 +102,13 @@ export default {
         csrUdiImages: {},
       },
 
-      statusList: [
-        { value: "1", lable: "待入鍋" },
-        { value: "2", lable: "待入庫" },
-        { value: "3", lable: "已入庫" },
-        { value: "4", lable: "已配送" },
-        { value: "5", lable: "已使用" },
-        { value: "6", lable: "已歸還" },
-      ],
-      date: new Date(),
-      dateParse: "",
-      barcodeList: [],
-      depnoList: [],
-      printerList: [],
-      multipleSelection: [],
     };
   },
   created() {
-    this.getDepnoList();
+
   },
   mounted() {},
   methods: {
-    /**列表查詢 */
-    getDepnoList() {
-      this.$axios.get("/depno", this.queryInfo).then((res) => {
-        this.total = res.data.data.total;
-        this.depnoList = res.data.data.list;
-      });
-    },
-
     //查詢barcode
     searchValue() {
       this.udi= "",
@@ -168,43 +145,7 @@ export default {
           }
         }
 
-        console.log(res.data.data);
       });
-    },
-    /**監聽頁面刷新 */
-    handleCurrentChange(newPage) {
-      this.queryInfo.pageno = newPage;
-      this.searchValue();
-    },
-    //列印標籤
-    submitFrom() {
-      if (this.multipleSelection.length > 0) {
-        this.$axios.post("/tag/reprint", this.multipleSelection).then(() => {
-          this.queryInfo = {
-            depno: "",
-            pageno: "",
-            pagesize: "",
-            barcode: "",
-            setno: "",
-          };
-          this.barcodeList = [];
-          this.printerList = [];
-          this.multipleSelection = [];
-        });
-      }
-    },
-    //監聽選擇框
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-  },
-  watch: {
-    "queryInfo.setno": function () {
-      if (this.queryInfo.setno != undefined) {
-        if (this.queryInfo.setno.length === 6) {
-          this.queryInfo.setno = this.queryInfo.setno.toUpperCase();
-        }
-      }
     },
   },
 };

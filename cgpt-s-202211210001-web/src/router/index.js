@@ -166,6 +166,12 @@ const routes = [{
                     import ('../components/user/report.vue')
             },
             {
+                path: '/fix',
+                name: 'Fix',
+                component: () =>
+                    import ('../components/user/fix.vue')
+            },
+            {
                 path: '/kpi',
                 name: 'Kpi',
                 component: () =>
@@ -236,6 +242,24 @@ const routes = [{
                 name: 'Report8',
                 component: () =>
                     import ('../components/user/report8.vue')
+            },
+            {
+                path: '/report9',
+                name: 'Report9',
+                component: () =>
+                    import ('../components/user/report9.vue')
+            },
+            {
+                path: '/report10',
+                name: 'Report10',
+                component: () =>
+                    import ('../components/user/report10.vue')
+            },
+            {
+                path: '/report11',
+                name: 'Report11',
+                component: () =>
+                    import ('../components/user/report11.vue')
             },
             {
                 path: '/apply/print/:id',

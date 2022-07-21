@@ -30,7 +30,7 @@ public interface CsrBoxMapper {
 	@Select("SELECT id from CSR_UDI_BOX where UDI=#{name} AND STATUS=1")
 	CsrBox getBoxByNameAndStatus(String name);
 	
-	@Select("SELECT ID from CSR_UDI_BOX where UDI=#{name}")
+	@Select("SELECT ID,UDI,STATUS from CSR_UDI_BOX where UDI=#{name}")
 	CsrBox getBoxByName(String name);
 
 }

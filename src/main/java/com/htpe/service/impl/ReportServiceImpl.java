@@ -20,6 +20,7 @@ import com.htpe.bean.CsrRequesition;
 import com.htpe.bean.CsrSetdata3m;
 import com.htpe.bean.Report;
 import com.htpe.bean.Report10;
+import com.htpe.bean.Report11;
 import com.htpe.bean.Report5;
 import com.htpe.bean.Report6;
 import com.htpe.bean.Report7;
@@ -237,13 +238,29 @@ public class ReportServiceImpl  implements ReportService{
 	public List<Report10> exportReport10(Report report) {
 		return reportMapper.listReport10(report);
 	}
-
-
-
-
-
-
 	
+	
+	@Override
+	public ResultMsg listReport11(Report report) {
+		if(report.getType().equals("0")) {
+			return  ResultMsg.success("器械維修查詢").addData(reportMapper.listReport11());  	
+		}else {
+			return  ResultMsg.success("器械維修查詢").addData(reportMapper.listReport11_2()); 
+		}
+	}
+	
+
+	@Override
+	public List<Report11> exportReport11(Report report) {
+		if(report.getType().equals("0")) {
+			return reportMapper.listReport11();  	
+		}else {
+			return  reportMapper.listReport11_2(); 
+		}
+	}
+
+
+
 	//部門數量加總
 	public CsrSetdata3m depnoCount(Map<String, Object> timeoutNum, CsrSetdata3m e){	
 		if(timeoutNum != null) {		

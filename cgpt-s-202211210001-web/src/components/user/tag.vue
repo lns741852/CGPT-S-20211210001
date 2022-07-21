@@ -405,7 +405,7 @@ export default {
       this.tagDatas.splice(id, 1);
     },
     //列印標籤
-    submitFrom() {
+    submitFrom() {     
       if (this.tagDatas.length > 0) {
         this.$axios.post("/tag/make", this.tagDatas).then(() => {
           (this.inputData = {

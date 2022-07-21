@@ -30,7 +30,8 @@ public class BarcodeController {
 	 * @throws RequestPeriodException 
 	 */
 	@PostMapping("/tag/make")		
-	public ResultMsg savePrinter(@RequestBody List<CsrBarcode> csrBarcodes,HttpServletRequest request){		
+	public ResultMsg savePrinter(@RequestBody List<CsrBarcode> csrBarcodes,
+			HttpServletRequest request){		
 		return barcodeService.saveBarcode(csrBarcodes,request);
 	}
 	

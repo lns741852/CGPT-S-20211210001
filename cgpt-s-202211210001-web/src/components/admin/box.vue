@@ -32,11 +32,11 @@
         <el-table-column prop="price" label="成本" />
         <el-table-column prop="status" label="狀態">
           <template #default="scope">
-            <el-tag v-if="scope.row.status == 1" type="info">待使用</el-tag>
-            <el-tag v-else-if="scope.row.status == 2" type="success"
+            <el-tag v-if="scope.row.status == 0" type="info">待使用</el-tag>
+            <el-tag v-else-if="scope.row.status == 1" type="success"
               >使用中</el-tag
             >
-            <el-tag v-else-if="scope.row.status == 3" type="warning"
+            <el-tag v-else-if="scope.row.status == 2" type="warning"
               >維修中</el-tag
             >
           </template>
@@ -117,7 +117,7 @@
           <el-form-item label="成本" prop="price">
             <el-input v-model="addForm.price"></el-input>
           </el-form-item>
-          <el-form-item v-if="addForm.status != 2" label="維修中" prop="status">
+          <el-form-item v-if="addForm.status != 1" label="維修中" prop="status">
             <el-switch
               v-model="fix"
             >
@@ -201,11 +201,11 @@ export default {
         if (!valid) return;
         
         if(this.fix){
-            this.addForm.status ="3"
+            this.addForm.status ="2"
         }else if(this.fix==""){
-             this.addForm.status ="1"
+             this.addForm.status ="0"
         }else{
-             this.addForm.status ="2"
+             this.addForm.status ="1"
         }
         this.$axios.put("/box/" + this.addForm.id, this.addForm).then(() => {
           this.editDialogVisible = false;
@@ -217,9 +217,9 @@ export default {
     showEditDialon(id) {
       this.$axios.get("/box/" + id).then((res) => {
         this.addForm = res.data.data;
-        if(this.addForm.status == 3){
+        if(this.addForm.status == 2){
             this.fix = true
-        }else if(this.addForm.status == 1){
+        }else if(this.addForm.status == 0){
             this.fix =false
         }else {
              this.fix = ""

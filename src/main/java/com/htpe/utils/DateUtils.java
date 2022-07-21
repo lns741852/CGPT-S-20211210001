@@ -7,6 +7,7 @@ import java.util.Date;
 public  class DateUtils {
     
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATETIMEPATTERN = "yyyyMMDDHHmmss";
     public static final String MINUTE_PATTERN = "yyyy-MM-dd HH:mm";
     public static final String HOUR_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_PATTERN = "yyyy-MM-dd";

@@ -73,8 +73,7 @@ public class BoxServiceImpl  implements BoxService{
 		Date date = new Date();	
 		csrBox.setId(id);
 		csrBox.setDatadate(date);
-		csrBox.setDatauser((String)JwtUtils.validateTokenAndGetClaims(request).get("username"));
-
+		csrBox.setDatauser((String)JwtUtils.validateTokenAndGetClaims(request).get("userid"));
 			
 		int num = csrBoxMapper.updateBox(csrBox);
 		if(num<1) {
@@ -102,6 +101,15 @@ public class BoxServiceImpl  implements BoxService{
 
 		
 		return ResultMsg.success("器械盒成功").addData("nothing to do");
+	}
+
+	@Override
+	public ResultMsg getBoxByName(String name) {
+		CsrBox box = csrBoxMapper.getBoxByName(name);
+		if(box != null) {
+			return ResultMsg.success("器械盒").addData(box);
+		}	
+		return ResultMsg.fail(500,"查詢失敗").addData("");
 	}
 
 

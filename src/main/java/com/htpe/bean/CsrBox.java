@@ -52,7 +52,7 @@ public class CsrBox {
 		return datauser;
 	}
 
-	public void setDatauser(String datausername) {
+	public void setDatauser(String datauser) {
 		this.datauser = datauser;
 	}
 

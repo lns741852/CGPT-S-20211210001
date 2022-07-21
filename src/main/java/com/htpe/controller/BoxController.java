@@ -61,6 +61,14 @@ public class BoxController {
 		return BoxService.getBoxByNameAndStatus(name);
 	}
 	
+	/**
+	 * 包裝查詢
+	 */
+	@GetMapping("/fix/box/{name}")
+	public ResultMsg getBoxByName(@PathVariable String name){			
+		return BoxService.getBoxByName(name);
+	}
+	
 
 	
 	/**
@@ -69,7 +77,7 @@ public class BoxController {
 	 */
 	@PutMapping("/box/{id}")		
 	public ResultMsg updateBox(@Valid @RequestBody  CsrBox csrBox, 
-			@PathVariable Integer id, HttpServletRequest request) throws RequestPeriodException{			
+			@PathVariable Integer id, HttpServletRequest request) throws RequestPeriodException{
 	return BoxService.updateBox(csrBox,id,request);
 	}
 	

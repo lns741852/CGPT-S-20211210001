@@ -20,5 +20,7 @@ public interface BoxService {
 
 	ResultMsg getBoxByNameAndStatus(String name);
 
+	ResultMsg getBoxByName(String name);
+
 
 }

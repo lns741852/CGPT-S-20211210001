@@ -222,7 +222,6 @@ export default {
 
       this.$axios.get("/report/08", this.queryInfo).then((res) => {
         this.reportList = res.data.data;
-        console.log(this.reportList);
       });
     },
     /**匯出 */

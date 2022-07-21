@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htpe.mapper.nnew.KPIMapper">
+
+	<select id="timeoutCountForBarcode"  resultType="Double">
+		SELECT COUNT(barcodeID) AS NUM FROM CSR_BARCODE 
+		WHERE using ='N' AND status in ('1','2','3','4') 
+		AND EffectiveDate &lt; (values TIMESTAMP (current  timestamp))
+		AND CreateDateTime between #{startTime}
+		and #{endTime}
+	</select>
+
+	<select id="countForBarcode"  resultType="Double">
+		SELECT COUNT(barcodeID) AS NUM 
+		FROM CSR_BARCODE 
+		WHERE CreateDateTime between #{startTime} and #{endTime}
+	</select>
+
+
+</mapper>

@@ -28,6 +28,7 @@ import com.htpe.mapper.nnew.CsrSetdata3mMapper;
 import com.htpe.mapper.nnew.CsrSetdataSeqMapper;
 import com.htpe.mapper.nnew.CsrSetdataSeqUdiMapper;
 import com.htpe.service.BarcodeService;
+import com.htpe.utils.DateUtils;
 import com.htpe.utils.ResultMsg;
 
 @Service
@@ -69,7 +70,7 @@ public class BarcodeServiceImpl implements BarcodeService{
 		            	
 		            	if(barcode.getBox() == "") {			            	
 			            	if(fw ==null) {
-			            		fw = new FileWriter("D://Printer//TEST.txt");
+			            		fw = new FileWriter("D://Printer//TEST_"+ DateUtils.dateFormat(date, DateUtils.DATETIMEPATTERN)+".txt");
 			            	}
 		            	}
 		            		            	      
@@ -184,7 +185,7 @@ public class BarcodeServiceImpl implements BarcodeService{
             for(CsrBarcode barcode : csrBarcodes) {
    	
 	            	if(fw ==null) {
-	            		fw = new FileWriter("D://Printer//TEST.txt");
+	            		fw = new FileWriter("D://Printer//TEST_"+ DateUtils.dateFormat(date, DateUtils.DATETIMEPATTERN)+".txt");
 	            	}
 
   		

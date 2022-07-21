@@ -4,12 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-/**
- * 用户登录实体类
- *
- * @author zhanglishen
- * @since 1.0.0
- */
 
 public class Login {
 
